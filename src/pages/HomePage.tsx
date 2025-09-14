@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
       description: "Master pronunciation and fluency",
       color: "from-pink-500 to-rose-600",
       items: 5,
-      to: "speech drills",
+      to: "speech-drills",
     },
     {
       name: " Fact Frenzy",
