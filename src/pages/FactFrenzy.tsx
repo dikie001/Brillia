@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
 import {
-  Brain,
-  Zap,
-  Globe,
-  Atom,
-  Lightbulb,
-  Star,
-  Filter,
-  Shuffle,
-  BookmarkPlus,
-  Share2,
-  Eye,
-  TrendingUp,
-  Clock,
-  CheckCircle,
+    Atom,
+    BookmarkPlus,
+    Brain,
+    CheckCircle,
+    Clock,
+    Eye,
+    Filter,
+    Globe,
+    Lightbulb,
+    Share2,
+    Shuffle,
+    Star,
+    TrendingUp,
+    Zap,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type Fact = {
   id: number;

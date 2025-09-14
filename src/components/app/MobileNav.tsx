@@ -7,8 +7,7 @@ import {
   Wand,
   X,
 } from "lucide-react";
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type MobileMenuProps = {
   open: boolean;

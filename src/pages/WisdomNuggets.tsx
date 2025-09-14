@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
 import {
-  Quote,
-  Heart,
-  Copy,
-  Share2,
-  Shuffle,
-  Filter,
-  Star,
-  Bookmark,
-  CheckCircle,
-  Users,
+    Bookmark,
+    CheckCircle,
+    Copy,
+    Filter,
+    Heart,
+    Quote,
+    Share2,
+    Shuffle,
+    Star,
+    Users,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type Quote = {
   id: number;

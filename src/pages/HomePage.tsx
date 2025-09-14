@@ -1,3 +1,4 @@
+import Navbar from "@/components/app/Navbar";
 import {
   Book,
   Newspaper,
@@ -9,8 +10,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import football from "../assets/images/football.png"
-import Navbar from "@/components/app/Navbar";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();

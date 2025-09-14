@@ -1,11 +1,4 @@
-import {
-    Brain,
-    Eye,
-    EyeOff,
-    Lightbulb,
-    Shuffle,
-    Trophy
-} from "lucide-react";
+import { Brain, Eye, EyeOff, Lightbulb, Shuffle, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Teaser = {
@@ -103,6 +96,7 @@ export default function BrainTeasersPage() {
     const shuffled = [...teasers].sort(() => Math.random() - 0.5);
     setShuffledTeasers(shuffled);
     setRevealed(new Set());
+    console.log(solvedCount);
   };
 
   const filteredTeasers =
@@ -281,7 +275,7 @@ export default function BrainTeasersPage() {
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from {
             opacity: 0;
