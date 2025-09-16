@@ -61,9 +61,9 @@ export default function BrainTeasersPage() {
     // );
     const currentItems = teasersRef.current.slice(start, end);
     setTeasers(currentItems);
-    console.log(currentItems)
+    console.log(currentItems);
     console.log(teasersRef.current[start]);
-    console.log(start,end);
+    console.log(start, end);
   }, [currentPage]);
 
   // Save the teasers to state
@@ -99,12 +99,22 @@ export default function BrainTeasersPage() {
           </p>
         </header>
 
-        {/* Paginaton */}
+        {/* Top Paginaton */}
         <Pagination>
-          <PaginationContent>
-            <p>Previous</p>
-            <PaginationItem onClick={() => setCurrentPage((p) => p - 1)}>
-              <PaginationPrevious href="#" />
+          <PaginationContent className="mb-6">
+            <PaginationItem
+              onClick={() => {
+                currentPage !== 1 && setCurrentPage((p) => p - 1);
+              }}
+            >
+              <PaginationPrevious href={`#${currentPage}`} />
+            </PaginationItem>
+
+            <PaginationItem
+              className={`${currentPage === 1 && "hidden"}`}
+              onClick={() => setCurrentPage((p) => p - 1)}
+            >
+              <PaginationLink href="#">{currentPage - 1}</PaginationLink>
             </PaginationItem>
 
             <PaginationItem>
@@ -113,26 +123,36 @@ export default function BrainTeasersPage() {
               </PaginationLink>
             </PaginationItem>
 
-            <PaginationItem onClick={() => setCurrentPage((p)=>p + 1)}>
-              <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+            <PaginationItem
+              onClick={() => {
+                currentPage <= teasers.length && setCurrentPage((p) => p + 1);
+              }}
+            >
+              <PaginationLink href={`#${currentPage}`}>
+                {currentPage + 1}
+              </PaginationLink>
             </PaginationItem>
 
-            <PaginationItem onClick={() => setCurrentPage(currentPage + 2)}>
-              <PaginationLink href="#">{currentPage + 2}</PaginationLink>
+            <PaginationItem
+              className={`${currentPage > 1 && "hidden"}`}
+              onClick={() => setCurrentPage((p) => p + 2)}
+            >
+              <PaginationLink href={`#${currentPage + 2}`}>
+                {currentPage + 2}
+              </PaginationLink>
             </PaginationItem>
 
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem onClick={() => setCurrentPage((p) => p + 1)}>
-              <PaginationNext href="#" />
+              <PaginationNext href={`#${currentPage}`} />
             </PaginationItem>
-            <p>next</p>
           </PaginationContent>
         </Pagination>
 
         {/* Grid of teasers */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => {
             const isRevealed = revealed.has(teaser.id);
             const CategoryIcon = categoryIcons[teaser.category];
@@ -206,6 +226,58 @@ export default function BrainTeasersPage() {
             );
           })}
         </div>
+
+        {/* Bottom pagination */}
+        <Pagination>
+          <PaginationContent className="mb-6 pt-8">
+            <PaginationItem
+              onClick={() => {
+                currentPage !== 1 && setCurrentPage((p) => p - 1);
+              }}
+            >
+              <PaginationPrevious href={`#${currentPage}`} />
+            </PaginationItem>
+
+            <PaginationItem
+              className={`${currentPage === 1 && "hidden"}`}
+              onClick={() => setCurrentPage((p) => p - 1)}
+            >
+              <PaginationLink href="#">{currentPage - 1}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationLink href="#" isActive>
+                {currentPage}
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem
+              onClick={() => {
+                currentPage <= teasers.length && setCurrentPage((p) => p + 1);
+              }}
+            >
+              <PaginationLink href={`#${currentPage}`}>
+                {currentPage + 1}
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem
+              className={`${currentPage > 1 && "hidden"}`}
+              onClick={() => setCurrentPage((p) => p + 2)}
+            >
+              <PaginationLink href={`#${currentPage + 2}`}>
+                {currentPage + 2}
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem onClick={() => setCurrentPage((p) => p + 1)}>
+              <PaginationNext href={`#${currentPage}`} />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
 
         {teasers.length === 0 && (
           <div className="text-center py-12">
