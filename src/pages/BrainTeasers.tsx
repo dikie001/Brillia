@@ -2,7 +2,15 @@ import { Brain, Eye, EyeOff, Lightbulb, Trophy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import BrainTeasers from "../assets/jsons/BrainTeaser.json";
 import Navbar from "@/components/app/Navbar";
-import Pagination from "@/components/app/Pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type Teaser = {
   id: number;
@@ -30,23 +38,40 @@ export default function BrainTeasersPage() {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
   const [teasers, setTeasers] = useState<Teaser[]>([]);
   const teasersRef = useRef<Teaser[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(10);
+  // const [currentIndex, setCurrentIndex] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   //Break down the array to arrays of 10
-  const paginate = () => {
-    const newArr = teasersRef.current.filter(
-      (_, index) => index < currentIndex
-    );
+  // const paginate = () => {
+  //   const newArr = teasersRef.current.filter(
+  //     (_, index) => index < currentIndex
+  //   );
 
-    setTeasers(newArr);
-    console.log(newArr);
-  };
+  //   setTeasers(newArr);
+  //   console.log(newArr);
+  // };
+
+  useEffect(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    // const currentItems = teasers.slice(start, end);
+    // const currentItems = teasersRef.current.filter(
+    //   (_, index: number) => index >= start && index <= end
+    // );
+    const currentItems = teasersRef.current.slice(start, end);
+    setTeasers(currentItems);
+    console.log(currentItems)
+    console.log(teasersRef.current[start]);
+    console.log(start,end);
+  }, [currentPage]);
 
   // Save the teasers to state
   useEffect(() => {
     // setTeasers(BrainTeasers as Teaser[]);
     teasersRef.current = BrainTeasers as Teaser[];
-    paginate();
+    setCurrentPage(1);
+    // paginate();
   }, []);
 
   const toggleReveal = (id: number) => {
@@ -64,7 +89,6 @@ export default function BrainTeasersPage() {
       <Navbar />
 
       <div className="relative z-10 max-w-7xl mx-auto pt-20">
-        <Pagination />
         {/* Header */}
         <header className="text-center mb-12">
           <h1 className="text-5xl font-black bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 mb-4">
@@ -74,6 +98,38 @@ export default function BrainTeasersPage() {
             Challenge your mind with these carefully curated puzzles and riddles
           </p>
         </header>
+
+        {/* Paginaton */}
+        <Pagination>
+          <PaginationContent>
+            <p>Previous</p>
+            <PaginationItem onClick={() => setCurrentPage((p) => p - 1)}>
+              <PaginationPrevious href="#" />
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationLink href="#" isActive>
+                {currentPage}
+              </PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem onClick={() => setCurrentPage((p)=>p + 1)}>
+              <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem onClick={() => setCurrentPage(currentPage + 2)}>
+              <PaginationLink href="#">{currentPage + 2}</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem onClick={() => setCurrentPage((p) => p + 1)}>
+              <PaginationNext href="#" />
+            </PaginationItem>
+            <p>next</p>
+          </PaginationContent>
+        </Pagination>
 
         {/* Grid of teasers */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
