@@ -1,5 +1,7 @@
 import { Brain, Eye, EyeOff, Lightbulb, Shuffle, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
+import teasers from "../assets/jsons/BrainTeaser.json";
+import Navbar from "@/components/app/Navbar";
 
 type Teaser = {
   id: number;
@@ -8,58 +10,6 @@ type Teaser = {
   difficulty: "Easy" | "Medium" | "Hard";
   category: "Logic" | "Riddle" | "Math" | "Lateral";
 };
-
-const teasers: Teaser[] = [
-  {
-    id: 1,
-    question:
-      "You have two ropes, each burns for exactly 60 minutes, but unevenly. How do you measure exactly 45 minutes?",
-    answer:
-      "Light rope A at both ends and rope B at one end. Rope A burns in 30 minutes. Then light the other end of rope B, which now burns in 15 minutes. Total = 45 minutes.",
-    difficulty: "Hard",
-    category: "Logic",
-  },
-  {
-    id: 2,
-    question:
-      "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
-    answer: "An echo.",
-    difficulty: "Medium",
-    category: "Riddle",
-  },
-  {
-    id: 3,
-    question: "The more of me you take, the more you leave behind. What am I?",
-    answer: "Footsteps.",
-    difficulty: "Easy",
-    category: "Riddle",
-  },
-  {
-    id: 4,
-    question:
-      "A man lives on the 20th floor. Every morning he takes the elevator down. When he comes home, he takes the elevator to the 10th floor and walks the rest, except on rainy days. Why?",
-    answer:
-      "He's too short to reach the button for the 20th floor, except when he has an umbrella on rainy days.",
-    difficulty: "Hard",
-    category: "Lateral",
-  },
-  {
-    id: 5,
-    question: "What comes next in this sequence: 1, 1, 2, 3, 5, 8, ?",
-    answer:
-      "13 (Fibonacci sequence - each number is the sum of the two preceding ones).",
-    difficulty: "Medium",
-    category: "Math",
-  },
-  {
-    id: 6,
-    question:
-      "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
-    answer: "A map.",
-    difficulty: "Easy",
-    category: "Riddle",
-  },
-];
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -132,19 +82,12 @@ export default function BrainTeasersPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-black text-gray-900 dark:text-gray-100 p-6">
-      {/* Animated Background Pattern */}
-      <div className="fixed inset-0 opacity-5 dark:opacity-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse"></div>
-      </div>
-
+  
+<Navbar/>
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="relative">
-              <Brain className="w-12 h-12 text-blue-600 dark:text-blue-400 animate-bounce" />
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
-            </div>
             <h1 className="text-5xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Brain Teasers
             </h1>
@@ -152,23 +95,6 @@ export default function BrainTeasersPage() {
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Challenge your mind with these carefully curated puzzles and riddles
           </p>
-
-          {/* Stats */}
-          <div className="flex items-center justify-center gap-6 mt-6">
-            <div className="bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-lg">
-              <span className="text-sm font-semibold text-green-600 dark:text-green-400">
-                <Trophy className="w-4 h-4 inline mr-1" />
-                Solved: {revealed.size}/{teasers.length}
-              </span>
-            </div>
-            <button
-              onClick={shuffleTeasers}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              <Shuffle className="w-4 h-4 inline mr-2" />
-              Shuffle
-            </button>
-          </div>
         </header>
 
         {/* Filter Buttons */}
@@ -189,7 +115,7 @@ export default function BrainTeasersPage() {
         </div>
 
         {/* Grid of teasers */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredTeasers.map((teaser, index) => {
             const isRevealed = revealed.has(teaser.id);
             const CategoryIcon = categoryIcons[teaser.category];
@@ -197,7 +123,7 @@ export default function BrainTeasersPage() {
             return (
               <div
                 key={teaser.id}
-                className="teaser-card group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:rotate-1 border border-white/20"
+                className="teaser-card group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/20"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div>

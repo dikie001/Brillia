@@ -24,6 +24,7 @@ import finish from "../assets/images/finish.png";
 import quiz from "../assets/images/quiz.png";
 import quizData1 from "../assets/jsons/Quiz.json";
 import useSound from "../hooks/useSound";
+import Navbar from "@/components/app/Navbar";
 
 // TypeScript interfaces
 interface QuizQuestion {
@@ -77,6 +78,11 @@ interface QuizAppState {
   quizData: QuizQuestion[];
   error: string | null;
 }
+interface User {
+  name: string;
+  hobby: string;
+  subject: string;
+}
 
 const QuizApp: React.FC = () => {
   const [state, setState] = useState<QuizAppState>({
@@ -90,6 +96,11 @@ const QuizApp: React.FC = () => {
     loading: true,
     quizData: [],
     error: null,
+  });
+  const [user, setUser] = useState<User>({
+    name: "",
+    hobby: "",
+    subject: "",
   });
 
   const QUESTIONS_PER_TEST = 20;
@@ -139,6 +150,12 @@ const QuizApp: React.FC = () => {
     };
 
     initializeApp();
+  }, []);
+
+  // Fetch User details from stoarge
+  useEffect(() => {
+    const details = localStorage.getItem("user-info");
+    details && setUser(JSON.parse(details));
   }, []);
 
   // REset all data
@@ -480,191 +497,187 @@ const QuizApp: React.FC = () => {
 
   // Home Screen
   if (state.gameState === "home") {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-6 relative overflow-hidden">
-      {/* Simplified background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-1/2 -right-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-1/2 -left-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
-      </div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-6 relative overflow-hidden">
+<Navbar/>
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-6 sm:mb-8 pt-2 sm:pt-4">
-          <div className="relative inline-block">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent mb-2 relative">
-              Matilda Awino
-              <div className="absolute -top-1 -right-2 sm:-top-2 sm:-right-4">
-                <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-400" />
-              </div>
-            </h1>
-          </div>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium mb-2">
-            Grade 5 Quiz Master
-          </p>
-          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div className="bg-gradient-to-br from-purple-500/20 to-purple-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-purple-500/20 rounded-xl sm:rounded-2xl">
-                <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-purple-300" />
-              </div>
-              <div className="text-purple-300 text-xs sm:text-sm font-medium">
-                Questions
-              </div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          {/* Header */}
+          <div className="text-center mb-6 sm:mb-8 pt-18">
+            <div className="relative inline-block">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent mb-2 relative">
+                {user.name}
+                <div className="absolute -top-1 -right-2 sm:-top-2 sm:-right-4">
+                  <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-400" />
+                </div>
+              </h1>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-              {state.quizData.length}
-            </h3>
-            <p className="text-purple-200 text-xs sm:text-sm">
-              Total Available
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium mb-2">
+              Grade 9 Quiz Master
             </p>
+            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
           </div>
 
-          <div className="bg-gradient-to-br from-pink-500/20 to-rose-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-400/30 hover:border-pink-400/50 transition-all duration-300">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-pink-500/20 rounded-xl sm:rounded-2xl">
-                <Target className="w-5 h-5 sm:w-7 sm:h-7 text-pink-300" />
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="bg-gradient-to-br from-purple-500/20 to-purple-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 bg-purple-500/20 rounded-xl sm:rounded-2xl">
+                  <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-purple-300" />
+                </div>
+                <div className="text-purple-300 text-xs sm:text-sm font-medium">
+                  Questions
+                </div>
               </div>
-              <div className="text-pink-300 text-xs sm:text-sm font-medium">
-                Tests
-              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                {state.quizData.length}
+              </h3>
+              <p className="text-purple-200 text-xs sm:text-sm">
+                Total Available
+              </p>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-              {getTotalTests()}
-            </h3>
-            <p className="text-pink-200 text-xs sm:text-sm">Ready to Take</p>
-          </div>
 
-          <div className="bg-gradient-to-br from-yellow-500/20 to-orange-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-yellow-400/30 hover:border-yellow-400/50 transition-all duration-300">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-yellow-500/20 rounded-xl sm:rounded-2xl">
-                <Star className="w-5 h-5 sm:w-7 sm:h-7 text-yellow-300" />
+            <div className="bg-gradient-to-br from-pink-500/20 to-rose-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-400/30 hover:border-pink-400/50 transition-all duration-300">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 bg-pink-500/20 rounded-xl sm:rounded-2xl">
+                  <Target className="w-5 h-5 sm:w-7 sm:h-7 text-pink-300" />
+                </div>
+                <div className="text-pink-300 text-xs sm:text-sm font-medium">
+                  Tests
+                </div>
               </div>
-              <div className="text-yellow-300 text-xs sm:text-sm font-medium">
-                Completed
-              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                {getTotalTests()}
+              </h3>
+              <p className="text-pink-200 text-xs sm:text-sm">Ready to Take</p>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-              {state.testResults.length}
-            </h3>
-            <p className="text-yellow-200 text-xs sm:text-sm">Tests Done</p>
-          </div>
 
-          <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-400/30 hover:border-green-400/50 transition-all duration-300">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-green-500/20 rounded-xl sm:rounded-2xl">
-                <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-green-300" />
+            <div className="bg-gradient-to-br from-yellow-500/20 to-orange-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-yellow-400/30 hover:border-yellow-400/50 transition-all duration-300">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 bg-yellow-500/20 rounded-xl sm:rounded-2xl">
+                  <Star className="w-5 h-5 sm:w-7 sm:h-7 text-yellow-300" />
+                </div>
+                <div className="text-yellow-300 text-xs sm:text-sm font-medium">
+                  Completed
+                </div>
               </div>
-              <div className="text-green-300 text-xs sm:text-sm font-medium">
-                Average
-              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                {state.testResults.length}
+              </h3>
+              <p className="text-yellow-200 text-xs sm:text-sm">Tests Done</p>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-              {state.testResults.length > 0
-                ? Math.round(
-                    state.testResults.reduce(
-                      (acc, result) => acc + result.percentage,
-                      0
-                    ) / state.testResults.length
-                  )
-                : 0}
-              %
-            </h3>
-            <p className="text-green-200 text-xs sm:text-sm">Success Rate</p>
+
+            <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-400/30 hover:border-green-400/50 transition-all duration-300">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 bg-green-500/20 rounded-xl sm:rounded-2xl">
+                  <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-green-300" />
+                </div>
+                <div className="text-green-300 text-xs sm:text-sm font-medium">
+                  Average
+                </div>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                {state.testResults.length > 0
+                  ? Math.round(
+                      state.testResults.reduce(
+                        (acc, result) => acc + result.percentage,
+                        0
+                      ) / state.testResults.length
+                    )
+                  : 0}
+                %
+              </h3>
+              <p className="text-green-200 text-xs sm:text-sm">Success Rate</p>
+            </div>
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="space-y-3 sm:space-y-4 max-w-2xl mx-auto">
-          {state.currentTest < getTotalTests() && (
-            <button
-              onClick={() => {
-                playSend();
-                startTest(state.currentTest);
-              }}
-              className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-purple-500/30 border border-purple-400/20 relative overflow-hidden"
-            >
-              <div className="flex items-center justify-center">
-                <div className="p-2 sm:p-3 bg-white/10 rounded-xl sm:rounded-2xl mr-3 sm:mr-4">
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8" />
-                </div>
-                <div className="text-left">
-                  <div className="text-lg sm:text-2xl font-bold">
-                    {state.testResults.length === 0
-                      ? "Start Your Journey"
-                      : `Continue Test ${state.currentTest + 1}`}
-                  </div>
-                  <div className="text-purple-200 text-sm font-medium mt-1">
-                    {state.testResults.length === 0
-                      ? "Begin your first quiz adventure"
-                      : "Keep building your knowledge"}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
-                <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full"></div>
-              </div>
-            </button>
-          )}
-
-          {state.testResults.length > 0 && (
-            <button
-              onClick={() => {
-                playSend();
-                setGameState("allResults");
-              }}
-              className="w-full bg-gradient-to-r from-slate-700/60 to-slate-800/60 hover:from-slate-600/70 hover:to-slate-700/70 backdrop-blur-xl text-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl font-semibold text-base sm:text-lg transition-all duration-300 border border-slate-500/30 hover:border-slate-400/50 shadow-xl hover:shadow-slate-500/20 hover:scale-[1.01]"
-            >
-              <div className="flex items-center justify-center">
-                <div className="p-2 bg-white/10 rounded-xl mr-3">
-                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
-                </div>
-                <span>View All Results & Analytics</span>
-              </div>
-            </button>
-          )}
-
-          {state.testResults.length > 0 && (
-            <button
-              onClick={resetAllData}
-              className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 backdrop-blur-xl text-red-300 hover:text-red-200 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-red-500/30 hover:border-red-400/50 shadow-xl hover:shadow-red-500/20 hover:scale-[1.01]"
-            >
-              <div className="flex items-center justify-center">
-                <div className="p-2 bg-red-500/20 rounded-xl mr-3">
-                  <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <span>Reset All Progress</span>
-              </div>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-8 sm:mt-12 mb-2 flex justify-center items-center relative z-10">
-        <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-2.5 border border-white/10">
-          <p className="text-gray-300 text-xs sm:text-sm">
-            crafted with passion -{" "}
-            <span className="text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text font-semibold">
-              <a
-                href="https://dikie.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline transition-all duration-200"
+          {/* Action Buttons */}
+          <div className="space-y-3 sm:space-y-4 max-w-2xl mx-auto">
+            {state.currentTest < getTotalTests() && (
+              <button
+                onClick={() => {
+                  playSend();
+                  startTest(state.currentTest);
+                }}
+                className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-purple-500/30 border border-purple-400/20 relative overflow-hidden"
               >
-                dikie.dev
-              </a>
-            </span>
-          </p>
-          <Laptop2 className="text-pink-400 w-3 h-3 sm:w-4 sm:h-4" />
+                <div className="flex items-center justify-center">
+                  <div className="p-2 sm:p-3 bg-white/10 rounded-xl sm:rounded-2xl mr-3 sm:mr-4">
+                    <Play className="w-6 h-6 sm:w-8 sm:h-8" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-lg sm:text-2xl font-bold">
+                      {state.testResults.length === 0
+                        ? "Start Your Journey"
+                        : `Continue Test ${state.currentTest + 1}`}
+                    </div>
+                    <div className="text-purple-200 text-sm font-medium mt-1">
+                      {state.testResults.length === 0
+                        ? "Begin your first quiz adventure"
+                        : "Keep building your knowledge"}
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-400 rounded-full"></div>
+                </div>
+              </button>
+            )}
+
+            {state.testResults.length > 0 && (
+              <button
+                onClick={() => {
+                  playSend();
+                  setGameState("allResults");
+                }}
+                className="w-full bg-gradient-to-r from-slate-700/60 to-slate-800/60 hover:from-slate-600/70 hover:to-slate-700/70 backdrop-blur-xl text-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl font-semibold text-base sm:text-lg transition-all duration-300 border border-slate-500/30 hover:border-slate-400/50 shadow-xl hover:shadow-slate-500/20 hover:scale-[1.01]"
+              >
+                <div className="flex items-center justify-center">
+                  <div className="p-2 bg-white/10 rounded-xl mr-3">
+                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+                  </div>
+                  <span>View All Results & Analytics</span>
+                </div>
+              </button>
+            )}
+
+            {state.testResults.length > 0 && (
+              <button
+                onClick={resetAllData}
+                className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 backdrop-blur-xl text-red-300 hover:text-red-200 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-red-500/30 hover:border-red-400/50 shadow-xl hover:shadow-red-500/20 hover:scale-[1.01]"
+              >
+                <div className="flex items-center justify-center">
+                  <div className="p-2 bg-red-500/20 rounded-xl mr-3">
+                    <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <span>Reset All Progress</span>
+                </div>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 sm:mt-12 mb-2 flex justify-center items-center relative z-10">
+          <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-2.5 border border-white/10">
+            <p className="text-gray-300 text-xs sm:text-sm">
+              crafted with passion -{" "}
+              <span className="text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text font-semibold">
+                <a
+                  href="https://dikie.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline transition-all duration-200"
+                >
+                  dikie.dev
+                </a>
+              </span>
+            </p>
+            <Laptop2 className="text-pink-400 w-3 h-3 sm:w-4 sm:h-4" />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
   }
 
   // Quiz Screen

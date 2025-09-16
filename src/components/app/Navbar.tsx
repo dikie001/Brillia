@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
   }, [seconds]);
 
   return (
-    <nav className="w-full backdrop-blur-xl text-white flex justify-between items-center px-4 py-3 shadow-md fixed top-0 left-0 z-50">
+    <nav className="w-full backdrop-blur-2xl bg-white/20 text-white flex justify-between items-center px-4 py-3 shadow-md fixed top-0 left-0 z-50">
       {/* {openMenu && <MobileNav/>} */}
       <MobileNav open={openMenu} onClose={() => setOpenMenu(false)} />
       {/* Logo */}
