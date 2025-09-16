@@ -6,8 +6,11 @@ import MiniStories from "./pages/MiniStories";
 import QuizQuest from "./pages/QuizQuest";
 import SpeechDrills from "./pages/SpeechDrills";
 import WisdomNuggets from "./pages/WisdomNuggets";
+import { useEffect } from "react";
+import LearnerModal from "./modals/Welcome";
 
 const App = () => {
+
   return (
     <Router>
       <Routes>

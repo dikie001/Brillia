@@ -1,4 +1,5 @@
 import Navbar from "@/components/app/Navbar";
+import LearnerModal from "@/modals/Welcome";
 import {
   Book,
   Newspaper,
@@ -8,11 +9,12 @@ import {
   Trophy,
   Wand,
 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [openLearnerModal, setOpenLearnerModal] = useState(false);
   const sections = [
     {
       name: "Brain Teasers",
@@ -69,15 +71,27 @@ const HomePage: React.FC = () => {
     navigate(destination);
   };
 
+  // Check if first time
+  useEffect(() => {
+    const CheckFirstTime = () => {
+      const isFirstTime = localStorage.getItem("first-time");
+      if (!isFirstTime) {
+        setTimeout(() => {
+          setOpenLearnerModal(true);
+        },1200);
+      }
+    };
+    CheckFirstTime();
+  }, []);
+
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden">
       {/* Background */}
-      <Navbar/>
+      <Navbar />
 
       <div className="relative z-10 max-w-6xl w-full text-center">
         {/* Header */}
         <div className="mb-8 mt-20">
-    
           <p className="text-lg text-gray-600 mb-4 font-medium max-w-3xl mx-auto leading-relaxed">
             Brain challenges. Daily insights. Smarter you
           </p>
@@ -102,7 +116,6 @@ const HomePage: React.FC = () => {
                   className={`p-4 lg:p-6 rounded-3xl bg-gradient-to-r ${section.color} shadow-lg group-hover:shadow-xl transition-all duration-300 mb-4 lg:mb-6 group-hover:scale-110`}
                 >
                   {React.cloneElement(section.icon, {
-                    
                     className: "text-white",
                   })}
                 </div>
@@ -115,7 +128,6 @@ const HomePage: React.FC = () => {
                 </p>
 
                 <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
-             
                   <span className="flex items-center text-green-600">
                     <Trophy className="w-4 h-4 mr-1" />0 completed
                   </span>
@@ -125,6 +137,11 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* MODALS */}
+      {openLearnerModal && (
+        <LearnerModal onClose={() => setOpenLearnerModal(false)} />
+      )}
     </div>
   );
 };

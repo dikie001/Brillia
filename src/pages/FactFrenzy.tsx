@@ -1,3 +1,4 @@
+import Navbar from "@/components/app/Navbar";
 import {
     Atom,
     BookmarkPlus,
@@ -287,6 +288,7 @@ export default function FactFrenzy() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
+        <Navbar/>
         <header className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
