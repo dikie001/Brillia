@@ -2,6 +2,7 @@ import {
   ArrowLeft,
   BookOpen,
   CheckCircle,
+  ChevronLeft,
   ChevronRight,
   Clock,
   Home,
@@ -16,8 +17,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import available from "../assets/images/available.png";
-import average from "../assets/images/average.png";
+import { useTheme } from "@/hooks/useHook";
 
 import finish from "../assets/images/finish.png";
 
@@ -102,6 +102,10 @@ const QuizApp: React.FC = () => {
     hobby: "",
     subject: "",
   });
+  const { theme } = useTheme();
+  useEffect(() => {
+    console.log(theme);
+  }, []);
 
   const QUESTIONS_PER_TEST = 20;
   const STORAGE_KEYS = {
@@ -498,97 +502,89 @@ const QuizApp: React.FC = () => {
   // Home Screen
   if (state.gameState === "home") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-6 relative overflow-hidden">
-<Navbar/>
+      <div className="min-h-screen bg-white dark:bg-gray-900 p-3 sm:p-6 relative overflow-hidden transition-colors duration-300">
+        <Navbar />
 
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8 pt-18">
             <div className="relative inline-block">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent mb-2 relative">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-2 relative">
                 {user.name}
                 <div className="absolute -top-1 -right-2 sm:-top-2 sm:-right-4">
-                  <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-400" />
+                  <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-green-500" />
                 </div>
               </h1>
             </div>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium mb-2">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-medium mb-2">
               Grade 9 Quiz Master
             </p>
-            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-24 h-1 bg-green-500 mx-auto rounded-full"></div>
           </div>
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <div className="bg-gradient-to-br from-purple-500/20 to-purple-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300">
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-purple-500/20 rounded-xl sm:rounded-2xl">
-                  <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-purple-300" />
+            {/** Reusable Stats Card */}
+            {[
+              {
+                icon: (
+                  <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-green-500" />
+                ),
+                label: "Questions",
+                value: state.quizData.length,
+                sub: "Total Available",
+              },
+              {
+                icon: (
+                  <Target className="w-5 h-5 sm:w-7 sm:h-7 text-green-500" />
+                ),
+                label: "Tests",
+                value: getTotalTests(),
+                sub: "Ready to Take",
+              },
+              {
+                icon: <Star className="w-5 h-5 sm:w-7 sm:h-7 text-green-500" />,
+                label: "Completed",
+                value: state.testResults.length,
+                sub: "Tests Done",
+              },
+              {
+                icon: (
+                  <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-green-500" />
+                ),
+                label: "Average",
+                value:
+                  state.testResults.length > 0
+                    ? Math.round(
+                        state.testResults.reduce(
+                          (acc, r) => acc + r.percentage,
+                          0
+                        ) / state.testResults.length
+                      )
+                    : 0,
+                sub: "Success Rate",
+                isPercent: true,
+              },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="bg-white/20 shadow-lg dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-400/30 hover:border-green-500 transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="p-2 sm:p-3 bg-green-100/20 rounded-xl sm:rounded-2xl">
+                    {stat.icon}
+                  </div>
+                  <div className="text-green-500 text-xs sm:text-sm font-medium absolute top-4 right-8">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="text-purple-300 text-xs sm:text-sm font-medium">
-                  Questions
-                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                  {stat.value}
+                  {stat.isPercent && "%"}
+                </h3>
+                <p className="text-green-300 text-xs sm:text-sm">{stat.sub}</p>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                {state.quizData.length}
-              </h3>
-              <p className="text-purple-200 text-xs sm:text-sm">
-                Total Available
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-pink-500/20 to-rose-700/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-pink-400/30 hover:border-pink-400/50 transition-all duration-300">
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-pink-500/20 rounded-xl sm:rounded-2xl">
-                  <Target className="w-5 h-5 sm:w-7 sm:h-7 text-pink-300" />
-                </div>
-                <div className="text-pink-300 text-xs sm:text-sm font-medium">
-                  Tests
-                </div>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                {getTotalTests()}
-              </h3>
-              <p className="text-pink-200 text-xs sm:text-sm">Ready to Take</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-yellow-500/20 to-orange-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-yellow-400/30 hover:border-yellow-400/50 transition-all duration-300">
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-yellow-500/20 rounded-xl sm:rounded-2xl">
-                  <Star className="w-5 h-5 sm:w-7 sm:h-7 text-yellow-300" />
-                </div>
-                <div className="text-yellow-300 text-xs sm:text-sm font-medium">
-                  Completed
-                </div>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                {state.testResults.length}
-              </h3>
-              <p className="text-yellow-200 text-xs sm:text-sm">Tests Done</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-green-400/30 hover:border-green-400/50 transition-all duration-300">
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-green-500/20 rounded-xl sm:rounded-2xl">
-                  <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-green-300" />
-                </div>
-                <div className="text-green-300 text-xs sm:text-sm font-medium">
-                  Average
-                </div>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                {state.testResults.length > 0
-                  ? Math.round(
-                      state.testResults.reduce(
-                        (acc, result) => acc + result.percentage,
-                        0
-                      ) / state.testResults.length
-                    )
-                  : 0}
-                %
-              </h3>
-              <p className="text-green-200 text-xs sm:text-sm">Success Rate</p>
-            </div>
+            ))}
           </div>
 
           {/* Action Buttons */}
@@ -599,11 +595,11 @@ const QuizApp: React.FC = () => {
                   playSend();
                   startTest(state.currentTest);
                 }}
-                className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-700 hover:via-pink-700 hover:to-purple-800 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-purple-500/30 border border-purple-400/20 relative overflow-hidden"
+                className="w-full bg-green-500/80 hover:bg-green-600/80 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-green-500/30 border border-green-400/20 relative overflow-hidden"
               >
                 <div className="flex items-center justify-center">
                   <div className="p-2 sm:p-3 bg-white/10 rounded-xl sm:rounded-2xl mr-3 sm:mr-4">
-                    <Play className="w-6 h-6 sm:w-8 sm:h-8" />
+                    <Play className="w-6 h-6 sm:w-8 sm:h-8 text-green-100" />
                   </div>
                   <div className="text-left">
                     <div className="text-lg sm:text-2xl font-bold">
@@ -611,7 +607,7 @@ const QuizApp: React.FC = () => {
                         ? "Start Your Journey"
                         : `Continue Test ${state.currentTest + 1}`}
                     </div>
-                    <div className="text-purple-200 text-sm font-medium mt-1">
+                    <div className="text-gray-700 dark:text-gray-300 text-sm font-medium mt-1">
                       {state.testResults.length === 0
                         ? "Begin your first quiz adventure"
                         : "Keep building your knowledge"}
@@ -625,56 +621,53 @@ const QuizApp: React.FC = () => {
             )}
 
             {state.testResults.length > 0 && (
-              <button
-                onClick={() => {
-                  playSend();
-                  setGameState("allResults");
-                }}
-                className="w-full bg-gradient-to-r from-slate-700/60 to-slate-800/60 hover:from-slate-600/70 hover:to-slate-700/70 backdrop-blur-xl text-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl font-semibold text-base sm:text-lg transition-all duration-300 border border-slate-500/30 hover:border-slate-400/50 shadow-xl hover:shadow-slate-500/20 hover:scale-[1.01]"
-              >
-                <div className="flex items-center justify-center">
-                  <div className="p-2 bg-white/10 rounded-xl mr-3">
-                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
+              <>
+                <button
+                  onClick={() => {
+                    playSend();
+                    setGameState("allResults");
+                  }}
+                  className="w-full bg-white/20 dark:bg-gray-800/50 backdrop-blur-xl text-gray-900 dark:text-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl font-semibold text-base sm:text-lg transition-all duration-300 border border-green-400/30 hover:border-green-500 shadow-xl hover:shadow-green-500/20 hover:scale-[1.01]"
+                >
+                  <div className="flex items-center justify-center">
+                    <div className="p-2 bg-white/10 rounded-xl mr-3">
+                      <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+                    </div>
+                    <span>View All Results & Analytics</span>
                   </div>
-                  <span>View All Results & Analytics</span>
-                </div>
-              </button>
-            )}
+                </button>
 
-            {state.testResults.length > 0 && (
-              <button
-                onClick={resetAllData}
-                className="w-full bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 backdrop-blur-xl text-red-300 hover:text-red-200 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-red-500/30 hover:border-red-400/50 shadow-xl hover:shadow-red-500/20 hover:scale-[1.01]"
-              >
-                <div className="flex items-center justify-center">
-                  <div className="p-2 bg-red-500/20 rounded-xl mr-3">
-                    <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                <button
+                  onClick={resetAllData}
+                  className="w-full bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-green-500 hover:text-green-400 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-green-400/30 hover:border-green-500 shadow-xl hover:shadow-green-500/20 hover:scale-[1.01]"
+                >
+                  <div className="flex items-center justify-center">
+                    <div className="p-2 bg-green-100/20 rounded-xl mr-3">
+                      <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </div>
+                    <span>Reset All Progress</span>
                   </div>
-                  <span>Reset All Progress</span>
-                </div>
-              </button>
+                </button>
+              </>
             )}
           </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-8 sm:mt-12 mb-2 flex justify-center items-center relative z-10">
-          <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-2.5 border border-white/10">
-            <p className="text-gray-300 text-xs sm:text-sm">
-              crafted with passion -{" "}
-              <span className="text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text font-semibold">
-                <a
-                  href="https://dikie.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline transition-all duration-200"
-                >
-                  dikie.dev
-                </a>
-              </span>
-            </p>
-            <Laptop2 className="text-pink-400 w-3 h-3 sm:w-4 sm:h-4" />
-          </div>
+        <div className="mt-10 mb-2 flex  sm:flex-row gap-2 justify-center items-center text-center">
+          <p className="text-gray-400 text-sm sm:text-base">
+            from code to impact -{" "}
+            <span className="text-green-400 dark:text-green-300 underline font-medium">
+              <a
+                href="https://dikie.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                dikie.dev
+              </a>
+            </span>
+          </p>
+          <Laptop2 className="text-green-400 dark:text-green-300 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
       </div>
     );
@@ -687,9 +680,9 @@ const QuizApp: React.FC = () => {
 
     if (!currentQ) {
       return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
           <div className="text-center">
-            <p className="text-white text-xl">
+            <p className="text-gray-900 dark:text-white text-xl">
               No questions available for this test.
             </p>
             <button
@@ -697,7 +690,7 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("home");
               }}
-              className="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl"
+              className="mt-4 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow-md transition-all duration-300"
             >
               Go Home
             </button>
@@ -707,41 +700,39 @@ const QuizApp: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-purple-900 to-slate-900 p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 transition-colors duration-300">
         <div className="max-w-4xl mx-auto">
-          {/* Enhanced Header */}
+          {/* Header */}
           <div className="flex items-center justify-between mb-6 mt-1">
             <button
               onClick={() => {
                 playSend();
                 setGameState("home");
               }}
-              className="flex items-center text-purple-300 hover:text-purple-200 transition-colors"
+              className="flex items-center text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition-colors font-semibold"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
+              <ChevronLeft className="w-5 h-5 mr-2" />
               Home
             </button>
+
             <div className="text-center">
-              <div className="flex items-center  gap-2">
-                <h2 className="text-2xl font-bold text-white">
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Test {state.currentTest + 1}
                 </h2>
                 <img src={quiz} className="h-10" alt="quiz icon" />
               </div>
-              <p className="text-purple-300">{currentQ.subject}</p>
-              {/* {currentQ.difficulty && (
-                <p className="text-sm text-gray-400 capitalize">
-                  {currentQ.difficulty} Level
-                </p>
-              )} */}
+              <p className="text-green-600 dark:text-green-400 font-medium">
+                {currentQ.subject}
+              </p>
             </div>
+
             <div className="text-right">
-              <p className="text-purple-200">
+              <p className="text-green-500 dark:text-green-400">
                 Question {state.currentQuestion + 1}/{currentQuestions.length}
               </p>
-              {/* <p className="text-sm text-gray-400">Score: {state.score}</p> */}
               {state.startTime && (
-                <p className="text-xs text-gray-300">
+                <p className="text-gray-500 dark:text-gray-400 text-xs">
                   Time:{" "}
                   {formatTime(
                     Math.floor((Date.now() - state.startTime) / 1000)
@@ -752,9 +743,9 @@ const QuizApp: React.FC = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-slate-800 rounded-xl h-3 mb-8 overflow-hidden">
+          <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8 overflow-hidden">
             <div
-              className="bg-gradient-to-r from-purple-500 via-cyan-400  to-pink-500 h-full transition-all duration-500 ease-out"
+              className="bg-green-500 h-full transition-all duration-500 ease-out"
               style={{
                 width: `${
                   ((state.currentQuestion + 1) / currentQuestions.length) * 100
@@ -764,13 +755,13 @@ const QuizApp: React.FC = () => {
           </div>
 
           {/* Question Card */}
-          <div className="bg-slate-800/50 shadow-cyan-800 backdrop-blur-lg rounded-3xl px-4 py-6 border border-purple-500/20 shadow-lg mb-6">
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-green-300 dark:border-green-700 shadow-lg shadow-green-200/20 dark:shadow-green-900/40 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <h3 className="text-2xl font-bold text-white leading-relaxed flex-1">
+              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed flex-1">
                 {currentQ.question}
               </h3>
               {currentQ.category && (
-                <span className="ml-4 px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm">
+                <span className="ml-4 px-3 py-1 bg-green-100/30 dark:bg-green-700/30 text-green-600 dark:text-green-300 rounded-full text-sm font-medium">
                   {currentQ.category}
                 </span>
               )}
@@ -784,26 +775,26 @@ const QuizApp: React.FC = () => {
                   string
                 ][]
               ).map(([key, value]) => {
-                let buttonClass =
-                  "w-full p-3 rounded-3xl text-start font-semibold text-lg transition-all duration-300 transform hover:scale-102 border-2 ";
+                let base =
+                  "w-full p-3 rounded-2xl text-start font-medium text-gray-900 dark:text-gray-100 transition-all duration-300 transform hover:scale-[1.02] border-2 ";
 
                 if (!state.showFeedback) {
-                  buttonClass +=
+                  base +=
                     state.selectedAnswer === key
-                      ? "bg-purple-600 border-purple-400 text-white"
-                      : "bg-slate-700/50 border-slate-600 text-gray-200 hover:bg-slate-600/50 hover:border-purple-500/50";
+                      ? "bg-green-500 border-green-500 text-white shadow-md"
+                      : "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 hover:bg-green-50 dark:hover:bg-green-900 hover:border-green-400";
                 } else {
                   if (key === currentQ.correctAnswer) {
-                    buttonClass +=
-                      "bg-gradient-to-r from-emerald-900 to-emerald-800 border-green-400 text-white";
+                    base +=
+                      "bg-green-600/90 border-green-500 text-white shadow-md";
                   } else if (
                     key === state.selectedAnswer &&
                     key !== currentQ.correctAnswer
                   ) {
-                    buttonClass += "bg-red-600 border-red-400 text-white";
+                    base += "bg-red-600/80 border-red-600 text-white shadow-md";
                   } else {
-                    buttonClass +=
-                      "bg-slate-700/30 border-slate-600/30 text-gray-400";
+                    base +=
+                      "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400";
                   }
                 }
 
@@ -811,21 +802,21 @@ const QuizApp: React.FC = () => {
                   <button
                     key={key}
                     onClick={() => handleAnswerSelect(key)}
-                    className={buttonClass}
+                    className={base}
                     disabled={state.showFeedback}
                   >
                     <div className="flex items-center">
-                      <span className="min-w-8 min-h-8 rounded-full  bg-gradient-to-r from-black/50 to-white/20 shadow-sm flex items-center justify-center mr-2 font-bold">
-                        <p className="text-gray-200">{key} </p>
+                      <span className="min-w-8 min-h-8 rounded-full bg-gray-300/20 dark:bg-gray-600/20 flex items-center justify-center mr-3 font-bold">
+                        {key}
                       </span>
                       {value}
                       {state.showFeedback && key === currentQ.correctAnswer && (
-                        <CheckCircle className="w-6 h-6 ml-auto text-green-300" />
+                        <CheckCircle className="w-6 h-6 ml-auto text-green-400" />
                       )}
                       {state.showFeedback &&
                         key === state.selectedAnswer &&
                         key !== currentQ.correctAnswer && (
-                          <XCircle className="w-6 h-6 ml-auto text-red-300" />
+                          <XCircle className="w-6 h-6 ml-auto text-red-400" />
                         )}
                     </div>
                   </button>
@@ -833,45 +824,33 @@ const QuizApp: React.FC = () => {
               })}
             </div>
 
-            {/* Enhanced Feedback */}
+            {/* Feedback */}
             {state.showFeedback && (
-              <div className=" p-4 absolute left-0 right-0 top-0 bg-slate-900 rounded-3xl border border-purple-800">
-                <div className="flex items-start">
-                  {/* <button
-                    onClick={() =>
-                      setState((prev) => ({j
-                        ...prev,
-
-                        showFeedback: false,
-                      }))
-                    }
-                    className="text-white absolute right-4 top-4 "
-                  >
-                    <X size={20} />
-                  </button> */}
+              <div className="p-4 mt-4 bg-gray-100 dark:bg-gray-700 rounded-2xl border border-green-500 dark:border-green-600 shadow-md transition-colors duration-300">
+                <div className="flex items-start gap-3">
                   {state.selectedAnswer === currentQ.correctAnswer ? (
-                    <CheckCircle className="w-6 h-6 text-green-400 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
                   ) : (
-                    <XCircle className="w-6 h-6 text-red-400 mr-3 mt-1 flex-shrink-0" />
+                    <XCircle className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
                   )}
                   <div className="flex-1">
                     <p
                       className={`font-semibold text-lg mb-2 ${
                         state.selectedAnswer === currentQ.correctAnswer
-                          ? "text-green-300"
-                          : "text-red-300"
+                          ? "text-green-600"
+                          : "text-red-500"
                       }`}
                     >
                       {state.selectedAnswer === currentQ.correctAnswer
                         ? "Correct!"
                         : "Incorrect"}
                     </p>
-                    <p className="text-gray-300 leading-relaxed mb-2">
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
                       {currentQ.explanation}
                     </p>
                     {state.selectedAnswer !== currentQ.correctAnswer && (
-                      <p className="text-sm text-purple-300">
-                        The correct answer was:{" "}
+                      <p className="text-sm text-green-600 dark:text-green-400">
+                        Correct answer:{" "}
                         <strong>{currentQ.correctAnswer}</strong> -{" "}
                         {currentQ.options[currentQ.correctAnswer]}
                       </p>
@@ -885,14 +864,12 @@ const QuizApp: React.FC = () => {
             {state.showFeedback && (
               <button
                 onClick={handleNext}
-                className="w-full mt-6 bg-gradient-to-r from-purple-800 to-pink-800 hover:from-purple-700 hover:to-pink-700 text-white p-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105"
+                className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.03] shadow-lg shadow-green-200/20 dark:shadow-green-900/40 flex items-center justify-center gap-2"
               >
-                <div className="flex items-center justify-center">
-                  {state.currentQuestion < currentQuestions.length - 1
-                    ? "Next Question"
-                    : "Complete Test"}
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </div>
+                {state.currentQuestion < currentQuestions.length - 1
+                  ? "Next Question"
+                  : "Complete Test"}
+                <ChevronRight className="w-5 h-5" />
               </button>
             )}
           </div>
@@ -915,7 +892,7 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("home");
               }}
-              className="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl"
+              className="mt-4 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl shadow-lg transition-all duration-300"
             >
               Go Home
             </button>
@@ -925,60 +902,63 @@ const QuizApp: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 transition-colors duration-300">
         <div className="max-w-2xl mx-auto text-center">
+          {/* Header */}
           <div className="mb-8 pt-8">
-            <img src={finish} className="w-20 h-20  mx-auto mb-4" />
-            <h1 className="text-4xl font-bold text-white mb-2">
+            <img src={finish} className="w-24 h-24 mx-auto mb-4" />
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">
               Test Complete!
             </h1>
-            <p className="text-xl text-purple-300">Great job, Matilda!</p>
+            <p className="text-lg sm:text-xl text-green-500 dark:text-green-400">
+              Great job, {user.name.split(" ")[0]}!
+            </p>
           </div>
 
-          {/* Enhanced Score Card */}
-          <div className="bg-slate-800/50 backdrop-blur-lg rounded-3xl p-8 border border-purple-500/20 shadow-2xl mb-8">
+          {/* Score Card */}
+          <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-lg rounded-3xl p-8 sm:p-10 border border-green-300 dark:border-green-700 shadow-2xl shadow-green-200/20 dark:shadow-green-900/40 mb-8">
             <div className="mb-6">
-              <div className="text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+              <div className="text-6xl sm:text-7xl font-extrabold bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent mb-2">
                 {latestResult.percentage}%
               </div>
-              <p className="text-2xl text-white font-semibold">
-                {latestResult.score} out of {latestResult.totalQuestions}
+              <p className="text-2xl sm:text-3xl text-gray-900 dark:text-white font-semibold">
+                {latestResult.score} / {latestResult.totalQuestions}
               </p>
-              <p className="text-purple-300 mt-2 text-sm">
+              <p className="text-green-600 dark:text-green-400 mt-2 text-sm sm:text-base">
                 Test {latestResult.testNumber} - {latestResult.subject}
               </p>
               {latestResult.timeTaken && (
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                   Completed in {formatTime(latestResult.timeTaken)}
                 </p>
               )}
               {latestResult.difficulty && (
-                <p className="text-sm text-gray-400 capitalize">
+                <p className="text-sm text-gray-400 capitalize mt-1">
                   {latestResult.difficulty} Level
                 </p>
               )}
             </div>
 
             {/* Performance Message */}
-            <div className="p-4 rounded-2xl bg-slate-900/50 border border-purple-500/20">
-              <p className="text-lg text-gray-300">
+            <div className="p-4 rounded-2xl bg-gray-100/60 dark:bg-gray-700/50 border border-green-300 dark:border-green-600 shadow-md transition-colors duration-300">
+              <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg">
                 {getPerformanceMessage(latestResult.percentage)}
               </p>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-5">
             {state.currentTest < getTotalTests() && (
               <button
                 onClick={() => {
                   playSend();
                   startTest(state.currentTest);
                 }}
-                className="w-full animate-pulse bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white p-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105"
+                className="w-full animate-pulse bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white p-4 sm:p-5 rounded-2xl font-bold text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-green-300/30"
               >
-                <div className="flex items-center justify-center">
-                  <Play className="w-5 h-5 mr-2" />
+                <div className="flex items-center justify-center gap-2">
+                  <Play className="w-5 h-5 sm:w-6 sm:h-6" />
                   Start Next Test
                 </div>
               </button>
@@ -989,12 +969,10 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("allResults");
               }}
-              className="w-full bg-slate-700/50 hover:bg-slate-600/50 text-white p-4 rounded-2xl font-semibold transition-all duration-300 border border-purple-500/30"
+              className="w-full bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-gray-900 dark:text-white p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-green-300 dark:border-green-600 shadow-lg hover:shadow-green-400/20 flex items-center justify-center gap-2"
             >
-              <div className="flex items-center justify-center">
-                <Trophy className="w-5 h-5 mr-2" />
-                View All Results
-              </div>
+              <Trophy className="w-5 h-5 sm:w-6 sm:h-6" />
+              View All Results
             </button>
 
             <button
@@ -1002,19 +980,19 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("home");
               }}
-              className="w-full bg-slate-800/50 hover:bg-slate-700/50 text-purple-300 p-4 rounded-2xl font-semibold transition-all duration-300 border border-slate-600/30"
+              className="w-full bg-gray-200/40 dark:bg-gray-700/40 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 text-green-600 dark:text-green-400 p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-green-300/20 flex items-center justify-center gap-2"
             >
-              <div className="flex items-center justify-center">
-                <Home className="w-5 h-5 mr-2" />
-                Back to Home
-              </div>
+              <Home className="w-5 h-5 sm:w-6 sm:h-6" />
+              Back to Home
             </button>
           </div>
         </div>
-        <div className="mt-8 mb-2 flex gap-2 justify-center items-center">
-          <p className="text-gray-400 text-sm text-center">
+
+        {/* Footer */}
+        <div className="mt-10 mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center text-center">
+          <p className="text-gray-400 text-sm sm:text-base">
             from code to impact -{" "}
-            <span className="text-pink-400 underline font-medium">
+            <span className="text-green-500 dark:text-green-400 underline font-medium">
               <a
                 href="https://dikie.vercel.app"
                 target="_blank"
@@ -1024,7 +1002,7 @@ const QuizApp: React.FC = () => {
               </a>
             </span>
           </p>
-          <Laptop2 className="text-pink-500" />
+          <Laptop2 className="text-green-500 dark:text-green-400 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
       </div>
     );
@@ -1033,53 +1011,61 @@ const QuizApp: React.FC = () => {
   // Enhanced All Results Screen
   if (state.gameState === "allResults") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 transition-colors duration-300">
+        <Navbar />
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8 pt-20">
             <button
               onClick={() => {
                 playSend();
                 setGameState("home");
               }}
-              className="flex items-center text-purple-300 hover:text-purple-200 transition-colors"
+              className="flex items-center text-green-500 dark:text-green-400 hover:text-green-400 dark:hover:text-green-300 transition-colors font-semibold"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
+              <ChevronLeft className="w-5 h-5 mr-2" />
               Home
             </button>
-            <h1 className="text-3xl font-bold text-white">All Results</h1>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
+              All Results
+            </h1>
             <div></div>
           </div>
 
+          {/* No results */}
           {state.testResults.length === 0 ? (
             <div className="text-center py-12">
-              <BookOpen className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-              <p className="text-xl text-gray-400">No tests completed yet.</p>
+              <BookOpen className="w-20 h-20 text-gray-400 dark:text-gray-500 mx-auto mb-4 animate-bounce" />
+              <p className="text-xl text-gray-400 dark:text-gray-300">
+                No tests completed yet.
+              </p>
             </div>
           ) : (
-            <div className="grid  gap-3">
+            <div className="grid gap-4 sm:gap-5">
+              {/* Individual Results */}
               {state.testResults
                 .slice()
                 .reverse()
                 .map((result, index) => (
                   <div
                     key={index}
-                    className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/40 shadow-lg"
+                    className="bg-white/30 dark:bg-gray-800/60 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-green-300 dark:border-green-700 shadow-lg hover:shadow-green-400/30 transition-shadow duration-300 transform hover:scale-[1.02]"
                   >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                    <div className="flex items-center justify-between flex-col sm:flex-row gap-4 sm:gap-0">
+                      <div className="flex-1">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                           Test {result.testNumber}
                         </h3>
-                        <hr className="mb-2 text-purple-500/40" />
-                        <p className="text-purple-300 text-sm mb-2">
+                        <hr className="mb-2 border-green-300/40 dark:border-green-500/40" />
+                        <p className="text-green-400 dark:text-green-300 text-sm sm:text-base mb-2">
                           {result.subject}
                         </p>
-                        <div className="flex  items-center gap-4 text-gray-400 font-medium text-sm">
+                        <div className="flex flex-wrap items-center gap-3 text-gray-500 dark:text-gray-400 text-sm sm:text-base font-medium">
                           <span>{result.date}</span>
                           {result.timeTaken && (
-                            <div className="flex items-center gap-2 justify-center">
+                            <div className="flex items-center gap-1">
                               <Clock size={14} />
-                              <span> {formatTime(result.timeTaken)}</span>
+                              <span>{formatTime(result.timeTaken)}</span>
                             </div>
                           )}
                           {result.difficulty && (
@@ -1089,13 +1075,9 @@ const QuizApp: React.FC = () => {
                           )}
                         </div>
                       </div>
-                      <div className="text-right fixed top-0 right-0  p-3  ">
-                        <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                          {result.percentage}%
-                        </div>
-                        {/* <p className="text-gray-300 text-sm">
-                        {result.score}/{result.totalQuestions}
-                      </p> */}
+
+                      <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-green-400 via-green-500 to-green-600 bg-clip-text text-transparent">
+                        {result.percentage}%
                       </div>
                     </div>
                   </div>
@@ -1103,50 +1085,60 @@ const QuizApp: React.FC = () => {
             </div>
           )}
 
-          {/* Enhanced Overall Stats */}
+          {/* Overall Stats */}
           {state.testResults.length > 0 && (
-            <div className="mt-8 bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/40 shadow-lg">
-              <h3 className="text-xl font-bold text-white mb-4">
+            <div className="mt-8 bg-white/30 dark:bg-gray-800/60 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-green-300 dark:border-green-700 shadow-lg">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Overall Performance
               </h3>
-              <div className="grid md:grid-cols-4 gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="text-2xl sm:text-3xl font-bold text-green-400">
                     {Math.round(
                       state.testResults.reduce(
-                        (acc, result) => acc + result.percentage,
+                        (acc, r) => acc + r.percentage,
                         0
                       ) / state.testResults.length
                     )}
                     %
                   </div>
-                  <p className="text-gray-400 text-sm">Average Score</p>
+                  <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                    Average Score
+                  </p>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-400">
+                <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="text-2xl sm:text-3xl font-bold text-pink-400">
                     {Math.max(...state.testResults.map((r) => r.percentage))}%
                   </div>
-                  <p className="text-gray-400 text-sm">Best Score</p>
+                  <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                    Best Score
+                  </p>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-400">
+                <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="text-2xl sm:text-3xl font-bold text-yellow-400">
                     {state.testResults.length}
                   </div>
-                  <p className="text-gray-400 text-sm">Tests Completed</p>
+                  <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                    Tests Completed
+                  </p>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400">
+                <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
+                  <div className="text-2xl sm:text-3xl font-bold text-green-400">
                     {state.testResults.filter((r) => r.percentage >= 80).length}
                   </div>
-                  <p className="text-gray-400 text-sm">Excellent Scores</p>
+                  <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                    Excellent Scores
+                  </p>
                 </div>
               </div>
             </div>
           )}
-          <div className="mt-8 mb-2 flex gap-2 justify-center items-center">
-            <p className="text-gray-400 text-sm text-center">
+
+          {/* Footer */}
+          <div className="mt-10 mb-4 flex  sm:flex-row gap-2 justify-center items-center text-center">
+            <p className="text-gray-400 text-sm sm:text-base">
               from code to impact -{" "}
-              <span className="text-pink-400 underline font-medium">
+              <span className="text-green-400 dark:text-green-300 underline font-medium">
                 <a
                   href="https://dikie.vercel.app"
                   target="_blank"
@@ -1156,7 +1148,7 @@ const QuizApp: React.FC = () => {
                 </a>
               </span>
             </p>
-            <Laptop2 className="text-pink-500" />
+            <Laptop2 className="text-green-400 dark:text-green-300 w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         </div>
       </div>

@@ -1398,5 +1398,145 @@
     "answer": "The story is impossible because no one could know what the man was dreaming about if he died instantly upon being woken up. He never had a chance to tell anyone his dream.",
     "difficulty": "Medium",
     "category": "Lateral"
+  },
+  {
+    "id": 1,
+    "question": "You have two ropes, each burning for exactly 60 minutes but unevenly. How can you measure exactly 45 minutes?",
+    "answer": "Light rope A at both ends and rope B at one end. Rope A will burn in 30 minutes. Then light the other end of rope B, which burns in 15 minutes. Total = 45 minutes.",
+    "difficulty": "Hard",
+    "category": "Logic"
+  },
+  {
+    "id": 2,
+    "question": "A man walks into a room with 3 switches and a closed door. Behind the door are 3 light bulbs. How can he determine which switch controls which bulb if he can only open the door once?",
+    "answer": "Turn on switch 1 for a few minutes, then turn it off. Turn on switch 2 and leave it on. Open the door: the bulb that is on is switch 2, the warm bulb is switch 1, and the cold off bulb is switch 3.",
+    "difficulty": "Medium",
+    "category": "Logic"
+  },
+  {
+    "id": 3,
+    "question": "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
+    "answer": "An echo. It repeats sounds without having a mouth or ears, and can seem to 'come alive' in open spaces.",
+    "difficulty": "Easy",
+    "category": "Riddle"
+  },
+  {
+    "id": 4,
+    "question": "A farmer has 17 sheep and all but 9 die. How many are left alive?",
+    "answer": "9. The phrasing 'all but 9 die' means 9 are still alive.",
+    "difficulty": "Easy",
+    "category": "Math"
+  },
+  {
+    "id": 5,
+    "question": "You have a 3-liter jug and a 5-liter jug. How can you measure exactly 4 liters of water?",
+    "answer": "Fill the 5-liter jug and pour into the 3-liter jug until full, leaving 2 liters in the 5-liter jug. Empty the 3-liter jug and pour the 2 liters into it. Fill the 5-liter jug again and pour 1 liter into the 3-liter jug to fill it. 4 liters remain in the 5-liter jug.",
+    "difficulty": "Medium",
+    "category": "Math"
+  },
+  {
+    "id": 6,
+    "question": "A man pushes his car to a hotel and tells the owner he’s bankrupt. Why?",
+    "answer": "He’s playing Monopoly. Pushing the car is part of the game piece, and landing on the hotel causes bankruptcy.",
+    "difficulty": "Medium",
+    "category": "Lateral"
+  },
+  {
+    "id": 7,
+    "question": "Which weighs more, a pound of feathers or a pound of bricks?",
+    "answer": "They weigh the same: one pound each.",
+    "difficulty": "Easy",
+    "category": "Logic"
+  },
+  {
+    "id": 8,
+    "question": "A man leaves home running. He turns left three times and returns home. Who is he?",
+    "answer": "He’s playing baseball. Home plate, running bases, turning left three times brings him back home.",
+    "difficulty": "Medium",
+    "category": "Lateral"
+  },
+  {
+    "id": 9,
+    "question": "What has keys but can’t open locks?",
+    "answer": "A piano. It has keys but cannot open anything physically.",
+    "difficulty": "Easy",
+    "category": "Riddle"
+  },
+  {
+    "id": 10,
+    "question": "I am an odd number. Take away a letter and I become even. What number am I?",
+    "answer": "Seven. Remove the 's' and it becomes 'even'.",
+    "difficulty": "Easy",
+    "category": "Riddle"
+  },
+  {
+    "id": 11,
+    "question": "You’re in a room with a single match, a kerosene lamp, a candle, and a fireplace. What do you light first?",
+    "answer": "The match. You need it to light anything else.",
+    "difficulty": "Easy",
+    "category": "Logic"
+  },
+  {
+    "id": 12,
+    "question": "If it takes 5 machines 5 minutes to make 5 gadgets, how long would 100 machines take to make 100 gadgets?",
+    "answer": "5 minutes. Each machine makes a gadget in 5 minutes, so 100 machines make 100 gadgets in the same 5 minutes.",
+    "difficulty": "Medium",
+    "category": "Math"
+  },
+  {
+    "id": 13,
+    "question": "A man was born in 1955 and died in 2005 at the age of 50. How is this possible?",
+    "answer": "He was born in room 1955 of a hospital and died in room 2005; it’s not years, it’s room numbers.",
+    "difficulty": "Hard",
+    "category": "Lateral"
+  },
+  {
+    "id": 14,
+    "question": "Forward I am heavy, backward I am not. What am I?",
+    "answer": "Ton. Forward it's 'ton' (heavy), backward 'not'.",
+    "difficulty": "Medium",
+    "category": "Riddle"
+  },
+  {
+    "id": 15,
+    "question": "Divide 30 by 1/2 and add 10. What’s the answer?",
+    "answer": "70. 30 ÷ 1/2 = 60, then add 10 = 70.",
+    "difficulty": "Medium",
+    "category": "Math"
+  },
+  {
+    "id": 16,
+    "question": "A plane crashes on the border of two countries. Where do they bury the survivors?",
+    "answer": "Nowhere. Survivors aren’t buried.",
+    "difficulty": "Easy",
+    "category": "Logic"
+  },
+  {
+    "id": 17,
+    "question": "A man wants to cross a river with a fox, a chicken, and grain. He can only carry one at a time. How does he do it?",
+    "answer": "Take the chicken first, return alone, take the fox, bring back the chicken, take the grain, return alone, then take the chicken. None are eaten.",
+    "difficulty": "Hard",
+    "category": "Logic"
+  },
+  {
+    "id": 18,
+    "question": "You see a house with all four sides facing south. A bear walks past. What color is the bear?",
+    "answer": "White. The house is at the North Pole, so the bear is a polar bear.",
+    "difficulty": "Medium",
+    "category": "Riddle"
+  },
+  {
+    "id": 19,
+    "question": "A dad and son get into a car accident. The dad dies at the scene. The son is rushed to the hospital. The doctor says, 'I can’t operate on him, he’s my son.' How is this possible?",
+    "answer": "The doctor is the boy’s mother.",
+    "difficulty": "Easy",
+    "category": "Lateral"
+  },
+  {
+    "id": 20,
+    "question": "If you have me, you want to share me. If you share me, you haven’t got me. What am I?",
+    "answer": "A secret.",
+    "difficulty": "Easy",
+    "category": "Riddle"
   }
 ]

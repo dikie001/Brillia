@@ -1,9 +1,11 @@
 import {
   Book,
+  Home,
   Laptop2,
   Newspaper,
   Puzzle,
   Quote,
+  Settings,
   Sparkles,
   Wand,
   X,
@@ -23,28 +25,30 @@ interface User {
 }
 
 const menuItems = [
+  { label: "Home", icon: Home, to: "/" },
   { label: "Brain Teasers", icon: Puzzle, to: "/brain-teasers" },
   { label: "Mini Stories", icon: Book, to: "/mini-stories" },
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },
   { label: "Wisdom Nuggets", icon: Quote, to: "/wisdom-nuggets" },
   { label: "Speech Drill", icon: Wand, to: "/speech-drills" },
   { label: "Fact Frenzy", icon: Newspaper, to: "/fact-frenzy" },
+  { label: "Settings", icon: Settings, to: "/settings" },
 ];
 
 export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
   const location = useLocation();
-    const [user, setUser] = useState<User>({
-      name: "",
-      hobby: "",
-      subject: "",
-    });
+  const [user, setUser] = useState<User>({
+    name: "",
+    hobby: "",
+    subject: "",
+  });
 
-    // Fetch users details from storage
-    useEffect(() => {
-      const userDetails = localStorage.getItem("user-info");
-      userDetails && setUser(JSON.parse(userDetails));
-    }, []);
+  // Fetch users details from storage
+  useEffect(() => {
+    const userDetails = localStorage.getItem("user-info");
+    userDetails && setUser(JSON.parse(userDetails));
+  }, []);
   return (
     <>
       {/* Overlay */}
@@ -64,20 +68,20 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-2xl  lg:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent leading-tight ">
+        <div className="flex  items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+          <h1 className="text-2xl  lg:text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent leading-tight ">
             {user.name}
           </h1>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+            className={`p-1.5 hover:bg-gray-300 dark:hover:bg-white/20 rounded-md`}
           >
-            <X className="w-6 h-6 text-blue-600" />
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
 
         {/* Menu Buttons */}
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full mb-4">
           <div className="flex flex-1 flex-col p-5 space-y-4 text-gray-700 dark:text-gray-200">
             {menuItems.map((item) => {
               const active = location.pathname === item.to;
@@ -94,14 +98,18 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                       : "hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon
+                    className={`w-5 h-5 ${
+                      item.label === "Settings" && "animate-spin"
+                    }`}
+                  />
                   {item.label}
                 </button>
               );
             })}
           </div>
           {/* FOOTER */}
-          <div className="flex flex-col items-center py-4 border-t border-gray-200 dark:border-gray-700 space-y-1">
+          <div className="flex lg:hidden flex-col items-center border-t border-gray-200 dark:border-gray-700 space-y-1">
             <div className="mt-2 mb-2 flex gap-2 justify-center items-center">
               <p className="text-gray-400 text-sm text-center">
                 From code to impact -{" "}
@@ -117,7 +125,6 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
               </p>
               <Laptop2 className="text-pink-500" />
             </div>
-          
           </div>
         </div>
       </div>
