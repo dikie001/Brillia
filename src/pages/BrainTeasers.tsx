@@ -55,23 +55,29 @@ export default function BrainTeasersPage() {
   useEffect(() => {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    // const currentItems = teasers.slice(start, end);
-    // const currentItems = teasersRef.current.filter(
-    //   (_, index: number) => index >= start && index <= end
-    // );
     const currentItems = teasersRef.current.slice(start, end);
     setTeasers(currentItems);
-    console.log(currentItems);
-    console.log(teasersRef.current[start]);
-    console.log(start, end);
+
+    // Save the current page to storage
+    currentPage !== 1 &&
+      localStorage.setItem(
+        "brain-teaser-currentPage",
+        JSON.stringify(currentPage)
+      );
   }, [currentPage]);
 
   // Save the teasers to state
   useEffect(() => {
-    // setTeasers(BrainTeasers as Teaser[]);
     teasersRef.current = BrainTeasers as Teaser[];
-    setCurrentPage(1);
-    // paginate();
+
+    // Get current page from storage
+    const lastPage = localStorage.getItem("brain-teaser-currentPage");
+    if (lastPage) {
+      const num = Number(lastPage);
+      setCurrentPage(num);
+    } else {
+      setCurrentPage(1);
+    }
   }, []);
 
   const toggleReveal = (id: number) => {
@@ -114,11 +120,13 @@ export default function BrainTeasersPage() {
               className={`${currentPage === 1 && "hidden"}`}
               onClick={() => setCurrentPage((p) => p - 1)}
             >
-              <PaginationLink href="#">{currentPage - 1}</PaginationLink>
+              <PaginationLink href={`#${currentPage}`}>
+                {currentPage - 1}
+              </PaginationLink>
             </PaginationItem>
 
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
+            <PaginationItem className="shadow-lg hover:ring ring-purple-500 rounded-md">
+              <PaginationLink href={`#${currentPage}`} isActive>
                 {currentPage}
               </PaginationLink>
             </PaginationItem>
@@ -191,7 +199,7 @@ export default function BrainTeasersPage() {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="mt-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={() => toggleReveal(teaser.id)}
                     className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 ease-in-out ${
@@ -242,11 +250,13 @@ export default function BrainTeasersPage() {
               className={`${currentPage === 1 && "hidden"}`}
               onClick={() => setCurrentPage((p) => p - 1)}
             >
-              <PaginationLink href="#">{currentPage - 1}</PaginationLink>
+              <PaginationLink href={`#${currentPage}`}>
+                {currentPage - 1}
+              </PaginationLink>
             </PaginationItem>
 
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
+            <PaginationItem className="shadow-lg hover:ring ring-purple-500 rounded-md">
+              <PaginationLink href={`#${currentPage}`} isActive>
                 {currentPage}
               </PaginationLink>
             </PaginationItem>

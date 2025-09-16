@@ -1,3 +1,4 @@
+import Navbar from "@/components/app/Navbar";
 import {
   BookOpen,
   Clock,
@@ -186,26 +187,21 @@ export default function MiniStories() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-violet-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 opacity-10 dark:opacity-20 pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-pink-300 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-purple-300 rounded-full blur-lg animate-bounce"></div>
-        <div className="absolute bottom-20 left-1/3 w-40 h-40 bg-blue-300 rounded-full blur-2xl animate-pulse"></div>
-      </div>
+      <Navbar />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-12">
+        <header className="text-center mb-12 pt-20">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <BookOpen className="w-12 h-12 text-amber-600 dark:text-amber-400" />
               <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-spin" />
             </div>
-            <h1 className="text-6xl font-black bg-gradient-to-r from-amber-600 via-rose-600 to-violet-600 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-black bg-gradient-to-r from-amber-600 via-rose-600 to-violet-600 bg-clip-text text-transparent">
               Mini Stories
             </h1>
           </div>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
           </p>
 
@@ -231,9 +227,25 @@ export default function MiniStories() {
             </div>
           </div>
         </header>
+        <input
+          type="text"
+          list="categories"
+          placeholder="Search categories i.e fantasy "
+          className="mx-auto w-sm mb-6 focus:ring-2 ring-emerald-500 flex px-4 bg-gray-300 dark:bg-white/20 py-2.5 rounded-2xl border border-emerald-500/40 "
+        />
+        <datalist id="categories" >
+          <option value="Mystery" />
+          <option value="Fantasy" />
+          {/* <option value="Favourites" /> */}
+          <option value="Drama" />
+          <option value="Adventure" />
+          <option value="Heart warming" />
+          <option value="Magical" />
+          <option value="Inspiring" />
+        </datalist>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
           {filters.map((filterOption) => (
             <button
               key={filterOption}
@@ -248,7 +260,7 @@ export default function MiniStories() {
               {filterOption}
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Stories Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Menu, Sun, Moon } from "lucide-react";
-import MobileNav from "./MobileNav";
 import { useTheme } from "@/hooks/useHook";
+import { Menu, Sun } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import MobileNav from "./MobileNav";
+import { useNavigate } from "react-router-dom";
 
 const greetings: string[] = [
   "Hello",
@@ -28,6 +29,7 @@ const Navbar: React.FC = () => {
   const [seconds, setSeconds] = useState(60);
   const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
   const { toggleTheme, theme } = useTheme();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
@@ -52,7 +54,10 @@ const Navbar: React.FC = () => {
       <MobileNav open={openMenu} onClose={() => setOpenMenu(false)} />
 
       {/* Greeting */}
-      <h1 className="text-3xl lg:text-5xl font-black leading-tight bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-teal-500 dark:from-indigo-500 dark:via-purple-600 dark:to-pink-500 text-transparent transition-colors duration-500">
+      <h1
+        onClick={() => navigate("/")}
+        className="text-3xl lg:text-4xl cursor-pointer font-black leading-tight bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-teal-500 dark:from-indigo-500 dark:via-purple-600 dark:to-pink-500 text-transparent transition-colors duration-500"
+      >
         {`${greetings[randomIndex] || "Hello"} ${user.name.split(" ")[0]}`}
       </h1>
 
@@ -65,7 +70,7 @@ const Navbar: React.FC = () => {
           {theme === "dark" ? (
             <Sun className="h-5 w-5 light:hidden" />
           ) : (
-            <div className="h-5 w-5" >🌙</div>
+            <div className="h-5 w-5">🌙</div>
           )}
         </button>
 

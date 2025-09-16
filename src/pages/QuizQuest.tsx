@@ -1,5 +1,5 @@
+import { useTheme } from "@/hooks/useHook";
 import {
-  ArrowLeft,
   BookOpen,
   CheckCircle,
   ChevronLeft,
@@ -13,18 +13,17 @@ import {
   Star,
   Target,
   Trophy,
-  XCircle,
+  XCircle
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useTheme } from "@/hooks/useHook";
 
 import finish from "../assets/images/finish.png";
 
+import Navbar from "@/components/app/Navbar";
 import quiz from "../assets/images/quiz.png";
 import quizData1 from "../assets/jsons/Quiz.json";
 import useSound from "../hooks/useSound";
-import Navbar from "@/components/app/Navbar";
 
 // TypeScript interfaces
 interface QuizQuestion {
