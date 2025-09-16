@@ -1,0 +1,4604 @@
+[
+  {
+    "id": 1,
+    "subject": "Mathematics",
+    "question": "What is the value of 'x' in the equation 3x - 7 = 14?",
+    "options": {
+      "A": "5",
+      "B": "7",
+      "C": "21",
+      "D": "3"
+    },
+    "correctAnswer": "B",
+    "explanation": "To solve for x, first add 7 to both sides (3x = 21), then divide both sides by 3 (x = 7)."
+  },
+  {
+    "id": 2,
+    "subject": "English",
+    "question": "Which of the following words is a synonym for 'happy'?",
+    "options": {
+      "A": "Sorrowful",
+      "B": "Joyful",
+      "C": "Angry",
+      "D": "Tired"
+    },
+    "correctAnswer": "B",
+    "explanation": "A synonym is a word that has the same or nearly the same meaning as another word. 'Joyful' means feeling, expressing, or causing great pleasure and happiness."
+  },
+  {
+    "id": 3,
+    "subject": "Kiswahili",
+    "question": "Kamilisha methali: 'Haraka haraka ...'",
+    "options": {
+      "A": "haina baraka",
+      "B": "hujaza kibaba",
+      "C": "huzaa mwana",
+      "D": "ni ya shetani"
+    },
+    "correctAnswer": "A",
+    "explanation": "Methali kamili ni 'Haraka haraka haina baraka', ikimaanisha kwamba mambo yanayofanywa kwa pupa hayafanikiwi vizuri."
+  },
+  {
+    "id": 4,
+    "subject": "Social Studies",
+    "question": "Who was the first president of Kenya?",
+    "options": {
+      "A": "Daniel arap Moi",
+      "B": "Mwai Kibaki",
+      "C": "Jomo Kenyatta",
+      "D": "Uhuru Kenyatta"
+    },
+    "correctAnswer": "C",
+    "explanation": "Jomo Kenyatta was the first president of Kenya, serving from 1964 until his death in 1978."
+  },
+  {
+    "id": 5,
+    "subject": "Agriculture",
+    "question": "Which of the following is a leguminous crop known for fixing nitrogen in the soil?",
+    "options": {
+      "A": "Maize",
+      "B": "Wheat",
+      "C": "Beans",
+      "D": "Potatoes"
+    },
+    "correctAnswer": "C",
+    "explanation": "Legumes, such as beans, have root nodules that house nitrogen-fixing bacteria, which convert atmospheric nitrogen into a form plants can use, thereby enriching the soil."
+  },
+  {
+    "id": 6,
+    "subject": "Home Science",
+    "question": "Which food group is the primary source of energy for the body?",
+    "options": {
+      "A": "Proteins",
+      "B": "Vitamins",
+      "C": "Carbohydrates",
+      "D": "Fats and Oils"
+    },
+    "correctAnswer": "C",
+    "explanation": "Carbohydrates are the body's main source of energy. They are broken down into glucose, which fuels cells, tissues, and organs."
+  },
+  {
+    "id": 7,
+    "subject": "Pre-Technical Studies",
+    "question": "In technical drawing, what does a short-dashed line typically represent?",
+    "options": {
+      "A": "Center lines",
+      "B": "Cutting planes",
+      "C": "Visible outlines",
+      "D": "Hidden details"
+    },
+    "correctAnswer": "D",
+    "explanation": "Short-dashed lines, also known as hidden lines, are used in technical drawings to show edges, surfaces, or corners of an object that are hidden from view."
+  },
+  {
+    "id": 8,
+    "subject": "Creative Art",
+    "question": "Red, yellow, and blue are known as what type of colors?",
+    "options": {
+      "A": "Secondary colors",
+      "B": "Tertiary colors",
+      "C": "Primary colors",
+      "D": "Complementary colors"
+    },
+    "correctAnswer": "C",
+    "explanation": "Primary colors (red, yellow, blue) are the fundamental colors from which all other colors are mixed. They cannot be created by mixing other colors."
+  },
+  {
+    "id": 9,
+    "subject": "sports",
+    "question": "How many players are on a standard football (soccer) team on the field at the start of a match?",
+    "options": {
+      "A": "7",
+      "B": "9",
+      "C": "11",
+      "D": "15"
+    },
+    "correctAnswer": "C",
+    "explanation": "A standard football match is played by two teams, each with a maximum of eleven players on the field, one of whom must be the goalkeeper."
+  },
+  {
+    "id": 10,
+    "subject": "Mathematics",
+    "question": "What is the area of a rectangle with a length of 12 cm and a width of 5 cm?",
+    "options": {
+      "A": "17 cm²",
+      "B": "34 cm²",
+      "C": "60 cm²",
+      "D": "144 cm²"
+    },
+    "correctAnswer": "C",
+    "explanation": "The area of a rectangle is calculated by multiplying its length by its width (Area = L × W). So, 12 cm × 5 cm = 60 cm²."
+  },
+  {
+    "id": 11,
+    "subject": "English",
+    "question": "Identify the figure of speech in the sentence: 'The wind whispered through the trees.'",
+    "options": {
+      "A": "Metaphor",
+      "B": "Simile",
+      "C": "Personification",
+      "D": "Hyperbole"
+    },
+    "correctAnswer": "C",
+    "explanation": "Personification is a figure of speech where human qualities or abilities are given to inanimate objects. The wind cannot literally 'whisper'."
+  },
+  {
+    "id": 12,
+    "subject": "Kiswahili",
+    "question": "Neno 'gari' liko katika ngeli gani?",
+    "options": {
+      "A": "A-WA",
+      "B": "I-ZI",
+      "C": "LI-YA",
+      "D": "U-I"
+    },
+    "correctAnswer": "C",
+    "explanation": "Neno 'gari' liko katika ngeli ya LI-YA. Katika umoja ni 'gari' (li-) na katika wingi ni 'magari' (ya-)."
+  },
+  {
+    "id": 13,
+    "subject": "Social Studies",
+    "question": "The Great Rift Valley is a major physical feature in which continent?",
+    "options": {
+      "A": "Asia",
+      "B": "South America",
+      "C": "Africa",
+      "D": "Europe"
+    },
+    "correctAnswer": "C",
+    "explanation": "The Great Rift Valley is a series of contiguous geographic trenches, approximately 7,000 kilometres in total length, that runs from the Beqaa Valley in Lebanon in Asia to Mozambique in Southeastern Africa."
+  },
+  {
+    "id": 14,
+    "subject": "Agriculture",
+    "question": "What is the practice of growing two or more crops in the same piece of land during the same growing season known as?",
+    "options": {
+      "A": "Monocropping",
+      "B": "Intercropping",
+      "C": "Crop rotation",
+      "D": "Shifting cultivation"
+    },
+    "correctAnswer": "B",
+    "explanation": "Intercropping is the cultivation of two or more crops simultaneously on the same field. It is a form of polyculture, and it often improves soil fertility and maximizes land use."
+  },
+  {
+    "id": 15,
+    "subject": "Home Science",
+    "question": "What is the first step in providing first aid to a person with a minor cut?",
+    "options": {
+      "A": "Apply a bandage",
+      "B": "Wash your hands",
+      "C": "Apply antiseptic",
+      "D": "Stop the bleeding"
+    },
+    "correctAnswer": "B",
+    "explanation": "Before treating any wound, it is crucial to wash your hands with soap and water to prevent transferring bacteria and causing an infection."
+  },
+  {
+    "id": 16,
+    "subject": "Pre-Technical Studies",
+    "question": "Which tool is best suited for marking lines parallel to the edge of a piece of wood?",
+    "options": {
+      "A": "Try square",
+      "B": "Marking gauge",
+      "C": "Sliding bevel",
+      "D": "Steel rule"
+    },
+    "correctAnswer": "B",
+    "explanation": "A marking gauge is a specialized tool used in woodworking to scribe a line parallel to a reference edge or surface."
+  },
+  {
+    "id": 17,
+    "subject": "Creative Art",
+    "question": "What is a 'monochromatic' color scheme?",
+    "options": {
+      "A": "A scheme using colors opposite each other on the color wheel",
+      "B": "A scheme using many different bright colors",
+      "C": "A scheme using only black and white",
+      "D": "A scheme based on several tints and shades of a single hue"
+    },
+    "correctAnswer": "D",
+    "explanation": "A monochromatic color scheme uses variations in lightness and saturation of a single color. It is derived from a single base hue and extended using its shades, tones, and tints."
+  },
+  {
+    "id": 18,
+    "subject": "sports",
+    "question": "In athletics, what is the standard distance of a marathon race?",
+    "options": {
+      "A": "26.2 kilometers",
+      "B": "42.2 kilometers",
+      "C": "10 kilometers",
+      "D": "21.1 kilometers"
+    },
+    "correctAnswer": "B",
+    "explanation": "The official distance for a marathon is 42.195 kilometers (approximately 26.2 miles)."
+  },
+  {
+    "id": 19,
+    "subject": "Mathematics",
+    "question": "If a circle has a radius of 7 cm, what is its circumference? (Use π ≈ 22/7)",
+    "options": {
+      "A": "22 cm",
+      "B": "44 cm",
+      "C": "154 cm",
+      "D": "49 cm"
+    },
+    "correctAnswer": "B",
+    "explanation": "The formula for the circumference of a circle is C = 2πr. So, C = 2 * (22/7) * 7 cm = 44 cm."
+  },
+  {
+    "id": 20,
+    "subject": "English",
+    "question": "Choose the correct verb to complete the sentence: 'Neither the students nor the teacher ____ present.'",
+    "options": {
+      "A": "were",
+      "B": "was",
+      "C": "are",
+      "D": "have been"
+    },
+    "correctAnswer": "B",
+    "explanation": "When using 'neither/nor' or 'either/or', the verb agrees with the noun or pronoun closest to it. In this case, 'teacher' is singular, so the verb 'was' is correct."
+  },
+  {
+    "id": 21,
+    "subject": "Kiswahili",
+    "question": "Neno 'simba' lina silabi ngapi?",
+    "options": {
+      "A": "Moja",
+      "B": "Mbili",
+      "C": "Tatu",
+      "D": "Nne"
+    },
+    "correctAnswer": "B",
+    "explanation": "Neno 'simba' lina silabi mbili: 'sim' na 'ba'."
+  },
+  {
+    "id": 22,
+    "subject": "Social Studies",
+    "question": "Which of these is a function of the legislature in Kenya?",
+    "options": {
+      "A": "To interpret laws",
+      "B": "To implement laws",
+      "C": "To make laws",
+      "D": "To arrest criminals"
+    },
+    "correctAnswer": "C",
+    "explanation": "The legislature (Parliament, consisting of the National Assembly and the Senate) is the arm of government responsible for creating, amending, and repealing laws."
+  },
+  {
+    "id": 23,
+    "subject": "Agriculture",
+    "question": "Which type of soil is characterized by fine particles, feels sticky when wet, and has poor drainage?",
+    "options": {
+      "A": "Sandy soil",
+      "B": "Loam soil",
+      "C": "Clay soil",
+      "D": "Silt soil"
+    },
+    "correctAnswer": "C",
+    "explanation": "Clay soil consists of very fine particles. It retains a lot of water, which makes it sticky when wet and slow to drain. It can be very fertile but is hard to work."
+  },
+  {
+    "id": 24,
+    "subject": "Home Science",
+    "question": "A balanced diet should contain adequate amounts of which nutrients?",
+    "options": {
+      "A": "Only carbohydrates and proteins",
+      "B": "Only vitamins and minerals",
+      "C": "Carbohydrates, proteins, fats, vitamins, minerals, and water",
+      "D": "Only fats and water"
+    },
+    "correctAnswer": "C",
+    "explanation": "A balanced diet provides all the essential nutrients your body needs to function correctly, including carbohydrates, proteins, fats, vitamins, minerals, fibre and water."
+  },
+  {
+    "id": 25,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of the following is a primary safety rule in a workshop?",
+    "options": {
+      "A": "Working as fast as possible",
+      "B": "Wearing appropriate personal protective equipment (PPE)",
+      "C": "Keeping the tools anywhere you like",
+      "D": "Listening to loud music while working"
+    },
+    "correctAnswer": "B",
+    "explanation": "Wearing appropriate PPE, such as safety glasses, gloves, and proper footwear, is a fundamental rule to protect yourself from injuries in a workshop environment."
+  },
+  {
+    "id": 26,
+    "subject": "Creative Art",
+    "question": "The illusion of depth on a flat surface is called?",
+    "options": {
+      "A": "Pattern",
+      "B": "Texture",
+      "C": "Perspective",
+      "D": "Balance"
+    },
+    "correctAnswer": "C",
+    "explanation": "Perspective in art is the technique used to represent three-dimensional objects and space on a two-dimensional surface, creating an impression of their height, width, depth, and position in relation to each other."
+  },
+  {
+    "id": 27,
+    "subject": "sports",
+    "question": "Which Kenyan athlete is known as the 'King of the Steeplechase'?",
+    "options": {
+      "A": "Eliud Kipchoge",
+      "B": "David Rudisha",
+      "C": "Ezekiel Kemboi",
+      "D": "Paul Tergat"
+    },
+    "correctAnswer": "C",
+    "explanation": "Ezekiel Kemboi is a celebrated Kenyan athlete who specialized in the 3000 metres steeplechase, winning multiple Olympic and World Championship gold medals in the event."
+  },
+  {
+    "id": 28,
+    "subject": "Mathematics",
+    "question": "Calculate the simple interest on a principal of Ksh. 5,000 for 2 years at a rate of 10% per annum.",
+    "options": {
+      "A": "Ksh. 500",
+      "B": "Ksh. 1,000",
+      "C": "Ksh. 2,000",
+      "D": "Ksh. 10,000"
+    },
+    "correctAnswer": "B",
+    "explanation": "Simple Interest (I) is calculated as I = P × R × T, where P is principal, R is rate, and T is time. So, I = 5000 × (10/100) × 2 = Ksh. 1,000."
+  },
+  {
+    "id": 29,
+    "subject": "English",
+    "question": "An autobiography is a story of a person's life written by ____.",
+    "options": {
+      "A": "a journalist",
+      "B": "another person",
+      "C": "that person himself or herself",
+      "D": "a family member"
+    },
+    "correctAnswer": "C",
+    "explanation": "An autobiography is a self-written account of one's own life. A biography, on the other hand, is written by someone else."
+  },
+  {
+    "id": 30,
+    "subject": "Kiswahili",
+    "question": "Kitabu, kiti na meza ni mifano ya nomino za aina gani?",
+    "options": {
+      "A": "Nomino za pekee",
+      "B": "Nomino za kawaida",
+      "C": "Nomino za dhahania",
+      "D": "Nomino za jamii"
+    },
+    "correctAnswer": "B",
+    "explanation": "Nomino za kawaida ni majina ya vitu, watu au mahali kwa jumla. 'Kitabu', 'kiti' na 'meza' ni majina ya jumla ya vitu visivyo na uhai."
+  },
+  {
+    "id": 31,
+    "subject": "Social Studies",
+    "question": "What is the capital city of Tanzania?",
+    "options": {
+      "A": "Nairobi",
+      "B": "Kampala",
+      "C": "Dodoma",
+      "D": "Dar es Salaam"
+    },
+    "correctAnswer": "C",
+    "explanation": "Dodoma is the official political capital city of Tanzania. Dar es Salaam serves as a major commercial port and the former capital."
+  },
+  {
+    "id": 32,
+    "subject": "Agriculture",
+    "question": "The process by which plants lose water vapor through small pores in their leaves is called?",
+    "options": {
+      "A": "Photosynthesis",
+      "B": "Respiration",
+      "C": "Transpiration",
+      "D": "Germination"
+    },
+    "correctAnswer": "C",
+    "explanation": "Transpiration is the process of water movement through a plant and its evaporation from aerial parts, such as leaves, stems and flowers."
+  },
+  {
+    "id": 33,
+    "subject": "Home Science",
+    "question": "Which of these is a method of preserving food by removing moisture?",
+    "options": {
+      "A": "Freezing",
+      "B": "Canning",
+      "C": "Drying",
+      "D": "Pickling"
+    },
+    "correctAnswer": "C",
+    "explanation": "Drying (or dehydration) is a food preservation method that works by removing water or moisture from the food, which inhibits the growth of bacteria, yeasts, and mold."
+  },
+  {
+    "id": 34,
+    "subject": "Pre-Technical Studies",
+    "question": "Which type of wood comes from coniferous trees and is generally softer?",
+    "options": {
+      "A": "Hardwood",
+      "B": "Softwood",
+      "C": "Plywood",
+      "D": "MDF"
+    },
+    "correctAnswer": "B",
+    "explanation": "Softwood comes from gymnosperm trees, which are usually evergreen conifers like pine or fir. It is generally less dense than hardwood."
+  },
+  {
+    "id": 35,
+    "subject": "Creative Art",
+    "question": "What is the term for the area around and between the subjects of an image?",
+    "options": {
+      "A": "Positive space",
+      "B": "Negative space",
+      "C": "Foreground",
+      "D": "Background"
+    },
+    "correctAnswer": "B",
+    "explanation": "Negative space, in art, is the space around and between the subject(s) of an image. It is just as important as the positive space (the subject itself) in creating a balanced composition."
+  },
+  {
+    "id": 36,
+    "subject": "sports",
+    "question": "In basketball, how many points is a free throw worth?",
+    "options": {
+      "A": "One point",
+      "B": "Two points",
+      "C": "Three points",
+      "D": "Four points"
+    },
+    "correctAnswer": "A",
+    "explanation": "A free throw is an unopposed attempt to score a basket, worth one point, from a line 15 feet (4.6 m) from the basket."
+  },
+  {
+    "id": 37,
+    "subject": "Mathematics",
+    "question": "What is the sum of the interior angles of a triangle?",
+    "options": {
+      "A": "90 degrees",
+      "B": "180 degrees",
+      "C": "270 degrees",
+      "D": "360 degrees"
+    },
+    "correctAnswer": "B",
+    "explanation": "A fundamental theorem in Euclidean geometry states that the sum of the measures of the three interior angles in any triangle is always 180 degrees."
+  },
+  {
+    "id": 38,
+    "subject": "English",
+    "question": "What is the plural form of the word 'child'?",
+    "options": {
+      "A": "Childs",
+      "B": "Childes",
+      "C": "Children",
+      "D": "Childrens"
+    },
+    "correctAnswer": "C",
+    "explanation": "'Child' is an irregular noun. Its plural form is 'children'."
+  },
+  {
+    "id": 39,
+    "subject": "Kiswahili",
+    "question": "Kinyume cha neno 'panda' ni nini?",
+    "options": {
+      "A": "Ruka",
+      "B": "Inua",
+      "C": "Shuka",
+      "D": "Simama"
+    },
+    "correctAnswer": "C",
+    "explanation": "Kinyume (antonym) cha kitenzi 'panda' ni 'shuka'. Unapanda mlima na kisha unashuka mlima."
+  },
+  {
+    "id": 40,
+    "subject": "Social Studies",
+    "question": "The process by which the constitution of a country is changed or modified is known as?",
+    "options": {
+      "A": "Referendum",
+      "B": "Legislation",
+      "C": "Amendment",
+      "D": "Devolution"
+    },
+    "correctAnswer": "C",
+    "explanation": "An amendment is a formal or official change made to a law, contract, constitution, or other legal document."
+  },
+  {
+    "id": 41,
+    "subject": "Agriculture",
+    "question": "Which of these is a common pest that attacks maize crops?",
+    "options": {
+      "A": "Aphid",
+      "B": "Boll weevil",
+      "C": "Stalk borer",
+      "D": "Tsetse fly"
+    },
+    "correctAnswer": "C",
+    "explanation": "The maize stalk borer is a significant pest of maize in Africa. Its larvae bore into the stems of the maize plant, causing damage and reducing yield."
+  },
+  {
+    "id": 42,
+    "subject": "Home Science",
+    "question": "What is the main function of protein in the human body?",
+    "options": {
+      "A": "Providing energy",
+      "B": "Insulating the body",
+      "C": "Building and repairing tissues",
+      "D": "Regulating body temperature"
+    },
+    "correctAnswer": "C",
+    "explanation": "Proteins are essential for growth, as well as for the repair and maintenance of all body tissues, including muscles, organs, and the immune system."
+  },
+  {
+    "id": 43,
+    "subject": "Pre-Technical Studies",
+    "question": "A drawing that shows an object as it appears to the eye is called a...",
+    "options": {
+      "A": "Schematic drawing",
+      "B": "Orthographic projection",
+      "C": "Isometric drawing",
+      "D": "Perspective drawing"
+    },
+    "correctAnswer": "D",
+    "explanation": "Perspective drawing is a technique used to create a realistic depiction of an object by representing depth and distance on a flat surface, much like how the human eye perceives it."
+  },
+  {
+    "id": 44,
+    "subject": "Creative Art",
+    "question": "A sculpture that is not attached to a background and can be viewed from all sides is known as?",
+    "options": {
+      "A": "A relief",
+      "B": "A mobile",
+      "C": "An installation",
+      "D": "Freestanding"
+    },
+    "correctAnswer": "D",
+    "explanation": "A freestanding sculpture, or sculpture in-the-round, is unattached to a background and has space on all sides. It is meant to be viewed from any angle."
+  },
+  {
+    "id": 45,
+    "subject": "sports",
+    "question": "What is the national sport of Kenya?",
+    "options": {
+      "A": "Football",
+      "B": "Rugby",
+      "C": "Athletics",
+      "D": "Cricket"
+    },
+    "correctAnswer": "C",
+    "explanation": "While football is very popular, athletics (especially long-distance running) is considered Kenya's de facto national sport due to the country's immense international success and cultural significance."
+  },
+  {
+    "id": 46,
+    "subject": "Mathematics",
+    "question": "Find the average (mean) of the following numbers: 4, 8, 9, 3, 6.",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "8"
+    },
+    "correctAnswer": "B",
+    "explanation": "To find the mean, you add all the numbers together and divide by the count of the numbers. (4 + 8 + 9 + 3 + 6) / 5 = 30 / 5 = 6."
+  },
+  {
+    "id": 47,
+    "subject": "English",
+    "question": "Which of these sentences is grammatically correct?",
+    "options": {
+      "A": "He done his work yesterday.",
+      "B": "He did his work yesterday.",
+      "C": "He have done his work yesterday.",
+      "D": "He do his work yesterday."
+    },
+    "correctAnswer": "B",
+    "explanation": "The sentence is in the past tense, so the simple past form of the verb 'do', which is 'did', is the correct choice."
+  },
+  {
+    "id": 48,
+    "subject": "Kiswahili",
+    "question": "Neno 'shule' lina asili ya lugha gani?",
+    "options": {
+      "A": "Kiarabu",
+      "B": "Kireno",
+      "C": "Kijerumani",
+      "D": "Kibantu"
+    },
+    "correctAnswer": "C",
+    "explanation": "Neno 'shule' ni neno kopwa kutoka lugha ya Kijerumani, 'Schule', ambalo linamaanisha mahali pa masomo."
+  },
+  {
+    "id": 49,
+    "subject": "Social Studies",
+    "question": "Which ocean borders Kenya to the east?",
+    "options": {
+      "A": "Atlantic Ocean",
+      "B": "Pacific Ocean",
+      "C": "Arctic Ocean",
+      "D": "Indian Ocean"
+    },
+    "correctAnswer": "D",
+    "explanation": "Kenya has a coastline on the Indian Ocean, which lies to its east and southeast."
+  },
+  {
+    "id": 50,
+    "subject": "Agriculture",
+    "question": "What is the term for the rearing of fish for food?",
+    "options": {
+      "A": "Apiculture",
+      "B": "Aquaculture",
+      "C": "Horticulture",
+      "D": "Sericulture"
+    },
+    "correctAnswer": "B",
+    "explanation": "Aquaculture is the farming of fish, crustaceans, mollusks, aquatic plants, algae, and other organisms. Apiculture is bee-keeping, horticulture is garden cultivation, and sericulture is silk farming."
+  },
+  {
+    "id": 51,
+    "subject": "Home Science",
+    "question": "Iron is a mineral that is essential for...",
+    "options": {
+      "A": "Strong bones and teeth",
+      "B": "The formation of hemoglobin in red blood cells",
+      "C": "Good eyesight",
+      "D": "Maintaining fluid balance"
+    },
+    "correctAnswer": "B",
+    "explanation": "Iron is a crucial component of hemoglobin, the protein in red blood cells that carries oxygen from the lungs to the rest of the body. A deficiency in iron can lead to anemia."
+  },
+  {
+    "id": 52,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these materials is a good electrical insulator?",
+    "options": {
+      "A": "Copper",
+      "B": "Aluminum",
+      "C": "Steel",
+      "D": "Rubber"
+    },
+    "correctAnswer": "D",
+    "explanation": "An electrical insulator is a material whose internal electric charges do not flow freely. Rubber is an excellent insulator, which is why it's used to cover electrical wires."
+  },
+  {
+    "id": 53,
+    "subject": "Creative Art",
+    "question": "The art of folding paper to create decorative shapes and figures is called?",
+    "options": {
+      "A": "Origami",
+      "B": "Calligraphy",
+      "C": "Macramé",
+      "D": "Pottery"
+    },
+    "correctAnswer": "A",
+    "explanation": "Origami is the Japanese art of paper folding. 'Ori' means 'folding' and 'kami' means 'paper'."
+  },
+  {
+    "id": 54,
+    "subject": "sports",
+    "question": "How many rounds are there in a standard Olympic boxing match for men?",
+    "options": {
+      "A": "3",
+      "B": "5",
+      "C": "10",
+      "D": "12"
+    },
+    "correctAnswer": "A",
+    "explanation": "A standard men's Olympic boxing match consists of three rounds, each lasting three minutes."
+  },
+  {
+    "id": 55,
+    "subject": "Mathematics",
+    "question": "Which of the following is a prime number?",
+    "options": {
+      "A": "9",
+      "B": "15",
+      "C": "21",
+      "D": "23"
+    },
+    "correctAnswer": "D",
+    "explanation": "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. 23 can only be divided by 1 and 23."
+  },
+  {
+    "id": 56,
+    "subject": "English",
+    "question": "Which punctuation mark is used to show possession?",
+    "options": {
+      "A": "Comma (,)",
+      "B": "Full stop (.)",
+      "C": "Apostrophe (')",
+      "D": "Question mark (?)"
+    },
+    "correctAnswer": "C",
+    "explanation": "The apostrophe is used to indicate the possessive case of nouns (e.g., 'the student's book') and to show the omission of letters (e.g., 'don't')."
+  },
+  {
+    "id": 57,
+    "subject": "Kiswahili",
+    "question": "Sentensi 'Mtoto analia' iko katika wakati gani?",
+    "options": {
+      "A": "Wakati uliopita",
+      "B": "Wakati ujao",
+      "C": "Wakati uliopo",
+      "D": "Wakati timilifu"
+    },
+    "correctAnswer": "C",
+    "explanation": "Kiambishi tamati '-na-' katika kitenzi 'analia' kinaonyesha kuwa kitendo kinafanyika sasa hivi, yaani, wakati uliopo."
+  },
+  {
+    "id": 58,
+    "subject": "Social Studies",
+    "question": "What does the green color on the Kenyan flag represent?",
+    "options": {
+      "A": "The people of Kenya",
+      "B": "Peace and unity",
+      "C": "Natural wealth and agriculture",
+      "D": "The struggle for freedom"
+    },
+    "correctAnswer": "C",
+    "explanation": "The green color on the Kenyan flag symbolizes the country's rich agricultural land and natural wealth."
+  },
+  {
+    "id": 59,
+    "subject": "Agriculture",
+    "question": "The removal of unwanted plants from a field is known as?",
+    "options": {
+      "A": "Pruning",
+      "B": "Thinning",
+      "C": "Weeding",
+      "D": "Mulching"
+    },
+    "correctAnswer": "C",
+    "explanation": "Weeding is the process of removing weeds (unwanted plants) that compete with crops for sunlight, water, and nutrients."
+  },
+  {
+    "id": 60,
+    "subject": "Home Science",
+    "question": "Which one of the following is a symptom of dehydration?",
+    "options": {
+      "A": "Clear urine",
+      "B": "High energy levels",
+      "C": "Dry mouth and thirst",
+      "D": "Frequent urination"
+    },
+    "correctAnswer": "C",
+    "explanation": "Dehydration occurs when you lose more fluid than you take in. Early signs include feeling thirsty, having a dry mouth, and passing dark-colored urine."
+  },
+  {
+    "id": 61,
+    "subject": "Pre-Technical Studies",
+    "question": "The process of joining two pieces of metal together by melting and fusing them is called?",
+    "options": {
+      "A": "Riveting",
+      "B": "Soldering",
+      "C": "Welding",
+      "D": "Gluing"
+    },
+    "correctAnswer": "C",
+    "explanation": "Welding is a fabrication process that joins materials, usually metals or thermoplastics, by using high heat to melt the parts together and allowing them to cool, causing fusion."
+  },
+  {
+    "id": 62,
+    "subject": "Creative Art",
+    "question": "Mixing blue and yellow paint creates which secondary color?",
+    "options": {
+      "A": "Orange",
+      "B": "Green",
+      "C": "Purple",
+      "D": "Brown"
+    },
+    "correctAnswer": "B",
+    "explanation": "In subtractive color mixing (like with paint), mixing the primary colors blue and yellow produces the secondary color green."
+  },
+  {
+    "id": 63,
+    "subject": "sports",
+    "question": "In volleyball, a team can hit the ball a maximum of how many times before it must cross the net?",
+    "options": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4"
+    },
+    "correctAnswer": "C",
+    "explanation": "Each team is allowed a maximum of three successive contacts of the ball in order to return it to the opponent's side (not including a block contact)."
+  },
+  {
+    "id": 64,
+    "subject": "Mathematics",
+    "question": "Convert 0.75 into a fraction in its simplest form.",
+    "options": {
+      "A": "1/2",
+      "B": "3/4",
+      "C": "75/100",
+      "D": "4/3"
+    },
+    "correctAnswer": "B",
+    "explanation": "0.75 can be written as 75/100. To simplify, divide both the numerator and the denominator by their greatest common divisor, which is 25. 75 ÷ 25 = 3 and 100 ÷ 25 = 4, so the fraction is 3/4."
+  },
+  {
+    "id": 65,
+    "subject": "English",
+    "question": "A word that is opposite in meaning to another is called an...",
+    "options": {
+      "A": "Antonym",
+      "B": "Synonym",
+      "C": "Homonym",
+      "D": "Acronym"
+    },
+    "correctAnswer": "A",
+    "explanation": "An antonym is a word that has the opposite meaning of another word. For example, 'hot' is the antonym of 'cold'."
+  },
+  {
+    "id": 66,
+    "subject": "Kiswahili",
+    "question": "Ukubwa wa neno 'nyumba' ni upi?",
+    "options": {
+      "A": "Kijumba",
+      "B": "Majumba",
+      "C": "Jumba",
+      "D": "Nyumbani"
+    },
+    "correctAnswer": "C",
+    "explanation": "Ukubwa (augmentative) wa nomino 'nyumba' ni 'jumba'. Hii inaonyesha nyumba kubwa. 'Kijumba' ni udogo (diminutive)."
+  },
+  {
+    "id": 67,
+    "subject": "Social Studies",
+    "question": "The head of the Judiciary in Kenya holds the title of?",
+    "options": {
+      "A": "Attorney General",
+      "B": "Chief Justice",
+      "C": "Speaker of the National Assembly",
+      "D": "President"
+    },
+    "correctAnswer": "B",
+    "explanation": "The Chief Justice is the president of the Supreme Court and the head of the Judiciary, which is the arm of government responsible for interpreting laws."
+  },
+  {
+    "id": 68,
+    "subject": "Agriculture",
+    "question": "The practice of growing crops without using synthetic fertilizers and pesticides is known as?",
+    "options": {
+      "A": "Conventional farming",
+      "B": "Organic farming",
+      "C": "Mixed farming",
+      "D": "Pastoral farming"
+    },
+    "correctAnswer": "B",
+    "explanation": "Organic farming is an agricultural system that uses fertilizers of organic origin such as compost manure, and places emphasis on techniques such as crop rotation and companion planting."
+  },
+  {
+    "id": 69,
+    "subject": "Home Science",
+    "question": "Stitching a torn seam on a piece of clothing is an example of?",
+    "options": {
+      "A": "Laundering",
+      "B": "Darning",
+      "C": "Mending",
+      "D": "Ironing"
+    },
+    "correctAnswer": "C",
+    "explanation": "Mending is the general term for repairing clothes. Darning specifically refers to repairing holes by interweaving thread."
+  },
+  {
+    "id": 70,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these is a ferrous metal?",
+    "options": {
+      "A": "Aluminum",
+      "B": "Copper",
+      "C": "Steel",
+      "D": "Zinc"
+    },
+    "correctAnswer": "C",
+    "explanation": "Ferrous metals are metals that contain iron. Steel is an alloy of iron and carbon, making it a ferrous metal. Aluminum, copper, and zinc are non-ferrous."
+  },
+  {
+    "id": 71,
+    "subject": "Creative Art",
+    "question": "Which element of art refers to the surface quality of an object, i.e., how it feels or looks like it would feel?",
+    "options": {
+      "A": "Line",
+      "B": "Shape",
+      "C": "Color",
+      "D": "Texture"
+    },
+    "correctAnswer": "D",
+    "explanation": "Texture is the element of art that refers to the way things feel, or look as if they might feel if touched. It can be real (tactile) or implied (visual)."
+  },
+  {
+    "id": 72,
+    "subject": "sports",
+    "question": "The Kenya national rugby sevens team is popularly known as?",
+    "options": {
+      "A": "Harambee Stars",
+      "B": "Malkia Strikers",
+      "C": "Shujaa",
+      "D": "Simba"
+    },
+    "correctAnswer": "C",
+    "explanation": "'Shujaa' is the Swahili word for 'hero', and it is the nickname for the Kenya men's national rugby sevens team. Harambee Stars is the football team."
+  },
+  {
+    "id": 73,
+    "subject": "Mathematics",
+    "question": "A polygon with 8 sides is called an...",
+    "options": {
+      "A": "Hexagon",
+      "B": "Heptagon",
+      "C": "Octagon",
+      "D": "Nonagon"
+    },
+    "correctAnswer": "C",
+    "explanation": "A polygon is named based on its number of sides. A hexagon has 6, a heptagon has 7, an octagon has 8, and a nonagon has 9."
+  },
+  {
+    "id": 74,
+    "subject": "English",
+    "question": "Which of these words is a conjunction?",
+    "options": {
+      "A": "quickly",
+      "B": "beautiful",
+      "C": "and",
+      "D": "under"
+    },
+    "correctAnswer": "C",
+    "explanation": "A conjunction is a word used to connect clauses or sentences or to coordinate words in the same clause (e.g., and, but, if). 'Quickly' is an adverb, 'beautiful' is an adjective, and 'under' is a preposition."
+  },
+  {
+    "id": 75,
+    "subject": "Kiswahili",
+    "question": "Mtu anayefanya kazi ya kuandika habari gazetini huitwaje?",
+    "options": {
+      "A": "Mhariri",
+      "B": "Mwandishi",
+      "C": "Mchapishaji",
+      "D": "Mwanahabari"
+    },
+    "correctAnswer": "D",
+    "explanation": "Mwanahabari ni mtu ambaye hukusanya, kuandika, na kusambaza habari na taarifa nyingine. Mwandishi ni neno la jumla zaidi, na mhariri husahihisha maandishi."
+  },
+  {
+    "id": 76,
+    "subject": "Social Studies",
+    "question": "Lake Victoria, the largest lake in Africa, is shared by Kenya, Uganda, and which other country?",
+    "options": {
+      "A": "Tanzania",
+      "B": "Rwanda",
+      "C": "Ethiopia",
+      "D": "Somalia"
+    },
+    "correctAnswer": "A",
+    "explanation": "Lake Victoria is bordered by three countries: Kenya to the northeast, Uganda to the north and west, and Tanzania to the south and east."
+  },
+  {
+    "id": 77,
+    "subject": "Agriculture",
+    "question": "A young sheep is called a...",
+    "options": {
+      "A": "Kid",
+      "B": "Calf",
+      "C": "Lamb",
+      "D": "Foal"
+    },
+    "correctAnswer": "C",
+    "explanation": "A lamb is a young sheep. A kid is a young goat, a calf is a young cow, and a foal is a young horse."
+  },
+  {
+    "id": 78,
+    "subject": "Home Science",
+    "question": "Which vitamin is also known as ascorbic acid and is found in citrus fruits?",
+    "options": {
+      "A": "Vitamin A",
+      "B": "Vitamin B12",
+      "C": "Vitamin C",
+      "D": "Vitamin D"
+    },
+    "correctAnswer": "C",
+    "explanation": "Vitamin C, or ascorbic acid, is an essential nutrient found in various foods, especially fruits like oranges and lemons. It's important for the immune system and skin health."
+  },
+  {
+    "id": 79,
+    "subject": "Pre-Technical Studies",
+    "question": "In a third-angle orthographic projection, where is the top view placed in relation to the front view?",
+    "options": {
+      "A": "Below the front view",
+      "B": "To the right of the front view",
+      "C": "Above the front view",
+      "D": "To the left of the front view"
+    },
+    "correctAnswer": "C",
+    "explanation": "In third-angle projection (commonly used in the USA and Canada), the top view is placed directly above the front view, and the right-side view is placed to the right of the front view."
+  },
+  {
+    "id": 80,
+    "subject": "Creative Art",
+    "question": "The arrangement of elements such as line, shape, and color in a work of art is called?",
+    "options": {
+      "A": "Composition",
+      "B": "Technique",
+      "C": "Medium",
+      "D": "Subject matter"
+    },
+    "correctAnswer": "A",
+    "explanation": "Composition is the placement or arrangement of visual elements in a work of art. It is the organization of the elements of art according to the principles of art."
+  },
+  {
+    "id": 81,
+    "subject": "sports",
+    "question": "Which of these strokes is NOT used in competitive swimming?",
+    "options": {
+      "A": "Freestyle",
+      "B": "Backstroke",
+      "C": "Dog paddle",
+      "D": "Butterfly"
+    },
+    "correctAnswer": "C",
+    "explanation": "The four official competitive swimming strokes are freestyle (front crawl), backstroke, breaststroke, and butterfly. Dog paddle is a simple, non-competitive swimming style."
+  },
+  {
+    "id": 82,
+    "subject": "Mathematics",
+    "question": "What is 25% of 200?",
+    "options": {
+      "A": "25",
+      "B": "40",
+      "C": "50",
+      "D": "75"
+    },
+    "correctAnswer": "C",
+    "explanation": "To find 25% of a number, you can convert the percentage to a decimal (0.25) and multiply, or recognize that 25% is equal to 1/4. 0.25 × 200 = 50, or 200 / 4 = 50."
+  },
+  {
+    "id": 83,
+    "subject": "English",
+    "question": "A group of lions is called a...",
+    "options": {
+      "A": "Herd",
+      "B": "Flock",
+      "C": "Pack",
+      "D": "Pride"
+    },
+    "correctAnswer": "D",
+    "explanation": "The collective noun for a group of lions is a 'pride'. A herd is for cattle, a flock is for sheep or birds, and a pack is for wolves or dogs."
+  },
+  {
+    "id": 84,
+    "subject": "Kiswahili",
+    "question": "Kifaa kinachotumika kupimia joto la mwili huitwaje?",
+    "options": {
+      "A": "Saa",
+      "B": "Mizani",
+      "C": "Kipimajoto",
+      "D": "Darubini"
+    },
+    "correctAnswer": "C",
+    "explanation": "Kipimajoto (thermometer) ni kifaa kinachotumika kupima halijoto, iwe ya mwili, hewa, au kimiminika."
+  },
+  {
+    "id": 85,
+    "subject": "Social Studies",
+    "question": "The system of government where citizens elect representatives to make decisions on their behalf is called a?",
+    "options": {
+      "A": "Monarchy",
+      "B": "Dictatorship",
+      "C": "Republic",
+      "D": "Theocracy"
+    },
+    "correctAnswer": "C",
+    "explanation": "A republic is a form of government in which 'supreme power is held by the people and their elected representatives', as opposed to a monarchy where power is held by a monarch."
+  },
+  {
+    "id": 86,
+    "subject": "Agriculture",
+    "question": "What is soil erosion?",
+    "options": {
+      "A": "The process of adding fertilizers to soil",
+      "B": "The wearing away and removal of the top layer of soil",
+      "C": "The formation of new soil from rocks",
+      "D": "The mixing of different soil types"
+    },
+    "correctAnswer": "B",
+    "explanation": "Soil erosion is a naturally occurring process that affects all landforms. It refers to the wearing away of a field's topsoil by the natural physical forces of water and wind."
+  },
+  {
+    "id": 87,
+    "subject": "Home Science",
+    "question": "What is the primary reason for washing fruits and vegetables before eating them?",
+    "options": {
+      "A": "To make them taste better",
+      "B": "To make them ripen faster",
+      "C": "To remove dirt, pesticides, and germs",
+      "D": "To increase their vitamin content"
+    },
+    "correctAnswer": "C",
+    "explanation": "Washing produce helps to remove surface dirt, bacteria, and residual pesticides, reducing the risk of foodborne illnesses."
+  },
+  {
+    "id": 88,
+    "subject": "Pre-Technical Studies",
+    "question": "What is the name of the L-shaped tool used for drawing or checking 90-degree angles?",
+    "options": {
+      "A": "Protractor",
+      "B": "Try square",
+      "C": "Sliding bevel",
+      "D": "Compass"
+    },
+    "correctAnswer": "B",
+    "explanation": "A try square is a woodworking or metalworking tool used for marking and checking 90° angles on pieces of wood or metal."
+  },
+  {
+    "id": 89,
+    "subject": "Creative Art",
+    "question": "A portrait is a painting, photograph, or other artistic representation of...",
+    "options": {
+      "A": "A landscape",
+      "B": "An animal",
+      "C": "A person",
+      "D": "A building"
+    },
+    "correctAnswer": "C",
+    "explanation": "A portrait is an artistic representation of a person, in which the face and its expression is predominant. The intent is to display the likeness, personality, and even the mood of the person."
+  },
+  {
+    "id": 90,
+    "subject": "sports",
+    "question": "In athletics, what does a false start mean?",
+    "options": {
+      "A": "Finishing the race in the wrong lane",
+      "B": "Starting to run before the starting signal",
+      "C": "Failing to finish the race",
+      "D": "Running slower than the expected time"
+    },
+    "correctAnswer": "B",
+    "explanation": "A false start occurs when a competitor begins the race before the official starting signal has been given. In many events, this results in disqualification."
+  },
+  {
+    "id": 91,
+    "subject": "Mathematics",
+    "question": "What is the next number in the sequence: 2, 5, 8, 11, ...?",
+    "options": {
+      "A": "12",
+      "B": "13",
+      "C": "14",
+      "D": "15"
+    },
+    "correctAnswer": "C",
+    "explanation": "This is an arithmetic sequence where each term is found by adding 3 to the previous term. 11 + 3 = 14."
+  },
+  {
+    "id": 92,
+    "subject": "English",
+    "question": "Choose the correct spelling.",
+    "options": {
+      "A": "Neccessary",
+      "B": "Necesary",
+      "C": "Necessary",
+      "D": "Neccesary"
+    },
+    "correctAnswer": "C",
+    "explanation": "The correct spelling of the word is 'necessary', with one 'c' and double 's'."
+  },
+  {
+    "id": 93,
+    "subject": "Kiswahili",
+    "question": "Nahau 'piga moyo konde' ina maana gani?",
+    "options": {
+      "A": "Kupigana",
+      "B": "Kujipa moyo au kuvumilia",
+      "C": "Kuwa na hasira",
+      "D": "Kuumiza moyo"
+    },
+    "correctAnswer": "B",
+    "explanation": "Kupiga moyo konde ni msemo unaomaanisha kujikaza, kustahimili, au kuvumilia jambo gumu au la kuhuzunisha."
+  },
+  {
+    "id": 94,
+    "subject": "Social Studies",
+    "question": "The arm of government that is responsible for implementing and enforcing laws is the...",
+    "options": {
+      "A": "Judiciary",
+      "B": "Legislature",
+      "C": "Executive",
+      "D": "County Assembly"
+    },
+    "correctAnswer": "C",
+    "explanation": "The Executive branch, headed by the President, is responsible for implementing, supporting, and enforcing the laws made by the legislative branch and interpreted by the judicial branch."
+  },
+  {
+    "id": 95,
+    "subject": "Agriculture",
+    "question": "Which of the following is an example of a root tuber crop?",
+    "options": {
+      "A": "Maize",
+      "B": "Cassava",
+      "C": "Beans",
+      "D": "Cabbage"
+    },
+    "correctAnswer": "B",
+    "explanation": "Root tubers, like cassava and sweet potatoes, are storage organs formed by the swelling of roots. Maize is a cereal, beans are legumes, and cabbage is a leafy vegetable."
+  },
+  {
+    "id": 96,
+    "subject": "Home Science",
+    "question": "A set of instructions for preparing a particular dish is called a...",
+    "options": {
+      "A": "Menu",
+      "B": "Recipe",
+      "C": "Budget",
+      "D": "Timetable"
+    },
+    "correctAnswer": "B",
+    "explanation": "A recipe is a list of ingredients and a set of instructions that tell you how to cook something."
+  },
+  {
+    "id": 97,
+    "subject": "Pre-Technical Studies",
+    "question": "Which simple machine consists of a grooved wheel and a rope or cable?",
+    "options": {
+      "A": "Lever",
+      "B": "Inclined plane",
+      "C": "Wedge",
+      "D": "Pulley"
+    },
+    "correctAnswer": "D",
+    "explanation": "A pulley is a wheel on an axle or shaft that is designed to support movement and change of direction of a taut cable or belt. It is used to lift heavy objects."
+  },
+  {
+    "id": 98,
+    "subject": "Creative Art",
+    "question": "What is a 'still life' in art?",
+    "options": {
+      "A": "A drawing of a person who is not moving",
+      "B": "An arrangement of inanimate objects as a subject",
+      "C": "A painting of a calm, quiet landscape",
+      "D": "A sculpture that does not have moving parts"
+    },
+    "correctAnswer": "B",
+    "explanation": "A still life is a work of art depicting mostly inanimate subject matter, typically commonplace objects which are either natural (food, flowers) or man-made (vases, books)."
+  },
+  {
+    "id": 99,
+    "subject": "sports",
+    "question": "Eliud Kipchoge is a world-famous Kenyan athlete in which sport?",
+    "options": {
+      "A": "Javelin throw",
+      "B": "High jump",
+      "C": "Marathon running",
+      "D": "800 meters"
+    },
+    "correctAnswer": "C",
+    "explanation": "Eliud Kipchoge is widely regarded as the greatest marathon runner of all time, holding world records and being the first person to run a marathon in under two hours."
+  },
+  {
+    "id": 100,
+    "subject": "Mathematics",
+    "question": "What is the value of 5 squared (5²)?",
+    "options": {
+      "A": "10",
+      "B": "25",
+      "C": "15",
+      "D": "52"
+    },
+    "correctAnswer": "B",
+    "explanation": "Squaring a number means multiplying it by itself. 5² = 5 × 5 = 25."
+  },
+  {
+    "id": 101,
+    "subject": "Mathematics",
+    "question": "If the perimeter of a square is 36 cm, what is the length of one side?",
+    "options": {
+      "A": "4 cm",
+      "B": "6 cm",
+      "C": "9 cm",
+      "D": "12 cm"
+    },
+    "correctAnswer": "C",
+    "explanation": "A square has four equal sides. The perimeter is the total length of all sides (P = 4s). To find the length of one side, divide the perimeter by 4. 36 cm / 4 = 9 cm."
+  },
+  {
+    "id": 102,
+    "subject": "English",
+    "question": "Which part of speech describes a verb, adjective, or another adverb?",
+    "options": {
+      "A": "Noun",
+      "B": "Pronoun",
+      "C": "Adjective",
+      "D": "Adverb"
+    },
+    "correctAnswer": "D",
+    "explanation": "An adverb is a word that modifies or describes a verb (e.g., 'he sings loudly'), an adjective (e.g., 'very tall'), or another adverb (e.g., 'ended too quickly')."
+  },
+  {
+    "id": 103,
+    "subject": "Kiswahili",
+    "question": "Katika sentensi 'Juma alikimbia mbio', neno 'mbio' ni la aina gani?",
+    "options": {
+      "A": "Kitenzi",
+      "B": "Kivumishi",
+      "C": "Kielezi",
+      "D": "Nomino"
+    },
+    "correctAnswer": "C",
+    "explanation": "Neno 'mbio' linaelezea jinsi kitendo cha 'kukimbia' kilivyofanyika. Maneno yanayoelezea vitenzi huitwa vielezi."
+  },
+  {
+    "id": 104,
+    "subject": "Social Studies",
+    "question": "Mount Kenya is an example of which type of mountain?",
+    "options": {
+      "A": "Fold mountain",
+      "B": "Volcanic mountain",
+      "C": "Block mountain",
+      "D": "Residual mountain"
+    },
+    "correctAnswer": "B",
+    "explanation": "Mount Kenya is an extinct stratovolcano, which means it was formed by layers of hardened lava, tephra, pumice, and volcanic ash from past eruptions."
+  },
+  {
+    "id": 105,
+    "subject": "Agriculture",
+    "question": "Which of these is NOT a method of soil conservation?",
+    "options": {
+      "A": "Terracing",
+      "B": "Contour ploughing",
+      "C": "Overgrazing",
+      "D": "Afforestation"
+    },
+    "correctAnswer": "C",
+    "explanation": "Overgrazing exposes soil to agents of erosion like wind and water. Terracing, contour ploughing, and afforestation (planting trees) are all effective methods for conserving soil."
+  },
+  {
+    "id": 106,
+    "subject": "Home Science",
+    "question": "What does a budget help a family to do?",
+    "options": {
+      "A": "Earn more income",
+      "B": "Spend money without limits",
+      "C": "Plan and control their spending",
+      "D": "Avoid paying taxes"
+    },
+    "correctAnswer": "C",
+    "explanation": "A budget is a financial plan that helps individuals or families to track their income and expenses, enabling them to manage their money effectively and avoid overspending."
+  },
+  {
+    "id": 107,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these hand tools is used for cutting wood?",
+    "options": {
+      "A": "Hammer",
+      "B": "Screwdriver",
+      "C": "Saw",
+      "D": "Spanner"
+    },
+    "correctAnswer": "C",
+    "explanation": "A saw is a tool consisting of a tough blade with a hard toothed edge. It is used to cut through material, most often wood, by placing the toothed edge against the material and moving it forcefully."
+  },
+  {
+    "id": 108,
+    "subject": "Creative Art",
+    "question": "What art technique involves creating an image by assembling small pieces of colored glass, stone, or other materials?",
+    "options": {
+      "A": "Fresco",
+      "B": "Collage",
+      "C": "Mosaic",
+      "D": "Etching"
+    },
+    "correctAnswer": "C",
+    "explanation": "A mosaic is a piece of art or image made from the assemblage of small pieces of colored glass, stone, or other materials. It is often used in decorative art or as interior decoration."
+  },
+  {
+    "id": 109,
+    "subject": "sports",
+    "question": "In a game of tennis, what is the term for a score of zero?",
+    "options": {
+      "A": "Nil",
+      "B": "Duck",
+      "C": "Love",
+      "D": "Zero"
+    },
+    "correctAnswer": "C",
+    "explanation": "In tennis, 'love' is used to represent a score of zero or nil. For example, a score of 15-0 is announced as 'fifteen-love'."
+  },
+  {
+    "id": 110,
+    "subject": "Mathematics",
+    "question": "An angle that is greater than 90 degrees but less than 180 degrees is called...",
+    "options": {
+      "A": "An acute angle",
+      "B": "A right angle",
+      "C": "An obtuse angle",
+      "D": "A reflex angle"
+    },
+    "correctAnswer": "C",
+    "explanation": "An obtuse angle is one which is more than 90° but less than 180°. An acute angle is less than 90°, a right angle is exactly 90°, and a reflex angle is greater than 180°."
+  },
+  {
+    "id": 111,
+    "subject": "English",
+    "question": "What is the past tense of the verb 'begin'?",
+    "options": {
+      "A": "Begun",
+      "B": "Began",
+      "C": "Beginned",
+      "D": "Begined"
+    },
+    "correctAnswer": "B",
+    "explanation": "'Begin' is an irregular verb. Its simple past tense is 'began', and its past participle is 'begun'."
+  },
+  {
+    "id": 112,
+    "subject": "Kiswahili",
+    "question": "Mnyama anayetumika kubebea mizigo hasa milimani ni yupi?",
+    "options": {
+      "A": "Ngamia",
+      "B": "Farasi",
+      "C": "Punda",
+      "D": "Ng'ombe"
+    },
+    "correctAnswer": "C",
+    "explanation": "Punda (donkey) ni mnyama anayejulikana kwa uwezo wake wa kubeba mizigo mizito, na hutumika sana katika maeneo yenye miinuko na njia nyembamba."
+  },
+  {
+    "id": 113,
+    "subject": "Social Studies",
+    "question": "What is the main role of the opposition party in a democratic government?",
+    "options": {
+      "A": "To oppose every government policy",
+      "B": "To provide checks and balances on the ruling party",
+      "C": "To cause chaos in parliament",
+      "D": "To prepare for the next election only"
+    },
+    "correctAnswer": "B",
+    "explanation": "The opposition's primary role is to question the government of the day and hold them accountable to the public. This provides a system of checks and balances."
+  },
+  {
+    "id": 114,
+    "subject": "Agriculture",
+    "question": "A building where harvested crops are kept is called a...",
+    "options": {
+      "A": "Greenhouse",
+      "B": "Silo",
+      "C": "Barn",
+      "D": "Shed"
+    },
+    "correctAnswer": "C",
+    "explanation": "A barn is a large farm building used for storage of harvested crops, housing livestock, or as a covered workplace. A silo is typically used for storing grain or fermented feed known as silage."
+  },
+  {
+    "id": 115,
+    "subject": "Home Science",
+    "question": "Scurvy is a disease caused by a deficiency of which vitamin?",
+    "options": {
+      "A": "Vitamin A",
+      "B": "Vitamin B",
+      "C": "Vitamin C",
+      "D": "Vitamin D"
+    },
+    "correctAnswer": "C",
+    "explanation": "Scurvy results from a lack of vitamin C (ascorbic acid). Early symptoms include weakness, feeling tired, and sore arms and legs. It was common among sailors on long voyages."
+  },
+  {
+    "id": 116,
+    "subject": "Pre-Technical Studies",
+    "question": "A floor plan is a type of drawing that shows...",
+    "options": {
+      "A": "The side view of a building",
+      "B": "The view of a building from above, as if it were cut open",
+      "C": "A 3D model of a building",
+      "D": "The electrical wiring of a building"
+    },
+    "correctAnswer": "B",
+    "explanation": "A floor plan is a scaled diagram of a room or building viewed from above. It shows the relationships between rooms, spaces, and other physical features at one level of a structure."
+  },
+  {
+    "id": 117,
+    "subject": "Creative Art",
+    "question": "The three-dimensional quality of an object, referring to its height, width, and depth is called?",
+    "options": {
+      "A": "Shape",
+      "B": "Form",
+      "C": "Space",
+      "D": "Line"
+    },
+    "correctAnswer": "B",
+    "explanation": "In art, 'shape' is two-dimensional and flat (e.g., a square), while 'form' is three-dimensional and has volume (e.g., a cube)."
+  },
+  {
+    "id": 118,
+    "subject": "sports",
+    "question": "In rugby, what is it called when a player touches the ball down in the opponent's in-goal area?",
+    "options": {
+      "A": "A goal",
+      "B": "A try",
+      "C": "A touchdown",
+      "D": "A point"
+    },
+    "correctAnswer": "B",
+    "explanation": "A try is the primary method of scoring in rugby. It is scored by grounding the ball in the opposition's in-goal area and is worth five points."
+  },
+  {
+    "id": 119,
+    "subject": "Mathematics",
+    "question": "What is the value of pi (π) approximately?",
+    "options": {
+      "A": "2.14",
+      "B": "3.14",
+      "C": "4.13",
+      "D": "1.34"
+    },
+    "correctAnswer": "B",
+    "explanation": "Pi (π) is a mathematical constant, the ratio of a circle's circumference to its diameter, approximately equal to 3.14159."
+  },
+  {
+    "id": 120,
+    "subject": "English",
+    "question": "A story that is not real and has been made up is called...",
+    "options": {
+      "A": "Fiction",
+      "B": "Non-fiction",
+      "C": "Biography",
+      "D": "History"
+    },
+    "correctAnswer": "A",
+    "explanation": "Fiction refers to literature created from the imagination, not presented as fact, though it may be based on a true story or situation."
+  },
+  {
+    "id": 121,
+    "subject": "Kiswahili",
+    "question": "Sentensi 'Gari limeharibika' imekanushwa ipasavyo kama...",
+    "options": {
+      "A": "Gari halikuharibika",
+      "B": "Gari halitaharibika",
+      "C": "Gari halijaharibika",
+      "D": "Gari siharibiki"
+    },
+    "correctAnswer": "C",
+    "explanation": "Wakati uliopo timilifu (perfect tense) '-me-' hukanushwa kwa kutumia kiambishi '-ja-'. Hivyo, 'limeharibika' inakuwa 'halijaharibika'."
+  },
+  {
+    "id": 122,
+    "subject": "Social Studies",
+    "question": "The 'Big Five' game animals in Kenya include the lion, leopard, rhinoceros, elephant, and...",
+    "options": {
+      "A": "Giraffe",
+      "B": "Zebra",
+      "C": "Cheetah",
+      "D": "Cape Buffalo"
+    },
+    "correctAnswer": "D",
+    "explanation": "The term 'Big Five' was coined by big-game hunters and refers to the five most difficult animals in Africa to hunt on foot. They are the African lion, African leopard, African bush elephant, black rhinoceros, and the Cape buffalo."
+  },
+  {
+    "id": 123,
+    "subject": "Agriculture",
+    "question": "Which farming system involves the keeping of animals and the growing of crops on the same farm?",
+    "options": {
+      "A": "Pastoralism",
+      "B": "Arable farming",
+      "C": "Mixed farming",
+      "D": "Ranching"
+    },
+    "correctAnswer": "C",
+    "explanation": "Mixed farming is a type of agriculture that involves both the growing of crops and the raising of livestock. This system allows for nutrient recycling, as manure from animals can be used to fertilize crops."
+  },
+  {
+    "id": 124,
+    "subject": "Home Science",
+    "question": "Which of the following is a water-borne disease?",
+    "options": {
+      "A": "Malaria",
+      "B": "Tuberculosis",
+      "C": "Cholera",
+      "D": "Measles"
+    },
+    "correctAnswer": "C",
+    "explanation": "Water-borne diseases are caused by pathogenic microorganisms that are most commonly transmitted in contaminated fresh water. Cholera is a classic example, often spread through contaminated drinking water or food."
+  },
+  {
+    "id": 125,
+    "subject": "Pre-Technical Studies",
+    "question": "What is the purpose of a fuse in an electrical circuit?",
+    "options": {
+      "A": "To increase the voltage",
+      "B": "To act as a switch",
+      "C": "To protect the circuit from excessive current",
+      "D": "To store electrical energy"
+    },
+    "correctAnswer": "C",
+    "explanation": "A fuse is a safety device containing a wire designed to melt and open the circuit if the current exceeds a safe level, thus preventing damage to the appliance or causing a fire."
+  },
+  {
+    "id": 126,
+    "subject": "Creative Art",
+    "question": "The use of light and shadow in a drawing or painting to create the illusion of three-dimensional form is called?",
+    "options": {
+      "A": "Hatching",
+      "B": "Shading",
+      "C": "Outlining",
+      "D": "Sketching"
+    },
+    "correctAnswer": "B",
+    "explanation": "Shading is used in drawing for depicting levels of darkness on paper by applying media more densely or with a darker shade for darker areas, and less densely or with a lighter shade for lighter areas."
+  },
+  {
+    "id": 127,
+    "subject": "sports",
+    "question": "Which city hosted the 2016 Summer Olympics?",
+    "options": {
+      "A": "London",
+      "B": "Tokyo",
+      "C": "Rio de Janeiro",
+      "D": "Beijing"
+    },
+    "correctAnswer": "C",
+    "explanation": "The 2016 Summer Olympics, officially known as the Games of the XXXI Olympiad, were held in Rio de Janeiro, Brazil."
+  },
+  {
+    "id": 128,
+    "subject": "Mathematics",
+    "question": "If a car travels at a speed of 60 km/h, how far will it travel in 3 hours?",
+    "options": {
+      "A": "20 km",
+      "B": "120 km",
+      "C": "180 km",
+      "D": "240 km"
+    },
+    "correctAnswer": "C",
+    "explanation": "Distance is calculated by multiplying speed by time (Distance = Speed × Time). So, 60 km/h × 3 h = 180 km."
+  },
+  {
+    "id": 129,
+    "subject": "English",
+    "question": "The main character in a story is called the...",
+    "options": {
+      "A": "Antagonist",
+      "B": "Protagonist",
+      "C": "Narrator",
+      "D": "Author"
+    },
+    "correctAnswer": "B",
+    "explanation": "The protagonist is the central character or leading figure in poetry, narrative, novel or any other story. The antagonist is the character who opposes the protagonist."
+  },
+  {
+    "id": 130,
+    "subject": "Kiswahili",
+    "question": "Kazi ya fasihi ambayo huigizwa jukwaani huitwaje?",
+    "options": {
+      "A": "Riwaya",
+      "B": "Ushairi",
+      "C": "Tamthilia",
+      "D": "Hadithi fupi"
+    },
+    "correctAnswer": "C",
+    "explanation": "Tamthilia ni utungo wa kisanaa unaowasilishwa kwa njia ya mazungumzo na matendo, na ambao umeandikwa ili uigizwe mbele ya hadhira."
+  },
+  {
+    "id": 131,
+    "subject": "Social Studies",
+    "question": "What is democracy?",
+    "options": {
+      "A": "A system of government by one person with absolute power.",
+      "B": "A system of government where the military is in control.",
+      "C": "A system of government by the whole population, typically through elected representatives.",
+      "D": "A system of government based on religious law."
+    },
+    "correctAnswer": "C",
+    "explanation": "The word democracy comes from the Greek words 'demos', meaning people, and 'kratos' meaning power; so democracy can be thought of as 'power of the people'."
+  },
+  {
+    "id": 132,
+    "subject": "Agriculture",
+    "question": "The process of providing water to crops artificially is called?",
+    "options": {
+      "A": "Irrigation",
+      "B": "Precipitation",
+      "C": "Fertilization",
+      "D": "Harvesting"
+    },
+    "correctAnswer": "A",
+    "explanation": "Irrigation is the agricultural process of applying controlled amounts of water to land to assist in the production of crops, especially in areas with insufficient rainfall."
+  },
+  {
+    "id": 133,
+    "subject": "Home Science",
+    "question": "Which of these is a good source of calcium?",
+    "options": {
+      "A": "Oranges",
+      "B": "Bread",
+      "C": "Milk",
+      "D": "Meat"
+    },
+    "correctAnswer": "C",
+    "explanation": "Dairy products like milk, yogurt, and cheese are rich sources of calcium, which is essential for building and maintaining strong bones and teeth."
+  },
+  {
+    "id": 134,
+    "subject": "Pre-Technical Studies",
+    "question": "Which drawing instrument is used to draw circles and arcs?",
+    "options": {
+      "A": "Set square",
+      "B": "Protractor",
+      "C": "T-square",
+      "D": "A pair of compasses"
+    },
+    "correctAnswer": "D",
+    "explanation": "A pair of compasses is a technical drawing instrument that can be used for inscribing circles or arcs. It can also be used as a tool to measure distances."
+  },
+  {
+    "id": 135,
+    "subject": "Creative Art",
+    "question": "A type of fine art printmaking where an image is incised into a surface is known as?",
+    "options": {
+      "A": "Lithography",
+      "B": "Screen printing",
+      "C": "Engraving",
+      "D": "Monotyping"
+    },
+    "correctAnswer": "C",
+    "explanation": "Engraving is an intaglio printmaking process in which lines are cut into a metal plate in order to hold the ink. The plate is then used to print the image."
+  },
+  {
+    "id": 136,
+    "subject": "sports",
+    "question": "What is the object used to hit the ball in the sport of cricket?",
+    "options": {
+      "A": "A stick",
+      "B": "A club",
+      "C": "A bat",
+      "D": "A racket"
+    },
+    "correctAnswer": "C",
+    "explanation": "In cricket, a batsman uses a wooden bat to strike the hard, leather-bound ball."
+  },
+  {
+    "id": 137,
+    "subject": "Mathematics",
+    "question": "Simplify the ratio 15:25.",
+    "options": {
+      "A": "1:2",
+      "B": "3:5",
+      "C": "5:3",
+      "D": "15:25"
+    },
+    "correctAnswer": "B",
+    "explanation": "To simplify a ratio, find the greatest common divisor (GCD) of both numbers and divide them by it. The GCD of 15 and 25 is 5. 15 ÷ 5 = 3 and 25 ÷ 5 = 5. The simplified ratio is 3:5."
+  },
+  {
+    "id": 138,
+    "subject": "English",
+    "question": "Which sentence uses 'their', 'there', and 'they're' correctly?",
+    "options": {
+      "A": "Their going to leave there car over they're.",
+      "B": "They're going to leave their car over there.",
+      "C": "There going to leave they're car over their.",
+      "D": "They're going to leave there car over their."
+    },
+    "correctAnswer": "B",
+    "explanation": "'They're' is a contraction of 'they are'. 'Their' is a possessive pronoun. 'There' refers to a place or location."
+  },
+  {
+    "id": 139,
+    "subject": "Kiswahili",
+    "question": "Jina la pamoja la kundi la nyuki ni nini?",
+    "options": {
+      "A": "Kundi",
+      "B": "Tuta",
+      "C": "Mzinga",
+      "D": "Rundo"
+    },
+    "correctAnswer": "B",
+    "explanation": "Jina la pamoja (collective noun) linalotumika kurejelea kundi kubwa la nyuki (hasa wanapohama) ni 'tuta'. 'Mzinga' ni makazi yao."
+  },
+  {
+    "id": 140,
+    "subject": "Social Studies",
+    "question": "What is citizenship?",
+    "options": {
+      "A": "The act of living in a city",
+      "B": "The position or status of being a citizen of a particular country",
+      "C": "The right to vote in an election",
+      "D": "A document that allows you to travel"
+    },
+    "correctAnswer": "B",
+    "explanation": "Citizenship is the relationship between an individual and a state to which the individual owes allegiance and in turn is entitled to its protection. It implies status with accompanying rights and responsibilities."
+  },
+  {
+    "id": 141,
+    "subject": "Agriculture",
+    "question": "The male parent of a chicken is called a...",
+    "options": {
+      "A": "Hen",
+      "B": "Chick",
+      "C": "Rooster",
+      "D": "Pullet"
+    },
+    "correctAnswer": "C",
+    "explanation": "A rooster, also known as a cockerel or cock, is the adult male chicken. A hen is the female, a chick is a baby, and a pullet is a young female."
+  },
+  {
+    "id": 142,
+    "subject": "Home Science",
+    "question": "Personal hygiene refers to...",
+    "options": {
+      "A": "Keeping the house clean",
+      "B": "Maintaining cleanliness of one's own body and clothing",
+      "C": "Cooking food properly",
+      "D": "Washing dishes after meals"
+    },
+    "correctAnswer": "B",
+    "explanation": "Personal hygiene involves all the practices performed by an individual to care for one's bodily health and well-being, through cleanliness. It includes bathing, washing hands, brushing teeth, etc."
+  },
+  {
+    "id": 143,
+    "subject": "Pre-Technical Studies",
+    "question": "What type of energy is generated by a flowing river?",
+    "options": {
+      "A": "Solar energy",
+      "B": "Wind energy",
+      "C": "Geothermal energy",
+      "D": "Hydroelectric energy"
+    },
+    "correctAnswer": "D",
+    "explanation": "Hydroelectric energy, or hydropower, is a form of renewable energy that uses the water stored in dams, as well as flowing in rivers, to create electricity."
+  },
+  {
+    "id": 144,
+    "subject": "Creative Art",
+    "question": "A light, transparent watercolor paint is known as a...",
+    "options": {
+      "A": "Wash",
+      "B": "Glaze",
+      "C": "Gouache",
+      "D": "Tempera"
+    },
+    "correctAnswer": "A",
+    "explanation": "In watercolor painting, a wash is a term for a visual layer of paint that is diluted with water, creating a semi-transparent effect."
+  },
+  {
+    "id": 145,
+    "subject": "sports",
+    "question": "What is the maximum number of substitutions a team can make in a standard football (soccer) match?",
+    "options": {
+      "A": "3",
+      "B": "5",
+      "C": "7",
+      "D": "11"
+    },
+    "correctAnswer": "B",
+    "explanation": "As of rules updated by IFAB, teams in top-level competitions are permitted to use a maximum of five substitutions."
+  },
+  {
+    "id": 146,
+    "subject": "Mathematics",
+    "question": "Which of these numbers is NOT a factor of 24?",
+    "options": {
+      "A": "4",
+      "B": "6",
+      "C": "8",
+      "D": "9"
+    },
+    "correctAnswer": "D",
+    "explanation": "A factor is a number that divides into another number exactly and without leaving a remainder. 24 can be divided by 4, 6, and 8, but not by 9."
+  },
+  {
+    "id": 147,
+    "subject": "English",
+    "question": "The phrase 'it's raining cats and dogs' is an example of...",
+    "options": {
+      "A": "A simile",
+      "B": "A metaphor",
+      "C": "An idiom",
+      "D": "Personification"
+    },
+    "correctAnswer": "C",
+    "explanation": "An idiom is a phrase or an expression that has a figurative, or sometimes literal, meaning. 'Raining cats and dogs' means it is raining very heavily."
+  },
+  {
+    "id": 148,
+    "subject": "Kiswahili",
+    "question": "Ni kiungo gani cha mwili kinachotumika kwa kusikia?",
+    "options": {
+      "A": "Jicho",
+      "B": "Pua",
+      "C": "Ulimi",
+      "D": "Sikio"
+    },
+    "correctAnswer": "D",
+    "explanation": "Sikio ndicho kiungo cha mwili kinachohusika na hisia za usikivu. Jicho ni la kuona, pua ni la kunusa, na ulimi ni la kuonja."
+  },
+  {
+    "id": 149,
+    "subject": "Social Studies",
+    "question": "The process of sharing powers between the national and county governments is known as...",
+    "options": {
+      "A": "Democracy",
+      "B": "Devolution",
+      "C": "Decentralization",
+      "D": "Delegation"
+    },
+    "correctAnswer": "B",
+    "explanation": "Devolution is the statutory delegation of powers from the central government of a sovereign state to govern at a subnational level, such as a regional or local level. In Kenya, this is from the national to county governments."
+  },
+  {
+    "id": 150,
+    "subject": "Agriculture",
+    "question": "The controlled decomposition of organic matter, such as food scraps and yard waste, is called?",
+    "options": {
+      "A": "Fertilizing",
+      "B": "Composting",
+      "C": "Mulching",
+      "D": "Eroding"
+    },
+    "correctAnswer": "B",
+    "explanation": "Composting is a process that turns organic materials into a dark, rich soil conditioner known as compost. It is a form of recycling and is very beneficial for soil health."
+  },
+  {
+    "id": 151,
+    "subject": "Home Science",
+    "question": "Which of the following is a symptom of malaria?",
+    "options": {
+      "A": "Stomach ache",
+      "B": "High fever and chills",
+      "C": "A skin rash",
+      "D": "A broken bone"
+    },
+    "correctAnswer": "B",
+    "explanation": "The classic symptoms of malaria, a disease spread by mosquitoes, include cycles of high fever, shaking chills, and sweating."
+  },
+  {
+    "id": 152,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these is a renewable source of energy?",
+    "options": {
+      "A": "Coal",
+      "B": "Natural Gas",
+      "C": "Petroleum",
+      "D": "Solar Power"
+    },
+    "correctAnswer": "D",
+    "explanation": "Renewable energy sources are naturally replenished. Solar power from the sun is renewable, whereas fossil fuels like coal, oil, and natural gas are non-renewable."
+  },
+  {
+    "id": 153,
+    "subject": "Creative Art",
+    "question": "The principle of design that refers to the distribution of visual weight in a work of art is...",
+    "options": {
+      "A": "Rhythm",
+      "B": "Balance",
+      "C": "Contrast",
+      "D": "Emphasis"
+    },
+    "correctAnswer": "B",
+    "explanation": "Balance is a principle of design concerned with arranging the elements in a piece so that there is an equality of visual weight. It can be symmetrical, asymmetrical, or radial."
+  },
+  {
+    "id": 154,
+    "subject": "sports",
+    "question": "How long is a standard Olympic swimming pool?",
+    "options": {
+      "A": "25 meters",
+      "B": "50 meters",
+      "C": "75 meters",
+      "D": "100 meters"
+    },
+    "correctAnswer": "B",
+    "explanation": "A standard Olympic-sized swimming pool is 50 meters in length, which qualifies it as a long course pool."
+  },
+  {
+    "id": 155,
+    "subject": "Mathematics",
+    "question": "What is the area of a triangle with a base of 10 cm and a height of 8 cm?",
+    "options": {
+      "A": "18 cm²",
+      "B": "40 cm²",
+      "C": "80 cm²",
+      "D": "9 cm²"
+    },
+    "correctAnswer": "B",
+    "explanation": "The area of a triangle is calculated using the formula A = 1/2 × base × height. So, A = 1/2 × 10 cm × 8 cm = 40 cm²."
+  },
+  {
+    "id": 156,
+    "subject": "English",
+    "question": "A word that sounds the same as another word but has a different meaning and spelling is a...",
+    "options": {
+      "A": "Homophone",
+      "B": "Synonym",
+      "C": "Antonym",
+      "D": "Palindrome"
+    },
+    "correctAnswer": "A",
+    "explanation": "A homophone is a word that is pronounced the same as another word but differs in meaning. Examples include 'to', 'too', and 'two'."
+  },
+  {
+    "id": 157,
+    "subject": "Kiswahili",
+    "question": "Neno 'mwalimu' liko katika ngeli gani?",
+    "options": {
+      "A": "A-WA",
+      "B": "U-I",
+      "C": "I-ZI",
+      "D": "KI-VI"
+    },
+    "correctAnswer": "A",
+    "explanation": "Neno 'mwalimu' liko katika ngeli ya A-WA kwa sababu linawakilisha mtu. Umoja ni 'mwalimu' (a-) na wingi ni 'walimu' (wa-)."
+  },
+  {
+    "id": 158,
+    "subject": "Social Studies",
+    "question": "Which body in Kenya is responsible for conducting elections?",
+    "options": {
+      "A": "The Judiciary",
+      "B": "The National Police Service",
+      "C": "The Independent Electoral and Boundaries Commission (IEBC)",
+      "D": "The Parliament"
+    },
+    "correctAnswer": "C",
+    "explanation": "The IEBC is an independent regulatory agency that was founded in 2011 by the Constitution of Kenya. It is responsible for conducting or supervising referenda and elections to any elective body or office established by the Constitution."
+  },
+  {
+    "id": 159,
+    "subject": "Agriculture",
+    "question": "Which of these animals is a ruminant?",
+    "options": {
+      "A": "Pig",
+      "B": "Chicken",
+      "C": "Cow",
+      "D": "Horse"
+    },
+    "correctAnswer": "C",
+    "explanation": "Ruminants are mammals that are able to acquire nutrients from plant-based food by fermenting it in a specialized stomach prior to digestion. Cows, goats, and sheep are ruminants."
+  },
+  {
+    "id": 160,
+    "subject": "Home Science",
+    "question": "The process of cleaning clothes and other textiles is called?",
+    "options": {
+      "A": "Cooking",
+      "B": "Mending",
+      "C": "Laundering",
+      "D": "Budgeting"
+    },
+    "correctAnswer": "C",
+    "explanation": "Laundering is the process of washing or dry-cleaning clothing and other textiles. It includes washing, drying, and ironing."
+  },
+  {
+    "id": 161,
+    "subject": "Pre-Technical Studies",
+    "question": "A material that allows electricity to pass through it easily is called a...",
+    "options": {
+      "A": "Insulator",
+      "B": "Conductor",
+      "C": "Resistor",
+      "D": "Semiconductor"
+    },
+    "correctAnswer": "B",
+    "explanation": "An electrical conductor is a substance in which electrical charge carriers, usually electrons, move easily from atom to atom with the application of voltage. Metals like copper and aluminum are good conductors."
+  },
+  {
+    "id": 162,
+    "subject": "Creative Art",
+    "question": "The material that an artist uses to create a work of art is called the...",
+    "options": {
+      "A": "Technique",
+      "B": "Style",
+      "C": "Medium",
+      "D": "Subject"
+    },
+    "correctAnswer": "C",
+    "explanation": "The term medium refers to the materials that are used to create a work of art. Examples include paint, clay, charcoal, and bronze."
+  },
+  {
+    "id": 163,
+    "subject": "sports",
+    "question": "A standard game of chess is played on a board with how many squares?",
+    "options": {
+      "A": "36",
+      "B": "49",
+      "C": "64",
+      "D": "100"
+    },
+    "correctAnswer": "C",
+    "explanation": "A chessboard is a square board with an 8x8 grid of 64 squares of alternating colors."
+  },
+  {
+    "id": 164,
+    "subject": "Mathematics",
+    "question": "How many millimeters are in one meter?",
+    "options": {
+      "A": "10",
+      "B": "100",
+      "C": "1000",
+      "D": "10000"
+    },
+    "correctAnswer": "C",
+    "explanation": "The metric system is base-10. There are 100 centimeters in a meter, and 10 millimeters in a centimeter. Therefore, 100 x 10 = 1000 millimeters in a meter."
+  },
+  {
+    "id": 165,
+    "subject": "English",
+    "question": "The comparative form of the adjective 'good' is...",
+    "options": {
+      "A": "Gooder",
+      "B": "More good",
+      "C": "Best",
+      "D": "Better"
+    },
+    "correctAnswer": "D",
+    "explanation": "'Good' is an irregular adjective. Its comparative form is 'better', and its superlative form is 'best'."
+  },
+  {
+    "id": 166,
+    "subject": "Kiswahili",
+    "question": "Chombo cha usafiri kinachopaa angani ni kipi?",
+    "options": {
+      "A": "Meli",
+      "B": "Treni",
+      "C": "Basi",
+      "D": "Ndege"
+    },
+    "correctAnswer": "D",
+    "explanation": "Ndege (aeroplane) ni chombo cha usafiri kinachotumia mabawa na injini kusafiri hewani. Meli husafiri majini, na treni na basi husafiri ardhini."
+  },
+  {
+    "id": 167,
+    "subject": "Social Studies",
+    "question": "What is the national language of Kenya?",
+    "options": {
+      "A": "English",
+      "B": "Kiswahili",
+      "C": "French",
+      "D": "There is no national language"
+    },
+    "correctAnswer": "B",
+    "explanation": "The Constitution of Kenya establishes Kiswahili as the national language and both Kiswahili and English as the official languages."
+  },
+  {
+    "id": 168,
+    "subject": "Agriculture",
+    "question": "The practice of clearing a piece of land by burning the vegetation, cultivating it for a few years, and then abandoning it is known as?",
+    "options": {
+      "A": "Crop rotation",
+      "B": "Shifting cultivation",
+      "C": "Intensive farming",
+      "D": "Agroforestry"
+    },
+    "correctAnswer": "B",
+    "explanation": "Shifting cultivation, also known as slash-and-burn agriculture, is a farming method that involves clearing land, farming it until the soil is depleted of nutrients, and then moving to a new plot."
+  },
+  {
+    "id": 169,
+    "subject": "Home Science",
+    "question": "The immediate care given to a victim of an accident or sudden illness before medical help is available is called?",
+    "options": {
+      "A": "Diagnosis",
+      "B": "Treatment",
+      "C": "First Aid",
+      "D": "Surgery"
+    },
+    "correctAnswer": "C",
+    "explanation": "First aid is the first and immediate assistance given to any person suffering from either a minor or serious illness or injury, with care provided to preserve life, prevent the condition from worsening, or to promote recovery."
+  },
+  {
+    "id": 170,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these is NOT a simple machine?",
+    "options": {
+      "A": "Lever",
+      "B": "Pulley",
+      "C": "Engine",
+      "D": "Inclined Plane"
+    },
+    "correctAnswer": "C",
+    "explanation": "The six classical simple machines are the lever, wheel and axle, pulley, inclined plane, wedge, and screw. An engine is a complex machine made up of many parts, including simple machines."
+  },
+  {
+    "id": 171,
+    "subject": "Creative Art",
+    "question": "The path of a moving point through space is the definition of which element of art?",
+    "options": {
+      "A": "Shape",
+      "B": "Texture",
+      "C": "Form",
+      "D": "Line"
+    },
+    "correctAnswer": "D",
+    "explanation": "A line is the most basic element of art. It is defined as a mark made on a surface that connects two points and can be used to define shapes, create texture, and suggest form and movement."
+  },
+  {
+    "id": 172,
+    "subject": "sports",
+    "question": "Which country won the first ever FIFA World Cup in 1930?",
+    "options": {
+      "A": "Brazil",
+      "B": "Argentina",
+      "C": "Uruguay",
+      "D": "Italy"
+    },
+    "correctAnswer": "C",
+    "explanation": "The first FIFA World Cup was hosted and won by Uruguay in 1930. They defeated Argentina 4-2 in the final."
+  },
+  {
+    "id": 173,
+    "subject": "Mathematics",
+    "question": "A number that is a multiple of 2 is called an...",
+    "options": {
+      "A": "Odd number",
+      "B": "Even number",
+      "C": "Prime number",
+      "D": "Integer"
+    },
+    "correctAnswer": "B",
+    "explanation": "An even number is an integer that is exactly divisible by 2. Examples include 2, 4, 6, and 8."
+  },
+  {
+    "id": 174,
+    "subject": "English",
+    "question": "A poem that tells a story is called a...",
+    "options": {
+      "A": "Sonnet",
+      "B": "Haiku",
+      "C": "Limerick",
+      "D": "Narrative poem"
+    },
+    "correctAnswer": "D",
+    "explanation": "A narrative poem is a form of poetry that tells a story, often making use of the voices of a narrator and characters as well. It usually has a plot, setting, and characters."
+  },
+  {
+    "id": 175,
+    "subject": "Kiswahili",
+    "question": "Mtu asiyeweza kuona huitwaje?",
+    "options": {
+      "A": "Kiziwi",
+      "B": "Bubu",
+      "C": "Kipofu",
+      "D": "Kilema"
+    },
+    "correctAnswer": "C",
+    "explanation": "Kipofu ni mtu ambaye hana uwezo wa kuona. Kiziwi ni mtu asiyesikia, na bubu ni mtu asiyeweza kusema."
+  },
+  {
+    "id": 176,
+    "subject": "Social Studies",
+    "question": "Which document contains the supreme law of the Republic of Kenya?",
+    "options": {
+      "A": "The Penal Code",
+      "B": "The Constitution",
+      "C": "The Bill of Rights",
+      "D": "The National Anthem"
+    },
+    "correctAnswer": "B",
+    "explanation": "The Constitution of Kenya is the supreme law of the land. Any other law that is inconsistent with the Constitution is void to the extent of the inconsistency."
+  },
+  {
+    "id": 177,
+    "subject": "Agriculture",
+    "question": "What is the process of loosening and turning over soil called?",
+    "options": {
+      "A": "Harvesting",
+      "B": "Weeding",
+      "C": "Ploughing",
+      "D": "Irrigating"
+    },
+    "correctAnswer": "C",
+    "explanation": "Ploughing (or tilling) is the process of preparing land for growing crops. It helps to aerate the soil, mix in organic matter, and control weeds."
+  },
+  {
+    "id": 178,
+    "subject": "Home Science",
+    "question": "Which of these is a method of cooking using dry heat in an oven?",
+    "options": {
+      "A": "Boiling",
+      "B": "Steaming",
+      "C": "Frying",
+      "D": "Baking"
+    },
+    "correctAnswer": "D",
+    "explanation": "Baking is a method of preparing food that uses dry heat, typically in an oven. Boiling and steaming use moist heat (water/steam), and frying uses hot fat or oil."
+  },
+  {
+    "id": 179,
+    "subject": "Pre-Technical Studies",
+    "question": "The force that opposes motion between two surfaces in contact is called...",
+    "options": {
+      "A": "Gravity",
+      "B": "Friction",
+      "C": "Magnetism",
+      "D": "Inertia"
+    },
+    "correctAnswer": "B",
+    "explanation": "Friction is the force resisting the relative motion of solid surfaces, fluid layers, and material elements sliding against each other."
+  },
+  {
+    "id": 180,
+    "subject": "Creative Art",
+    "question": "In pottery, a special oven used to fire clay is called a...",
+    "options": {
+      "A": "Furnace",
+      "B": "Stove",
+      "C": "Kiln",
+      "D": "Grill"
+    },
+    "correctAnswer": "C",
+    "explanation": "A kiln is a thermally insulated chamber, a type of oven, that produces temperatures sufficient to complete some process, such as hardening, drying, or chemical changes. In pottery, it is used to turn clay into ceramic."
+  },
+  {
+    "id": 181,
+    "subject": "sports",
+    "question": "What sport is played at Wimbledon?",
+    "options": {
+      "A": "Golf",
+      "B": "Cricket",
+      "C": "Tennis",
+      "D": "Rugby"
+    },
+    "correctAnswer": "C",
+    "explanation": "The Championships, Wimbledon, commonly known simply as Wimbledon, is the oldest tennis tournament in the world and is widely regarded as the most prestigious."
+  },
+  {
+    "id": 182,
+    "subject": "Mathematics",
+    "question": "What is the volume of a cube with a side length of 4 cm?",
+    "options": {
+      "A": "12 cm³",
+      "B": "16 cm³",
+      "C": "32 cm³",
+      "D": "64 cm³"
+    },
+    "correctAnswer": "D",
+    "explanation": "The volume of a cube is calculated by cubing the side length (V = s³). So, V = 4 cm × 4 cm × 4 cm = 64 cm³."
+  },
+  {
+    "id": 183,
+    "subject": "English",
+    "question": "A comparison between two unlike things using 'like' or 'as' is called a...",
+    "options": {
+      "A": "Metaphor",
+      "B": "Simile",
+      "C": "Personification",
+      "D": "Hyperbole"
+    },
+    "correctAnswer": "B",
+    "explanation": "A simile is a figure of speech that directly compares two things. For example, 'as brave as a lion' or 'sings like an angel'."
+  },
+  {
+    "id": 184,
+    "subject": "Kiswahili",
+    "question": "Wazazi wa mama yako ni nani kwako?",
+    "options": {
+      "A": "Wajomba",
+      "B": "Mashangazi",
+      "C": "Babu na nyanya",
+      "D": "Binamu"
+    },
+    "correctAnswer": "C",
+    "explanation": "Wazazi wa mzazi wako (baba au mama) ni babu (grandfather) na nyanya (grandmother) kwako."
+  },
+  {
+    "id": 185,
+    "subject": "Social Studies",
+    "question": "Which of these is a right of a Kenyan citizen?",
+    "options": {
+      "A": "The right to refuse to pay taxes",
+      "B": "The right to freedom of expression",
+      "C": "The right to disobey laws",
+      "D": "The right to damage public property"
+    },
+    "correctAnswer": "B",
+    "explanation": "The Constitution of Kenya guarantees fundamental rights and freedoms, including the freedom of expression. However, this right comes with responsibilities and does not extend to hate speech or incitement."
+  },
+  {
+    "id": 186,
+    "subject": "Agriculture",
+    "question": "The process by which green plants use sunlight, water, and carbon dioxide to create their own food is called?",
+    "options": {
+      "A": "Respiration",
+      "B": "Transpiration",
+      "C": "Photosynthesis",
+      "D": "Pollination"
+    },
+    "correctAnswer": "C",
+    "explanation": "Photosynthesis is the fundamental process used by plants and other organisms to convert light energy into chemical energy, through a cellular process that creates glucose (food)."
+  },
+  {
+    "id": 187,
+    "subject": "Home Science",
+    "question": "Which of these cleaning agents is best for removing grease?",
+    "options": {
+      "A": "Water",
+      "B": "Vinegar",
+      "C": "Soap or detergent",
+      "D": "Bleach"
+    },
+    "correctAnswer": "C",
+    "explanation": "Soap and detergents have molecules that are hydrophilic (attracted to water) on one end and hydrophobic (repelled by water, but attracted to oil/grease) on the other. This allows them to break up grease and wash it away with water."
+  },
+  {
+    "id": 188,
+    "subject": "Pre-Technical Studies",
+    "question": "What is the unit of measurement for electrical resistance?",
+    "options": {
+      "A": "Volt (V)",
+      "B": "Ampere (A)",
+      "C": "Watt (W)",
+      "D": "Ohm (Ω)"
+    },
+    "correctAnswer": "D",
+    "explanation": "The ohm (symbol: Ω) is the SI derived unit of electrical resistance. The volt measures electric potential, the ampere measures current, and the watt measures power."
+  },
+  {
+    "id": 189,
+    "subject": "Creative Art",
+    "question": "Which color is NOT a primary color?",
+    "options": {
+      "A": "Red",
+      "B": "Yellow",
+      "C": "Green",
+      "D": "Blue"
+    },
+    "correctAnswer": "C",
+    "explanation": "The primary colors are red, yellow, and blue. Green is a secondary color, created by mixing blue and yellow."
+  },
+  {
+    "id": 190,
+    "subject": "sports",
+    "question": "The term 'knockout' or 'KO' is used in which sport?",
+    "options": {
+      "A": "Football",
+      "B": "Boxing",
+      "C": "Swimming",
+      "D": "Basketball"
+    },
+    "correctAnswer": "B",
+    "explanation": "A knockout (KO) is a fight-ending, winning criterion in several full-contact combat sports, such as boxing, kickboxing, and mixed martial arts. It occurs when a participant is unable to rise from the canvas within a specified period of time."
+  },
+  {
+    "id": 191,
+    "subject": "Mathematics",
+    "question": "What is the Roman numeral for 50?",
+    "options": {
+      "A": "X",
+      "B": "L",
+      "C": "C",
+      "D": "D"
+    },
+    "correctAnswer": "B",
+    "explanation": "In Roman numerals, L represents 50. X is 10, C is 100, and D is 500."
+  },
+  {
+    "id": 192,
+    "subject": "English",
+    "question": "An adjective describes a...",
+    "options": {
+      "A": "Verb",
+      "B": "Noun",
+      "C": "Conjunction",
+      "D": "Adverb"
+    },
+    "correctAnswer": "B",
+    "explanation": "An adjective is a word that modifies or describes a noun or pronoun. For example, in 'the red car', 'red' is an adjective describing the noun 'car'."
+  },
+  {
+    "id": 193,
+    "subject": "Kiswahili",
+    "question": "Msemo 'kuvunja ungo' unamaanisha nini?",
+    "options": {
+      "A": "Kuharibu chombo",
+      "B": "Kubalehe au kupevuka",
+      "C": "Kufanya kazi kwa bidii",
+      "D": "Kuanza safari"
+    },
+    "correctAnswer": "B",
+    "explanation": "Katika jamii za Waswahili, 'kuvunja ungo' ni msemo unaorejelea msichana anapofikia umri wa kubalehe, hasa anapoanza kupata hedhi yake ya kwanza."
+  },
+  {
+    "id": 194,
+    "subject": "Social Studies",
+    "question": "What are taxes?",
+    "options": {
+      "A": "Voluntary contributions to the government",
+      "B": "Compulsory financial charges imposed by a government on individuals and businesses",
+      "C": "Fines paid for breaking the law",
+      "D": "Payments for goods and services"
+    },
+    "correctAnswer": "B",
+    "explanation": "Taxes are mandatory contributions levied on individuals or corporations by a government entity to fund government spending and various public expenditures like roads, schools, and healthcare."
+  },
+  {
+    "id": 195,
+    "subject": "Agriculture",
+    "question": "A female cattle that has not had a calf is called a...",
+    "options": {
+      "A": "Cow",
+      "B": "Bull",
+      "C": "Heifer",
+      "D": "Steer"
+    },
+    "correctAnswer": "C",
+    "explanation": "A heifer is a young female cow before she has had her first calf. A cow is a female that has had a calf, a bull is an uncastrated male, and a steer is a castrated male."
+  },
+  {
+    "id": 196,
+    "subject": "Home Science",
+    "question": "The fibre obtained from the fleece of sheep is called...",
+    "options": {
+      "A": "Cotton",
+      "B": "Silk",
+      "C": "Wool",
+      "D": "Linen"
+    },
+    "correctAnswer": "C",
+    "explanation": "Wool is the textile fiber obtained from sheep and other animals. Cotton comes from a plant, silk from silkworms, and linen from the flax plant."
+  },
+  {
+    "id": 197,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these devices converts chemical energy into electrical energy?",
+    "options": {
+      "A": "A motor",
+      "B": "A generator",
+      "C": "A battery",
+      "D": "A light bulb"
+    },
+    "correctAnswer": "C",
+    "explanation": "A battery is a device consisting of one or more electrochemical cells with external connections for powering electrical devices. It stores chemical energy and converts it into electrical energy."
+  },
+  {
+    "id": 198,
+    "subject": "Creative Art",
+    "question": "A collage is an artwork made from...",
+    "options": {
+      "A": "Folding paper into shapes",
+      "B": "Carving wood or stone",
+      "C": "An assemblage of different forms, thus creating a new whole",
+      "D": "Painting directly onto a wet plaster wall"
+    },
+    "correctAnswer": "C",
+    "explanation": "Collage is a technique of art creation, primarily used in the visual arts, by which art results from an assemblage of different forms, thus creating a new whole. A collage may sometimes include magazine and newspaper clippings, ribbons, paint, bits of colored or handmade papers, portions of other artwork or texts, photographs and other found objects, glued to a piece of paper or canvas."
+  },
+  {
+    "id": 199,
+    "subject": "sports",
+    "question": "In which sport would you perform a slam dunk?",
+    "options": {
+      "A": "Volleyball",
+      "B": "Tennis",
+      "C": "Basketball",
+      "D": "Badminton"
+    },
+    "correctAnswer": "C",
+    "explanation": "A slam dunk is a type of shot in basketball that is performed when a player jumps in the air, controls the ball above the horizontal plane of the rim, and scores by putting the ball directly through the basket with one or both hands."
+  },
+  {
+    "id": 200,
+    "subject": "Mathematics",
+    "question": "What does the 'M' in the Roman numeral 'CM' represent?",
+    "options": {
+      "A": "100",
+      "B": "500",
+      "C": "1000",
+      "D": "50"
+    },
+    "correctAnswer": "C",
+    "explanation": "In Roman numerals, M represents 1000. C represents 100. When C comes before M, it means 1000 - 100, so CM is 900."
+  },
+  {
+    "id": 201,
+    "subject": "Mathematics",
+    "question": "A straight line that touches a circle at only one point is called a...",
+    "options": {
+      "A": "Radius",
+      "B": "Chord",
+      "C": "Diameter",
+      "D": "Tangent"
+    },
+    "correctAnswer": "D",
+    "explanation": "In geometry, a tangent line to a curve at a given point is the straight line that 'just touches' the curve at that point. It does not cross through the circle."
+  },
+  {
+    "id": 202,
+    "subject": "English",
+    "question": "A group of fish is known as a...",
+    "options": {
+      "A": "Herd",
+      "B": "Swarm",
+      "C": "School",
+      "D": "Pack"
+    },
+    "correctAnswer": "C",
+    "explanation": "While 'shoal' is also correct, 'school' is a commonly used collective noun for a large group of fish swimming together."
+  },
+  {
+    "id": 203,
+    "subject": "Kiswahili",
+    "question": "Neno 'chai' lina asili ya lugha gani?",
+    "options": {
+      "A": "Kihindi",
+      "B": "Kichina",
+      "C": "Kiajemi",
+      "D": "Kiarabu"
+    },
+    "correctAnswer": "A",
+    "explanation": "Neno 'chai' ni neno kopwa kutoka lugha ya Kihindi (na Kichina kupitia lugha nyingine). Asili yake kuu ni neno 'chá' la Kichina."
+  },
+  {
+    "id": 204,
+    "subject": "Social Studies",
+    "question": "The National Anthem of Kenya is titled...",
+    "options": {
+      "A": "Kenya, My Country",
+      "B": "Ee Mungu Nguvu Yetu",
+      "C": "Harambee Kenya",
+      "D": "Tushangilie Kenya"
+    },
+    "correctAnswer": "B",
+    "explanation": "The title of the Kenyan National Anthem is 'Ee Mungu Nguvu Yetu', which translates to 'O God of all creation'. It is based on a Pokomo lullaby."
+  },
+  {
+    "id": 205,
+    "subject": "Agriculture",
+    "question": "Which of these is a poultry bird?",
+    "options": {
+      "A": "Goat",
+      "B": "Sheep",
+      "C": "Turkey",
+      "D": "Pig"
+    },
+    "correctAnswer": "C",
+    "explanation": "Poultry refers to domesticated birds kept by humans for their eggs, their meat or their feathers. Examples include chickens, turkeys, ducks, and geese."
+  },
+  {
+    "id": 206,
+    "subject": "Home Science",
+    "question": "Which of these is a permanent stitch used for joining fabric firmly?",
+    "options": {
+      "A": "Tacking stitch",
+      "B": "Backstitch",
+      "C": "Basting stitch",
+      "D": "Tailor's tacks"
+    },
+    "correctAnswer": "B",
+    "explanation": "A backstitch is a strong and permanent hand-sewing stitch. Tacking and basting stitches are temporary stitches used to hold fabric in place before the final sewing."
+  },
+  {
+    "id": 207,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of the following is an output device for a computer?",
+    "options": {
+      "A": "Keyboard",
+      "B": "Mouse",
+      "C": "Scanner",
+      "D": "Monitor"
+    },
+    "correctAnswer": "D",
+    "explanation": "An output device is any piece of computer hardware that conveys information to a user. A monitor displays information visually. Keyboards, mice, and scanners are all input devices."
+  },
+  {
+    "id": 208,
+    "subject": "Creative Art",
+    "question": "The property of color that refers to its name (e.g., red, blue, yellow) is called...",
+    "options": {
+      "A": "Value",
+      "B": "Intensity",
+      "C": "Hue",
+      "D": "Shade"
+    },
+    "correctAnswer": "C",
+    "explanation": "Hue is one of the main properties of a color, defined as the pure spectrum color name. Value refers to lightness or darkness, and intensity refers to brightness or dullness."
+  },
+  {
+    "id": 209,
+    "subject": "sports",
+    "question": "What is the name of the stadium in Nairobi that is the home of Kenyan athletics?",
+    "options": {
+      "A": "Kasarani Stadium",
+      "B": "Nyayo National Stadium",
+      "C": "City Stadium",
+      "D": "Kipchoge Keino Stadium"
+    },
+    "correctAnswer": "A",
+    "explanation": "The Moi International Sports Centre, Kasarani, is a multi-purpose stadium in Nairobi. It is the largest stadium in Kenya and primarily hosts athletics and football events."
+  },
+  {
+    "id": 210,
+    "subject": "Mathematics",
+    "question": "What is the least common multiple (LCM) of 4 and 6?",
+    "options": {
+      "A": "2",
+      "B": "10",
+      "C": "12",
+      "D": "24"
+    },
+    "correctAnswer": "C",
+    "explanation": "The LCM is the smallest positive integer that is a multiple of both numbers. Multiples of 4 are 4, 8, 12, 16... Multiples of 6 are 6, 12, 18... The smallest number in both lists is 12."
+  },
+  {
+    "id": 211,
+    "subject": "English",
+    "question": "The sentence 'The cat sat on the mat' is in which tense?",
+    "options": {
+      "A": "Present Tense",
+      "B": "Past Tense",
+      "C": "Future Tense",
+      "D": "Present Perfect Tense"
+    },
+    "correctAnswer": "B",
+    "explanation": "The verb 'sat' is the simple past tense of 'sit', indicating that the action has already happened."
+  },
+  {
+    "id": 212,
+    "subject": "Kiswahili",
+    "question": "Wingi wa neno 'ua' (flower) ni upi?",
+    "options": {
+      "A": "Maua",
+      "B": "Ua",
+      "C": "Nyua",
+      "D": "Vyua"
+    },
+    "correctAnswer": "A",
+    "explanation": "Neno 'ua' liko katika ngeli ya LI-YA. Umoja ni 'ua' (li-) na wingi ni 'maua' (ya-)."
+  },
+  {
+    "id": 213,
+    "subject": "Social Studies",
+    "question": "The exchange of goods and services between countries is called...",
+    "options": {
+      "A": "Domestic trade",
+      "B": "Retail trade",
+      "C": "Wholesale trade",
+      "D": "International trade"
+    },
+    "correctAnswer": "D",
+    "explanation": "International trade is the exchange of capital, goods, and services across international borders or territories. Domestic trade occurs within a country."
+  },
+  {
+    "id": 214,
+    "subject": "Agriculture",
+    "question": "A prolonged period of abnormally low rainfall, leading to a shortage of water is known as a...",
+    "options": {
+      "A": "Flood",
+      "B": "Drought",
+      "C": "Monsoon",
+      "D": "Hurricane"
+    },
+    "correctAnswer": "B",
+    "explanation": "A drought is an event of prolonged shortages in the water supply, whether atmospheric, surface water or ground water."
+  },
+  {
+    "id": 215,
+    "subject": "Home Science",
+    "question": "Which nutrient is essential for vision, growth, and immune function?",
+    "options": {
+      "A": "Vitamin A",
+      "B": "Vitamin K",
+      "C": "Calcium",
+      "D": "Iron"
+    },
+    "correctAnswer": "A",
+    "explanation": "Vitamin A is a fat-soluble vitamin that is important for normal vision, the immune system, and reproduction. It is found in foods like carrots, sweet potatoes, and spinach."
+  },
+  {
+    "id": 216,
+    "subject": "Pre-Technical Studies",
+    "question": "A lever is a simple machine consisting of a beam or rigid rod pivoted at a fixed hinge, or...",
+    "options": {
+      "A": "Axle",
+      "B": "Fulcrum",
+      "C": "Gear",
+      "D": "Wedge"
+    },
+    "correctAnswer": "B",
+    "explanation": "A lever pivots around a fixed point called the fulcrum. The three parts of a lever are the fulcrum, the load (effort), and the resistance."
+  },
+  {
+    "id": 217,
+    "subject": "Creative Art",
+    "question": "The art and science of designing buildings and other physical structures is called...",
+    "options": {
+      "A": "Sculpture",
+      "B": "Architecture",
+      "C": "Calligraphy",
+      "D": "Interior Design"
+    },
+    "correctAnswer": "B",
+    "explanation": "Architecture is both the process and the product of planning, designing, and constructing buildings or other structures."
+  },
+  {
+    "id": 218,
+    "subject": "sports",
+    "question": "David Rudisha is a world record holder in which athletic event?",
+    "options": {
+      "A": "1500 meters",
+      "B": "5000 meters",
+      "C": "Marathon",
+      "D": "800 meters"
+    },
+    "correctAnswer": "D",
+    "explanation": "David Rudisha is a Kenyan middle-distance runner who is the 2012 and 2016 Olympic champion and the world record holder in the 800 metres."
+  },
+  {
+    "id": 219,
+    "subject": "Mathematics",
+    "question": "A shape with four equal sides and four right angles is a...",
+    "options": {
+      "A": "Rectangle",
+      "B": "Rhombus",
+      "C": "Square",
+      "D": "Trapezium"
+    },
+    "correctAnswer": "C",
+    "explanation": "A square is a special type of rectangle (with equal sides) and a special type of rhombus (with right angles)."
+  },
+  {
+    "id": 220,
+    "subject": "English",
+    "question": "A person who writes books is called an...",
+    "options": {
+      "A": "Editor",
+      "B": "Publisher",
+      "C": "Author",
+      "D": "Illustrator"
+    },
+    "correctAnswer": "C",
+    "explanation": "An author is the writer of a book, article, or report. An editor prepares content for publication, a publisher prints and sells books, and an illustrator draws pictures."
+  },
+  {
+    "id": 221,
+    "subject": "Kiswahili",
+    "question": "Methali 'Asiyefunzwa na mamaye, hufunzwa na ulimwengu' ina maana gani?",
+    "options": {
+      "A": "Elimu ya nyumbani ni bora zaidi",
+      "B": "Mtu asiyepata malezi mema nyumbani, hujifunza kwa kupitia magumu maishani",
+      "C": "Mama ndiye mwalimu bora",
+      "D": "Dunia ni shule kubwa"
+    },
+    "correctAnswer": "B",
+    "explanation": "Methali hii inasisitiza umuhimu wa malezi mema kutoka kwa wazazi. Ikiwa mtu hatapata adabu nyumbani, atajifunza kupitia shida na changamoto za maisha ('ulimwengu')."
+  },
+  {
+    "id": 222,
+    "subject": "Social Studies",
+    "question": "What is the highest court in Kenya?",
+    "options": {
+      "A": "The High Court",
+      "B": "The Court of Appeal",
+      "C": "The Supreme Court",
+      "D": "The Magistrate's Court"
+    },
+    "correctAnswer": "C",
+    "explanation": "The Supreme Court of Kenya is the highest judicial organ in the country. It is the final arbiter and interpreter of the Constitution."
+  },
+  {
+    "id": 223,
+    "subject": "Agriculture",
+    "question": "The scientific method of breeding and raising bees is known as...",
+    "options": {
+      "A": "Horticulture",
+      "B": "Sericulture",
+      "C": "Apiculture",
+      "D": "Pisciculture"
+    },
+    "correctAnswer": "C",
+    "explanation": "Apiculture, or beekeeping, is the maintenance of bee colonies, commonly in man-made hives. Sericulture is silk farming and pisciculture is fish farming."
+  },
+  {
+    "id": 224,
+    "subject": "Home Science",
+    "question": "In a formal table setting, where is the dinner fork usually placed?",
+    "options": {
+      "A": "To the right of the plate",
+      "B": "Above the plate",
+      "C": "To the left of the plate",
+      "D": "On the plate itself"
+    },
+    "correctAnswer": "C",
+    "explanation": "In a standard formal setting, the forks are placed to the left of the dinner plate, with the dinner fork being the largest one."
+  },
+  {
+    "id": 225,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these is a safety device worn to protect the eyes?",
+    "options": {
+      "A": "Gloves",
+      "B": "Safety boots",
+      "C": "Helmet",
+      "D": "Goggles"
+    },
+    "correctAnswer": "D",
+    "explanation": "Goggles are forms of protective eyewear that enclose or protect the area surrounding the eye in order to prevent particulates, water or chemicals from striking the eyes."
+  },
+  {
+    "id": 226,
+    "subject": "Creative Art",
+    "question": "A type of weaving where the weft threads are beaten down to completely cover the warp threads is called?",
+    "options": {
+      "A": "Knitting",
+      "B": "Crocheting",
+      "C": "Tapestry",
+      "D": "Macramé"
+    },
+    "correctAnswer": "C",
+    "explanation": "Tapestry is a form of textile art, traditionally woven by hand on a loom. It is weft-faced weaving, in which all the warp threads are hidden in the completed work, unlike cloth weaving where both the warp and the weft threads may be visible."
+  },
+  {
+    "id": 227,
+    "subject": "sports",
+    "question": "How many players are on a standard volleyball team on the court at one time?",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "9"
+    },
+    "correctAnswer": "B",
+    "explanation": "A standard volleyball team consists of six players on the court at any given time. Three are in the front row and three are in the back row."
+  },
+  {
+    "id": 228,
+    "subject": "Mathematics",
+    "question": "Calculate 15 × (4 + 6).",
+    "options": {
+      "A": "66",
+      "B": "90",
+      "C": "150",
+      "D": "120"
+    },
+    "correctAnswer": "C",
+    "explanation": "According to the order of operations (BODMAS/PEMDAS), you must solve the part in the brackets first. 4 + 6 = 10. Then, 15 × 10 = 150."
+  },
+  {
+    "id": 229,
+    "subject": "English",
+    "question": "What type of word is 'run', 'eat', 'sleep'?",
+    "options": {
+      "A": "Noun",
+      "B": "Adjective",
+      "C": "Verb",
+      "D": "Pronoun"
+    },
+    "correctAnswer": "C",
+    "explanation": "These are all verbs, as they describe actions or states of being."
+  },
+  {
+    "id": 230,
+    "subject": "Kiswahili",
+    "question": "Udogo wa neno 'mtu' ni upi?",
+    "options": {
+      "A": "Jitu",
+      "B": "Kitu",
+      "C": "Kijitu",
+      "D": "Watu"
+    },
+    "correctAnswer": "C",
+    "explanation": "Udogo (diminutive) wa nomino 'mtu' ni 'kijitu', unaonyesha mtu mdogo au duni. 'Jitu' ni ukubwa (augmentative)."
+  },
+  {
+    "id": 231,
+    "subject": "Social Studies",
+    "question": "A map's key or legend is used to...",
+    "options": {
+      "A": "Show the direction of North",
+      "B": "Explain the meaning of the symbols used on the map",
+      "C": "Show the distance between places",
+      "D": "Indicate the title of the map"
+    },
+    "correctAnswer": "B",
+    "explanation": "The legend or key on a map explains what the symbols and colors on the map represent, allowing the user to understand the information being presented."
+  },
+  {
+    "id": 232,
+    "subject": "Agriculture",
+    "question": "Which of the following is a method of vegetative propagation?",
+    "options": {
+      "A": "Planting seeds",
+      "B": "Pollination",
+      "C": "Grafting",
+      "D": "Fertilization"
+    },
+    "correctAnswer": "C",
+    "explanation": "Vegetative propagation is a type of asexual reproduction in plants. Grafting is a technique where tissues of plants are joined so as to continue their growth together, combining the characteristics of two plants."
+  },
+  {
+    "id": 233,
+    "subject": "Home Science",
+    "question": "What is the main purpose of adding a raising agent like baking powder to a cake mixture?",
+    "options": {
+      "A": "To add flavor",
+      "B": "To add color",
+      "C": "To make the cake rise and become light",
+      "D": "To preserve the cake"
+    },
+    "correctAnswer": "C",
+    "explanation": "Raising agents (or leavening agents) produce gas bubbles in a dough or batter. This causes the mixture to expand and rise, resulting in a lighter, softer texture."
+  },
+  {
+    "id": 234,
+    "subject": "Pre-Technical Studies",
+    "question": "What is an alloy?",
+    "options": {
+      "A": "A pure chemical element",
+      "B": "A non-metallic material",
+      "C": "A mixture of a metal with at least one other element",
+      "D": "A type of plastic"
+    },
+    "correctAnswer": "C",
+    "explanation": "An alloy is a substance made by melting two or more elements together, at least one of them a metal. For example, brass is an alloy of copper and zinc."
+  },
+  {
+    "id": 235,
+    "subject": "Creative Art",
+    "question": "What do you call a drawing that is a simplified and/or exaggerated representation of a person or situation?",
+    "options": {
+      "A": "A portrait",
+      "B": "A landscape",
+      "C": "A caricature",
+      "D": "A still life"
+    },
+    "correctAnswer": "C",
+    "explanation": "A caricature is a rendered image showing the features of its subject in a simplified or exaggerated way through sketching, pencil strokes, or other artistic drawings."
+  },
+  {
+    "id": 236,
+    "subject": "sports",
+    "question": "In which country did the sport of rugby originate?",
+    "options": {
+      "A": "Australia",
+      "B": "South Africa",
+      "C": "New Zealand",
+      "D": "England"
+    },
+    "correctAnswer": "D",
+    "explanation": "The sport of rugby football is said to have originated at Rugby School in Rugby, Warwickshire, England, in 1823."
+  },
+  {
+    "id": 237,
+    "subject": "Mathematics",
+    "question": "How many degrees are in a right angle?",
+    "options": {
+      "A": "45 degrees",
+      "B": "90 degrees",
+      "C": "180 degrees",
+      "D": "360 degrees"
+    },
+    "correctAnswer": "B",
+    "explanation": "A right angle is an angle of exactly 90 degrees, corresponding to a quarter turn."
+  },
+  {
+    "id": 238,
+    "subject": "English",
+    "question": "The book was written ___ Jane. Which preposition fits in the blank?",
+    "options": {
+      "A": "by",
+      "B": "with",
+      "C": "from",
+      "D": "at"
+    },
+    "correctAnswer": "A",
+    "explanation": "The preposition 'by' is used to show who created or did something. Therefore, 'The book was written by Jane' is correct."
+  },
+  {
+    "id": 239,
+    "subject": "Kiswahili",
+    "question": "Mtu anayeongoza chombo cha angani, kama vile ndege, huitwa nani?",
+    "options": {
+      "A": "Nahodha",
+      "B": "Dereva",
+      "C": "Rubani",
+      "D": "Kondakta"
+    },
+    "correctAnswer": "C",
+    "explanation": "Rubani (pilot) ndiye mtu aliyefunzwa kuendesha chombo cha angani. Nahodha huongoza meli na dereva huendesha gari."
+  },
+  {
+    "id": 240,
+    "subject": "Social Studies",
+    "question": "The movement of people from rural areas to urban areas is known as...",
+    "options": {
+      "A": "Immigration",
+      "B": "Emigration",
+      "C": "Urbanization",
+      "D": "Migration"
+    },
+    "correctAnswer": "C",
+    "explanation": "Urbanization refers to the population shift from rural to urban areas, the corresponding decrease in the proportion of people living in rural areas, and the ways in which societies adapt to this change."
+  },
+  {
+    "id": 241,
+    "subject": "Agriculture",
+    "question": "The practice of rotating different crops in a sequence on the same land is called?",
+    "options": {
+      "A": "Monoculture",
+      "B": "Intercropping",
+      "C": "Crop rotation",
+      "D": "Mixed farming"
+    },
+    "correctAnswer": "C",
+    "explanation": "Crop rotation is the practice of growing a series of different types of crops in the same area across a sequence of growing seasons. It reduces reliance on one set of nutrients, pest and weed pressure, and the probability of developing resistant pests and weeds."
+  },
+  {
+    "id": 242,
+    "subject": "Home Science",
+    "question": "Which of these is NOT a basic food group?",
+    "options": {
+      "A": "Fruits",
+      "B": "Vegetables",
+      "C": "Sugars",
+      "D": "Grains"
+    },
+    "correctAnswer": "C",
+    "explanation": "The basic food groups are typically categorized as fruits, vegetables, grains, protein foods, and dairy. While sugars provide energy, they are not considered a foundational food group for a healthy diet."
+  },
+  {
+    "id": 243,
+    "subject": "Pre-Technical Studies",
+    "question": "The central processing unit (CPU) is often referred to as the ___ of the computer.",
+    "options": {
+      "A": "Memory",
+      "B": "Brain",
+      "C": "Heart",
+      "D": "Eye"
+    },
+    "correctAnswer": "B",
+    "explanation": "The CPU is called the 'brain' of the computer because it performs most of the processing inside the computer, executing instructions and performing calculations."
+  },
+  {
+    "id": 244,
+    "subject": "Creative Art",
+    "question": "Which of these is a principle of design?",
+    "options": {
+      "A": "Line",
+      "B": "Shape",
+      "C": "Color",
+      "D": "Contrast"
+    },
+    "correctAnswer": "D",
+    "explanation": "Contrast is a principle of design that refers to the arrangement of opposite elements (light vs. dark colors, rough vs. smooth textures, large vs. small shapes, etc.) in a piece so as to create visual interest. Line, shape, and color are elements of art."
+  },
+  {
+    "id": 245,
+    "subject": "sports",
+    "question": "In athletics, a relay race is run by a...",
+    "options": {
+      "A": "Single person",
+      "B": "Pair of runners",
+      "C": "Team of runners",
+      "D": "Group of marathoners"
+    },
+    "correctAnswer": "C",
+    "explanation": "A relay race is a track and field event in which a team of runners (typically four) run a set distance, passing a baton to the next runner."
+  },
+  {
+    "id": 246,
+    "subject": "Mathematics",
+    "question": "What is the value of 2³ (2 cubed)?",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "8",
+      "D": "9"
+    },
+    "correctAnswer": "C",
+    "explanation": "Cubing a number means multiplying it by itself three times. 2³ = 2 × 2 × 2 = 8."
+  },
+  {
+    "id": 247,
+    "subject": "English",
+    "question": "A play is divided into sections called...",
+    "options": {
+      "A": "Chapters",
+      "B": "Stanzas",
+      "C": "Acts and Scenes",
+      "D": "Paragraphs"
+    },
+    "correctAnswer": "C",
+    "explanation": "A play is typically structured into major divisions called acts, which are further divided into smaller sections called scenes. Books have chapters, poems have stanzas, and prose has paragraphs."
+  },
+  {
+    "id": 248,
+    "subject": "Kiswahili",
+    "question": "Mnyama anayefanana na binadamu na huishi mitini ni yupi?",
+    "options": {
+      "A": "Simba",
+      "B": "Tumbili",
+      "C": "Twiga",
+      "D": "Kifaru"
+    },
+    "correctAnswer": "B",
+    "explanation": "Tumbili au nyani (monkey/ape) ni wanyama wanaofanana na binadamu kwa maumbile na tabia fulani, na wengi wao huishi juu ya miti."
+  },
+  {
+    "id": 249,
+    "subject": "Social Studies",
+    "question": "Which of these is a fossil fuel?",
+    "options": {
+      "A": "Wood",
+      "B": "Solar energy",
+      "C": "Coal",
+      "D": "Wind energy"
+    },
+    "correctAnswer": "C",
+    "explanation": "Fossil fuels are natural fuels such as coal, oil, and natural gas, formed in the geological past from the remains of living organisms."
+  },
+  {
+    "id": 250,
+    "subject": "Agriculture",
+    "question": "The practice of keeping farm animals is known as...",
+    "options": {
+      "A": "Horticulture",
+      "B": "Crop farming",
+      "C": "Livestock farming",
+      "D": "Forestry"
+    },
+    "correctAnswer": "C",
+    "explanation": "Livestock farming or animal husbandry is the branch of agriculture concerned with animals that are raised for meat, fibre, eggs, milk, or other products."
+  },
+  {
+    "id": 251,
+    "subject": "Home Science",
+    "question": "A list of dishes available at a restaurant is called a...",
+    "options": {
+      "A": "Recipe",
+      "B": "Budget",
+      "C": "Menu",
+      "D": "Schedule"
+    },
+    "correctAnswer": "C",
+    "explanation": "A menu is a list of food and beverages offered to customers and the prices. A recipe provides instructions on how to prepare a dish."
+  },
+  {
+    "id": 252,
+    "subject": "Pre-Technical Studies",
+    "question": "The tool used to drive nails into wood is a...",
+    "options": {
+      "A": "Screwdriver",
+      "B": "Hammer",
+      "C": "Pliers",
+      "D": "Wrench"
+    },
+    "correctAnswer": "B",
+    "explanation": "A hammer is a tool consisting of a weighted 'head' fixed to a long handle that is swung to deliver an impact to a small area of an object, such as driving a nail."
+  },
+  {
+    "id": 253,
+    "subject": "Creative Art",
+    "question": "The relative lightness or darkness of a color is called its...",
+    "options": {
+      "A": "Hue",
+      "B": "Intensity",
+      "C": "Value",
+      "D": "Saturation"
+    },
+    "correctAnswer": "C",
+    "explanation": "In color theory, value, also known as lightness or tone, is a property of a color that describes how light or dark it is. A tint is a color with white added, and a shade is a color with black added."
+  },
+  {
+    "id": 254,
+    "subject": "sports",
+    "question": "Which sport is known as 'The Beautiful Game'?",
+    "options": {
+      "A": "Cricket",
+      "B": "Rugby",
+      "C": "Tennis",
+      "D": "Football (Soccer)"
+    },
+    "correctAnswer": "D",
+    "explanation": "Football (soccer) is often referred to as 'The Beautiful Game' ('O Jogo Bonito' in Portuguese), a nickname popularized by the Brazilian footballer Pelé."
+  },
+  {
+    "id": 255,
+    "subject": "Mathematics",
+    "question": "What is the perimeter of a rectangle with length 10m and width 7m?",
+    "options": {
+      "A": "17 m",
+      "B": "34 m",
+      "C": "70 m",
+      "D": "24 m"
+    },
+    "correctAnswer": "B",
+    "explanation": "The perimeter of a rectangle is calculated using the formula P = 2(L + W). So, P = 2(10m + 7m) = 2(17m) = 34 m."
+  },
+  {
+    "id": 256,
+    "subject": "English",
+    "question": "The superlative form of the adjective 'tall' is...",
+    "options": {
+      "A": "Taller",
+      "B": "Tallest",
+      "C": "More tall",
+      "D": "Most tall"
+    },
+    "correctAnswer": "B",
+    "explanation": "For most one-syllable adjectives, the comparative is formed by adding '-er' and the superlative by adding '-est'. So, tall (positive), taller (comparative), tallest (superlative)."
+  },
+  {
+    "id": 257,
+    "subject": "Kiswahili",
+    "question": "Kitenzi kikuu katika sentensi 'Mwanafunzi anasoma kitabu chake' ni kipi?",
+    "options": {
+      "A": "Mwanafunzi",
+      "B": "Anasoma",
+      "C": "Kitabu",
+      "D": "Chake"
+    },
+    "correctAnswer": "B",
+    "explanation": "Kitenzi ni neno linaloonyesha kitendo au hali. Katika sentensi hii, 'anasoma' ndicho kitendo kinachofanywa, hivyo ni kitenzi kikuu."
+  },
+  {
+    "id": 258,
+    "subject": "Social Studies",
+    "question": "What is the main function of a political party?",
+    "options": {
+      "A": "To provide entertainment to the public",
+      "B": "To run businesses and make profit",
+      "C": "To group people with similar ideologies to win elections and form a government",
+      "D": "To act as a law enforcement agency"
+    },
+    "correctAnswer": "C",
+    "explanation": "A political party is an organization that coordinates candidates to compete in a particular country's elections. It is common for the members of a party to hold similar ideas about politics, and parties may promote specific ideological or policy goals."
+  },
+  {
+    "id": 259,
+    "subject": "Agriculture",
+    "question": "The process of transferring pollen from the anther to the stigma of a plant is called?",
+    "options": {
+      "A": "Germination",
+      "B": "Pollination",
+      "C": "Fertilization",
+      "D": "Photosynthesis"
+    },
+    "correctAnswer": "B",
+    "explanation": "Pollination is a crucial step in the reproduction of flowering plants. It can be carried out by wind, water, or animals (pollinators)."
+  },
+  {
+    "id": 260,
+    "subject": "Home Science",
+    "question": "Which of these is a way to make a home safe for young children?",
+    "options": {
+      "A": "Leaving small objects on the floor",
+      "B": "Keeping medicines in low, unlocked cabinets",
+      "C": "Covering electrical outlets",
+      "D": "Leaving cleaning supplies open"
+    },
+    "correctAnswer": "C",
+    "explanation": "Childproofing a home involves taking steps to make it a safe environment for a child. Covering electrical outlets prevents children from poking objects into them and getting an electric shock."
+  },
+  {
+    "id": 261,
+    "subject": "Pre-Technical Studies",
+    "question": "Which material is made by gluing together thin layers of wood veneer?",
+    "options": {
+      "A": "Chipboard",
+      "B": "Plywood",
+      "C": "Hardboard",
+      "D": "MDF"
+    },
+    "correctAnswer": "B",
+    "explanation": "Plywood is a sheet material manufactured from thin layers or 'plies' of wood veneer that are glued together with adjacent layers having their wood grain rotated up to 90 degrees to one another."
+  },
+  {
+    "id": 262,
+    "subject": "Creative Art",
+    "question": "An image that represents an idea or a thing is called a...",
+    "options": {
+      "A": "Symbol",
+      "B": "Pattern",
+      "C": "Texture",
+      "D": "Form"
+    },
+    "correctAnswer": "A",
+    "explanation": "A symbol is a mark, sign, or word that indicates, signifies, or is understood as representing an idea, object, or relationship. For example, a dove is a symbol of peace."
+  },
+  {
+    "id": 263,
+    "subject": "sports",
+    "question": "The Tour de France is a famous annual competition in which sport?",
+    "options": {
+      "A": "Running",
+      "B": "Motorsport",
+      "C": "Sailing",
+      "D": "Cycling"
+    },
+    "correctAnswer": "D",
+    "explanation": "The Tour de France is an annual men's multiple-stage bicycle race primarily held in France, while also occasionally passing through nearby countries."
+  },
+  {
+    "id": 264,
+    "subject": "Mathematics",
+    "question": "Express 3/5 as a percentage.",
+    "options": {
+      "A": "30%",
+      "B": "50%",
+      "C": "60%",
+      "D": "75%"
+    },
+    "correctAnswer": "C",
+    "explanation": "To convert a fraction to a percentage, divide the numerator by the denominator and multiply by 100. (3 / 5) × 100 = 0.6 × 100 = 60%."
+  },
+  {
+    "id": 265,
+    "subject": "English",
+    "question": "The opposite of 'brave' is...",
+    "options": {
+      "A": "Strong",
+      "B": "Cowardly",
+      "C": "Bold",
+      "D": "Happy"
+    },
+    "correctAnswer": "B",
+    "explanation": "The antonym for 'brave' is 'cowardly', which means lacking courage."
+  },
+  {
+    "id": 266,
+    "subject": "Kiswahili",
+    "question": "Nyumba ya jadi ya Wamasai hujengwa kwa kutumia nini hasa?",
+    "options": {
+      "A": "Matofali na saruji",
+      "B": "Miti, matope na samadi ya ng'ombe",
+      "C": "Mabati na mbao",
+      "D": "Mawe na udongo"
+    },
+    "correctAnswer": "B",
+    "explanation": "Manyatta, au boma la Wamasai, hujengwa kwa kutumia vifaa vinavyopatikana katika mazingira yao, kama vile miti kama nguzo, na mchanganyiko wa matope, majani, na samadi (kinyesi) cha ng'ombe kwa kuta."
+  },
+  {
+    "id": 267,
+    "subject": "Social Studies",
+    "question": "What does a historian study?",
+    "options": {
+      "A": "Rocks and minerals",
+      "B": "The past, based on evidence",
+      "C": "The behavior of animals",
+      "D": "The stars and planets"
+    },
+    "correctAnswer": "B",
+    "explanation": "A historian is an expert in or student of history, especially that of a particular period, geographical region, or social phenomenon. They use sources like documents, artifacts, and oral accounts to interpret the past."
+  },
+  {
+    "id": 268,
+    "subject": "Agriculture",
+    "question": "Which of these is a benefit of agroforestry?",
+    "options": {
+      "A": "It increases soil erosion",
+      "B": "It reduces biodiversity",
+      "C": "It improves soil fertility and prevents erosion",
+      "D": "It requires heavy use of chemical fertilizers"
+    },
+    "correctAnswer": "C",
+    "explanation": "Agroforestry is the practice of deliberately integrating trees and shrubs into crop and animal farming systems. It has many benefits, including improving soil health, preventing erosion, and providing additional products like fruit or timber."
+  },
+  {
+    "id": 269,
+    "subject": "Home Science",
+    "question": "A small, painful area of thickened skin on the foot, often caused by ill-fitting shoes, is called a...",
+    "options": {
+      "A": "Blister",
+      "B": "Cut",
+      "C": "Bruise",
+      "D": "Corn"
+    },
+    "correctAnswer": "D",
+    "explanation": "A corn is a distinctively shaped callus of dead skin that usually occurs on thin or hairless skin surfaces, especially on the top of the toes. They are caused by pressure and friction."
+  },
+  {
+    "id": 270,
+    "subject": "Pre-Technical Studies",
+    "question": "What is the function of the 'Undo' command in a computer program?",
+    "options": {
+      "A": "To save the current file",
+      "B": "To delete the current file",
+      "C": "To repeat the last action",
+      "D": "To reverse the last action"
+    },
+    "correctAnswer": "D",
+    "explanation": "The undo command is a function that reverses the effect of the last command or action performed by the user. It is a common feature in most software applications."
+  },
+  {
+    "id": 271,
+    "subject": "Creative Art",
+    "question": "The part of a picture that appears to be closest to the viewer is the...",
+    "options": {
+      "A": "Background",
+      "B": "Middle ground",
+      "C": "Foreground",
+      "D": "Horizon"
+    },
+    "correctAnswer": "C",
+    "explanation": "In a picture, the foreground is the area that seems to be nearest to the viewer. The background is the area furthest away, and the middle ground is between them."
+  },
+  {
+    "id": 272,
+    "subject": "sports",
+    "question": "In which city were the first modern Olympic Games held in 1896?",
+    "options": {
+      "A": "Paris",
+      "B": "London",
+      "C": "Athens",
+      "D": "Rome"
+    },
+    "correctAnswer": "C",
+    "explanation": "The first international Olympic Games to be held in modern history took place in Athens, Greece, in 1896, in homage to the ancient games held in Olympia."
+  },
+  {
+    "id": 273,
+    "subject": "Mathematics",
+    "question": "If x = 5 and y = 3, what is the value of 2x + y?",
+    "options": {
+      "A": "10",
+      "B": "13",
+      "C": "16",
+      "D": "28"
+    },
+    "correctAnswer": "B",
+    "explanation": "Substitute the values of x and y into the expression. 2x + y = 2(5) + 3 = 10 + 3 = 13."
+  },
+  {
+    "id": 274,
+    "subject": "English",
+    "question": "A direct comparison between two unlike things without using 'like' or 'as' is a...",
+    "options": {
+      "A": "Simile",
+      "B": "Metaphor",
+      "C": "Personification",
+      "D": "Alliteration"
+    },
+    "correctAnswer": "B",
+    "explanation": "A metaphor is a figure of speech that directly asserts that one thing is another. For example, 'The classroom was a zoo'."
+  },
+  {
+    "id": 275,
+    "subject": "Kiswahili",
+    "question": "Mtoto wa kwanza katika familia huitwaje?",
+    "options": {
+      "A": "Kitinda mimba",
+      "B": "Kifungua mimba",
+      "C": "Mwanambee",
+      "D": "Kijana"
+    },
+    "correctAnswer": "B",
+    "explanation": "Mtoto wa kwanza kuzaliwa katika familia huitwa 'kifungua mimba'. Mtoto wa mwisho huitwa 'kitinda mimba'."
+  },
+  {
+    "id": 276,
+    "subject": "Social Studies",
+    "question": "The symbols on the Kenyan Coat of Arms include two lions, a shield, two spears, and...",
+    "options": {
+      "A": "An eagle",
+      "B": "A rooster holding an axe",
+      "C": "The Kenyan flag",
+      "D": "A scroll with the word 'Harambee'"
+    },
+    "correctAnswer": "B",
+    "explanation": "The shield on the Kenyan Coat of Arms contains a rooster holding an axe, which according to local customs, represents a new and prosperous life. The scroll contains the national motto 'Harambee'."
+  },
+  {
+    "id": 277,
+    "subject": "Agriculture",
+    "question": "Which of these is a way of storing water for agricultural use during dry seasons?",
+    "options": {
+      "A": "Building a dam or reservoir",
+      "B": "Digging drainage channels",
+      "C": "Applying mulch to the soil",
+      "D": "Planting cover crops"
+    },
+    "correctAnswer": "A",
+    "explanation": "Dams and reservoirs are built across rivers to store large quantities of water, which can then be released in a controlled manner for irrigation, domestic use, or generating electricity."
+  },
+  {
+    "id": 278,
+    "subject": "Home Science",
+    "question": "What is anaemia?",
+    "options": {
+      "A": "A condition caused by too much sugar in the blood",
+      "B": "A condition where there is a deficiency of red blood cells or haemoglobin",
+      "C": "A disease affecting the bones and joints",
+      "D": "An infectious disease of the lungs"
+    },
+    "correctAnswer": "B",
+    "explanation": "Anaemia is a condition in which you lack enough healthy red blood cells to carry adequate oxygen to your body's tissues. It is often caused by a deficiency of iron."
+  },
+  {
+    "id": 279,
+    "subject": "Pre-Technical Studies",
+    "question": "The process of applying a thin coat of zinc to iron or steel to prevent rusting is called...",
+    "options": {
+      "A": "Painting",
+      "B": "Electroplating",
+      "C": "Galvanizing",
+      "D": "Anodizing"
+    },
+    "correctAnswer": "C",
+    "explanation": "Galvanizing is the process of applying a protective zinc coating to steel or iron to prevent rusting. The zinc acts as a sacrificial anode, corroding before the iron."
+  },
+  {
+    "id": 280,
+    "subject": "Creative Art",
+    "question": "The art of beautiful handwriting is called...",
+    "options": {
+      "A": "Typography",
+      "B": "Calligraphy",
+      "C": "Graffiti",
+      "D": "Sketching"
+    },
+    "correctAnswer": "B",
+    "explanation": "Calligraphy is a visual art related to writing. It is the design and execution of lettering with a pen, ink brush, or other writing instrument."
+  },
+  {
+    "id": 281,
+    "subject": "sports",
+    "question": "How many holes are there on a standard golf course?",
+    "options": {
+      "A": "9",
+      "B": "12",
+      "C": "18",
+      "D": "24"
+    },
+    "correctAnswer": "C",
+    "explanation": "A standard round of golf consists of playing 18 holes. Some smaller courses, called 'nine-hole courses', are designed for playing a round of 9 holes."
+  },
+  {
+    "id": 282,
+    "subject": "Mathematics",
+    "question": "Which of these is a unit of mass?",
+    "options": {
+      "A": "Meter",
+      "B": "Liter",
+      "C": "Gram",
+      "D": "Second"
+    },
+    "correctAnswer": "C",
+    "explanation": "The gram is a unit of mass in the metric system. The meter is a unit of length, the liter is a unit of volume, and the second is a unit of time."
+  },
+  {
+    "id": 283,
+    "subject": "English",
+    "question": "The repetition of the same sound at the beginning of words in a phrase or sentence is...",
+    "options": {
+      "A": "Rhyme",
+      "B": "Rhythm",
+      "C": "Alliteration",
+      "D": "Onomatopoeia"
+    },
+    "correctAnswer": "C",
+    "explanation": "Alliteration is the conspicuous repetition of identical initial consonant sounds in successive or closely associated syllables within a group of words. For example, 'Peter Piper picked a peck of pickled peppers'."
+  },
+  {
+    "id": 284,
+    "subject": "Kiswahili",
+    "question": "Neno 'karatasi' lina asili ya lugha gani?",
+    "options": {
+      "A": "Kireno",
+      "B": "Kigiriki",
+      "C": "Kiarabu",
+      "D": "Kiingereza"
+    },
+    "correctAnswer": "C",
+    "explanation": "Neno 'karatasi' limetokana na neno la Kiarabu 'qartas', ambalo nalo lilitokana na neno la Kigiriki 'khartēs'."
+  },
+  {
+    "id": 285,
+    "subject": "Social Studies",
+    "question": "A system of winds rotating inwards to an area of low barometric pressure is known as a...",
+    "options": {
+      "A": "Tornado",
+      "B": "Cyclone",
+      "C": "Monsoon",
+      "D": "Breeze"
+    },
+    "correctAnswer": "B",
+    "explanation": "A cyclone is a large-scale air mass that rotates around a strong center of low atmospheric pressure. They are characterized by inward-spiraling winds."
+  },
+  {
+    "id": 286,
+    "subject": "Agriculture",
+    "question": "What is a greenhouse used for?",
+    "options": {
+      "A": "Storing farm machinery",
+      "B": "Housing livestock in winter",
+      "C": "Growing plants in a controlled environment",
+      "D": "Storing harvested grain"
+    },
+    "correctAnswer": "C",
+    "explanation": "A greenhouse is a structure with walls and roof made chiefly of transparent material, such as glass, in which plants requiring regulated climatic conditions are grown."
+  },
+  {
+    "id": 287,
+    "subject": "Home Science",
+    "question": "Which sewing tool is used to protect the finger from being pricked by a needle?",
+    "options": {
+      "A": "Pin cushion",
+      "B": "Thimble",
+      "C": "Tape measure",
+      "D": "Seam ripper"
+    },
+    "correctAnswer": "B",
+    "explanation": "A thimble is a small pitted cup worn on the finger that protects it from being pricked by a needle while sewing."
+  },
+  {
+    "id": 288,
+    "subject": "Pre-Technical Studies",
+    "question": "Which of these is a type of mechanical energy?",
+    "options": {
+      "A": "Light energy",
+      "B": "Chemical energy",
+      "C": "Kinetic energy",
+      "D": "Nuclear energy"
+    },
+    "correctAnswer": "C",
+    "explanation": "Mechanical energy is the sum of potential energy and kinetic energy. Kinetic energy is the energy an object has due to its motion."
+  },
+  {
+    "id": 289,
+    "subject": "Creative Art",
+    "question": "A shade is a color with ___ added to it.",
+    "options": {
+      "A": "White",
+      "B": "Black",
+      "C": "Gray",
+      "D": "Its complementary color"
+    },
+    "correctAnswer": "B",
+    "explanation": "In color theory, a shade is a mixture of a color with black, which increases darkness. A tint is a mixture with white, which increases lightness."
+  },
+  {
+    "id": 290,
+    "subject": "sports",
+    "question": "Which of these is a piece used in the game of chess?",
+    "options": {
+      "A": "A checker",
+      "B": "A domino",
+      "C": "A knight",
+      "D": "A die"
+    },
+    "correctAnswer": "C",
+    "explanation": "The six types of pieces in chess are the king, queen, rook, bishop, knight, and pawn."
+  },
+  {
+    "id": 291,
+    "subject": "Mathematics",
+    "question": "How many sides does a pentagon have?",
+    "options": {
+      "A": "4",
+      "B": "5",
+      "C": "6",
+      "D": "7"
+    },
+    "correctAnswer": "B",
+    "explanation": "A pentagon is a polygon with five sides and five angles."
+  },
+  {
+    "id": 292,
+    "subject": "English",
+    "question": "A word that imitates the sound it describes, like 'buzz' or 'meow', is called...",
+    "options": {
+      "A": "An adverb",
+      "B": "An adjective",
+      "C": "Onomatopoeia",
+      "D": "A verb"
+    },
+    "correctAnswer": "C",
+    "explanation": "Onomatopoeia is the process of creating a word that phonetically imitates, resembles, or suggests the sound that it describes."
+  },
+  {
+    "id": 293,
+    "subject": "Kiswahili",
+    "question": "Kifaa cha mbao kinachotumiwa na seremala kulainisha mbao huitwaje?",
+    "options": {
+      "A": "Nyundo",
+      "B": "Msumeno",
+      "C": "Panga",
+      "D": "Randa"
+    },
+    "correctAnswer": "D",
+    "explanation": "Randa (plane) ni kifaa chenye ukali kinachotumiwa na maseremala kusawazisha na kulainisha uso wa mbao."
+  },
+  {
+    "id": 294,
+    "subject": "Social Studies",
+    "question": "What is the main cause of the seasons on Earth?",
+    "options": {
+      "A": "The Earth's distance from the sun",
+      "B": "The tilt of the Earth's axis of rotation",
+      "C": "The Earth's rotation on its axis",
+      "D": "The phases of the moon"
+    },
+    "correctAnswer": "B",
+    "explanation": "The seasons are caused by the tilt of the Earth's rotational axis away or toward the sun as it travels through its year-long path around the sun."
+  },
+  {
+    "id": 295,
+    "subject": "Agriculture",
+    "question": "A castrated male sheep is known as a...",
+    "options": {
+      "A": "Ram",
+      "B": "Ewe",
+      "C": "Lamb",
+      "D": "Wether"
+    },
+    "correctAnswer": "D",
+    "explanation": "A wether is a castrated male sheep or goat. A ram is an uncastrated male, and an ewe is a female."
+  },
+  {
+    "id": 296,
+    "subject": "Home Science",
+    "question": "Which of these is a way of managing waste responsibly?",
+    "options": {
+      "A": "Dumping it in a river",
+      "B": "Burning it in the open",
+      "C": "Burying it anywhere",
+      "D": "Recycling and composting"
+    },
+    "correctAnswer": "D",
+    "explanation": "Responsible waste management involves reducing, reusing, recycling, and composting to minimize the amount of waste that goes to landfills and to prevent pollution."
+  },
+  {
+    "id": 297,
+    "subject": "Pre-Technical Studies",
+    "question": "Which tool is used to measure angles?",
+    "options": {
+      "A": "Ruler",
+      "B": "Protractor",
+      "C": "Compass",
+      "D": "T-square"
+    },
+    "correctAnswer": "B",
+    "explanation": "A protractor is a measuring instrument, typically made of transparent plastic or glass, for measuring angles. Most protractors measure angles in degrees."
+  },
+  {
+    "id": 298,
+    "subject": "Creative Art",
+    "question": "The representation of a person, especially the face, is called a...",
+    "options": {
+      "A": "Landscape",
+      "B": "Still life",
+      "C": "Portrait",
+      "D": "Genre painting"
+    },
+    "correctAnswer": "C",
+    "explanation": "A portrait is a painting, photograph, sculpture, or other artistic representation of a person, in which the face and its expression is predominant."
+  },
+  {
+    "id": 299,
+    "subject": "sports",
+    "question": "What is the term for a score of 40-40 in tennis?",
+    "options": {
+      "A": "Advantage",
+      "B": "Game",
+      "C": "Deuce",
+      "D": "Tie-break"
+    },
+    "correctAnswer": "C",
+    "explanation": "In tennis, if both players reach a score of 40 in a game, the score is called 'deuce'. A player must then win two consecutive points to win the game."
+  },
+  {
+    "id": 300,
+    "subject": "Mathematics",
+    "question": "A line segment that passes through the center of a circle and has both endpoints on the circle is called the...",
+    "options": {
+      "A": "Radius",
+      "B": "Diameter",
+      "C": "Chord",
+      "D": "Arc"
+    },
+    "correctAnswer": "B",
+    "explanation": "The diameter is the longest chord of a circle. It is twice the length of the radius."
+  },
+  {
+    "id": 301,
+    "subject": "Mathematics",
+    "question": "What is the greatest common divisor (GCD) of 12 and 18?",
+    "options": {
+      "A": "2",
+      "B": "3",
+      "C": "6",
+      "D": "9"
+    },
+    "correctAnswer": "C",
+    "explanation": "The divisors of 12 are 1, 2, 3, 4, 6, 12. The divisors of 18 are 1, 2, 3, 6, 9, 18. The greatest number that appears in both lists is 6."
+  },
+  {
+    "id": 302,
+    "subject": "English",
+    "question": "Which of these is a pronoun?",
+    "options": {
+      "A": "Run",
+      "B": "Quickly",
+      "C": "She",
+      "D": "House"
+    },
+    "correctAnswer": "C",
+    "explanation": "A pronoun is a word that is used instead of a noun or noun phrase. 'She' can be used to replace a female noun like 'Mary' or 'the girl'."
+  },
+  {
+    "id": 303,
+    "subject": "Kiswahili",
+    "question": "Mtu anayefanya kazi ya ushonaji nguo huitwaje?",
+    "options": {
+      "A": "Seremala",
+      "B": "Mhunzi",
+      "C": "Mkulima",
+      "D": "Mshonaji"
+    },
+    "correctAnswer": "D",
+    "explanation": "Mshonaji (tailor) ni fundi anayeshughulika na kushona au kurekebisha mavazi. Seremala hufanya kazi ya mbao, na mhunzi hufanya kazi ya chuma."
+  },
+  {
+    "id": 304,
+    "subject": "Social Studies",
+    "question": "The introduction to the Constitution of Kenya is called the...",
+    "options": {
+      "A": "Preface",
+      "B": "Preamble",
+      "C": "Index",
+      "D": "Glossary"
+    },
+    "correctAnswer": "B",
+    "explanation": "A preamble is a brief introductory statement of a constitution's fundamental purposes and guiding principles. It states the source from which the constitution derives its authority."
+  },
+  {
+    "id": 305,
+    "subject": "Agriculture",
+    "question": "Which of these is a form of intensive farming?",
+    "options": {
+      "A": "Nomadic pastoralism",
+      "B": "Shifting cultivation",
+      "C": "Zero grazing",
+      "D": "Ranching"
+    },
+    "correctAnswer": "C",
+    "explanation": "Intensive farming involves high inputs of capital and labor to increase the yield from a small area of land. Zero grazing is an intensive system where dairy cattle are kept in confinement and fodder is brought to them."
+  },
+  {
+    "id": 306,
+    "subject": "Home Science",
+    "question": "The body's process of breaking down food into substances it can use is called...",
+    "options": {
+      "A": "Respiration",
+      "B": "Circulation",
+      "C": "Digestion",
+      "D": "Excretion"
+    },
+    "correctAnswer": "C",
+    "explanation": "Digestion is the complex process of turning the food you eat into nutrients, which the body uses for energy, growth and cell repair needed to survive."
+  },
+  {
+    "id": 307,
+    "subject": "Pre-Technical Studies",
+    "question": "The property of a metal to be drawn out into a thin wire is called...",
+    "options": {
+      "A": "Malleability",
+      "B": "Ductility",
+      "C": "Brittleness",
+      "D": "Hardness"
+    },
+    "correctAnswer": "B",
+    "explanation": "Ductility is a measure of a metal's ability to withstand tensile stress—any force that pulls the two ends of a material away from each other. Malleability is the ability to be hammered into a thin sheet."
+  },
+  {
+    "id": 308,
+    "subject": "Creative Art",
+    "question": "A tint is a color with ___ added to it.",
+    "options": {
+      "A": "White",
+      "B": "Black",
+      "C": "Gray",
+      "D": "Its complementary color"
+    },
+    "correctAnswer": "A",
+    "explanation": "In color theory, a tint is a mixture of a color with white, which increases lightness. A shade is a mixture with black, which increases darkness."
+  },
+  {
+    "id": 309,
+    "subject": "sports",
+    "question": "What is the name of the trophy awarded to the winner of the FIFA World Cup?",
+    "options": {
+      "A": "The Champions League Trophy",
+      "B": "The Webb Ellis Cup",
+      "C": "The FIFA World Cup Trophy",
+      "D": "The Stanley Cup"
+    },
+    "correctAnswer": "C",
+    "explanation": "The current trophy, called the FIFA World Cup Trophy, has been awarded since 1974. The Webb Ellis Cup is for rugby, and the Stanley Cup is for ice hockey."
+  },
+  {
+    "id": 310,
+    "subject": "Mathematics",
+    "question": "What type of triangle has all three sides of equal length?",
+    "options": {
+      "A": "Isosceles",
+      "B": "Scalene",
+      "C": "Equilateral",
+      "D": "Right-angled"
+    },
+    "correctAnswer": "C",
+    "explanation": "An equilateral triangle is a triangle in which all three sides have the same length and all three angles are equal (60 degrees)."
+  },
+  {
+    "id": 311,
+    "subject": "English",
+    "question": "What is the plural of 'mouse'?",
+    "options": {
+      "A": "Mouses",
+      "B": "Mice",
+      "C": "Micees",
+      "D": "Mouse"
+    },
+    "correctAnswer": "B",
+    "explanation": "'Mouse' has an irregular plural form, which is 'mice'."
+  },
+  {
+    "id": 312,
+    "subject": "Kiswahili",
+    "question": "Sehemu ya chini ya mguu ambayo hukanyagia chini huitwaje?",
+    "options": {
+      "A": "Kisigino",
+      "B": "Unyayo",
+      "C": "Goti",
+      "D": "Kifundo"
+    },
+    "correctAnswer": "B",
+    "explanation": "Unyayo ni sehemu ya chini ya mguu, yaani wayo. Kisigino ni sehemu ya nyuma ya unyayo."
+  },
+  {
+    "id": 313,
+    "subject": "Social Studies",
+    "question": "Which one of these is a human right?",
+    "options": {
+      "A": "The right to own a car",
+      "B": "The right to education",
+      "C": "The right to a holiday",
+      "D": "The right to a smartphone"
+    },
+    "correctAnswer": "B",
+    "explanation": "Human rights are rights inherent to all human beings. The right to education is a fundamental human right recognized in international law, including the Universal Declaration of Human Rights."
+  },
+  {
+    "id": 314,
+    "subject": "Agriculture",
+    "question": "The practice of growing plants in a nutrient-rich water solution without soil is called...",
+    "options": {
+      "A": "Aquaculture",
+      "B": "Hydroponics",
+      "C": "Geoponics",
+      "D": "Aeroponics"
+    },
+    "correctAnswer": "B",
+    "explanation": "Hydroponics is a type of horticulture and a subset of hydroculture which involves growing plants, usually crops, without soil, by using mineral nutrient solutions in an aqueous solvent."
+  },
+  {
+    "id": 315,
+    "subject": "Home Science",
+    "question": "The transfer of heat through direct contact is called...",
+    "options": {
+      "A": "Conduction",
+      "B": "Convection",
+      "C": "Radiation",
+      "D": "Evaporation"
+    },
+    "correctAnswer": "A",
+    "explanation": "Conduction is the process by which heat is directly transmitted through a substance when there is a difference of temperature between adjoining regions, without movement of the material. An example is a pan heating up on a stove."
+  },
+  {
+    "id": 316,
+    "subject": "Pre-Technical Studies",
+    "question": "A line used in a drawing to show the dimensions or size of an object is called a...",
+    "options": {
+      "A": "Contour line",
+      "B": "Hidden line",
+      "C": "Center line",
+      "D": "Dimension line"
+    },
+    "correctAnswer": "D",
+    "explanation": "A dimension line is a thin line, broken in the middle to allow the placement of the dimension value, with arrowheads at each end."
+  },
+  {
+    "id": 317,
+    "subject": "Creative Art",
+    "question": "The use of repeated elements to create a sense of movement in a work of art is called...",
+    "options": {
+      "A": "Balance",
+      "B": "Unity",
+      "C": "Rhythm",
+      "D": "Proportion"
+    },
+    "correctAnswer": "C",
+    "explanation": "Rhythm is a principle of design that suggests movement or action. It is usually achieved through repetition of lines, shapes, colors, and more. It creates a visual tempo in artworks."
+  },
+  {
+    "id": 318,
+    "subject": "sports",
+    "question": "In cricket, how many stumps are there in a wicket?",
+    "options": {
+      "A": "2",
+      "B": "3",
+      "C": "4",
+      "D": "5"
+    },
+    "correctAnswer": "B",
+    "explanation": "A wicket consists of three wooden stumps that are hammered into the ground, topped with two small wooden crosspieces known as bails."
+  },
+  {
+    "id": 319,
+    "subject": "Mathematics",
+    "question": "An integer is...",
+    "options": {
+      "A": "Any number that can be written as a fraction",
+      "B": "A whole number that can be positive, negative, or zero",
+      "C": "A number with a decimal point",
+      "D": "Only a positive whole number"
+    },
+    "correctAnswer": "B",
+    "explanation": "An integer is a whole number (not a fractional number) that can be positive, negative, or zero. Examples: -3, 0, 5."
+  },
+  {
+    "id": 320,
+    "subject": "English",
+    "question": "The words 'flower' and 'flour' are examples of...",
+    "options": {
+      "A": "Homographs",
+      "B": "Synonyms",
+      "C": "Antonyms",
+      "D": "Homophones"
+    },
+    "correctAnswer": "D",
+    "explanation": "Homophones are words that are pronounced the same but have different meanings and spellings."
+  },
+  {
+    "id": 321,
+    "subject": "Kiswahili",
+    "question": "Neno 'robota' linamaanisha nini?",
+    "options": {
+      "A": "Fungu kubwa la bidhaa lililofungwa pamoja",
+      "B": "Mashine inayofanya kazi kama binadamu",
+      "C": "Aina ya kiatu",
+      "D": "Kazi ya kulazimishwa"
+    },
+    "correctAnswer": "A",
+    "explanation": "Robota ni neno linalotumiwa kurejelea kifurushi au fungu kubwa la bidhaa, hasa nguo, pamba au katani, lililofungwa kwa ajili ya kusafirishwa. Kwa Kiingereza ni 'bale'."
+  },
+  {
+    "id": 322,
+    "subject": "Social Studies",
+    "question": "What is the currency of Kenya?",
+    "options": {
+      "A": "Dollar",
+      "B": "Pound",
+      "C": "Shilling",
+      "D": "Franc"
+    },
+    "correctAnswer": "C",
+    "explanation": "The official currency of the Republic of Kenya is the Kenyan Shilling (KES)."
+  },
+  {
+    "id": 323,
+    "subject": "Agriculture",
+    "question": "A young pig is called a...",
+    "options": {
+      "A": "Piglet",
+      "B": "Calf",
+      "C": "Kid",
+      "D": "Lamb"
+    },
+    "correctAnswer": "A",
+    "explanation": "A piglet is a young pig. A calf is a young cow, a kid is a young goat, and a lamb is a young sheep."
+  },
+  {
+    "id": 324,
+    "subject": "Home Science",
+    "question": "Which of these is a way to purify water for drinking?",
+    "options": {
+      "A": "Adding sugar",
+      "B": "Adding salt",
+      "C": "Boiling",
+      "D": "Freezing"
+    },
+    "correctAnswer": "C",
+    "explanation": "Boiling water is one of the most effective methods of water purification. Bringing water to a rolling boil for at least one minute kills most bacteria, viruses, and protozoa."
+  },
+  {
+    "id": 325,
+    "subject": "Pre-Technical Studies",
+    "question": "The three common states of matter are...",
+    "options": {
+      "A": "Metal, Wood, Plastic",
+      "B": "Hard, Soft, Brittle",
+      "C": "Solid, Liquid, Gas",
+      "D": "Conductor, Insulator, Semiconductor"
+    },
+    "correctAnswer": "C",
+    "explanation": "The three classical states of matter are solid, liquid, and gas. A substance's state of matter depends on temperature and pressure."
+  },
+  {
+    "id": 326,
+    "subject": "Creative Art",
+    "question": "The art of making two- or three-dimensional representative or abstract forms, especially by carving stone or wood or by casting metal or plaster is...",
+    "options": {
+      "A": "Painting",
+      "B": "Drawing",
+      "C": "Sculpture",
+      "D": "Printmaking"
+    },
+    "correctAnswer": "C",
+    "explanation": "Sculpture is the branch of the visual arts that operates in three dimensions. It is one of the plastic arts."
+  },
+  {
+    "id": 327,
+    "subject": "sports",
+    "question": "Which of these is NOT a field event in athletics?",
+    "options": {
+      "A": "Long jump",
+      "B": "Shot put",
+      "C": "100-meter sprint",
+      "D": "Javelin throw"
+    },
+    "correctAnswer": "C",
+    "explanation": "Athletics events are divided into track events (running and walking) and field events (jumping and throwing). The 100-meter sprint is a track event."
+  },
+  {
+    "id": 328,
+    "subject": "Mathematics",
+    "question": "If a pizza is cut into 8 equal slices and you eat 3 of them, what fraction of the pizza have you eaten?",
+    "options": {
+      "A": "1/8",
+      "B": "3/8",
+      "C": "5/8",
+      "D": "3/5"
+    },
+    "correctAnswer": "B",
+    "explanation": "The total number of slices is the denominator (8), and the number of slices you ate is the numerator (3). So, you ate 3/8 of the pizza."
+  },
+  {
+    "id": 329,
+    "subject": "English",
+    "question": "Which word means 'a place where books are kept'?",
+    "options": {
+      "A": "Museum",
+      "B": "Library",
+      "C": "Cinema",
+      "D": "Stadium"
+    },
+    "correctAnswer": "B",
+    "explanation": "A library is a building or room containing collections of books, periodicals, and sometimes films and recorded music for people to read, borrow, or refer to."
+  },
+  {
+    "id": 330,
+    "subject": "Kiswahili",
+    "question": "Ni chombo gani hutumika kupikia chakula jikoni?",
+    "options": {
+      "A": "Sahani",
+      "B": "Sufuria",
+      "C": "Kikombe",
+      "D": "Uma"
+    },
+    "correctAnswer": "B",
+    "explanation": "Sufuria (cooking pot) ni chombo kinachotumika jikoni kwa ajili ya kupikia vyakula mbalimbali. Sahani ni ya kulia, kikombe ni cha kunywea, na uma ni wa kulia chakula."
+  },
+  {
+    "id": 331,
+    "subject": "Social Studies",
+    "question": "Which continent is known as the 'Dark Continent'?",
+    "options": {
+      "A": "Asia",
+      "B": "Europe",
+      "C": "Australia",
+      "D": "Africa"
+    },
+    "correctAnswer": "D",
+    "explanation": "Africa was historically referred to as the 'Dark Continent' by Europeans, primarily because its interior was largely unexplored and mysterious to them for a long period."
+  },
+  {
+    "id": 332,
+    "subject": "Agriculture",
+    "question": "The tool with a long handle and a flat blade used for digging or moving loose material is a...",
+    "options": {
+      "A": "Rake",
+      "B": "Hoe",
+      "C": "Shovel",
+      "D": "Fork"
+    },
+    "correctAnswer": "C",
+    "explanation": "A shovel (or spade) is a tool used for digging, lifting, and moving bulk materials, such as soil, coal, gravel, snow, sand, or ore."
+  },
+  {
+    "id": 333,
+    "subject": "Home Science",
+    "question": "The process of preserving food in an acidic solution, usually vinegar, is called...",
+    "options": {
+      "A": "Canning",
+      "B": "Freezing",
+      "C": "Drying",
+      "D": "Pickling"
+    },
+    "correctAnswer": "D",
+    "explanation": "Pickling is the process of preserving or extending the shelf life of food by either anaerobic fermentation in brine or immersion in an edible acidic solution like vinegar."
+  },
+  {
+    "id": 334,
+    "subject": "Pre-Technical Studies",
+    "question": "What does CAD stand for in the context of design and drawing?",
+    "options": {
+      "A": "Computer-Aided Design",
+      "B": "Computer-Assisted Drawing",
+      "C": "Creative Art and Design",
+      "D": "Calculated Axis Drawing"
+    },
+    "correctAnswer": "A",
+    "explanation": "CAD, or computer-aided design, is the use of computers to aid in the creation, modification, analysis, or optimization of a design."
+  },
+  {
+    "id": 335,
+    "subject": "Creative Art",
+    "question": "What is a palette in painting?",
+    "options": {
+      "A": "A type of paintbrush",
+      "B": "The range of colors used by an artist",
+      "C": "A type of canvas",
+      "D": "A tool for mixing paints"
+    },
+    "correctAnswer": "B",
+    "explanation": "While it can also refer to the physical board on which paints are mixed, in art theory, a palette refers to the specific range of colors chosen and used by an artist in a particular artwork."
+  },
+  {
+    "id": 336,
+    "subject": "sports",
+    "question": "Which of these martial arts originated in Japan?",
+    "options": {
+      "A": "Taekwondo",
+      "B": "Kung Fu",
+      "C": "Karate",
+      "D": "Muay Thai"
+    },
+    "correctAnswer": "C",
+    "explanation": "Karate is a martial art that developed in the Ryukyu Kingdom, which is now part of Japan. Taekwondo is Korean, Kung Fu is Chinese, and Muay Thai is from Thailand."
+  },
+  {
+    "id": 337,
+    "subject": "Mathematics",
+    "question": "A number that can only be divided by 1 and itself is called a...",
+    "options": {
+      "A": "Composite number",
+      "B": "Prime number",
+      "C": "Even number",
+      "D": "Rational number"
+    },
+    "correctAnswer": "B",
+    "explanation": "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. A composite number has more than two factors."
+  },
+  {
+    "id": 338,
+    "subject": "English",
+    "question": "The person who tells the story in a novel is the...",
+    "options": {
+      "A": "Protagonist",
+      "B": "Author",
+      "C": "Narrator",
+      "D": "Antagonist"
+    },
+    "correctAnswer": "C",
+    "explanation": "The narrator is the voice that an author takes on to tell a story. This voice can have a personality quite different from the author's."
+  },
+  {
+    "id": 339,
+    "subject": "Kiswahili",
+    "question": "Methali 'Mvumilivu hula mbivu' ina maana gani?",
+    "options": {
+      "A": "Mtu anayependa matunda",
+      "B": "Mtu mwenye subira hufanikiwa mwishowe",
+      "C": "Usile matunda mabichi",
+      "D": "Subira ni chungu"
+    },
+    "correctAnswer": "B",
+    "explanation": "Methali hii inafundisha kuwa mtu anayekuwa na subira na uvumilivu katika jambo analolifanya, hatimaye hupata matokeo mazuri. 'Mbivu' inawakilisha mafanikio."
+  },
+  {
+    "id": 340,
+    "subject": "Social Studies",
+    "question": "The three arms of government in Kenya are the Executive, the Legislature, and the...",
+    "options": {
+      "A": "Police",
+      "B": "Military",
+      "C": "Judiciary",
+      "D": "Civil Service"
+    },
+    "correctAnswer": "C",
+    "explanation": "The government of Kenya consists of three arms which are designed to have separation of powers: The Executive (President), The Legislature (Parliament), and The Judiciary (Courts)."
+  },
+  {
+    "id": 341,
+    "subject": "Agriculture",
+    "question": "The removal of flowers from a plant to encourage vegetative growth is called...",
+    "options": {
+      "A": "Pruning",
+      "B": "Thinning",
+      "C": "Disbudding",
+      "D": "Topping"
+    },
+    "correctAnswer": "C",
+    "explanation": "Disbudding is the removal of young, undeveloped flower buds to induce better branching, more vigorous growth, or larger flowers on the remaining buds."
+  },
+  {
+    "id": 342,
+    "subject": "Home Science",
+    "question": "Which of these is a function of water in the body?",
+    "options": {
+      "A": "To build muscle",
+      "B": "To provide energy",
+      "C": "To repair tissues",
+      "D": "To regulate body temperature"
+    },
+    "correctAnswer": "D",
+    "explanation": "Water has many vital functions in the body, including regulating body temperature through sweating, transporting nutrients, and removing waste products."
+  },
+  {
+    "id": 343,
+    "subject": "Pre-Technical Studies",
+    "question": "What is the name of the joint used to connect two pieces of wood at a corner, often at a 90-degree angle?",
+    "options": {
+      "A": "Butt joint",
+      "B": "Dovetail joint",
+      "C": "Mortise and tenon joint",
+      "D": "Lap joint"
+    },
+    "correctAnswer": "A",
+    "explanation": "A butt joint is a simple joint where the ends of two pieces of wood are brought together without any shaping. While not very strong on its own, it is a fundamental type of woodworking joint."
+  },
+  {
+    "id": 344,
+    "subject": "Creative Art",
+    "question": "Which of these art movements is known for its dream-like scenes and strange, illogical subject matter?",
+    "options": {
+      "A": "Impressionism",
+      "B": "Cubism",
+      "C": "Realism",
+      "D": "Surrealism"
+    },
+    "correctAnswer": "D",
+    "explanation": "Surrealism was a cultural movement which developed in Europe after World War I and was largely influenced by Dada. The movement is best known for its visual artworks and writings which sought to unlock the power of the unconscious mind."
+  },
+  {
+    "id": 345,
+    "subject": "sports",
+    "question": "What does NBA stand for in the world of sports?",
+    "options": {
+      "A": "National Boxing Association",
+      "B": "National Basketball Association",
+      "C": "National Badminton Association",
+      "D": "National Baseball Association"
+    },
+    "correctAnswer": "B",
+    "explanation": "The NBA stands for the National Basketball Association, which is the premier men's professional basketball league in North America."
+  },
+  {
+    "id": 346,
+    "subject": "Mathematics",
+    "question": "A flat, two-dimensional surface of a three-dimensional shape is called a...",
+    "options": {
+      "A": "Edge",
+      "B": "Vertex",
+      "C": "Face",
+      "D": "Side"
+    },
+    "correctAnswer": "C",
+    "explanation": "In solid geometry, a face is a flat surface that forms part of the boundary of a solid object. For example, a cube has six faces."
+  },
+  {
+    "id": 347,
+    "subject": "English",
+    "question": "The sentence 'Will you help me?' is a...",
+    "options": {
+      "A": "Statement",
+      "B": "Question",
+      "C": "Command",
+      "D": "Exclamation"
+    },
+    "correctAnswer": "B",
+    "explanation": "This sentence is an interrogative sentence, which asks a direct question and is punctuated at the end with a question mark."
+  },
+  {
+    "id": 348,
+    "subject": "Kiswahili",
+      "question": "Mtu anayemiliki na kuendesha duka la kuuza dawa ni nani?",
+    "options": {
+      "A": "Daktari",
+      "B": "Mfamasia",
+      "C": "Mganga",
+      "D": "Muuguzi"
+    },
+    "correctAnswer": "B",
+    "explanation": "Mfamasia (pharmacist) ni mtaalamu wa dawa ambaye huandaa na kuuza dawa kulingana na maagizo ya daktari."
+  },
+    {
+        "id": 349,
+        "subject": "Social Studies",
+        "question": "The capital city of Kenya is...",
+        "options": {
+        "A": "Mombasa",
+        "B": "Nairobi",
+        "C": "Kisumu",
+        "D": "Eldoret"
+        },
+        "correctAnswer": "B",
+        "explanation": "Nairobi is the capital and largest city of Kenya. It is also the economic, political, and cultural hub of the country."
+    },
+    {
+        "id": 350,
+        "subject": "Agriculture",
+        "question": "Which of these is a common pest in agriculture?",
+        "options": {
+        "A": "Ladybug",
+        "B": "Butterfly",
+        "C": "Locust",
+        "D": "Honeybee"
+        },
+        "correctAnswer": "C",
+        "explanation": "'Locusts' are known for their swarming behavior and can cause significant damage to crops, making them a major agricultural pest."
+    },
+    {
+        "id": 351,
+        "subject": "Home Science",
+        "question": "Which of these is a source of protein?",
+        "options": {
+        "A": "Rice",
+        "B": "Beans",
+        "C": "Bread",
+        "D": "Sugar"
+        },
+        "correctAnswer": "B",
+        "explanation": "Beans are a rich source of protein, which is essential for building and repairing tissues in the body."
+    },
+    {
+        "id": 352,
+        "subject": "Pre-Technical Studies",
+        "question": "What is the main purpose of a technical drawing?",
+        "options": {
+        "A": "To create art",
+        "B": "To communicate ideas and specifications",
+        "C": "To write instructions",
+        "D": "To decorate a space"
+        },
+        "correctAnswer": "B",
+        "explanation": "Technical drawings are used to convey information about how something functions or is constructed, often including dimensions and materials."
+    },
+    {
+        "id": 353,
+        "subject": "Creative Art",
+        "question": "Which of these is a primary color?",
+        "options": {
+        "A": "Green",
+        "B": "Purple",
+        "C": "Red",
+        "D": "Orange"
+        },
+        "correctAnswer": "C",
+        "explanation": "'Red' is one of the three primary colors in the RGB (Red, Green, Blue) color model used in art and design."
+    },
+    {
+        "id": 354,
+        "subject": "sports",
+        "question": "In which sport would you perform a slam dunk?",
+        "options": {
+        "A": "Football",
+        "B": "Basketball",
+        "C": "Tennis",
+        "D": "Volleyball"
+        },
+        "correctAnswer": "B",
+        "explanation": "A slam dunk is a high-impact basketball move where a player jumps and scores by putting the ball directly through the hoop with one or both hands."
+    },
+    
