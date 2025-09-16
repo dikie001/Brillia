@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
     subject: "",
   });
 
-  // Randomise greetings
+  // Fetch users details from storage
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
     userDetails && setUser(JSON.parse(userDetails));
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       <MobileNav open={openMenu} onClose={() => setOpenMenu(false)} />
       {/* Logo */}
       <h1 className="text-3xl  lg:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent leading-tight ">
-        {`${greetings[randomIndex] || 'Wassup'} ${user.name.split(" ")[0]} `}
+        {`${greetings[randomIndex] || "Wassup"} ${user.name.split(" ")[0]} `}
       </h1>
       {/* Menu Button */}
       <button className="p-2 rounded-md hover:bg-black/10">
