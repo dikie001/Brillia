@@ -1,6 +1,5 @@
 import { Brain, Eye, EyeOff, Lightbulb, Trophy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import BrainTeasers from "../assets/jsons/BrainTeaser.json";
 import Navbar from "@/components/app/Navbar";
 import {
   Pagination,
@@ -11,8 +10,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import brainTeasers from "@/assets/jsons/BrainTeaser";
 
-type Teaser = {
+export type Teaser = {
   id: number;
   question: string;
   answer: string;
@@ -68,8 +68,7 @@ export default function BrainTeasersPage() {
 
   // Save the teasers to state
   useEffect(() => {
-    teasersRef.current = BrainTeasers as Teaser[];
-
+    teasersRef.current = brainTeasers 
     // Get current page from storage
     const lastPage = localStorage.getItem("brain-teaser-currentPage");
     if (lastPage) {

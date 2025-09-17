@@ -1,4 +1,6 @@
-[
+import type { Teaser } from "@/pages/BrainTeasers"
+
+const brainTeasers:Teaser[] =[
   {
     "id": 1,
     "question": "A man is looking at a portrait. Someone asks him whose portrait he is looking at. He replies, 'Brothers and sisters I have none, but that man's father is my father's son.' Who is in the portrait?",
@@ -1540,3 +1542,5 @@
     "category": "Riddle"
   }
 ]
+
+export default brainTeasers

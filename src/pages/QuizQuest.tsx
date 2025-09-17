@@ -13,7 +13,7 @@ import {
   Star,
   Target,
   Trophy,
-  XCircle
+  XCircle,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -22,25 +22,25 @@ import finish from "../assets/images/finish.png";
 
 import Navbar from "@/components/app/Navbar";
 import quiz from "../assets/images/quiz.png";
-import quizData1 from "../assets/jsons/Quiz.json";
+import quizData1 from "../assets/jsons/Quiz";
 import useSound from "../hooks/useSound";
 
-// TypeScript interfaces
-interface QuizQuestion {
-  id: string;
+type Options = {
+  A: string;
+  B: string;
+  C: string;
+  D: string;
+};
+
+export interface QuizType {
+  id: number;
   question: string;
-  options: {
-    A: string;
-    B: string;
-    C: string;
-    D: string;
-  };
-  correctAnswer: "A" | "B" | "C" | "D";
-  explanation: string;
   subject: string;
-  difficulty?: "easy" | "medium" | "hard";
-  category?: string;
+  options: Options;
+  correctAnswer: keyof Options;
+  explanation: string;
 }
+
 
 interface TestResult {
   testNumber: number;
@@ -74,7 +74,7 @@ interface QuizAppState {
   score: number;
   loading: boolean;
   startTime?: number;
-  quizData: QuizQuestion[];
+  quizData: QuizType[];
   error: string | null;
 }
 interface User {
@@ -120,7 +120,7 @@ const QuizApp: React.FC = () => {
     const initializeApp = async (): Promise<void> => {
       try {
         // Try to load quiz data from  or show error
-        let loadedQuizData: any = quizData1;
+        let loadedQuizData: QuizType[] = quizData1;
 
         // Load saved data from localStorage
         const savedResults = loadSavedResults();
@@ -313,7 +313,7 @@ const QuizApp: React.FC = () => {
   };
 
   // Get current test questions
-  const getCurrentTestQuestions = (): QuizQuestion[] => {
+  const getCurrentTestQuestions = (): QuizType[] => {
     if (!state.quizData || state.quizData.length === 0) return [];
     const startIndex = state.currentTest * QUESTIONS_PER_TEST;
     return state.quizData.slice(startIndex, startIndex + QUESTIONS_PER_TEST);
@@ -399,7 +399,7 @@ const QuizApp: React.FC = () => {
   const getCurrentTestSubjects = (): string => {
     const currentQuestions = getCurrentTestQuestions();
     const subjects = [
-      ...new Set(currentQuestions.map((q: QuizQuestion) => q.subject)),
+      ...new Set(currentQuestions.map((q: QuizType) => q.subject)),
     ];
     return subjects.join(", ");
   };
@@ -759,11 +759,7 @@ const QuizApp: React.FC = () => {
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed flex-1">
                 {currentQ.question}
               </h3>
-              {currentQ.category && (
-                <span className="ml-4 px-3 py-1 bg-green-100/30 dark:bg-green-700/30 text-green-600 dark:text-green-300 rounded-full text-sm font-medium">
-                  {currentQ.category}
-                </span>
-              )}
+          
             </div>
 
             {/* Options */}
