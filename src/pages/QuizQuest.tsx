@@ -22,7 +22,7 @@ import finish from "../assets/images/finish.png";
 
 import Navbar from "@/components/app/Navbar";
 import quiz from "../assets/images/quiz.png";
-import quizData1 from "../assets/jsons/Quiz";
+import quizData1 from "../assets/jsons/quiz";
 import useSound from "../hooks/useSound";
 
 type Options = {

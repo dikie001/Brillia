@@ -10,7 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import brainTeasers from "@/assets/jsons/BrainTeaser";
+import brainTeasers from "@/assets/jsons/brainTeaser";
 
 export type Teaser = {
   id: number;

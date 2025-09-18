@@ -156,19 +156,19 @@ export default function MiniStories() {
           (story) => story.genre === filter || story.mood === filter
         );
 
-  const filters = [
-    "All",
-    "Favorites",
-    "Romance",
-    "Mystery",
-    "Fantasy",
-    "Drama",
-    "Adventure",
-    "Slice of Life",
-    "Heartwarming",
-    "Magical",
-    "Inspiring",
-  ];
+  // const filters = [
+  //   "All",
+  //   "Favorites",
+  //   "Romance",
+  //   "Mystery",
+  //   "Fantasy",
+  //   "Drama",
+  //   "Adventure",
+  //   "Slice of Life",
+  //   "Heartwarming",
+  //   "Magical",
+  //   "Inspiring",
+  // ];
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
