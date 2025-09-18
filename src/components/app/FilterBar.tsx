@@ -12,19 +12,23 @@ const genres = [
   "Slice of Life",
 ];
 
+interface MainProps {
+  currentFilter: string;
+  setFilter: (filter: string) => void;
+  setCurrentFilter: (currentFilter: string) => void;
+}
+
 export default function FilterBar({
   currentFilter,
   setFilter,
-}: {
-  currentFilter: string;
-  setFilter: (filter: string) => void;
-}) {
+  setCurrentFilter,
+}: MainProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative flex justify-center mb-10">
+    <div className="relative flex justify-center mb-2">
       <div className="flex items-center gap-2 mb-6">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className=" text-gray-600 dark:text-gray-400">
           Filter stories by category
         </p>
         <button
@@ -44,6 +48,7 @@ export default function FilterBar({
               onClick={() => {
                 setFilter(g);
                 setOpen(false);
+                setCurrentFilter(g);
               }}
               className={`w-full text-left px-4 py-2 rounded-xl text-sm font-medium transition ${
                 currentFilter === g

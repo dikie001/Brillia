@@ -23,6 +23,8 @@ export default function MiniStories() {
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
   const [readStories, setReadStories] = useState<Set<number>>(new Set());
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
+  const [filter, setFilter] = useState<string>("All");
+  const [currentFilter, setCurrentFilter] = useState("All");
 
   // Save the loaded stories to memory
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function MiniStories() {
       }
     };
 
-    SaveStoriesToMemory()
+    SaveStoriesToMemory();
   }, []);
 
   const toggleFavorite = (id: number) => {
@@ -62,22 +64,29 @@ export default function MiniStories() {
     ? stories.find((s) => s.id === selectedStory)
     : null;
 
+  // Filter categories
+  useEffect(() => {
+    console.log(filter);
+    if (filter === "All") {
+      return setStories(AllStories);
+    }
+    const filteredStories = AllStories.filter(
+      (story) => story.genre === filter
+    );
+    setStories(filteredStories);
+  }, [filter]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-violet-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      <Navbar />
+      <Navbar currentPage="Mini Stories" />
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 pt-20">
-          <FilterBar />
-
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <BookOpen className="w-12 h-12 text-amber-600 dark:text-amber-400" />
               <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-spin" />
             </div>
-            <h1 className="text-5xl font-black bg-gradient-to-r from-amber-600 via-rose-600 to-violet-600 bg-clip-text text-transparent">
-              Mini Stories
-            </h1>
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
@@ -105,6 +114,11 @@ export default function MiniStories() {
             </div>
           </div>
         </header>
+        <FilterBar
+          setFilter={setFilter}
+          currentFilter={currentFilter}
+          setCurrentFilter={setCurrentFilter}
+        />
 
         {/* Stories Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

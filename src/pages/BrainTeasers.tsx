@@ -91,14 +91,12 @@ export default function BrainTeasersPage() {
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-500">
-      <Navbar />
+      <Navbar currentPage="Brain Teasers" />
 
-      <div className="relative z-10 max-w-7xl mx-auto pt-20">
+      <div className="relative z-10 max-w-7xl mx-auto pt-16">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-black bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent dark:from-blue-400 dark:via-purple-500 dark:to-pink-500 mb-4">
-            Brain Teasers
-          </h1>
+    
           <p className="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-400">
             Challenge your mind with these carefully curated puzzles and riddles
           </p>

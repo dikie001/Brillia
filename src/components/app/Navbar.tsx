@@ -1,8 +1,8 @@
 import { useTheme } from "@/hooks/useHook";
 import { Menu, Sun } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import MobileNav from "./MobileNav";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MobileNav from "./MobileNav";
 
 const greetings: string[] = [
   "Hello",
@@ -23,30 +23,30 @@ interface User {
   subject: string;
 }
 
-const Navbar: React.FC = () => {
+const Navbar = ({ currentPage }: { currentPage: string }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [randomIndex, setRandomIndex] = useState(0);
-  const [seconds, setSeconds] = useState(60);
   const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
   const { toggleTheme, theme } = useTheme();
   const navigate = useNavigate();
+  const location = window.location.pathname;
+  const [navName, setNavName] = useState("");
 
+  // Set the navbar name based on page
   useEffect(() => {
-    const userDetails = localStorage.getItem("user-info");
-    userDetails && setUser(JSON.parse(userDetails));
+    const rawUserDetails = localStorage.getItem("user-info");
+    const userDetails = rawUserDetails && JSON.parse(rawUserDetails);
+    rawUserDetails && setUser(userDetails);
+    Randomize();
+    const newNavname =
+      location === "/"
+        ? `${greetings[randomIndex]} ${userDetails?.name.split(" ")[0]}`
+        : currentPage;
+    setNavName(newNavname);
   }, []);
 
   const Randomize = () =>
     setRandomIndex(Math.floor(Math.random() * greetings.length));
-
-  useEffect(() => {
-    if (seconds === 0) {
-      Randomize();
-      setSeconds(60);
-    }
-    const interval = setInterval(() => setSeconds((prev) => prev - 1), 1000);
-    return () => clearInterval(interval);
-  }, [seconds]);
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 flex justify-between items-center px-4 py-3 shadow-md backdrop-blur-2xl transition-colors duration-300 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white">
@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
         onClick={() => navigate("/")}
         className="text-3xl lg:text-4xl cursor-pointer font-black leading-tight bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-teal-500 dark:from-indigo-500 dark:via-purple-600 dark:to-pink-500 text-transparent transition-colors duration-500"
       >
-        {`${greetings[randomIndex] || "Hello"} ${user.name.split(" ")[0]}`}
+        {navName}{" "}
       </h1>
 
       {/* Menu & Theme Toggle */}
