@@ -3,6 +3,7 @@ import { BookOpen, Clock, Heart, Sparkles, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import AllStories from "@/assets/jsons/miniStories";
 import type { Story } from "@/types";
+import FilterBar from "@/components/app/FilterBar";
 
 const genreColors = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
@@ -64,10 +65,11 @@ export default function MiniStories() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-violet-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
       <Navbar />
-
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 pt-20">
+          <FilterBar />
+
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <BookOpen className="w-12 h-12 text-amber-600 dark:text-amber-400" />
@@ -158,10 +160,6 @@ export default function MiniStories() {
 
                 {/* Story Metadata */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    <Clock className="w-3 h-3" />
-                    {story.readTime} min
-                  </span>
                   {isRead && (
                     <span className="text-xs text-green-600 dark:text-green-400 font-semibold">
                       ✓ Read
@@ -211,14 +209,6 @@ export default function MiniStories() {
               </h1>
               <div className="flex items-center gap-6 mt-4 text-sm text-gray-600 dark:text-gray-400">
                 <span>by {selectedStoryData.author}</span>
-                <span className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
-                  {selectedStoryData.readTime} minute read
-                </span>
-                <span className="flex items-center gap-1">
-                  <Star className="w-4 h-4 fill-current text-yellow-400" />
-                  {selectedStoryData.rating}
-                </span>
               </div>
             </div>
 
