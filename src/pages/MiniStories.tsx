@@ -82,18 +82,18 @@ export default function MiniStories() {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 pt-20">
-          <div className="flex items-center justify-center gap-4 mb-6">
+          {/* <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <BookOpen className="w-12 h-12 text-amber-600 dark:text-amber-400" />
               <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-spin" />
             </div>
-          </div>
+          </div> */}
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
           </p>
 
           {/* Stats */}
-          <div className="flex items-center justify-center gap-8 mt-8">
+          {/* <div className="flex items-center justify-center gap-8 mt-8">
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
               <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
                 <BookOpen className="w-4 h-4 inline mr-2" />
@@ -112,7 +112,7 @@ export default function MiniStories() {
                 Favorites: {favorites.size}
               </span>
             </div>
-          </div>
+          </div> */}
         </header>
         <FilterBar
           setFilter={setFilter}
