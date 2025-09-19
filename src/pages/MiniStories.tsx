@@ -1,9 +1,9 @@
-import Navbar from "@/components/app/Navbar";
-import { BookOpen, Clock, Heart, Sparkles, Star } from "lucide-react";
-import { useEffect, useState } from "react";
 import AllStories from "@/assets/jsons/miniStories";
-import type { Story } from "@/types";
 import FilterBar from "@/components/app/FilterBar";
+import Navbar from "@/components/app/Navbar";
+import type { Story } from "@/types";
+import { Heart, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const genreColors = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
@@ -22,7 +22,7 @@ export default function MiniStories() {
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
   const [readStories, setReadStories] = useState<Set<number>>(new Set());
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
+  const [favorites, setFavorites] = useState<string[]>([]);
   const [filter, setFilter] = useState<string>("All");
   const [currentFilter, setCurrentFilter] = useState("All");
 
@@ -39,11 +39,7 @@ export default function MiniStories() {
     SaveStoriesToMemory();
   }, []);
 
-  const toggleFavorite = (id: number) => {
-    const newFavorites = new Set(favorites);
-    newFavorites.has(id) ? newFavorites.delete(id) : newFavorites.add(id);
-    setFavorites(newFavorites);
-  };
+  const toggleFavorite = (id: number) => {};
 
   const markAsRead = (id: number) => {
     setReadStories(new Set([...readStories, id]));
@@ -124,7 +120,6 @@ export default function MiniStories() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
             const isRead = readStories.has(story.id);
-            const isFavorite = favorites.has(story.id);
 
             return (
               <div
@@ -151,9 +146,7 @@ export default function MiniStories() {
                       toggleFavorite(story.id);
                     }}
                     className={`p-2 rounded-full transition-all duration-300 ${
-                      isFavorite
-                        ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
-                        : "text-gray-400 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20"
+                     
                     }`}
                   >
                     <Heart
@@ -213,9 +206,9 @@ export default function MiniStories() {
                 </span>
                 <button
                   onClick={() => setSelectedStory(null)}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  ×
+                  <X size={20} />
                 </button>
               </div>
               <h1 className="text-4xl font-black mt-4 text-gray-800 dark:text-gray-100">
