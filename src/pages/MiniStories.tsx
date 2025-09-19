@@ -146,7 +146,9 @@ export default function MiniStories() {
                       toggleFavorite(story.id);
                     }}
                     className={`p-2 rounded-full transition-all duration-300 ${
-                     
+                      isFavorite
+                        ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
+                        : "text-gray-400 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20"
                     }`}
                   >
                     <Heart
