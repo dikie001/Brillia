@@ -7,9 +7,9 @@ import QuizQuest from "./pages/QuizQuest";
 import SpeechDrills from "./pages/SpeechDrills";
 import WisdomNuggets from "./pages/WisdomNuggets";
 import NotFound from "./pages/NotFound";
+import SettingsPage from "./pages/Settings";
 
 const App = () => {
-
   return (
     <Router>
       <Routes>
@@ -21,6 +21,7 @@ const App = () => {
         <Route path="/speech-drills" element={<SpeechDrills />} />
         <Route path="/fact-frenzy" element={<FactFrenzy />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </Router>
   );
