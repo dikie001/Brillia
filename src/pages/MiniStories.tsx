@@ -2,8 +2,17 @@ import AllStories from "@/assets/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import type { Story } from "@/types";
-import { Heart, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  Check,
+  CheckCheck,
+  CheckCircle,
+  CheckCircle2,
+  CheckLine,
+  CircleCheck,
+  Heart,
+  X,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
 const genreColors: Record<string, string> = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
@@ -27,6 +36,7 @@ export default function MiniStories() {
   const [filter, setFilter] = useState<string>("All");
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
+  const [read, setRead] = useState<Set<number>>(new Set());
 
   // Load all data
   useEffect(() => {
@@ -37,11 +47,19 @@ export default function MiniStories() {
 
   // Fetch data from storage
   const FetchData = () => {
+    // Favorite stories
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
       : new Set();
     setFavorite(favoriteStories);
+
+    // Read stories
+    const storedData = localStorage.getItem(READ_STORIES);
+    const readStories: Set<number> = storedData
+      ? new Set<number>(JSON.parse(storedData))
+      : new Set();
+    setRead(readStories);
   };
 
   // Close modal on ESC
@@ -70,7 +88,7 @@ export default function MiniStories() {
     const favs = [...favorite].map((f) =>
       AllStories.find((story) => story.id === f)
     );
-    console.log("favs", favs);
+    // Validate and filter
     setStories(favs.filter((story): story is Story => story !== undefined));
   };
 
@@ -83,7 +101,6 @@ export default function MiniStories() {
       } else {
         newFavorite.add(id);
       }
-      console.log(newFavorite);
 
       // Get exixting favorites
       const existingData = localStorage.getItem(FAVOURITE_STORIES);
@@ -111,6 +128,26 @@ export default function MiniStories() {
     });
   };
 
+  // Save the read stories
+  const saveReadStories = (id: number) => {
+    setRead((prev) => {
+      const newReadStory = new Set(prev);
+      if (newReadStory.has(id)) return newReadStory;
+
+      if (!newReadStory.has(id)) {
+        newReadStory.add(id);
+        console.log("done..");
+        console.log(newReadStory);
+        // Send data to storage
+        localStorage.setItem(
+          READ_STORIES,
+          JSON.stringify(Array.from(newReadStory))
+        );
+      }
+
+      return newReadStory;
+    });
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-violet-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Mini Stories" />
@@ -139,7 +176,10 @@ export default function MiniStories() {
                 key={story.id}
                 className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 lg:p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
-                onClick={() => setSelectedStory(story.id)}
+                onClick={() => {
+                  setSelectedStory(story.id);
+                  saveReadStories(story.id);
+                }}
               >
                 {/* Story Header */}
                 <div className="flex items-start justify-between mb-4">
@@ -177,6 +217,10 @@ export default function MiniStories() {
                 {/* Author */}
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
                   by {story.author}
+                </div>
+                <div className={`flex text-green-400 gap-2 justify-end text-sm ${read.has(story.id) ? "" : "hidden"}`}>
+                  <p>Read</p>
+                  <CheckCheck className="text-green-400" size={20}/>
                 </div>
               </div>
             );
