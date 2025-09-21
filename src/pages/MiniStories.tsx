@@ -5,7 +5,7 @@ import type { Story } from "@/types";
 import { Heart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const genreColors = {
+const genreColors: Record<string, string> = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
   Mystery:
     "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
@@ -18,40 +18,62 @@ const genreColors = {
     "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
 };
 
+const READ_STORIES = "read-stories";
+const FAVOURITE_STORIES = "favourite-stories";
+
 export default function MiniStories() {
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
   const [readStories, setReadStories] = useState<Set<number>>(new Set());
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [filter, setFilter] = useState<string>("All");
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  // Save the loaded stories to memory
+  // Load stories
   useEffect(() => {
-    const SaveStoriesToMemory = () => {
-      if (AllStories) {
-        setStories(AllStories);
-      } else {
-        setStories([]);
-      }
-    };
+    if (AllStories) setStories(AllStories);
 
-    SaveStoriesToMemory();
+    // Call the Initial Function
+    InitialLoad();
   }, []);
 
-  const toggleFavorite = (id: number) => {};
+  const InitialLoad = () => {
+    // Fetch the read stories ids
+    const readStories = localStorage.getItem(READ_STORIES);
+    readStories && setReadStories(new Set([Number(readStories)]));
+
+    // Fetch the favourite stories id
+    const favouriteStories = localStorage.getItem(FAVOURITE_STORIES);
+    favouriteStories && setFavorites(new Set([Number(favouriteStories)]));
+  };
+
+  const toggleFavorite = (id: number) => {
+    setFavorites((prev) => {
+      const updated = new Set(prev);
+      if (updated.has(id)) {
+        updated.delete(id);
+      } else {
+        updated.add(id);
+      }
+      
+      // send to storage
+      localStorage.setItem(FAVOURITE_STORIES, JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const markAsRead = (id: number) => {
     setReadStories(new Set([...readStories, id]));
+    localStorage.setItem(READ_STORIES, JSON.stringify(id));
   };
 
+  // Close modal on ESC
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "Escape" && selectedStory !== null) {
         setSelectedStory(null);
       }
     };
-
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [selectedStory]);
@@ -60,16 +82,10 @@ export default function MiniStories() {
     ? stories.find((s) => s.id === selectedStory)
     : null;
 
-  // Filter categories
+  // Apply filter
   useEffect(() => {
-    console.log(filter);
-    if (filter === "All") {
-      return setStories(AllStories);
-    }
-    const filteredStories = AllStories.filter(
-      (story) => story.genre === filter
-    );
-    setStories(filteredStories);
+    if (filter === "All") return setStories(AllStories);
+    setStories(AllStories.filter((story) => story.genre === filter));
   }, [filter]);
 
   return (
@@ -78,38 +94,11 @@ export default function MiniStories() {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 pt-20">
-          {/* <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative">
-              <BookOpen className="w-12 h-12 text-amber-600 dark:text-amber-400" />
-              <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-2 -right-2 animate-spin" />
-            </div>
-          </div> */}
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
           </p>
-
-          {/* Stats */}
-          {/* <div className="flex items-center justify-center gap-8 mt-8">
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
-              <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                <BookOpen className="w-4 h-4 inline mr-2" />
-                {stories.length} Stories
-              </span>
-            </div>
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
-              <span className="text-sm font-bold text-green-600 dark:text-green-400">
-                <Star className="w-4 h-4 inline mr-2" />
-                Read: {readStories.size}
-              </span>
-            </div>
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
-              <span className="text-sm font-bold text-pink-600 dark:text-pink-400">
-                <Heart className="w-4 h-4 inline mr-2" />
-                Favorites: {favorites.size}
-              </span>
-            </div>
-          </div> */}
         </header>
+
         <FilterBar
           setFilter={setFilter}
           currentFilter={currentFilter}
@@ -120,11 +109,12 @@ export default function MiniStories() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
             const isRead = readStories.has(story.id);
+            const isFavorite = favorites.has(story.id);
 
             return (
               <div
                 key={story.id}
-                className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/20 cursor-pointer"
+                className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 lg:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-103 border border-white/20 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={() => {
                   setSelectedStory(story.id);
