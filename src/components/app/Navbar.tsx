@@ -22,8 +22,11 @@ interface User {
   hobby: string;
   subject: string;
 }
+interface MainProp {
+  currentPage?: string;
+}
 
-const Navbar = ({ currentPage }: { currentPage: string }) => {
+const Navbar = ({ currentPage }: MainProp) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [randomIndex, setRandomIndex] = useState(0);
   const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
@@ -35,13 +38,18 @@ const Navbar = ({ currentPage }: { currentPage: string }) => {
   // Set the navbar name based on page
   useEffect(() => {
     const rawUserDetails = localStorage.getItem("user-info");
-    const userDetails = rawUserDetails && JSON.parse(rawUserDetails);
+    const userDetails: User = rawUserDetails && JSON.parse(rawUserDetails);
     rawUserDetails && setUser(userDetails);
+    console.log(user);
     Randomize();
-    const newNavname =
+
+    const newNavname: string =
       location === "/"
         ? `${greetings[randomIndex]} ${userDetails?.name.split(" ")[0]}`
-        : currentPage;
+        : currentPage !== undefined
+        ? currentPage
+        : "Brillia";
+
     setNavName(newNavname);
   }, []);
 

@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import BrainTeasers from "./pages/BrainTeaser/BrainTeasers";
-import FactFrenzy from "./pages/FactFrenzy";
+import FactFrenzy from "./pages/AmazingFacts";
 import HomePage from "./pages/HomePage";
 import MiniStories from "./pages/MiniStories";
 import QuizQuest from "./pages/QuizQuest";
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/quiz-quest" element={<QuizQuest />} />{" "}
         <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
         <Route path="/speech-drills" element={<SpeechDrills />} />
-        <Route path="/fact-frenzy" element={<FactFrenzy />} />
+        <Route path="/amazing-facts" element={<FactFrenzy />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>

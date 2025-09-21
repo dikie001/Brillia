@@ -1,14 +1,13 @@
 import {
-    Bookmark,
-    CheckCircle,
-    Copy,
-    Filter,
-    Heart,
-    Quote,
-    Share2,
-    Shuffle,
-    Star,
-    Users,
+  Bookmark,
+  CheckCircle,
+  Copy,
+  Heart,
+  Quote,
+  Share2,
+  Shuffle,
+  Star,
+  Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -175,7 +174,6 @@ const moodColors = {
 export default function WisdomNuggets() {
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
-  const [filter, setFilter] = useState<string>("All");
   const [displayedQuotes, setDisplayedQuotes] = useState(quotes);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
 
@@ -194,7 +192,7 @@ export default function WisdomNuggets() {
       await navigator.clipboard.writeText(`"${quote.text}" - ${quote.author}`);
       setCopied(quote.id);
       setTimeout(() => setCopied(null), 2000);
-    } catch (err) {
+    } catch {
       console.error("Failed to copy quote");
     }
   };
@@ -206,7 +204,7 @@ export default function WisdomNuggets() {
           title: "Inspirational Quote",
           text: `"${quote.text}" - ${quote.author}`,
         });
-      } catch (err) {
+      } catch {
         copyToClipboard(quote);
       }
     } else {
@@ -219,28 +217,6 @@ export default function WisdomNuggets() {
     setDisplayedQuotes(shuffled);
     setCurrentQuoteIndex(0);
   };
-
-  const filteredQuotes =
-    filter === "All"
-      ? displayedQuotes
-      : filter === "Favorites"
-      ? displayedQuotes.filter((quote) => favorites.has(quote.id))
-      : displayedQuotes.filter(
-          (quote) => quote.category === filter || quote.mood === filter
-        );
-
-  const filters = [
-    "All",
-    "Favorites",
-    "Motivation",
-    "Love",
-    "Success",
-    "Wisdom",
-    "Life",
-    "Dreams",
-    "Creativity",
-    "Happiness",
-  ];
 
   // Featured quote rotation
   useEffect(() => {
@@ -331,27 +307,9 @@ export default function WisdomNuggets() {
           </button>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {filters.map((filterOption) => (
-            <button
-              key={filterOption}
-              onClick={() => setFilter(filterOption)}
-              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                filter === filterOption
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105"
-                  : "bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-gray-700 shadow-md hover:shadow-lg hover:scale-105 border border-white/20"
-              }`}
-            >
-              <Filter className="w-3 h-3 inline mr-2" />
-              {filterOption}
-            </button>
-          ))}
-        </div>
-
         {/* Quotes Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredQuotes.map((quote, index) => {
+          {displayedQuotes.map((quote, index) => {
             const isFavorite = favorites.has(quote.id);
             const isCopied = copied === quote.id;
 
@@ -457,19 +415,6 @@ export default function WisdomNuggets() {
             );
           })}
         </div>
-
-        {/* Empty State */}
-        {filteredQuotes.length === 0 && (
-          <div className="text-center py-16">
-            <Quote className="w-24 h-24 text-gray-300 dark:text-gray-600 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-gray-500 dark:text-gray-400 mb-2">
-              No quotes found
-            </h3>
-            <p className="text-gray-400 dark:text-gray-500">
-              Try adjusting your filters to discover more inspiring quotes
-            </p>
-          </div>
-        )}
 
         {/* Quote of the Day Section */}
         <div className="mt-20 text-center">

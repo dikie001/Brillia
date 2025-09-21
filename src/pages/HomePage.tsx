@@ -54,11 +54,11 @@ const HomePage: React.FC = () => {
       to: "speech-drills",
     },
     {
-      name: "Fact Frenzy",
+      name: "Amazing Facts",
       icon: <Newspaper />,
-      description: "Test your general knowledge",
+      description: "Cool random facts",
       color: "from-cyan-500 to-blue-600",
-      to: "fact-frenzy",
+      to: "amazing-facts",
     },
   ];
 
@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
-      <Navbar />
+      <Navbar  />
 
       <div className="relative z-10 max-w-6xl w-full text-center">
         <div className="mb-8 mt-20">
