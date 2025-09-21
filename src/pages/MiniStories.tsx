@@ -66,7 +66,13 @@ export default function MiniStories() {
   }, [filter]);
 
   // Filter favorites
-  const filterFavorites = () => {};
+  const filterFavorites = () => {
+    const favs = [...favorite].map((f) =>
+      AllStories.find((story) => story.id === f)
+    );
+    console.log("favs", favs);
+    setStories(favs.filter((story): story is Story => story !== undefined));
+  };
 
   // Toggel favorites
   const toggleFavourites = (id: number) => {
@@ -93,7 +99,7 @@ export default function MiniStories() {
       } else {
         existingfavorites.add(id);
       }
-      
+
       updatedFavorites = existingfavorites;
 
       // Save the updated object of favorites to storage
@@ -159,7 +165,7 @@ export default function MiniStories() {
                 </div>
 
                 {/* Story Title */}
-                <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {story.title}
                 </h2>
 
