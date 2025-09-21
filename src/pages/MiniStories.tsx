@@ -24,47 +24,21 @@ const FAVOURITE_STORIES = "favourite-stories";
 export default function MiniStories() {
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
-  const [readStories, setReadStories] = useState<Set<number>>(new Set());
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [filter, setFilter] = useState<string>("All");
   const [currentFilter, setCurrentFilter] = useState("All");
+  const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
   // Load stories
   useEffect(() => {
     if (AllStories) setStories(AllStories);
-
-    // Call the Initial Function
-    InitialLoad();
   }, []);
 
-  const InitialLoad = () => {
-    // Fetch the read stories ids
-    const readStories = localStorage.getItem(READ_STORIES);
-    readStories && setReadStories(new Set([Number(readStories)]));
-
-    // Fetch the favourite stories id
-    const favouriteStories = localStorage.getItem(FAVOURITE_STORIES);
-    favouriteStories && setFavorites(new Set([Number(favouriteStories)]));
-  };
-
-  const toggleFavorite = (id: number) => {
-    setFavorites((prev) => {
-      const updated = new Set(prev);
-      if (updated.has(id)) {
-        updated.delete(id);
-      } else {
-        updated.add(id);
-      }
-
-      // send to storage
-      localStorage.setItem(FAVOURITE_STORIES, JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const markAsRead = (id: number) => {
-    setReadStories(new Set([...readStories, id]));
-    localStorage.setItem(READ_STORIES, JSON.stringify(id));
+  // Fetch data from storage
+  const FetchData = () => {
+    const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
+    const favoriteStories = storedFavorites
+      ? new Set<number>(JSON.parse(storedFavorites))
+      : new Set();
   };
 
   // Close modal on ESC
@@ -84,14 +58,29 @@ export default function MiniStories() {
 
   // Apply filter
   useEffect(() => {
-    if (filter === "Favourites") return;
     if (filter === "All") return setStories(AllStories);
     setStories(AllStories.filter((story) => story.genre === filter));
   }, [filter]);
 
-  // Filter favourite stories
-  const filterFavorites = () => {
-    console.log("favs",favorites);
+  // Filter favorites
+  const filterFavorites = () => {};
+
+  // Toggel favorites
+  const toggleFavourites = (id: number) => {
+    setFavorite((prev) => {
+      const newFavorite = new Set(prev);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+      } else {
+        newFavorite.add(id);
+      }
+      console.log(newFavorite);
+      localStorage.setItem(
+        FAVOURITE_STORIES,
+        JSON.stringify(Array.from(newFavorite))
+      );
+      return newFavorite;
+    });
   };
 
   return (
@@ -104,7 +93,7 @@ export default function MiniStories() {
             Brief tales that linger in your heart long after the last word
           </p>
         </header>
-        <div className="flex items-center justify-cneter justify-between px-2">
+        <div className="flex items-center justify-between px-2">
           <FilterBar
             setFilter={setFilter}
             currentFilter={currentFilter}
@@ -116,18 +105,13 @@ export default function MiniStories() {
         {/* Stories Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
-            const isRead = readStories.has(story.id);
-            const isFavorite = favorites.has(story.id);
-
+            const isFavorite = favorite.has(story.id);
             return (
               <div
                 key={story.id}
-                className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 lg:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-103 border border-white/20 cursor-pointer"
+                className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 lg:p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
-                onClick={() => {
-                  setSelectedStory(story.id);
-                  markAsRead(story.id);
-                }}
+                onClick={() => setSelectedStory(story.id)}
               >
                 {/* Story Header */}
                 <div className="flex items-start justify-between mb-4">
@@ -138,21 +122,17 @@ export default function MiniStories() {
                   >
                     {story.genre}
                   </span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorite(story.id);
-                    }}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      isFavorite
-                        ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
-                        : "text-gray-400 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20"
-                    }`}
-                  >
+                  <span>
                     <Heart
-                      className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavourites(story.id);
+                      }}
+                      className={`text-gray-400 ${
+                        isFavorite && "stroke-red-600 fill-red-600"
+                      } `}
                     />
-                  </button>
+                  </span>
                 </div>
 
                 {/* Story Title */}
@@ -164,15 +144,6 @@ export default function MiniStories() {
                 <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
                   {story.content.substring(0, 120)}...
                 </p>
-
-                {/* Story Metadata */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                  {isRead && (
-                    <span className="text-xs text-green-600 dark:text-green-400 font-semibold">
-                      ✓ Read
-                    </span>
-                  )}
-                </div>
 
                 {/* Author */}
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
@@ -230,31 +201,9 @@ export default function MiniStories() {
 
             {/* Modal Footer */}
             <div className="px-8 py-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-3xl">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Press ESC to close
-                </span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(selectedStoryData.id);
-                  }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-300 ${
-                    favorites.has(selectedStoryData.id)
-                      ? "bg-pink-500 text-white shadow-lg"
-                      : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900/30"
-                  }`}
-                >
-                  <Heart
-                    className={`w-4 h-4 ${
-                      favorites.has(selectedStoryData.id) ? "fill-current" : ""
-                    }`}
-                  />
-                  {favorites.has(selectedStoryData.id)
-                    ? "Favorited"
-                    : "Add to Favorites"}
-                </button>
-              </div>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Press ESC to close
+              </span>
             </div>
           </div>
         </div>
