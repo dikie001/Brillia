@@ -4,7 +4,6 @@ import { Filter } from "lucide-react";
 const genres = [
   "All",
   "Favorites",
-  "Romance",
   "Mystery",
   "Fantasy",
   "Drama",
@@ -43,26 +42,29 @@ export default function FilterBar({
       </div>
 
       {open && (
-        <div className="absolute mt-12 w-56 bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-2 border border-gray-200 dark:border-gray-700 z-50">
-          {genres.map((g) => (
-            <button
-              key={g}
-              onClick={() => {
-                setFilter(g);
-                setOpen(false);
-                setCurrentFilter(g);
-                if (g === "Favorites")  onFavoriteClick();
-              }}
-              className={`w-full text-left px-4 py-2 rounded-xl text-sm font-medium transition ${
-                currentFilter === g
-                  ? "border border-indigo-600 bg-indigo-900  text-white shadow-lg"
-                  : "hover:bg-indigo-200 dark:hover:bg-indigo-900/40 text-gray-700 dark:text-gray-300"
-              }`}
-            >
-              {g}
-            </button>
-          ))}
-        </div>
+        <>
+        <div onClick={()=>setOpen(false)} className="inset-0 h-screen z-58 fixed bg-black/20 backdrop-blur-xs "></div>
+          <div className="absolute z-60 mt-12 w-74 bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-2 border border-gray-200 dark:border-gray-700 ">
+            {genres.map((g) => (
+              <button
+                key={g}
+                onClick={() => {
+                  setFilter(g);
+                  setOpen(false);
+                  setCurrentFilter(g);
+                  if (g === "Favorites") onFavoriteClick();
+                }}
+                className={`w-full text-left px-4 py-2 rounded-xl  font-medium transition ${
+                  currentFilter === g
+                    ? "border border-indigo-600 bg-indigo-900  text-white shadow-lg"
+                    : "hover:bg-indigo-200 dark:hover:bg-indigo-900/40 text-gray-700 dark:text-gray-300"
+                }`}
+              >
+                {g}
+              </button>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

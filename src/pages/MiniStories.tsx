@@ -2,16 +2,7 @@ import AllStories from "@/assets/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import type { Story } from "@/types";
-import {
-  Check,
-  CheckCheck,
-  CheckCircle,
-  CheckCircle2,
-  CheckLine,
-  CircleCheck,
-  Heart,
-  X,
-} from "lucide-react";
+import { CheckCheck, Heart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const genreColors: Record<string, string> = {
@@ -79,6 +70,7 @@ export default function MiniStories() {
 
   // Apply filter
   useEffect(() => {
+    if (filter === "Favorites") return;
     if (filter === "All") return setStories(AllStories);
     setStories(AllStories.filter((story) => story.genre === filter));
   }, [filter]);
@@ -98,6 +90,9 @@ export default function MiniStories() {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
+        if (filter === "Favorites") {
+          filterFavorites();
+        }
       } else {
         newFavorite.add(id);
       }
@@ -198,7 +193,7 @@ export default function MiniStories() {
                       }}
                       className={`text-gray-400 ${
                         isFavorite &&
-                        "stroke-red-500 fill-red-500 dark:stroke-red-400 dark:fill-red-400"
+                        "stroke-pink-500 fill-pink-500 dark:stroke-red-400 dark:fill-red-400"
                       } `}
                     />
                   </span>
@@ -218,9 +213,13 @@ export default function MiniStories() {
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
                   by {story.author}
                 </div>
-                <div className={`flex text-green-400 gap-2 justify-end text-sm ${read.has(story.id) ? "" : "hidden"}`}>
+                <div
+                  className={`flex text-green-400 gap-2 justify-end text-sm ${
+                    read.has(story.id) ? "" : "hidden"
+                  }`}
+                >
                   <p>Read</p>
-                  <CheckCheck className="text-green-400" size={20}/>
+                  <CheckCheck className="text-green-400" size={20} />
                 </div>
               </div>
             );
@@ -279,6 +278,29 @@ export default function MiniStories() {
               </span>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Other modals */}
+      {filter === "Favorites" && stories.length === 0 && (
+        <div className="flex shadow-lg flex-col items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center">
+          <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
+            No favorites yet
+          </p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+            Mark stories as favorites to see them here.
+          </p>
+        </div>
+      )}
+
+      {filter !== "Favorites" && stories.length === 0 && (
+        <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center">
+          <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
+            No stories in {filter}
+          </p>
+          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+            Check back later for more {filter} stories.
+          </p>
         </div>
       )}
     </div>
