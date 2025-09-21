@@ -1,5 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import BrainTeasers from "./pages/BrainTeasers";
+import BrainTeasers from "./pages/BrainTeaser/BrainTeasers";
 import FactFrenzy from "./pages/FactFrenzy";
 import HomePage from "./pages/HomePage";
 import MiniStories from "./pages/MiniStories";
