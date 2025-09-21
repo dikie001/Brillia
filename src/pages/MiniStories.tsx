@@ -3,7 +3,7 @@ import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import type { Story } from "@/types";
 import { Heart, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const genreColors: Record<string, string> = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
@@ -28,17 +28,20 @@ export default function MiniStories() {
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
-  // Load stories
+  // Load all data
   useEffect(() => {
     if (AllStories) setStories(AllStories);
+    // Fetch page data
+    FetchData();
   }, []);
 
   // Fetch data from storage
   const FetchData = () => {
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
-    const favoriteStories = storedFavorites
+    const favoriteStories: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
       : new Set();
+    setFavorite(favoriteStories);
   };
 
   // Close modal on ESC
@@ -75,9 +78,28 @@ export default function MiniStories() {
         newFavorite.add(id);
       }
       console.log(newFavorite);
+
+      // Get exixting favorites
+      const existingData = localStorage.getItem(FAVOURITE_STORIES);
+      const existingfavorites: Set<number> = existingData
+        ? new Set(JSON.parse(existingData))
+        : new Set();
+
+      // Create a new set with the data from current and storage in sync
+
+      let updatedFavorites: Set<number>;
+      if (existingfavorites.has(id)) {
+        existingfavorites.delete(id);
+      } else {
+        existingfavorites.add(id);
+      }
+      
+      updatedFavorites = existingfavorites;
+
+      // Save the updated object of favorites to storage
       localStorage.setItem(
         FAVOURITE_STORIES,
-        JSON.stringify(Array.from(newFavorite))
+        JSON.stringify(Array.from(updatedFavorites))
       );
       return newFavorite;
     });
@@ -129,7 +151,8 @@ export default function MiniStories() {
                         toggleFavourites(story.id);
                       }}
                       className={`text-gray-400 ${
-                        isFavorite && "stroke-red-600 fill-red-600"
+                        isFavorite &&
+                        "stroke-red-500 fill-red-500 dark:stroke-red-400 dark:fill-red-400"
                       } `}
                     />
                   </span>
