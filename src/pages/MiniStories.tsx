@@ -55,7 +55,7 @@ export default function MiniStories() {
       } else {
         updated.add(id);
       }
-      
+
       // send to storage
       localStorage.setItem(FAVOURITE_STORIES, JSON.stringify(updated));
       return updated;
@@ -84,26 +84,34 @@ export default function MiniStories() {
 
   // Apply filter
   useEffect(() => {
+    if (filter === "Favourites") return;
     if (filter === "All") return setStories(AllStories);
     setStories(AllStories.filter((story) => story.genre === filter));
   }, [filter]);
+
+  // Filter favourite stories
+  const filterFavorites = () => {
+    console.log("favs",favorites);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-violet-100 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Mini Stories" />
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-12 pt-20">
+        <header className="text-center mb-12 pt-20 relative">
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
           </p>
         </header>
-
-        <FilterBar
-          setFilter={setFilter}
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
-        />
+        <div className="flex items-center justify-cneter justify-between px-2">
+          <FilterBar
+            setFilter={setFilter}
+            currentFilter={currentFilter}
+            setCurrentFilter={setCurrentFilter}
+            onFavoriteClick={filterFavorites}
+          />
+        </div>
 
         {/* Stories Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
