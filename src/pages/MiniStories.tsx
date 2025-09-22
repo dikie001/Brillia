@@ -85,7 +85,7 @@ export default function MiniStories() {
   };
 
   // Toggel favorites
-  const toggleFavourites = (id: number) => {
+  const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
@@ -185,18 +185,24 @@ export default function MiniStories() {
                   >
                     {story.genre}
                   </span>
-                  <span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorites(story.id);
+                    }}
+                    className={`p-2 rounded-full transition-all duration-300 ${
+                      isFavorite
+                        ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
+                        : "text-gray-400 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20"
+                    }`}
+                    title={
+                      isFavorite ? "Remove from favorites" : "Add to favorites"
+                    }
+                  >
                     <Heart
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavourites(story.id);
-                      }}
-                      className={`text-gray-400 ${
-                        isFavorite &&
-                        "stroke-pink-500 fill-pink-500 dark:stroke-red-400 dark:fill-red-400"
-                      } `}
+                      className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
                     />
-                  </span>
+                  </button>
                 </div>
 
                 {/* Story Title */}

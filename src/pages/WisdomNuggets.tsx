@@ -6,9 +6,7 @@ import {
   Heart,
   Quote,
   Share2,
-  Shuffle,
-  Star,
-  Users,
+  Star
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -172,20 +170,48 @@ const moodColors = {
   Ambitious: "border-l-red-400",
 };
 
+const FAVOURITE_QUOTES = "favorite-quote";
+
 export default function WisdomNuggets() {
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
   const [displayedQuotes, setDisplayedQuotes] = useState(quotes);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
-  const toggleFavorite = (id: number) => {
-    const newFavorites = new Set(favorites);
-    if (newFavorites.has(id)) {
-      newFavorites.delete(id);
-    } else {
-      newFavorites.add(id);
-    }
-    setFavorites(newFavorites);
+  // Toggel favorites
+  const toggleFavorites = (id: number) => {
+    setFavorite((prev) => {
+      const newFavorite = new Set(prev);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+      } else {
+        newFavorite.add(id);
+      }
+
+      // Get exixting favorites
+      const existingData = localStorage.getItem(FAVOURITE_QUOTES);
+      const existingfavorites: Set<number> = existingData
+        ? new Set(JSON.parse(existingData))
+        : new Set();
+
+      // Create a new set with the data from current and storage in sync
+
+      let updatedFavorites: Set<number>;
+      if (existingfavorites.has(id)) {
+        existingfavorites.delete(id);
+      } else {
+        existingfavorites.add(id);
+      }
+
+      updatedFavorites = existingfavorites;
+
+      // Save the updated object of favorites to storage
+      localStorage.setItem(
+        FAVOURITE_QUOTES,
+        JSON.stringify(Array.from(updatedFavorites))
+      );
+      return newFavorite;
+    });
   };
 
   const copyToClipboard = async (quote: Quote) => {
@@ -198,6 +224,7 @@ export default function WisdomNuggets() {
     }
   };
 
+  // Share quote
   const shareQuote = async (quote: Quote) => {
     if (navigator.share) {
       try {
@@ -213,12 +240,6 @@ export default function WisdomNuggets() {
     }
   };
 
-  const shuffleQuotes = () => {
-    const shuffled = [...quotes].sort(() => Math.random() - 0.5);
-    setDisplayedQuotes(shuffled);
-    setCurrentQuoteIndex(0);
-  };
-
   // Featured quote rotation
   useEffect(() => {
     const interval = setInterval(() => {
@@ -227,11 +248,25 @@ export default function WisdomNuggets() {
     return () => clearInterval(interval);
   }, []);
 
+  // Initial
+  useEffect(() => {
+    FetchData();
+  }, []);
+
+  // Fetch data from storage
+  const FetchData = () => {
+    const storedFavorites = localStorage.getItem(FAVOURITE_QUOTES);
+    const favoriteStories: Set<number> = storedFavorites
+      ? new Set<number>(JSON.parse(storedFavorites))
+      : new Set();
+    setFavorite(favoriteStories);
+  };
+
   const featuredQuote = quotes[currentQuoteIndex];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-100 dark:from-gray-900 dark:via-slate-800 dark:to-purple-900 text-gray-900 dark:text-gray-100 p-6">
-<Navbar currentPage="Wisdom Nuggets"/>
+      <Navbar currentPage="Wisdom Nuggets" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
@@ -241,7 +276,6 @@ export default function WisdomNuggets() {
               <Quote className="w-16 h-16 text-purple-600 dark:text-purple-400 transform rotate-12" />
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-ping"></div>
             </div>
-        
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Words of wisdom to inspire, motivate, and illuminate your journey
@@ -281,7 +315,7 @@ export default function WisdomNuggets() {
         {/* Quotes Grid */}
         <div className="grid  gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedQuotes.map((quote, index) => {
-            const isFavorite = favorites.has(quote.id);
+            const isFavorite = favorite.has(quote.id);
             const isCopied = copied === quote.id;
 
             return (
@@ -359,7 +393,7 @@ export default function WisdomNuggets() {
                     </button>
                   </div>
                   <button
-                    onClick={() => toggleFavorite(quote.id)}
+                    onClick={() => toggleFavorites(quote.id)}
                     className={`p-2 rounded-full transition-all duration-300 ${
                       isFavorite
                         ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
@@ -374,7 +408,6 @@ export default function WisdomNuggets() {
                     />
                   </button>
                 </div>
-
               </div>
             );
           })}
