@@ -157,6 +157,8 @@ const categoryIcons = {
   Geography: Globe,
 };
 
+const SAVED_FACTS = "saved-facts";
+
 export default function FactFrenzy() {
   const [savedFacts, setSavedFacts] = useState<Set<number>>(new Set());
   const [displayedFacts, setDisplayedFacts] = useState(facts);
@@ -164,20 +166,26 @@ export default function FactFrenzy() {
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [showFactOfDay, setShowFactOfDay] = useState(true);
 
+  // Get saved data from storage
+  useEffect(() => {
+    const savedData = localStorage.getItem(SAVED_FACTS);
+    const savedFacts: Set<number> = savedData
+      ? new Set(JSON.parse(savedData))
+      : new Set();
+    setSavedFacts(savedFacts);
+  }, []);
+
+  // Toggle save button and save data to storage
   const toggleSaved = (id: number) => {
     const newSaved = new Set(savedFacts);
     if (newSaved.has(id)) newSaved.delete(id);
     else newSaved.add(id);
     setSavedFacts(newSaved);
+    localStorage.setItem(SAVED_FACTS, JSON.stringify(Array.from(newSaved)));
   };
 
   const markAsViewed = (id: number) => {
     setViewedFacts(new Set([...viewedFacts, id]));
-  };
-
-  const shuffleFacts = () => {
-    const shuffled = [...facts].sort(() => Math.random() - 0.5);
-    setDisplayedFacts(shuffled);
   };
 
   const shareFact = async (fact: Fact) => {
@@ -215,7 +223,6 @@ export default function FactFrenzy() {
                 <Zap className="w-6 h-6 text-blue-500 animate-bounce" />
               </div>
             </div>
-        
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Discover mind-blowing truths about our incredible world
@@ -268,7 +275,6 @@ export default function FactFrenzy() {
           </div>
         )}
 
-
         {/* Facts Grid */}
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedFacts.map((fact, index) => {
@@ -301,7 +307,6 @@ export default function FactFrenzy() {
                     </div>
                   )}
                 </div>
-            
 
                 {/* Content */}
                 <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
