@@ -270,7 +270,7 @@ export default function FactFrenzy() {
 
 
         {/* Facts Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedFacts.map((fact, index) => {
             const CategoryIcon = categoryIcons[fact.category];
             const isSaved = savedFacts.has(fact.id);

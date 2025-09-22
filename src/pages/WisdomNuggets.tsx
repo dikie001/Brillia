@@ -1,3 +1,4 @@
+import Navbar from "@/components/app/Navbar";
 import {
   Bookmark,
   CheckCircle,
@@ -230,24 +231,17 @@ export default function WisdomNuggets() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-100 dark:from-gray-900 dark:via-slate-800 dark:to-purple-900 text-gray-900 dark:text-gray-100 p-6">
-      {/* Animated Background */}
-      <div className="fixed inset-0 opacity-10 dark:opacity-20 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-300 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-pink-300 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute top-2/3 left-3/4 w-32 h-32 bg-blue-300 rounded-full blur-xl animate-pulse"></div>
-      </div>
+<Navbar currentPage="Wisdom Nuggets"/>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-16">
+        <header className="text-center mb-8 mt-12">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
               <Quote className="w-16 h-16 text-purple-600 dark:text-purple-400 transform rotate-12" />
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-ping"></div>
             </div>
-            <h1 className="text-6xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent">
-              Quotes
-            </h1>
+        
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Words of wisdom to inspire, motivate, and illuminate your journey
@@ -255,7 +249,7 @@ export default function WisdomNuggets() {
         </header>
 
         {/* Featured Quote */}
-        <div className="mb-16">
+        <div className="mb-8">
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
@@ -284,31 +278,8 @@ export default function WisdomNuggets() {
           </div>
         </div>
 
-        {/* Stats and Controls */}
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
-            <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
-              <Quote className="w-4 h-4 inline mr-2" />
-              {quotes.length} Quotes
-            </span>
-          </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/20">
-            <span className="text-sm font-bold text-pink-600 dark:text-pink-400">
-              <Heart className="w-4 h-4 inline mr-2" />
-              {favorites.size} Favorites
-            </span>
-          </div>
-          <button
-            onClick={shuffleQuotes}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold"
-          >
-            <Shuffle className="w-4 h-4 inline mr-2" />
-            Shuffle
-          </button>
-        </div>
-
         {/* Quotes Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid  gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedQuotes.map((quote, index) => {
             const isFavorite = favorites.has(quote.id);
             const isCopied = copied === quote.id;
@@ -339,9 +310,9 @@ export default function WisdomNuggets() {
                 </div>
 
                 {/* Quote Content */}
-                <div className="mb-6">
-                  <Quote className="w-8 h-8 text-purple-300 mb-4" />
-                  <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-4">
+                <div className="mb-4">
+                  <Quote className="w-8 h-8 text-purple-300 mb-2" />
+                  <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
                     "{quote.text}"
                   </blockquote>
                   <cite className="text-sm font-semibold text-purple-600 dark:text-purple-400">
@@ -350,7 +321,7 @@ export default function WisdomNuggets() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {quote.tags.map((tag) => (
                     <span
                       key={tag}
@@ -362,7 +333,7 @@ export default function WisdomNuggets() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => copyToClipboard(quote)}
@@ -404,13 +375,6 @@ export default function WisdomNuggets() {
                   </button>
                 </div>
 
-                {/* Popularity Indicator */}
-                <div className="flex items-center gap-2 mt-3 text-xs text-gray-500 dark:text-gray-400">
-                  <Users className="w-3 h-3" />
-                  <span>
-                    Popular with {Math.floor(quote.popularity * 1000)}+ readers
-                  </span>
-                </div>
               </div>
             );
           })}
