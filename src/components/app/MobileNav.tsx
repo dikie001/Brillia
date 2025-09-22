@@ -31,7 +31,7 @@ const menuItems = [
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },
   { label: "Wisdom Nuggets", icon: Quote, to: "/wisdom-nuggets" },
   { label: "Speech Drill", icon: Wand, to: "/speech-drills" },
-  { label: "Fact Frenzy", icon: Newspaper, to: "/fact-frenzy" },
+  { label: "Amazing Facts ", icon: Newspaper, to: "/amazing-facts" },
   { label: "Settings", icon: Settings, to: "/settings" },
 ];
 
