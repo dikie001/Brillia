@@ -101,10 +101,12 @@ export default function BrainTeasersPage() {
         {/* Loading */}
         {loading ||
           (teasers.length === 0 && (
-            <div className="flex items-center justify-center w-full h-64 bg-gray-900 rounded-2xl shadow-md">
+            <div className="flex flex-col items-center justify-center w-full h-64 ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+              <p className="font-medium ">Loading teasers...</p>
             </div>
           ))}
+
         {/* Grid of teasers */}
         <div className="grid gap-4 mb-6 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => {
