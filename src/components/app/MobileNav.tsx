@@ -61,7 +61,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
       {/* Side Menu */}
       <div
-        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 bg-white h-screen lg:h-120 lg:rounded-b-xl dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 flex flex-col ${
+        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 bg-white h-screen lg:h-140 lg:rounded-b-xl dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 flex flex-col ${
           open
             ? "translate-x-0 lg:translate-y-0"
             : "translate-x-full lg:-translate-y-150"
