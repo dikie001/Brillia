@@ -93,11 +93,13 @@ export default function BrainTeasersPage() {
         </header>
 
         {/* Top Pagination */}
-        <BrainTeaserPagination
-          currentPage={currentPage}
-          teasers={teasers}
-          setCurrentPage={setCurrentPage}
-        />
+        {teasers.length !== 0 && (
+          <BrainTeaserPagination
+            currentPage={currentPage}
+            teasers={teasers}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
         {/* Loading */}
         {loading ||
           (teasers.length === 0 && (
@@ -184,11 +186,13 @@ export default function BrainTeasersPage() {
         </div>
 
         {/* Bottom pagination */}
-        <BrainTeaserPagination
-          currentPage={currentPage}
-          teasers={teasers}
-          setCurrentPage={setCurrentPage}
-        />
+        {teasers.length !== 0 && (
+          <BrainTeaserPagination
+            currentPage={currentPage}
+            teasers={teasers}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         {teasers.length === 0 && (
           <div className="text-center py-12">
