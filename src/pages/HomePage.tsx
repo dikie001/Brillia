@@ -13,9 +13,17 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const READ_STORIES = "read-stories";
+
+type Complete = {
+  stories: number;
+  quiz: number;
+};
+
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [openLearnerModal, setOpenLearnerModal] = useState(false);
+  const [completed, setCompleted] = useState<Complete>({ stories: 0, quiz: 0 });
 
   const sections = [
     {
@@ -70,6 +78,20 @@ const HomePage: React.FC = () => {
     if (!isFirstTime) setTimeout(() => setOpenLearnerModal(true), 1200);
   }, []);
 
+  // Fetch completion data from storage
+  useEffect(() => {
+    const rawData = localStorage.getItem(READ_STORIES);
+    const completedStories = rawData ? JSON.parse(rawData).length : [];
+    if (!completedStories || completedStories.length === 0) {
+      setCompleted((prev) => ({ ...prev, stories: 0 }));
+    } else {
+      setCompleted((prev) => ({
+        ...prev,
+        stories: Number(JSON.parse(completedStories)),
+      }));
+    }
+  });
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar />
@@ -112,9 +134,17 @@ const HomePage: React.FC = () => {
                     {section.description}
                   </p>
 
-                  <div className={`${hasCompleted ? "block":'hidden'} flex items-center gap-2 justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400`}>
+                  <div
+                    className={`${
+                      hasCompleted ? "block" : "hidden"
+                    } flex items-center gap-2 justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400`}
+                  >
                     <span className="flex items-center text-green-600">
-                      <Trophy className="w-4 h-4 mr-1" />0 completed
+                      <Trophy className="w-4 h-4 mr-1" />
+                      {section.name === "Mini Stories"
+                        ? completed.stories
+                        : completed.quiz}{" "}
+                      completed
                     </span>
                   </div>
                 </div>
