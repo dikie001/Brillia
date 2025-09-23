@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
-      <Navbar  />
+      <Navbar />
 
       <div className="relative z-10 max-w-6xl w-full text-center">
         <div className="mb-8 mt-20">
@@ -82,41 +82,45 @@ const HomePage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-          {sections.map((section, index) => (
-            <button
-              key={section.name}
-              onClick={() => HandleCategoryClick(section.to)}
-              className="group cursor-pointer p-4 md:p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 relative overflow-hidden border bg-white/80 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700/50"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div
-                className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${section.color} transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300`}
-              />
-
-              <div className="flex flex-col items-center text-center">
+          {sections.map((section, index) => {
+            const hasCompleted =
+              section.name === "Quiz Quest" || section.name === "Mini Stories";
+            return (
+              <button
+                key={section.name}
+                onClick={() => HandleCategoryClick(section.to)}
+                className="group cursor-pointer p-4 md:p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 relative overflow-hidden border bg-white/80 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700/50"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <div
-                  className={`p-4 lg:p-6 rounded-3xl bg-gradient-to-r ${section.color} shadow-lg group-hover:shadow-xl transition-all duration-300 mb-4 lg:mb-6 group-hover:scale-110`}
-                >
-                  {React.cloneElement(section.icon, {
-                    className: "text-white",
-                  })}
-                </div>
+                  className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${section.color} transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300`}
+                />
 
-                <h3 className="max-sm:text-xl text-2xl font-bold mb-1 lg:mb-2 transition-colors duration-300 group-hover:text-indigo-600">
-                  {section.name}
-                </h3>
-                <p className="text-sm font-medium mb-4 leading-relaxed text-gray-600 dark:text-gray-300">
-                  {section.description}
-                </p>
+                <div className="flex flex-col items-center text-center">
+                  <div
+                    className={`p-4 lg:p-6 rounded-3xl bg-gradient-to-r ${section.color} shadow-lg group-hover:shadow-xl transition-all duration-300 mb-4 lg:mb-6 group-hover:scale-110`}
+                  >
+                    {React.cloneElement(section.icon, {
+                      className: "text-white",
+                    })}
+                  </div>
 
-                <div className="flex items-center justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="flex items-center text-green-600">
-                    <Trophy className="w-4 h-4 mr-1" />0 completed
-                  </span>
+                  <h3 className="max-sm:text-xl text-2xl font-bold mb-1 lg:mb-2 transition-colors duration-300 group-hover:text-indigo-600">
+                    {section.name}
+                  </h3>
+                  <p className="text-sm font-medium mb-4 leading-relaxed text-gray-600 dark:text-gray-300">
+                    {section.description}
+                  </p>
+
+                  <div className={`${hasCompleted ? "block":'hidden'} flex items-center gap-2 justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400`}>
+                    <span className="flex items-center text-green-600">
+                      <Trophy className="w-4 h-4 mr-1" />0 completed
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
 
