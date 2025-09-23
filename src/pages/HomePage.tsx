@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
         stories: Number(JSON.parse(completedStories)),
       }));
     }
-  });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
