@@ -1,6 +1,13 @@
 import brainTeasers from "@/assets/jsons/brainTeaser";
 import Navbar from "@/components/app/Navbar";
-import { Brain, Eye, EyeOff, Lightbulb, Trophy } from "lucide-react";
+import {
+  Brain,
+  Eye,
+  EyeOff,
+  Lightbulb,
+  LoaderCircle,
+  Trophy,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import BrainTeaserPagination from "./BrainTeaserPagination";
 
@@ -30,7 +37,7 @@ export default function BrainTeasersPage() {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
   const [teasers, setTeasers] = useState<Teaser[]>([]);
   const teasersRef = useRef<Teaser[]>([]);
-  // const [currentIndex, setCurrentIndex] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -50,6 +57,7 @@ export default function BrainTeasersPage() {
 
   // Save the teasers to state
   useEffect(() => {
+    setLoading(true);
     teasersRef.current = brainTeasers;
     // Get current page from storage
     const lastPage = localStorage.getItem("brain-teaser-currentPage");
@@ -59,6 +67,7 @@ export default function BrainTeasersPage() {
     } else {
       setCurrentPage(1);
     }
+    setLoading(false);
   }, []);
 
   const toggleReveal = (id: number) => {
@@ -89,7 +98,13 @@ export default function BrainTeasersPage() {
           teasers={teasers}
           setCurrentPage={setCurrentPage}
         />
-
+        {/* Loading */}
+        {loading ||
+          (teasers.length === 0 && (
+            <div className="flex items-center justify-center w-full h-64 bg-gray-900 rounded-2xl shadow-md">
+              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+            </div>
+          ))}
         {/* Grid of teasers */}
         <div className="grid gap-4 mb-6 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => {
