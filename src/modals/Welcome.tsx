@@ -14,7 +14,6 @@ interface MainProps {
 
 const USER = "user-info";
 const LearnerModal = ({ onClose }: MainProps) => {
-  const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<LearnerInfo>({
     name: "",

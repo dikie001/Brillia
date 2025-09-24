@@ -9,10 +9,9 @@ import {
   Globe,
   Lightbulb,
   Share2,
-  Shuffle,
   Star,
   TrendingUp,
-  Zap,
+  Zap
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -28,7 +27,6 @@ type Fact = {
     | "Technology"
     | "Human Body"
     | "Geography";
-  difficulty: "Mind-Blowing" | "Interesting" | "Cool" | "Surprising";
   funLevel: number;
   source: string;
   tags: string[];
@@ -40,7 +38,6 @@ const facts: Fact[] = [
     id: 1,
     fact: "Bananas are berries, but strawberries are not.",
     category: "Nature",
-    difficulty: "Surprising",
     funLevel: 4,
     source: "National Geographic",
     tags: ["fruit", "biology", "weird"],
@@ -51,7 +48,6 @@ const facts: Fact[] = [
     id: 2,
     fact: "Octopuses have three hearts and blue blood.",
     category: "Animals",
-    difficulty: "Mind-Blowing",
     funLevel: 5,
     source: "Smithsonian",
     tags: ["ocean", "marine", "biology"],
@@ -62,7 +58,6 @@ const facts: Fact[] = [
     id: 3,
     fact: "Light from the Sun takes about 8 minutes to reach Earth.",
     category: "Space",
-    difficulty: "Interesting",
     funLevel: 3,
     source: "NASA",
     tags: ["astronomy", "physics", "space"],
@@ -73,7 +68,6 @@ const facts: Fact[] = [
     id: 4,
     fact: "The Great Wall of China is not visible from space with the naked eye.",
     category: "History",
-    difficulty: "Cool",
     funLevel: 3,
     source: "History.com",
     tags: ["china", "myth", "architecture"],
@@ -84,7 +78,6 @@ const facts: Fact[] = [
     id: 5,
     fact: "The human nose can detect over 1 trillion different scents.",
     category: "Human Body",
-    difficulty: "Mind-Blowing",
     funLevel: 5,
     source: "Science Daily",
     tags: ["smell", "biology", "senses"],
@@ -95,7 +88,6 @@ const facts: Fact[] = [
     id: 6,
     fact: "Only about 5% of the ocean has been explored by humans.",
     category: "Geography",
-    difficulty: "Surprising",
     funLevel: 4,
     source: "NOAA",
     tags: ["ocean", "earth", "exploration"],
@@ -106,7 +98,6 @@ const facts: Fact[] = [
     id: 7,
     fact: "The first computer virus was created in 1986 and called ‘Brain’.",
     category: "Technology",
-    difficulty: "Interesting",
     funLevel: 3,
     source: "Computer History Museum",
     tags: ["cybersecurity", "computers", "history"],
@@ -117,7 +108,6 @@ const facts: Fact[] = [
     id: 8,
     fact: "Sharks existed before trees appeared on Earth.",
     category: "Science",
-    difficulty: "Mind-Blowing",
     funLevel: 5,
     source: "BBC Earth",
     tags: ["evolution", "animals", "timeline"],
@@ -139,13 +129,6 @@ const categoryColors = {
   Geography: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
 };
 
-const difficultyColors = {
-  "Mind-Blowing": "bg-gradient-to-r from-red-500 to-pink-500 text-white",
-  Interesting: "bg-gradient-to-r from-blue-500 to-cyan-500 text-white",
-  Cool: "bg-gradient-to-r from-green-500 to-emerald-500 text-white",
-  Surprising: "bg-gradient-to-r from-purple-500 to-indigo-500 text-white",
-};
-
 const categoryIcons = {
   Science: Atom,
   Nature: Globe,
@@ -161,13 +144,14 @@ const SAVED_FACTS = "saved-facts";
 
 export default function FactFrenzy() {
   const [savedFacts, setSavedFacts] = useState<Set<number>>(new Set());
-  const [displayedFacts, setDisplayedFacts] = useState(facts);
+  const [displayedFacts, setDisplayedFacts] = useState<Fact[]>([]);
   const [viewedFacts, setViewedFacts] = useState<Set<number>>(new Set());
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [showFactOfDay, setShowFactOfDay] = useState(true);
 
   // Get saved data from storage
   useEffect(() => {
+    setDisplayedFacts(facts);
     const savedData = localStorage.getItem(SAVED_FACTS);
     const savedFacts: Set<number> = savedData
       ? new Set(JSON.parse(savedData))

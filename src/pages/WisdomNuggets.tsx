@@ -6,7 +6,7 @@ import {
   Heart,
   Quote,
   Share2,
-  Star
+  Star,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -174,10 +174,14 @@ const FAVOURITE_QUOTES = "favorite-quote";
 
 export default function WisdomNuggets() {
   const [copied, setCopied] = useState<number | null>(null);
-  const [displayedQuotes, setDisplayedQuotes] = useState(quotes);
+  const [displayedQuotes, setDisplayedQuotes] = useState<Quote[]>([]);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
+  // Save quotes to memory
+  useEffect(() => {
+    setDisplayedQuotes(quotes);
+  }, []);
   // Toggel favorites
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
