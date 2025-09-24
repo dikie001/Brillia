@@ -29,7 +29,6 @@ interface MainProp {
 const Navbar = ({ currentPage }: MainProp) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [randomIndex, setRandomIndex] = useState(0);
-  const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
   const { toggleTheme, theme } = useTheme();
   const navigate = useNavigate();
   const location = window.location.pathname;
@@ -39,7 +38,6 @@ const Navbar = ({ currentPage }: MainProp) => {
   useEffect(() => {
     const rawUserDetails = localStorage.getItem("user-info");
     const userDetails: User = rawUserDetails && JSON.parse(rawUserDetails);
-    rawUserDetails && setUser(userDetails);
     Randomize();
 
     const newNavname: string =

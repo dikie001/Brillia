@@ -22,7 +22,7 @@ import finish from "../assets/images/finish.png";
 
 import Navbar from "@/components/app/Navbar";
 import quiz from "../assets/images/quiz.png";
-import quizData1 from "../assets/jsons/quiz";
+import quizData from "public/jsons/quizData";
 import useSound from "../hooks/useSound";
 
 type Options = {
@@ -40,7 +40,6 @@ export interface QuizType {
   correctAnswer: keyof Options;
   explanation: string;
 }
-
 
 interface TestResult {
   testNumber: number;
@@ -120,7 +119,7 @@ const QuizApp: React.FC = () => {
     const initializeApp = async (): Promise<void> => {
       try {
         // Try to load quiz data from  or show error
-        let loadedQuizData: QuizType[] = quizData1;
+        let loadedQuizData: QuizType[] = quizData;
 
         // Load saved data from localStorage
         const savedResults = loadSavedResults();
@@ -502,7 +501,7 @@ const QuizApp: React.FC = () => {
   if (state.gameState === "home") {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 p-3 sm:p-6 relative overflow-hidden transition-colors duration-300">
-        <Navbar currentPage="Quiz Quest"/>
+        <Navbar currentPage="Quiz Quest" />
 
         <div className="max-w-4xl mx-auto relative z-10">
           {/* Header */}
@@ -759,7 +758,6 @@ const QuizApp: React.FC = () => {
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed flex-1">
                 {currentQ.question}
               </h3>
-          
             </div>
 
             {/* Options */}
@@ -1007,7 +1005,7 @@ const QuizApp: React.FC = () => {
   if (state.gameState === "allResults") {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 transition-colors duration-300">
-        <Navbar  currentPage="Results"/>
+        <Navbar currentPage="Results" />
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8 pt-20">
