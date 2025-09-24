@@ -302,7 +302,7 @@ export default function MiniStories() {
       {filter !== "Favorites" && stories.length === 0 && (
         <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center">
           <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
-            No stories in {filter}
+            No stories in { filter }
           </p>
           <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
             Check back later for more {filter} stories.
