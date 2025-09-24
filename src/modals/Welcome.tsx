@@ -73,7 +73,13 @@ const LearnerModal = ({ onClose }: MainProps) => {
             <div className="p-2 bg-white/20 rounded-xl">
               <Sparkles size={24} />
             </div>
-            <h2 className="text-2xl font-bold">Welcome, Learner!</h2>
+            <h2 className="text-2xl font-bold">
+              {submitted ? (
+                <span>Brillia</span>
+              ) : (
+                <span>Welcome, Learner!</span>
+              )}
+            </h2>
           </div>
           {!submitted && (
             <p className="text-white/90 text-sm">

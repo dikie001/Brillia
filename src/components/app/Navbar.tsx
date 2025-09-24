@@ -40,12 +40,13 @@ const Navbar = ({ currentPage }: MainProp) => {
     const rawUserDetails = localStorage.getItem("user-info");
     const userDetails: User = rawUserDetails && JSON.parse(rawUserDetails);
     rawUserDetails && setUser(userDetails);
-    console.log(user);
     Randomize();
 
     const newNavname: string =
       location === "/"
-        ? `${greetings[randomIndex]} ${userDetails?.name.split(" ")[0]}`
+        ? `${greetings[randomIndex]} ${
+            userDetails?.name.split(" ")[0] || "Learner"
+          }`
         : currentPage !== undefined
         ? currentPage
         : "Brillia";
