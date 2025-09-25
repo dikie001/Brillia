@@ -4,146 +4,15 @@ import {
   CheckCircle,
   Copy,
   Heart,
-  Quote,
+  QuoteIcon,
   Share2,
   Star,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { quotes } from "@/jsons/coolQuotes";
+import type { Quote } from "@/types";
 
-type Quote = {
-  id: number;
-  text: string;
-  author: string;
-  category:
-    | "Motivation"
-    | "Love"
-    | "Success"
-    | "Wisdom"
-    | "Life"
-    | "Dreams"
-    | "Creativity"
-    | "Happiness";
-  mood:
-    | "Inspiring"
-    | "Romantic"
-    | "Thoughtful"
-    | "Uplifting"
-    | "Peaceful"
-    | "Ambitious";
-  tags: string[];
-  popularity: number;
-};
 
-const quotes: Quote[] = [
-  {
-    id: 1,
-    text: "The only way to do great work is to love what you do.",
-    author: "Steve Jobs",
-    category: "Success",
-    mood: "Inspiring",
-    tags: ["work", "passion", "greatness"],
-    popularity: 4.9,
-  },
-  {
-    id: 2,
-    text: "In the middle of difficulty lies opportunity.",
-    author: "Albert Einstein",
-    category: "Motivation",
-    mood: "Uplifting",
-    tags: ["challenges", "opportunity", "perseverance"],
-    popularity: 4.8,
-  },
-  {
-    id: 3,
-    text: "The future belongs to those who believe in the beauty of their dreams.",
-    author: "Eleanor Roosevelt",
-    category: "Dreams",
-    mood: "Inspiring",
-    tags: ["dreams", "future", "belief"],
-    popularity: 4.7,
-  },
-  {
-    id: 4,
-    text: "Love is not about how many days, months, or years you have been together. It's about how much you love each other every single day.",
-    author: "Unknown",
-    category: "Love",
-    mood: "Romantic",
-    tags: ["love", "relationships", "daily"],
-    popularity: 4.6,
-  },
-  {
-    id: 5,
-    text: "The purpose of our lives is to be happy.",
-    author: "Dalai Lama",
-    category: "Happiness",
-    mood: "Peaceful",
-    tags: ["purpose", "happiness", "life"],
-    popularity: 4.8,
-  },
-  {
-    id: 6,
-    text: "Creativity is intelligence having fun.",
-    author: "Albert Einstein",
-    category: "Creativity",
-    mood: "Uplifting",
-    tags: ["creativity", "intelligence", "fun"],
-    popularity: 4.5,
-  },
-  {
-    id: 7,
-    text: "The way to get started is to quit talking and begin doing.",
-    author: "Walt Disney",
-    category: "Motivation",
-    mood: "Ambitious",
-    tags: ["action", "starting", "doing"],
-    popularity: 4.7,
-  },
-  {
-    id: 8,
-    text: "Life is what happens to you while you're busy making other plans.",
-    author: "John Lennon",
-    category: "Life",
-    mood: "Thoughtful",
-    tags: ["life", "planning", "present"],
-    popularity: 4.9,
-  },
-  {
-    id: 9,
-    text: "The only impossible journey is the one you never begin.",
-    author: "Tony Robbins",
-    category: "Dreams",
-    mood: "Inspiring",
-    tags: ["journey", "beginning", "possibility"],
-    popularity: 4.6,
-  },
-  {
-    id: 10,
-    text: "Wisdom is not a product of schooling but of the lifelong attempt to acquire it.",
-    author: "Albert Einstein",
-    category: "Wisdom",
-    mood: "Thoughtful",
-    tags: ["wisdom", "learning", "lifelong"],
-    popularity: 4.4,
-  },
-  {
-    id: 11,
-    text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-    author: "Nelson Mandela",
-    category: "Motivation",
-    mood: "Uplifting",
-    tags: ["resilience", "falling", "rising"],
-    popularity: 4.9,
-  },
-  {
-    id: 12,
-    text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-    author: "Winston Churchill",
-    category: "Success",
-    mood: "Inspiring",
-    tags: ["success", "failure", "courage"],
-    popularity: 4.8,
-  },
-];
 
 const categoryColors = {
   Motivation:
@@ -152,23 +21,20 @@ const categoryColors = {
   Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200", // growth, achievement
   Wisdom:
     "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // knowledge, clarity
-  Life: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200", // calm, balance
-  Dreams:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // imagination, vision
-  Creativity:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energy, inspiration
+  Perseverance: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200", // resilience, patience
   Happiness:
     "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200", // positivity, joy
+  Courage: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // bravery, strength
+  Innovation:
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // creativity, future
+  Leadership: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200", // guidance, influence
+  Growth: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200", // progress, learning
+  Action:
+    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // initiative, drive
 };
 
-const moodColors = {
-  Inspiring: "border-l-indigo-400",
-  Romantic: "border-l-indigo-400",
-  Thoughtful: "border-l-indigo-400",
-  Uplifting: "border-l-indigo-400",
-  Peaceful: "border-l-indigo-400",
-  Ambitious: "border-l-indigo-400",
-};
+
+
 
 const FAVOURITE_QUOTES = "favorite-quote";
 
@@ -255,7 +121,7 @@ export default function WisdomNuggets() {
         <header className="text-center mb-8 mt-12">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
-              <Quote className="w-16 h-16 text-indigo-600 dark:text-indigo-400 transform rotate-12" />
+              <QuoteIcon className="w-16 h-16 text-indigo-600 dark:text-indigo-400 transform rotate-12" />
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full animate-ping"></div>
             </div>
           </div>
@@ -269,7 +135,7 @@ export default function WisdomNuggets() {
           <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
-              <Quote className="w-12 h-12 mb-6 opacity-80" />
+              <QuoteIcon className="w-12 h-12 mb-6 opacity-80" />
               <blockquote className="text-2xl md:text-3xl font-bold leading-relaxed mb-6">
                 "{featuredQuote.text}"
               </blockquote>
@@ -325,7 +191,7 @@ export default function WisdomNuggets() {
 
                 {/* Quote Content */}
                 <div className="mb-4">
-                  <Quote className="w-8 h-8 text-indigo-300 mb-2" />
+                  <QuoteIcon className="w-8 h-8 text-indigo-300 mb-2" />
                   <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
                     "{quote.text}"
                   </blockquote>
