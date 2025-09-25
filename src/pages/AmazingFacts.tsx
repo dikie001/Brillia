@@ -206,7 +206,7 @@ export default function FactFrenzy() {
                     </span>
                   ))}
                 </div>
-                {/* 
+                
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     Fun Level:
@@ -223,7 +223,7 @@ export default function FactFrenzy() {
                       />
                     ))}
                   </div>
-                </div> */}
+                </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
