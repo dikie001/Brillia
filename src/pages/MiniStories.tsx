@@ -1,4 +1,4 @@
-import AllStories from "public/jsons/miniStories";
+// import AllStories from "public/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import type { Story } from "@/types";
@@ -31,7 +31,12 @@ export default function MiniStories() {
 
   // Load all data
   useEffect(() => {
-    if (AllStories) setStories(AllStories);
+    const fetchStories = async () => {
+      const AllStories = await fetch("/public/jsons/miniStories");
+      const fetchedStories = await Response.json(AllStories)
+      if (AllStories) setStories(fetchedStories);
+    };
+fetchStories()
     // Fetch page data
     FetchData();
   }, []);
