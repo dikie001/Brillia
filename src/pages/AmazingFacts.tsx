@@ -40,6 +40,7 @@ const categoryIcons = {
   Technology: Zap,
   "Human Body": Brain,
   Geography: Globe,
+  Culture: Star,
 };
 
 const SAVED_FACTS = "saved-facts";
@@ -207,7 +208,7 @@ export default function FactFrenzy() {
                   ))}
                 </div>
                 
-                <div className="flex items-center gap-2 mb-4">
+                {/* <div className="flex items-center gap-2 mb-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     Fun Level:
                   </span>
@@ -223,9 +224,9 @@ export default function FactFrenzy() {
                       />
                     ))}
                   </div>
-                </div>
+                </div> */}
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button
                       onClick={(e) => {
@@ -259,7 +260,7 @@ export default function FactFrenzy() {
                   </button>
                 </div>
 
-                <div className="mt-3 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" />
                   Source: {fact.source}
                 </div>
