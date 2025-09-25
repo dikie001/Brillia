@@ -53,15 +53,15 @@ export default function FilterBar({
             onClick={() => setIsOpen(!isOpen)}
             className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm"
           >
-            <Filter className="w-4 h-4 text-rose-500" />
+            <Filter className="w-4 h-4 text-indigo-500" />
             <span className="truncate">{getFilterButtonText()}</span>
           </button>
 
           <button
             onClick={handleFavoriteClick}
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-rose-500"
+            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-indigo-500"
           >
-            <Heart className="w-4 h-4 text-rose-500" />
+            <Heart className="w-4 h-4 text-indigo-500" />
             <span className="hidden sm:inline">Favorites</span>
           </button>
         </div>
@@ -78,15 +78,15 @@ export default function FilterBar({
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md"
           >
-            <Filter className="w-4 h-4 text-rose-500" />
+            <Filter className="w-4 h-4 text-indigo-500" />
             {getFilterButtonText()}
           </button>
 
           <button
             onClick={handleFavoriteClick}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md focus:ring-2 focus:ring-rose-500"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md focus:ring-2 focus:ring-indigo-500"
           >
-            <Heart className="w-4 h-4 text-rose-500" />
+            <Heart className="w-4 h-4 text-indigo-500" />
             Favorites
           </button>
         </div>
@@ -106,7 +106,7 @@ export default function FilterBar({
                 className={`w-full text-left px-4 py-3 sm:px-3 sm:py-2 rounded-lg text-sm font-medium ${
                   currentFilter === genre
                     ? "bg-indigo-600 text-white"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900"
                 }`}
               >
                 {genre}

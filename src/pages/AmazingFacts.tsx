@@ -11,7 +11,7 @@ import {
   Share2,
   Star,
   TrendingUp,
-  Zap
+  Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -33,6 +33,7 @@ type Fact = {
   isVerified: boolean;
   readTime: number;
 };
+
 const facts: Fact[] = [
   {
     id: 1,
@@ -117,16 +118,17 @@ const facts: Fact[] = [
 ];
 
 const categoryColors = {
-  Science: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Nature: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  History: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
+  Science:
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // intellectual, calm
+  Nature: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200", // natural, peaceful
+  History: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200", // warm, vintage feel
   Space:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // cosmic, mysterious
   Animals:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Technology: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-  "Human Body": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-  Geography: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energetic but subtle
+  Technology: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200", // neutral, modern
+  "Human Body": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // organic, biological
+  Geography: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200", // earth, calm
 };
 
 const categoryIcons = {
@@ -149,7 +151,6 @@ export default function FactFrenzy() {
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [showFactOfDay, setShowFactOfDay] = useState(true);
 
-  // Get saved data from storage
   useEffect(() => {
     setDisplayedFacts(facts);
     const savedData = localStorage.getItem(SAVED_FACTS);
@@ -159,7 +160,6 @@ export default function FactFrenzy() {
     setSavedFacts(savedFacts);
   }, []);
 
-  // Toggle save button and save data to storage
   const toggleSaved = (id: number) => {
     const newSaved = new Set(savedFacts);
     if (newSaved.has(id)) newSaved.delete(id);
@@ -195,16 +195,15 @@ export default function FactFrenzy() {
   const factOfDay = facts[currentFactIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-800 dark:to-blue-900 text-gray-900 dark:text-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
       <div className="relative z-10 max-w-7xl mx-auto">
         <Navbar currentPage="Amazing Facts" />
-        {/* Header */}
         <header className="text-center mb-6">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative mt-12">
-              <Lightbulb className="w-16 h-16 text-yellow-500 dark:text-yellow-400" />
+              <Lightbulb className="w-16 h-16 text-indigo-500 dark:text-indigo-400" />
               <div className="absolute -top-1 -right-1 w-8 h-8">
-                <Zap className="w-6 h-6 text-blue-500 animate-bounce" />
+                <Zap className="w-6 h-6 text-indigo-500 animate-bounce" />
               </div>
             </div>
           </div>
@@ -213,10 +212,9 @@ export default function FactFrenzy() {
           </p>
         </header>
 
-        {/* Fact of the Day */}
         {showFactOfDay && (
           <div className="mb-16 relative">
-            <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+            <div className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-4 right-4">
                 <button
@@ -234,7 +232,11 @@ export default function FactFrenzy() {
                 <p className="text-lg leading-relaxed mb-6">{factOfDay.fact}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        categoryColors[factOfDay.category]
+                      }`}
+                    >
                       {factOfDay.category}
                     </span>
                     <span className="text-sm opacity-80">
@@ -259,7 +261,6 @@ export default function FactFrenzy() {
           </div>
         )}
 
-        {/* Facts Grid */}
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedFacts.map((fact, index) => {
             const CategoryIcon = categoryIcons[fact.category];
@@ -269,14 +270,13 @@ export default function FactFrenzy() {
             return (
               <div
                 key={fact.id}
-                className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-white/30 cursor-pointer"
+                className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={() => markAsViewed(fact.id)}
               >
-                {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <CategoryIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <CategoryIcon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-bold ${
                         categoryColors[fact.category]
@@ -286,30 +286,27 @@ export default function FactFrenzy() {
                     </span>
                   </div>
                   {fact.isVerified && (
-                    <div className="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 p-1 rounded-full">
+                    <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 p-1 rounded-full">
                       <CheckCircle className="w-4 h-4" />
                     </div>
                   )}
                 </div>
 
-                {/* Content */}
                 <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
                   {fact.fact}
                 </p>
 
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {fact.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full text-xs font-medium"
+                      className="px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full text-xs font-medium"
                     >
                       #{tag}
                     </span>
                   ))}
                 </div>
-
-                {/* Fun Level */}
+                {/* 
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     Fun Level:
@@ -326,9 +323,8 @@ export default function FactFrenzy() {
                       />
                     ))}
                   </div>
-                </div>
+                </div> */}
 
-                {/* Actions */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button
@@ -336,7 +332,7 @@ export default function FactFrenzy() {
                         e.stopPropagation();
                         shareFact(fact);
                       }}
-                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-blue-600 transition-all"
+                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-indigo-600 transition-all"
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
@@ -353,17 +349,16 @@ export default function FactFrenzy() {
                     }}
                     className={`p-2 rounded-full transition-all ${
                       isSaved
-                        ? "text-purple-500 bg-purple-100 dark:bg-purple-900/30 scale-110"
-                        : "text-gray-400 hover:text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                        ? "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                        : "text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                     }`}
                   >
                     <BookmarkPlus
-                      className={`w-5 h-5 ${isSaved ? "fill-current" : ""}`}
+                      className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`}
                     />
                   </button>
                 </div>
 
-                {/* Source */}
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" />
                   Source: {fact.source}
@@ -373,14 +368,13 @@ export default function FactFrenzy() {
           })}
         </div>
 
-        {/* Did You Know Section */}
         <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Learning Never Stops
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
-              <Brain className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+              <Brain className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Mind Expanding</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Every fact opens new neural pathways and expands your
@@ -388,7 +382,7 @@ export default function FactFrenzy() {
               </p>
             </div>
             <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
-              <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
+              <CheckCircle className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Verified Sources</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 All facts are carefully researched and sourced from reputable
