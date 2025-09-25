@@ -47,19 +47,18 @@ export default function BrainTeasersPage() {
     const currentItems = teasersRef.current.slice(start, end);
     setTeasers(currentItems);
 
-    // Save the current page to storage
-    currentPage !== 1 &&
+    if (currentPage !== 1) {
       localStorage.setItem(
         "brain-teaser-currentPage",
         JSON.stringify(currentPage)
       );
+    }
   }, [currentPage]);
 
-  // Save the teasers to state
   useEffect(() => {
     setLoading(true);
     teasersRef.current = brainTeasers;
-    // Get current page from storage
+
     const lastPage = localStorage.getItem("brain-teaser-currentPage");
     if (lastPage) {
       const num = Number(lastPage);
@@ -81,7 +80,7 @@ export default function BrainTeasersPage() {
   };
 
   return (
-    <div className="min-h-screen p-2 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-100 dark:from-gray-900 dark:via-slate-800 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-500">
+    <div className="min-h-screen p-2 bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
 
       <div className="relative z-10 max-w-7xl mx-auto pt-16">
@@ -100,12 +99,13 @@ export default function BrainTeasersPage() {
             setCurrentPage={setCurrentPage}
           />
         )}
+
         {/* Loading */}
         {loading ||
           (teasers.length === 0 && (
             <div className="flex flex-col items-center justify-center w-full h-64 ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium ">Loading teasers...</p>
+              <p className="font-medium">Loading teasers...</p>
             </div>
           ))}
 
@@ -124,7 +124,7 @@ export default function BrainTeasersPage() {
                   {/* Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <CategoryIcon className="w-5 h-5 text-purple-500" />
+                      <CategoryIcon className="w-5 h-5 text-indigo-500" />
                       <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
                         {teaser.category}
                       </span>
@@ -142,7 +142,7 @@ export default function BrainTeasersPage() {
                     Puzzle #{teaser.id}
                   </h2>
 
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 p-4 rounded-2xl mb-4">
+                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-4">
                     <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                       {teaser.question}
                     </p>
@@ -154,8 +154,8 @@ export default function BrainTeasersPage() {
                     onClick={() => toggleReveal(teaser.id)}
                     className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 ease-in-out ${
                       isRevealed
-                        ? "bg-gradient-to-r from-red-500 to-pink-500  text-white shadow-lg"
-                        : "bg-gradient-to-r from-purple-500 to-indigo-600   text-white shadow-lg"
+                        ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg"
+                        : "bg-gradient-to-r from-indigo-700 to-indigo-600 text-white shadow-lg"
                     }`}
                   >
                     {isRevealed ? (
@@ -170,9 +170,9 @@ export default function BrainTeasersPage() {
                   </button>
 
                   {isRevealed && (
-                    <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/30 dark:to-blue-900/30 rounded-2xl border-l-4 border-green-400">
+                    <div className="mt-4 p-4 bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 rounded-2xl border-l-4 border-indigo-400">
                       <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-200 font-medium">
-                        <span className="text-green-600 dark:text-green-400 font-bold">
+                        <span className="text-indigo-600 dark:text-indigo-400 font-bold">
                           Solution:{" "}
                         </span>
                         {teaser.answer}
@@ -185,7 +185,7 @@ export default function BrainTeasersPage() {
           })}
         </div>
 
-        {/* Bottom pagination */}
+        {/* Bottom Pagination */}
         {teasers.length !== 0 && (
           <BrainTeaserPagination
             currentPage={currentPage}
@@ -196,7 +196,7 @@ export default function BrainTeasersPage() {
 
         {teasers.length === 0 && (
           <div className="text-center py-12">
-            <Brain className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <Brain className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
             <p className="text-xl text-gray-500 dark:text-gray-400">
               No teasers available.
             </p>

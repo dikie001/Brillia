@@ -31,58 +31,57 @@ const menuItems = [
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },
   { label: "Wisdom Nuggets", icon: Quote, to: "/wisdom-nuggets" },
   { label: "Speech Drill", icon: Wand, to: "/speech-drills" },
-  { label: "Amazing Facts ", icon: Newspaper, to: "/amazing-facts" },
+  { label: "Amazing Facts", icon: Newspaper, to: "/amazing-facts" },
   { label: "Settings", icon: Settings, to: "/settings" },
 ];
 
 export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState<User>({
-    name: "",
-    hobby: "",
-    subject: "",
-  });
+  const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
 
-  // Fetch users details from storage
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
     userDetails && setUser(JSON.parse(userDetails));
   }, []);
+
   return (
     <>
       {/* Overlay */}
       {open && (
         <div
           onClick={onClose}
-          className="fixed inset-0 h-screen bg-black/50 backdrop-blur-sm z-40"
+          className="fixed inset-0 h-screen bg-black/60 backdrop-blur-sm z-40"
         />
       )}
 
       {/* Side Menu */}
       <div
-        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 bg-white h-screen lg:h-140 lg:rounded-b-xl dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 flex flex-col ${
-          open
-            ? "translate-x-0 lg:translate-y-0"
-            : "translate-x-full lg:-translate-y-150"
-        }`}
+        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 h-screen lg:h-140 lg:rounded-b-xl shadow-2xl z-50 transform transition-transform duration-300 flex flex-col
+          bg-white/90 dark:bg-gray-950/90 border-l border-indigo-200/40 dark:border-indigo-800/40
+          ${
+            open
+              ? "translate-x-0 lg:translate-y-0"
+              : "translate-x-full lg:-translate-y-150"
+          }`}
       >
         {/* Header */}
-        <div className="flex  items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-2xl  lg:text-3xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 bg-clip-text text-transparent leading-tight ">
+        <div className="flex items-center justify-between p-4 border-b border-indigo-200/40 dark:border-indigo-800/40">
+          <h1 className="text-2xl lg:text-3xl font-black bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 bg-clip-text text-transparent leading-tight">
             {user.name}
           </h1>
+
           <button
             onClick={onClose}
-            className={`p-1.5 hover:bg-gray-300 dark:hover:bg-white/20 rounded-md`}
+            className="p-2 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-indigo-500 dark:text-indigo-300" />
           </button>
         </div>
 
         {/* Menu Buttons */}
         <div className="flex flex-col h-full mb-4">
-          <div className="flex flex-1 flex-col p-5 space-y-4 text-gray-700 dark:text-gray-200">
+          <div className="flex flex-1 flex-col p-5 space-y-3 text-gray-700 dark:text-gray-200">
             {menuItems.map((item) => {
               const active = location.pathname === item.to;
               return (
@@ -92,11 +91,12 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                     navigate(item.to);
                     onClose();
                   }}
-                  className={`flex items-center gap-3 py-2 px-3 rounded-lg transition ${
-                    active
-                      ? "bg-green-100 dark:bg-green-900/30 text-green-600"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`}
+                  className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-colors
+                    ${
+                      active
+                        ? "bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300"
+                        : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+                    }`}
                 >
                   <item.icon
                     className={`w-5 h-5 ${
@@ -108,12 +108,13 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
               );
             })}
           </div>
-          {/* FOOTER */}
-          <div className="flex lg:hidden flex-col items-center border-t border-gray-200 dark:border-gray-700 space-y-1">
+
+          {/* Footer */}
+          <div className="flex lg:hidden flex-col items-center border-t border-indigo-200/40 dark:border-indigo-800/40">
             <div className="mt-2 mb-2 flex gap-2 justify-center items-center">
-              <p className="text-gray-400 text-sm text-center">
-                From code to impact -{" "}
-                <span className="text-pink-400 underline font-medium">
+              <p className="text-gray-500 dark:text-gray-400 text-sm text-center">
+                From code to impact –{" "}
+                <span className="text-indigo-500 dark:text-indigo-300 underline font-medium">
                   <a
                     href="https://dikie.vercel.app"
                     target="_blank"
@@ -123,7 +124,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                   </a>
                 </span>
               </p>
-              <Laptop2 className="text-pink-500" />
+              <Laptop2 className="text-indigo-500 dark:text-indigo-300" />
             </div>
           </div>
         </div>

@@ -147,27 +147,27 @@ const quotes: Quote[] = [
 
 const categoryColors = {
   Motivation:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Love: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
-  Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // focus, drive
+  Love: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300", // soft romantic
+  Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200", // growth, achievement
   Wisdom:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Life: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // knowledge, clarity
+  Life: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200", // calm, balance
   Dreams:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // imagination, vision
   Creativity:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energy, inspiration
   Happiness:
-    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200", // positivity, joy
 };
 
 const moodColors = {
-  Inspiring: "border-l-orange-400",
-  Romantic: "border-l-pink-400",
-  Thoughtful: "border-l-purple-400",
-  Uplifting: "border-l-blue-400",
-  Peaceful: "border-l-green-400",
-  Ambitious: "border-l-red-400",
+  Inspiring: "border-l-indigo-400",
+  Romantic: "border-l-indigo-400",
+  Thoughtful: "border-l-indigo-400",
+  Uplifting: "border-l-indigo-400",
+  Peaceful: "border-l-indigo-400",
+  Ambitious: "border-l-indigo-400",
 };
 
 const FAVOURITE_QUOTES = "favorite-quote";
@@ -178,41 +178,27 @@ export default function WisdomNuggets() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
-  // Save quotes to memory
   useEffect(() => {
     setDisplayedQuotes(quotes);
   }, []);
-  // Toggel favorites
+
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
-      if (newFavorite.has(id)) {
-        newFavorite.delete(id);
-      } else {
-        newFavorite.add(id);
-      }
+      if (newFavorite.has(id)) newFavorite.delete(id);
+      else newFavorite.add(id);
 
-      // Get exixting favorites
       const existingData = localStorage.getItem(FAVOURITE_QUOTES);
       const existingfavorites: Set<number> = existingData
         ? new Set(JSON.parse(existingData))
         : new Set();
 
-      // Create a new set with the data from current and storage in sync
+      if (existingfavorites.has(id)) existingfavorites.delete(id);
+      else existingfavorites.add(id);
 
-      let updatedFavorites: Set<number>;
-      if (existingfavorites.has(id)) {
-        existingfavorites.delete(id);
-      } else {
-        existingfavorites.add(id);
-      }
-
-      updatedFavorites = existingfavorites;
-
-      // Save the updated object of favorites to storage
       localStorage.setItem(
         FAVOURITE_QUOTES,
-        JSON.stringify(Array.from(updatedFavorites))
+        JSON.stringify(Array.from(existingfavorites))
       );
       return newFavorite;
     });
@@ -228,7 +214,6 @@ export default function WisdomNuggets() {
     }
   };
 
-  // Share quote
   const shareQuote = async (quote: Quote) => {
     if (navigator.share) {
       try {
@@ -244,7 +229,6 @@ export default function WisdomNuggets() {
     }
   };
 
-  // Featured quote rotation
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prev) => (prev + 1) % quotes.length);
@@ -252,24 +236,18 @@ export default function WisdomNuggets() {
     return () => clearInterval(interval);
   }, []);
 
-  // Initial
   useEffect(() => {
-    FetchData();
-  }, []);
-
-  // Fetch data from storage
-  const FetchData = () => {
     const storedFavorites = localStorage.getItem(FAVOURITE_QUOTES);
     const favoriteStories: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
       : new Set();
     setFavorite(favoriteStories);
-  };
+  }, []);
 
   const featuredQuote = quotes[currentQuoteIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-100 dark:from-gray-900 dark:via-slate-800 dark:to-purple-900 text-gray-900 dark:text-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Wisdom Nuggets" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -277,8 +255,8 @@ export default function WisdomNuggets() {
         <header className="text-center mb-8 mt-12">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="relative">
-              <Quote className="w-16 h-16 text-purple-600 dark:text-purple-400 transform rotate-12" />
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-ping"></div>
+              <Quote className="w-16 h-16 text-indigo-600 dark:text-indigo-400 transform rotate-12" />
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full animate-ping"></div>
             </div>
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -288,7 +266,7 @@ export default function WisdomNuggets() {
 
         {/* Featured Quote */}
         <div className="mb-8">
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
               <Quote className="w-12 h-12 mb-6 opacity-80" />
@@ -317,7 +295,7 @@ export default function WisdomNuggets() {
         </div>
 
         {/* Quotes Grid */}
-        <div className="grid  gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {displayedQuotes.map((quote, index) => {
             const isFavorite = favorite.has(quote.id);
             const isCopied = copied === quote.id;
@@ -325,9 +303,7 @@ export default function WisdomNuggets() {
             return (
               <div
                 key={quote.id}
-                className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 border-l-4 ${
-                  moodColors[quote.mood]
-                } border border-white/20`}
+                className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105  `}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Quote Header */}
@@ -349,11 +325,11 @@ export default function WisdomNuggets() {
 
                 {/* Quote Content */}
                 <div className="mb-4">
-                  <Quote className="w-8 h-8 text-purple-300 mb-2" />
+                  <Quote className="w-8 h-8 text-indigo-300 mb-2" />
                   <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
                     "{quote.text}"
                   </blockquote>
-                  <cite className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+                  <cite className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                     — {quote.author}
                   </cite>
                 </div>
@@ -377,8 +353,8 @@ export default function WisdomNuggets() {
                       onClick={() => copyToClipboard(quote)}
                       className={`p-2 rounded-full transition-all duration-300 ${
                         isCopied
-                          ? "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400"
-                          : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                          ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                          : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                       }`}
                       title={isCopied ? "Copied!" : "Copy quote"}
                     >
@@ -390,7 +366,7 @@ export default function WisdomNuggets() {
                     </button>
                     <button
                       onClick={() => shareQuote(quote)}
-                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+                      className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                       title="Share quote"
                     >
                       <Share2 className="w-5 h-5" />
@@ -400,8 +376,8 @@ export default function WisdomNuggets() {
                     onClick={() => toggleFavorites(quote.id)}
                     className={`p-2 rounded-full transition-all duration-300 ${
                       isFavorite
-                        ? "text-pink-500 bg-pink-100 dark:bg-pink-900/30 scale-110"
-                        : "text-gray-400 hover:text-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20"
+                        ? "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                        : "text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                     }`}
                     title={
                       isFavorite ? "Remove from favorites" : "Add to favorites"
@@ -419,7 +395,7 @@ export default function WisdomNuggets() {
 
         {/* Quote of the Day Section */}
         <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-600 to-indigo-700 bg-clip-text text-transparent">
             Daily Inspiration
           </h2>
           <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
@@ -428,7 +404,7 @@ export default function WisdomNuggets() {
               automatically.
             </p>
             <div className="flex justify-center gap-4">
-              <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300">
+              <button className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300">
                 <Bookmark className="w-4 h-4 inline mr-2" />
                 Save Today's Quote
               </button>
