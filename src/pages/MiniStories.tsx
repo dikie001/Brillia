@@ -4,7 +4,9 @@ import Navbar from "@/components/app/Navbar";
 import type { Story } from "@/types";
 import { CheckCheck, Heart, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import AllStories from "@/jsons/miniStories";
 
+// Define genre colors
 const genreColors: Record<string, string> = {
   Romance: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
   Mystery:
@@ -31,12 +33,7 @@ export default function MiniStories() {
 
   // Load all data
   useEffect(() => {
-    const fetchStories = async () => {
-      const AllStories = await fetch("/public/jsons/miniStories");
-      const fetchedStories = await Response.json(AllStories)
-      if (AllStories) setStories(fetchedStories);
-    };
-fetchStories()
+
     // Fetch page data
     FetchData();
   }, []);

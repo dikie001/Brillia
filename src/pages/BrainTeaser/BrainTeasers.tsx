@@ -1,4 +1,4 @@
-import brainTeasers from "public/jsons/brainTeaser";
+import brainTeasers from "@/jsons/brainTeaser";
 import Navbar from "@/components/app/Navbar";
 import {
   Brain,
