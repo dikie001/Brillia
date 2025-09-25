@@ -14,108 +14,8 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-
-type Fact = {
-  id: number;
-  fact: string;
-  category:
-    | "Science"
-    | "Nature"
-    | "History"
-    | "Space"
-    | "Animals"
-    | "Technology"
-    | "Human Body"
-    | "Geography";
-  funLevel: number;
-  source: string;
-  tags: string[];
-  isVerified: boolean;
-  readTime: number;
-};
-
-const facts: Fact[] = [
-  {
-    id: 1,
-    fact: "Bananas are berries, but strawberries are not.",
-    category: "Nature",
-    funLevel: 4,
-    source: "National Geographic",
-    tags: ["fruit", "biology", "weird"],
-    isVerified: true,
-    readTime: 12,
-  },
-  {
-    id: 2,
-    fact: "Octopuses have three hearts and blue blood.",
-    category: "Animals",
-    funLevel: 5,
-    source: "Smithsonian",
-    tags: ["ocean", "marine", "biology"],
-    isVerified: true,
-    readTime: 15,
-  },
-  {
-    id: 3,
-    fact: "Light from the Sun takes about 8 minutes to reach Earth.",
-    category: "Space",
-    funLevel: 3,
-    source: "NASA",
-    tags: ["astronomy", "physics", "space"],
-    isVerified: true,
-    readTime: 10,
-  },
-  {
-    id: 4,
-    fact: "The Great Wall of China is not visible from space with the naked eye.",
-    category: "History",
-    funLevel: 3,
-    source: "History.com",
-    tags: ["china", "myth", "architecture"],
-    isVerified: true,
-    readTime: 14,
-  },
-  {
-    id: 5,
-    fact: "The human nose can detect over 1 trillion different scents.",
-    category: "Human Body",
-    funLevel: 5,
-    source: "Science Daily",
-    tags: ["smell", "biology", "senses"],
-    isVerified: true,
-    readTime: 11,
-  },
-  {
-    id: 6,
-    fact: "Only about 5% of the ocean has been explored by humans.",
-    category: "Geography",
-    funLevel: 4,
-    source: "NOAA",
-    tags: ["ocean", "earth", "exploration"],
-    isVerified: true,
-    readTime: 13,
-  },
-  {
-    id: 7,
-    fact: "The first computer virus was created in 1986 and called ‘Brain’.",
-    category: "Technology",
-    funLevel: 3,
-    source: "Computer History Museum",
-    tags: ["cybersecurity", "computers", "history"],
-    isVerified: true,
-    readTime: 9,
-  },
-  {
-    id: 8,
-    fact: "Sharks existed before trees appeared on Earth.",
-    category: "Science",
-    funLevel: 5,
-    source: "BBC Earth",
-    tags: ["evolution", "animals", "timeline"],
-    isVerified: true,
-    readTime: 12,
-  },
-];
+import { facts } from "@/jsons/amazingFacts";
+import type { Fact } from "@/types";
 
 const categoryColors = {
   Science:
@@ -125,11 +25,11 @@ const categoryColors = {
   Space:
     "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // cosmic, mysterious
   Animals:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energetic but subtle
+    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energetic, lively
   Technology: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200", // neutral, modern
-  "Human Body": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // organic, biological
-  Geography: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200", // earth, calm
+  Culture: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200", // human, vibrant
 };
+
 
 const categoryIcons = {
   Science: Atom,

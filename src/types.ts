@@ -6,6 +6,7 @@ export interface Story {
   author: string;
 }
 
+// Quotes
 export type Quote = {
   id: number;
   text: string;
@@ -27,3 +28,23 @@ export type Quote = {
 };
 
 export type Quotes = Quote[];
+
+// Amazing facts
+export type Fact = {
+  id: number;
+  fact: string;
+  category:
+    | "Science"
+    | "History"
+    | "Nature"
+    | "Technology"
+    | "Space"
+    | "Culture"
+    | "Animals";
+  funLevel: 1 | 2 | 3 | 4 | 5;
+  source: string;
+  tags: string[];
+  isVerified: boolean;
+};
+
+export type FunFacts = Fact[];
