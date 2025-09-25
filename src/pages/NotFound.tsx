@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function NotFound() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  console.log(theme)
 
   return (
     <div className="flex flex-col items-center justify-center h-screen px-6 bg-gray-50 dark:bg-gray-900">
