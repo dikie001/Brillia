@@ -29,6 +29,9 @@ const useSound = () => {
   }, [soundMap]);
 
   const playSound = (key: keyof typeof soundMap) => {
+    const soundsEnabled = localStorage.getItem('soundsEnabled') !== 'false'; // Default to true if not set
+    if (!soundsEnabled) return;
+
     const audio = audioRefs.current[key];
     if (audio) {
       try {

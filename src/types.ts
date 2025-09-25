@@ -48,3 +48,9 @@ export type Fact = {
 };
 
 export type FunFacts = Fact[];
+
+// Settings
+export interface Settings {
+  theme: 'light' | 'dark';
+  soundsEnabled: boolean;
+}
