@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/app/Navbar";
 import {
   Mic,
@@ -12,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { speechDrills } from "@/jsons/speechDrills";
 import type { SpeechDrill } from "@/types";
-import useSound from "@/hooks/useSound";
+import { useSound } from "@/hooks/useSound";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -28,12 +27,12 @@ const categoryIcons = {
 
 const COMPLETED_DRILLS = "completed-speech-drills";
 
-export default function SpeechDrills() {
+export default function SpeechDrill() {
   const [completedDrills, setCompletedDrills] = useState<Set<number>>(new Set());
   const [displayedDrills, setDisplayedDrills] = useState<SpeechDrill[]>([]);
   const [currentDrillIndex, setCurrentDrillIndex] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const { playSuccess } = useSound();
+  const playSuccess = useSound("success");
 
   useEffect(() => {
     setDisplayedDrills(speechDrills);

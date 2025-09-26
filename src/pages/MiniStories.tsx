@@ -1,10 +1,11 @@
 // import AllStories from "public/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
+import Paginate from "@/components/app/paginations";
+import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { CheckCheck, Heart, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import AllStories from "@/jsons/miniStories";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
@@ -32,11 +33,29 @@ export default function MiniStories() {
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [read, setRead] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     FetchData();
   }, []);
 
+  // Handle pagination
+  useEffect(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = AllStories.slice(start, end);
+    setStories(currentItems);
+
+    if (currentPage !== 1) {
+      localStorage.setItem(
+        "brain-teaser-currentPage",
+        JSON.stringify(currentPage)
+      );
+    }
+  }, [currentPage]);
+
+  // Fetch app data
   const FetchData = () => {
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
@@ -78,6 +97,7 @@ export default function MiniStories() {
     setStories(favs.filter((story): story is Story => story !== undefined));
   };
 
+  // Toggle favs
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
@@ -109,6 +129,7 @@ export default function MiniStories() {
     });
   };
 
+  // Save the read stories
   const saveReadStories = (id: number) => {
     setRead((prev) => {
       const newReadStory = new Set(prev);
@@ -140,8 +161,12 @@ export default function MiniStories() {
             onFavoriteClick={filterFavorites}
           />
         </div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <Paginate
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          story={stories}
+        />
+        <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
             const isFavorite = favorite.has(story.id);
             return (
@@ -271,11 +296,19 @@ export default function MiniStories() {
       {filter !== "Favorites" && stories.length === 0 && (
         <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">
           <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
-            No stories in {filter}
+            {filter === "All"
+              ? "Failed to fetch stories, contact admin"
+              : `No stories have been added for ${filter}`}
           </p>
-          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
-            Check back later for more {filter} stories.
-          </p>
+          <div className="text-gray-400 dark:text-gray-500 text-sm mt-2">
+            {filter === "All" ? (
+              <button className="px-6 py-4 bg-indigo-600 text-white hover:bg-indigo-500 dark:hover:bg-indigo-900 rounded-md transition-colors  dark:hover:text-indigo-300">
+                Contact admin
+              </button>
+            ) : (
+              `Check back later for ${filter} stories`
+            )}
+          </div>
         </div>
       )}
     </div>

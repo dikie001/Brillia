@@ -1,4 +1,4 @@
-import type { Teaser } from "@/pages/BrainTeaser/BrainTeasers";
+import type { Teaser } from "@/pages/BrainTeasers";
 
 const brainTeasers: Teaser[] = [
   {

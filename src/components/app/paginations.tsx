@@ -7,14 +7,16 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import type { Teaser } from "./BrainTeasers";
+import type { Teaser } from "../../pages/BrainTeasers";
+import type { Story } from "@/types";
 
 interface MainProps {
   currentPage: number;
-  teasers: Teaser[];
+  teasers?: Teaser[];
+  story?: Story[];
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const BrainTeaserPagination = ({ currentPage, setCurrentPage, teasers }:MainProps) => {
+const Paginate = ({ currentPage, setCurrentPage, teasers }: MainProps) => {
   return (
     <div>
       <Pagination>
@@ -44,7 +46,9 @@ const BrainTeaserPagination = ({ currentPage, setCurrentPage, teasers }:MainProp
 
           <PaginationItem
             onClick={() => {
-              currentPage <= teasers.length && setCurrentPage((p) => p + 1);
+              teasers &&
+                currentPage <= teasers.length &&
+                setCurrentPage((p) => p + 1);
             }}
           >
             <PaginationLink href={`#${currentPage}`}>
@@ -73,4 +77,4 @@ const BrainTeaserPagination = ({ currentPage, setCurrentPage, teasers }:MainProp
   );
 };
 
-export default BrainTeaserPagination;
+export default Paginate;

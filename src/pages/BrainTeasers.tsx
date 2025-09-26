@@ -9,7 +9,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import BrainTeaserPagination from "./BrainTeaserPagination";
+import Paginate from "../components/app/paginations";
 
 export type Teaser = {
   id: number;
@@ -91,9 +91,9 @@ export default function BrainTeasersPage() {
           </p>
         </header>
 
-        {/* Top Pagination */}
+        {/* Top Paginate */}
         {teasers.length !== 0 && (
-          <BrainTeaserPagination
+          <Paginate
             currentPage={currentPage}
             teasers={teasers}
             setCurrentPage={setCurrentPage}
@@ -103,7 +103,7 @@ export default function BrainTeasersPage() {
         {/* Loading */}
         {loading ||
           (teasers.length === 0 && (
-            <div className="flex flex-col items-center justify-center w-full h-64 ">
+            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-gray-800 h-screen items-center justify-center w-full  ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
               <p className="font-medium">Loading teasers...</p>
             </div>
@@ -185,9 +185,9 @@ export default function BrainTeasersPage() {
           })}
         </div>
 
-        {/* Bottom Pagination */}
+        {/* Bottom Paginate */}
         {teasers.length !== 0 && (
-          <BrainTeaserPagination
+          <Paginate
             currentPage={currentPage}
             teasers={teasers}
             setCurrentPage={setCurrentPage}

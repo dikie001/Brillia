@@ -54,3 +54,12 @@ export interface Settings {
   theme: 'light' | 'dark';
   soundsEnabled: boolean;
 }
+
+// Speech Drills
+export type SpeechDrill = {
+  id: number;
+  text: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  category: 'Tongue Twister' | 'Pronunciation Exercise' | 'Communication Tip';
+  tags: string[];
+};
