@@ -24,7 +24,7 @@ export type Quote = {
     | "Growth"
     | "Action";
   tags: string[];
-  popularity: number; 
+  popularity: number;
 };
 
 export type Quotes = Quote[];
@@ -51,15 +51,15 @@ export type FunFacts = Fact[];
 
 // Settings
 export interface Settings {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   soundsEnabled: boolean;
 }
 
-// Speech Drills
+// Tongue Twisterss
 export type SpeechDrill = {
   id: number;
   text: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  category: 'Tongue Twister' | 'Pronunciation Exercise' | 'Communication Tip';
+  difficulty: "Easy" | "Medium" | "Hard";
+  category: "Tongue Twister" | "Pronunciation Exercise" | "Communication Tip";
   tags: string[];
 };

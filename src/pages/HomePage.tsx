@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
       to: "wisdom-nuggets",
     },
     {
-      name: "Speech Drill",
+      name: "Tongue Twisters",
       icon: <Wand />,
       description: "Master pronunciation and fluency",
       color: "from-pink-500 to-rose-600",
