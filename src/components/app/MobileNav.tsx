@@ -30,7 +30,7 @@ const menuItems = [
   { label: "Mini Stories", icon: Book, to: "/mini-stories" },
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },
   { label: "Wisdom Nuggets", icon: Quote, to: "/wisdom-nuggets" },
-  { label: "Speech Drill", icon: Wand, to: "/speech-drills" },
+  { label: "Speech Drill", icon: Wand, to: "/tongue-twisters" },
   { label: "Amazing Facts", icon: Newspaper, to: "/amazing-facts" },
   { label: "Settings", icon: Settings, to: "/settings" },
 ];

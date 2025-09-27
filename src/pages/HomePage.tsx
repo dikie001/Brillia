@@ -59,7 +59,7 @@ const HomePage: React.FC = () => {
       icon: <Wand />,
       description: "Master pronunciation and fluency",
       color: "from-pink-500 to-rose-600",
-      to: "speech-drills",
+      to: "tongue-twisters",
     },
     {
       name: "Amazing Facts",

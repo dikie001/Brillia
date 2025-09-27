@@ -1,13 +1,13 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import BrainTeasers from "./pages/BrainTeasers";
 import FactFrenzy from "./pages/AmazingFacts";
+import BrainTeasers from "./pages/BrainTeasers";
 import HomePage from "./pages/HomePage";
 import MiniStories from "./pages/MiniStories";
-import QuizQuest from "./pages/QuizQuest";
-import SpeechDrills from "./pages/SpeechDrills";
-import WisdomNuggets from "./pages/WisdomNuggets";
 import NotFound from "./pages/NotFound";
+import QuizQuest from "./pages/QuizQuest";
 import SettingsPage from "./pages/Settings";
+import TongueTwisters from "./pages/TongueTwisters";
+import WisdomNuggets from "./pages/WisdomNuggets";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/mini-stories" element={<MiniStories />} />{" "}
         <Route path="/quiz-quest" element={<QuizQuest />} />{" "}
         <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
-        <Route path="/speech-drills" element={<SpeechDrills />} />
+        <Route path="/tongue-twisters" element={<TongueTwisters />} />
         <Route path="/amazing-facts" element={<FactFrenzy />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/settings" element={<SettingsPage />} />
