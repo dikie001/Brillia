@@ -19,11 +19,12 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import finish from "../assets/images/finish.png";
-
+import { STORAGE_KEYS } from "@/constants";
 import Navbar from "@/components/app/Navbar";
 import quiz from "../assets/images/quiz.png";
 import quizData from "@/jsons/quizData";
 import useSound from "../hooks/useSound";
+import ResetModal from "@/modals/Delete";
 
 type Options = {
   A: string;
@@ -100,17 +101,14 @@ const QuizApp: React.FC = () => {
     hobby: "",
     subject: "",
   });
+    const [openResetModal, setOpenResetModal] = useState(false);
   const { theme } = useTheme();
   useEffect(() => {
     console.log(theme);
   }, []);
 
   const QUESTIONS_PER_TEST = 20;
-  const STORAGE_KEYS = {
-    TEST_RESULTS: "quiz_test_results",
-    QUIZ_PROGRESS: "quiz_progress",
-    CURRENT_TEST_INDEX: "quiz_current_test_index",
-  };
+
 
   const { playError, playSuccess, playFinish, playSend } = useSound();
 
@@ -160,46 +158,6 @@ const QuizApp: React.FC = () => {
     details && setUser(JSON.parse(details));
   }, []);
 
-  // REset all data
-  const resetAllData = (): void => {
-    try {
-      const password = window.prompt("Enter password");
-      if (!password) return;
-      if (password !== "14572") {
-        toast.error("Incorrect password!", { id: "toasty" });
-        return;
-      }
-      if (password === "14572") {
-        const confirmation = window.confirm(
-          "Are you sure you want to clear all data?"
-        );
-        if (confirmation) {
-          localStorage.removeItem(STORAGE_KEYS.TEST_RESULTS);
-          localStorage.removeItem(STORAGE_KEYS.QUIZ_PROGRESS);
-          localStorage.removeItem(STORAGE_KEYS.CURRENT_TEST_INDEX);
-          toast.success("Data cleared Successfully");
-          window.location.reload();
-        } else {
-          toast("You have cancelled deletion!");
-          return;
-        }
-      }
-
-      setState((prev) => ({
-        ...prev,
-        testResults: [],
-        currentTest: 0,
-        currentQuestion: 0,
-        score: 0,
-        gameState: "home",
-        selectedAnswer: "",
-        showFeedback: false,
-        startTime: undefined,
-      }));
-    } catch (error) {
-      console.error("Error resetting data:", error);
-    }
-  };
 
   // Save progress whenever quiz state changes
   useEffect(() => {
@@ -442,67 +400,71 @@ const QuizApp: React.FC = () => {
     return "B.E. Keep studying and you'll improve! 📚 ";
   };
 
-  // Loading screen
+  // Loading screen: Centered spinner with consistent background
   if (state.loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-purple-300 text-lg">Loading Quiz Data...</p>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-500 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-indigo-600 dark:text-indigo-400 text-lg font-semibold">Loading Quiz Data...</p>
         </div>
       </div>
     );
   }
 
-  // Error screen
+  // Error screen: Card-style error display with retry option
   if (state.error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center max-w-md">
-          <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Error Loading Quiz
-          </h2>
-          <p className="text-gray-300 mb-6">{state.error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
-          >
-            Retry Loading
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // No data available
-  if (!state.quizData || state.quizData.length === 0) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
-        <div className="text-center max-w-md">
-          <BookOpen className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-4">
-            No Quiz Data Available
-          </h2>
-          <p className="text-gray-300 mb-6">
-            Please ensure your RandomQuiz.json file is properly imported and
-            contains valid quiz questions.
-          </p>
-          <div className="bg-slate-800 rounded-lg p-4 text-left text-sm text-gray-300">
-            <p className="mb-2">Expected format:</p>
-            <code className="text-purple-300"></code>
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+            <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Error Loading Quiz
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">{state.error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              Retry Loading
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
-  // Home Screen
+  // No data available: Card-style message when quiz data is missing
+  if (!state.quizData || state.quizData.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
+        <div className="text-center max-w-md">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+            <BookOpen className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              No Quiz Data Available
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Please ensure your RandomQuiz.json file is properly imported and
+              contains valid quiz questions.
+            </p>
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-left text-sm text-gray-600 dark:text-gray-400">
+              <p className="mb-2 font-medium">Expected format:</p>
+              <code className="text-indigo-600 dark:text-indigo-400">[{`{question: "...", options: {...}, correctAnswer: "A", explanation: "..."}`}, ...]</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Home Screen: Displays welcome, user stats, and action buttons for starting or viewing results
 if (state.gameState === "home") {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 p-3 sm:p-6 relative overflow-hidden transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 relative overflow-hidden transition-colors duration-300">
       <Navbar currentPage="Quiz Quest" />
-
+{openResetModal && <ResetModal open={openResetModal} setOpen={setOpenResetModal}/>}
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8 pt-18">
@@ -520,12 +482,12 @@ if (state.gameState === "home") {
           <div className="w-16 sm:w-24 h-1 bg-indigo-500 mx-auto rounded-full"></div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        {/* Stats Grid: Card-style stats with consistent opacity, blur, and hover effects */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {[
             {
               icon: (
-                <BookOpen className="w-5 h-5 sm:w-7 sm:h-7 text-indigo-500" />
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-500" />
               ),
               label: "Questions",
               value: state.quizData.length,
@@ -533,21 +495,21 @@ if (state.gameState === "home") {
             },
             {
               icon: (
-                <Target className="w-5 h-5 sm:w-7 sm:h-7 text-indigo-500" />
+                <Target className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-500" />
               ),
               label: "Tests",
               value: getTotalTests(),
               sub: "Ready to Take",
             },
             {
-              icon: <Star className="w-5 h-5 sm:w-7 sm:h-7 text-indigo-500" />,
+              icon: <Star className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-500" />,
               label: "Completed",
               value: state.testResults.length,
               sub: "Tests Done",
             },
             {
               icon: (
-                <Trophy className="w-5 h-5 sm:w-7 sm:h-7 text-indigo-500" />
+                <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-500" />
               ),
               label: "Average",
               value:
@@ -565,13 +527,13 @@ if (state.gameState === "home") {
           ].map((stat, i) => (
             <div
               key={i}
-              className="bg-white/20 shadow-lg dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-indigo-400/30 hover:border-indigo-500 transition-all duration-300"
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-4 sm:p-6 border border-white/20 dark:border-gray-700/20 hover:border-indigo-400/30 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
             >
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-indigo-100/20 rounded-xl sm:rounded-2xl">
+              <div className="flex items-center justify-between mb-3 sm:mb-4 relative">
+                <div className="p-2 sm:p-3 bg-indigo-100/20 dark:bg-indigo-900/20 rounded-xl sm:rounded-2xl group-hover:bg-indigo-100/30 dark:group-hover:bg-indigo-900/30 transition-colors">
                   {stat.icon}
                 </div>
-                <div className="text-indigo-500 text-xs sm:text-sm font-medium absolute top-4 right-8">
+                <div className="text-indigo-500 text-xs sm:text-sm font-medium absolute -top-2 -right-2 bg-white/80 dark:bg-gray-800/80 px-2 py-1 rounded-full shadow-md">
                   {stat.label}
                 </div>
               </div>
@@ -579,7 +541,7 @@ if (state.gameState === "home") {
                 {stat.value}
                 {stat.isPercent && "%"}
               </h3>
-              <p className="text-indigo-300 text-xs sm:text-sm">{stat.sub}</p>
+              <p className="text-indigo-400 dark:text-indigo-300 text-xs sm:text-sm font-medium">{stat.sub}</p>
             </div>
           ))}
         </div>
@@ -635,7 +597,7 @@ if (state.gameState === "home") {
               </button>
 
               <button
-                onClick={resetAllData}
+                onClick={()=>setOpenResetModal(true)}
                 className="w-full bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-indigo-500 hover:text-indigo-400 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-indigo-400/30 hover:border-indigo-500 shadow-xl hover:shadow-indigo-500/20 hover:scale-[1.01]"
               >
                 <div className="flex items-center justify-center">
@@ -671,15 +633,16 @@ if (state.gameState === "home") {
 }
 
 
-  // Quiz Screen
+  // Quiz Screen: Handles the active quiz session with questions, options, and feedback
 if (state.gameState === "quiz") {
   const currentQuestions = getCurrentTestQuestions();
   const currentQ = currentQuestions[state.currentQuestion];
 
   if (!currentQ) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
-        <div className="text-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <Navbar currentPage="Quiz Quest" />
+        <div className="text-center pt-16">
           <p className="text-gray-900 dark:text-white text-xl font-semibold mb-4">
             No questions available for this test.
           </p>
@@ -699,7 +662,8 @@ if (state.gameState === "quiz") {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto">
+      <Navbar currentPage="Quiz Quest" />
+      <div className="max-w-4xl mx-auto pt-16">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 mt-1">
           <button
@@ -865,21 +829,24 @@ if (state.gameState === "quiz") {
   );
 }
 
-  // Results Screen
+  // Results Screen: Displays the outcome of the completed test with score, message, and navigation options
 if (state.gameState === "results") {
   const latestResult = state.testResults[state.testResults.length - 1];
 
   if (!latestResult) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-white text-xl">No results available.</p>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <Navbar currentPage="Quiz Quest" />
+        <div className="text-center pt-16">
+          <p className="text-gray-900 dark:text-white text-xl font-semibold mb-4">
+            No results available.
+          </p>
           <button
             onClick={() => {
               playSend();
               setGameState("home");
             }}
-            className="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-2xl shadow-lg transition-all duration-300"
+            className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02]"
           >
             Go Home
           </button>
@@ -890,9 +857,10 @@ if (state.gameState === "results") {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 transition-colors duration-300">
-      <div className="max-w-2xl mx-auto text-center">
+      <Navbar currentPage="Quiz Quest" />
+      <div className="max-w-2xl mx-auto text-center pt-16">
         {/* Header */}
-        <div className="mb-8 pt-8">
+        <div className="mb-8">
           <img src={finish} className="w-24 h-24 mx-auto mb-4" alt="finish" />
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">
             Test Complete!
@@ -902,8 +870,8 @@ if (state.gameState === "results") {
           </p>
         </div>
 
-        {/* Score Card */}
-        <div className="bg-white/80 dark:bg-gray-800/70 backdrop-blur-lg rounded-3xl p-8 sm:p-10 border border-indigo-300 dark:border-indigo-700 shadow-2xl shadow-indigo-200/20 dark:shadow-indigo-900/40 mb-8">
+        {/* Score Card: Highlights the test score with gradient text and details */}
+        <div className="group bg-white/80 dark:bg-gray-800/70 backdrop-blur-lg rounded-3xl p-8 sm:p-10 border border-indigo-300 dark:border-indigo-700 shadow-2xl shadow-indigo-200/20 dark:shadow-indigo-900/40 mb-8 hover:shadow-indigo-300/30 transition-all duration-300 hover:scale-102">
           <div className="mb-6">
             <div className="text-6xl sm:text-7xl font-extrabold bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600 bg-clip-text text-transparent mb-2">
               {latestResult.percentage}%
@@ -926,7 +894,7 @@ if (state.gameState === "results") {
             )}
           </div>
 
-          {/* Performance Message */}
+          {/* Performance Message: Provides feedback based on score */}
           <div className="p-4 rounded-2xl bg-gray-100/60 dark:bg-gray-700/50 border border-indigo-300 dark:border-indigo-600 shadow-md transition-colors duration-300">
             <p className="text-gray-700 dark:text-gray-300 text-base sm:text-lg">
               {getPerformanceMessage(latestResult.percentage)}
@@ -934,7 +902,7 @@ if (state.gameState === "results") {
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons: Navigation options with consistent styling */}
         <div className="space-y-4 sm:space-y-5">
           {state.currentTest < getTotalTests() && (
             <button
@@ -942,7 +910,7 @@ if (state.gameState === "results") {
                 playSend();
                 startTest(state.currentTest);
               }}
-              className="w-full animate-pulse bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:from-indigo-600 hover:via-indigo-700 hover:to-indigo-800 text-white p-4 sm:p-5 rounded-2xl font-bold text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-indigo-300/30"
+              className="w-full group bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:from-indigo-600 hover:via-indigo-700 hover:to-indigo-800 text-white p-4 sm:p-5 rounded-2xl font-bold text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 shadow-xl shadow-indigo-300/30 hover:shadow-indigo-400/40"
             >
               <div className="flex items-center justify-center gap-2">
                 <Play className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -956,7 +924,7 @@ if (state.gameState === "results") {
               playSend();
               setGameState("allResults");
             }}
-            className="w-full bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-gray-900 dark:text-white p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-indigo-300 dark:border-indigo-600 shadow-lg hover:shadow-indigo-400/20 flex items-center justify-center gap-2"
+            className="w-full group bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-gray-900 dark:text-white p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-indigo-300 dark:border-indigo-600 shadow-lg hover:shadow-indigo-400/20 transform hover:scale-102 flex items-center justify-center gap-2"
           >
             <Trophy className="w-5 h-5 sm:w-6 sm:h-6" />
             View All Results
@@ -967,7 +935,7 @@ if (state.gameState === "results") {
               playSend();
               setGameState("home");
             }}
-            className="w-full bg-gray-200/40 dark:bg-gray-700/40 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 text-indigo-600 dark:text-indigo-400 p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-indigo-300/20 flex items-center justify-center gap-2"
+            className="w-full group bg-gray-200/40 dark:bg-gray-700/40 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 text-indigo-600 dark:text-indigo-400 p-4 sm:p-5 rounded-2xl font-semibold transition-all duration-300 border border-gray-300 dark:border-gray-600 shadow-lg hover:shadow-indigo-300/20 transform hover:scale-102 flex items-center justify-center gap-2"
           >
             <Home className="w-5 h-5 sm:w-6 sm:h-6" />
             Back to Home
@@ -975,7 +943,7 @@ if (state.gameState === "results") {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer: Consistent branding footer */}
       <div className="mt-10 mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center text-center">
         <p className="text-gray-400 text-sm sm:text-base">
           from code to impact -{" "}
@@ -996,14 +964,14 @@ if (state.gameState === "results") {
 }
 
 
-  // Enhanced All Results Screen
+  // All Results Screen: Lists all completed tests with details and overall statistics
 if (state.gameState === "allResults") {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 transition-colors duration-300">
-      <Navbar currentPage="Results" />
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8 pt-20">
+      <Navbar currentPage="Quiz Results" />
+      <div className="max-w-4xl mx-auto pt-16">
+        {/* Header: Navigation back and title */}
+        <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => {
               playSend();
@@ -1020,24 +988,29 @@ if (state.gameState === "allResults") {
           <div></div>
         </div>
 
-        {/* No results */}
+        {/* No results: Card-style empty state */}
         {state.testResults.length === 0 ? (
           <div className="text-center py-12">
-            <BookOpen className="w-20 h-20 text-indigo-400 dark:text-indigo-500 mx-auto mb-4 animate-bounce" />
-            <p className="text-xl text-indigo-400 dark:text-indigo-300">
-              No tests completed yet.
-            </p>
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
+              <BookOpen className="w-20 h-20 text-indigo-400 dark:text-indigo-500 mx-auto mb-4 animate-bounce" />
+              <p className="text-xl text-indigo-400 dark:text-indigo-300 font-semibold">
+                No tests completed yet.
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">
+                Start your first quiz to see results here!
+              </p>
+            </div>
           </div>
         ) : (
           <div className="grid gap-4 sm:gap-5">
-            {/* Individual Results */}
+            {/* Individual Results: Cards for each test result with hover effects */}
             {state.testResults
               .slice()
               .reverse()
               .map((result, index) => (
                 <div
                   key={index}
-                  className="bg-white/30 dark:bg-gray-800/60 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-indigo-300 dark:border-indigo-700 shadow-lg hover:shadow-indigo-400/30 transition-shadow duration-300 transform hover:scale-[1.02]"
+                  className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-102 hover:border-indigo-400/30"
                 >
                   <div className="flex items-center justify-between flex-col sm:flex-row gap-4 sm:gap-0">
                     <div className="flex-1">
@@ -1045,7 +1018,7 @@ if (state.gameState === "allResults") {
                         Test {result.testNumber}
                       </h3>
                       <hr className="mb-2 border-indigo-300/40 dark:border-indigo-500/40" />
-                      <p className="text-indigo-400 dark:text-indigo-300 text-sm sm:text-base mb-2">
+                      <p className="text-indigo-400 dark:text-indigo-300 text-sm sm:text-base mb-2 font-medium">
                         {result.subject}
                       </p>
                       <div className="flex flex-wrap items-center gap-3 text-gray-500 dark:text-gray-400 text-sm sm:text-base font-medium">
@@ -1073,15 +1046,15 @@ if (state.gameState === "allResults") {
           </div>
         )}
 
-        {/* Overall Stats */}
+        {/* Overall Stats: Summary statistics in a card grid */}
         {state.testResults.length > 0 && (
-          <div className="mt-8 bg-white/30 dark:bg-gray-800/60 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-indigo-300 dark:border-indigo-700 shadow-lg">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mt-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/20 dark:border-gray-700/20 shadow-xl">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6">
               Overall Performance
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-              <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-indigo-400">
+              <div className="text-center p-4 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-2xl hover:bg-indigo-100/50 dark:hover:bg-indigo-900/30 transition-colors duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">
                   {Math.round(
                     state.testResults.reduce(
                       (acc, r) => acc + r.percentage,
@@ -1090,31 +1063,31 @@ if (state.gameState === "allResults") {
                   )}
                   %
                 </div>
-                <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
                   Average Score
                 </p>
               </div>
-              <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-pink-400">
+              <div className="text-center p-4 bg-pink-50/50 dark:bg-pink-900/20 rounded-2xl hover:bg-pink-100/50 dark:hover:bg-pink-900/30 transition-colors duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-pink-600 dark:text-pink-400 mb-1">
                   {Math.max(...state.testResults.map((r) => r.percentage))}%
                 </div>
-                <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
                   Best Score
                 </p>
               </div>
-              <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-400">
+              <div className="text-center p-4 bg-yellow-50/50 dark:bg-yellow-900/20 rounded-2xl hover:bg-yellow-100/50 dark:hover:bg-yellow-900/30 transition-colors duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-1">
                   {state.testResults.length}
                 </div>
-                <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
                   Tests Completed
                 </p>
               </div>
-              <div className="text-center p-3 bg-white/20 dark:bg-gray-700/40 rounded-2xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors duration-300">
-                <div className="text-2xl sm:text-3xl font-bold text-indigo-400">
+              <div className="text-center p-4 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-2xl hover:bg-indigo-100/50 dark:hover:bg-indigo-900/30 transition-colors duration-300 group">
+                <div className="text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">
                   {state.testResults.filter((r) => r.percentage >= 80).length}
                 </div>
-                <p className="text-gray-500 dark:text-gray-300 text-sm sm:text-base mt-1">
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
                   Excellent Scores
                 </p>
               </div>
@@ -1122,8 +1095,8 @@ if (state.gameState === "allResults") {
           </div>
         )}
 
-        {/* Footer */}
-        <div className="mt-10 mb-4 flex sm:flex-row gap-2 justify-center items-center text-center">
+        {/* Footer: Consistent branding footer */}
+        <div className="mt-10 mb-4 flex flex-col sm:flex-row gap-2 justify-center items-center text-center">
           <p className="text-gray-400 text-sm sm:text-base">
             from code to impact -{" "}
             <span className="text-indigo-400 dark:text-indigo-300 underline font-medium">
