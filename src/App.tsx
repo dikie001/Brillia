@@ -12,6 +12,7 @@ import WisdomNuggets from "./pages/WisdomNuggets";
 const App = () => {
   return (
     <Router>
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/brain-teasers" element={<BrainTeasers />} />{" "}

@@ -7,6 +7,7 @@ import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { CheckCheck, Heart, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast, Toaster } from "sonner";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
@@ -104,11 +105,13 @@ export default function MiniStories() {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
+        toast.success("Story removed from favorites")
         if (filter === "Favorites") {
           filterFavorites();
         }
       } else {
         newFavorite.add(id);
+        toast.success("Story added to favorites")
       }
 
       const existingData = localStorage.getItem(FAVOURITE_STORIES);
@@ -148,6 +151,7 @@ export default function MiniStories() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Mini Stories" />
+      <Toaster richColors position="top-center" />
       <div className="relative  z-10 max-w-7xl mx-auto">
         <header className="text-center mb-12 pt-20 relative">
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -233,63 +237,83 @@ export default function MiniStories() {
             );
           })}
         </div>
-          <Paginate
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            story={stories}
-          />
-        
+        <Paginate
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          story={stories}
+        />
       </div>
 
-      {selectedStoryData && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedStory(null)}
-        >
-          <div
-            className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 bg-white dark:bg-gray-800 px-8 py-6 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
-              <div className="flex items-center justify-between">
-                <span
-                  className={`px-4 py-2 rounded-full text-sm font-bold ${
-                    genreColors[selectedStoryData.genre]
-                  }`}
-                >
-                  {selectedStoryData.genre}
-                </span>
-                <button
-                  onClick={() => setSelectedStory(null)}
-                  className="p-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 rounded-md transition-colors text-gray-500 hover:text-indigo-700 dark:hover:text-indigo-300"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <h1 className="text-4xl font-black mt-4 text-gray-800 dark:text-gray-100">
-                {selectedStoryData.title}
-              </h1>
-              <div className="flex items-center gap-6 mt-4 text-sm text-gray-600 dark:text-gray-400">
-                <span>by {selectedStoryData.author}</span>
-              </div>
-            </div>
+      {selectedStoryData &&
+        (() => {
+          const isFavorite = favorite.has(selectedStoryData.id);
+          return (
+            <div
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={() => setSelectedStory(null)}
+            >
+              <div
+                className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="sticky top-0 bg-white dark:bg-gray-800 px-8 py-6 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-bold ${
+                        genreColors[selectedStoryData.genre]
+                      }`}
+                    >
+                      {selectedStoryData.genre}
+                    </span>
+                    <button
+                      onClick={() => setSelectedStory(null)}
+                      className="p-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 rounded-md transition-colors text-gray-500 hover:text-indigo-700 dark:hover:text-indigo-300"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                  <h1 className="text-4xl font-black mt-4 text-gray-800 dark:text-gray-100">
+                    {selectedStoryData.title}
+                  </h1>
+                  <div className="flex items-center gap-6 mt-4 text-sm text-gray-600 dark:text-gray-400">
+                    <span>by {selectedStoryData.author}</span>
+                  </div>
+                </div>
 
-            <div className="px-8 py-8">
-              <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-line">
-                  {selectedStoryData.content}
-                </p>
+                <div className="px-8 py-8">
+                  <div className="prose prose-lg dark:prose-invert max-w-none">
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg whitespace-pre-line">
+                      {selectedStoryData.content}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-8 py-6 flex justify-between border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 rounded-b-3xl">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    Press ESC to close
+                  </span>
+                  {/* Fav button */}
+                  <button
+                    onClick={() => {
+                      toggleFavorites(selectedStoryData.id);
+                    }}
+                    className="flex cursor-pointer items-center gap-2 rounded-3xl shadow px-5 py-2.5 text-sm font-medium text-white 
+                 bg-gradient-to-r from-indigo-600 to-indigo-700 
+                 hover:from-indigo-700 hover:to-indigo-800 
+                 active:scale-95 transition-all"
+                  >
+                    <Heart
+                      className={`w-5 h-5 ${
+                        isFavorite ? "hidden" : "stroke-white"
+                      }`}
+                    />
+                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                  </button>
+                </div>
               </div>
             </div>
-
-            <div className="px-8 py-6 border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 rounded-b-3xl">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                Press ESC to close
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+          );
+        })()}
 
       {filter === "Favorites" && stories.length === 0 && (
         <div className="flex shadow-lg flex-col items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">
@@ -320,7 +344,7 @@ export default function MiniStories() {
           </div>
         </div>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }
