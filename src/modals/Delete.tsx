@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Lock, ShieldCheck, LoaderCircle } from "lucide-react";
-import { toast } from "sonner";
+import { toast,Toaster } from "sonner";
 import { STORAGE_KEYS } from "@/constants";
-import { Toaster } from "react-hot-toast";
 
 type MainProps = {
   open: boolean;
@@ -14,7 +13,7 @@ export default function ResetModal({ open, setOpen }: MainProps) {
   const [loading, setLoading] = useState(false);
 
   const resetAllData = () => {
-    if (!password) return;
+    if (!password) return toast.error("Enter password please", {id:'toast err1'});
     if (password !== "14572") {
       toast.error("Incorrect password!", { id: "toasty" });
       return;
@@ -26,7 +25,7 @@ export default function ResetModal({ open, setOpen }: MainProps) {
         localStorage.removeItem(STORAGE_KEYS.TEST_RESULTS);
         localStorage.removeItem(STORAGE_KEYS.QUIZ_PROGRESS);
         localStorage.removeItem(STORAGE_KEYS.CURRENT_TEST_INDEX);
-        toast.success("Data cleared successfully ✅");
+        toast.success("Data cleared successfully ");
         window.location.reload();
       }, 1000);
     } catch (err) {
@@ -41,9 +40,10 @@ export default function ResetModal({ open, setOpen }: MainProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <Toaster richColors position="top-center" />
       <div className="bg-white dark:bg-gray-900 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md sm:max-w-lg mx-auto">
         {/* Header */}
-        <Toaster/>
+
         <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 rounded-t-3xl p-6 text-white">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-white/20 rounded-xl">
@@ -76,7 +76,7 @@ export default function ResetModal({ open, setOpen }: MainProps) {
           </div>
 
           {/* Actions */}
-          <div className="flex flex-col sm:flex-row justify-end gap-3">
+          <div className="flex  sm:flex-row justify-end gap-3">
             <button
               type="button"
               onClick={() => setOpen(false)}

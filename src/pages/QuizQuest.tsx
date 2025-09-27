@@ -591,7 +591,7 @@ const QuizApp: React.FC = () => {
             )}
 
             {state.testResults.length > 0 && (
-              <>
+              <div className="md:flex gap-4 md:pt-1 max-md:space-y-4">
                 <button
                   onClick={() => {
                     playSend();
@@ -606,19 +606,18 @@ const QuizApp: React.FC = () => {
                     <span>View All Results & Analytics</span>
                   </div>
                 </button>
-
                 <button
                   onClick={() => setOpenResetModal(true)}
-                  className="w-full bg-white/20 dark:bg-gray-800/50 hover:bg-white/30 dark:hover:bg-gray-700/50 text-indigo-500 hover:text-indigo-400 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-indigo-400/30 hover:border-indigo-500 shadow-xl hover:shadow-indigo-500/20 hover:scale-[1.01]"
+                  className="w-full bg-red-500/10 dark:bg-red-500/20 hover:bg-red-500/20 dark:hover:bg-red-500/30 text-red-600 dark:text-red-400 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-red-500/40 hover:border-red-500 shadow-lg hover:shadow-red-500/30 hover:scale-[1.01]"
                 >
                   <div className="flex items-center justify-center">
-                    <div className="p-2 bg-indigo-100/20 rounded-xl mr-3">
+                    <div className="p-2 bg-red-500/20 rounded-xl mr-3">
                       <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <span>Reset All Progress</span>
                   </div>
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>
