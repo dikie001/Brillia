@@ -1,5 +1,6 @@
 // import AllStories from "public/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
+import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import Paginate from "@/components/app/paginations";
 import AllStories from "@/jsons/miniStories";
@@ -181,7 +182,7 @@ export default function MiniStories() {
                   saveReadStories(story.id);
                 }}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between ">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
                       genreColors[story.genre]
@@ -232,13 +233,12 @@ export default function MiniStories() {
             );
           })}
         </div>
-        {stories.length !== 0 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
           />
-        )}
+        
       </div>
 
       {selectedStoryData && (
@@ -320,6 +320,7 @@ export default function MiniStories() {
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   );
 }

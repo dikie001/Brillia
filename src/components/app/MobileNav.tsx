@@ -1,17 +1,17 @@
 import {
   Book,
   Home,
-  Laptop2,
   Newspaper,
   Puzzle,
   Quote,
   Settings,
   Sparkles,
   Wand,
-  X,
+  X
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 type MobileMenuProps = {
   open: boolean;
@@ -110,23 +110,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           </div>
 
           {/* Footer */}
-          <div className="flex lg:hidden flex-col items-center border-t border-indigo-200/40 dark:border-indigo-800/40">
-            <div className="mt-2 mb-2 flex gap-2 justify-center items-center">
-              <p className="text-gray-500 dark:text-gray-400 text-sm text-center">
-                From code to impact –{" "}
-                <span className="text-indigo-500 dark:text-indigo-300 underline font-medium">
-                  <a
-                    href="https://dikie.vercel.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    dikie.dev
-                  </a>
-                </span>
-              </p>
-              <Laptop2 className="text-indigo-500 dark:text-indigo-300" />
-            </div>
-          </div>
+    <Footer/>
         </div>
       </div>
     </>
