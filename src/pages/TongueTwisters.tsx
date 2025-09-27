@@ -44,13 +44,11 @@ const TongueTwisters = () => {
               <Mic className="w-4 h-4 text-indigo-500 animate-pulse" />
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-2">
-            Tongue Twisters
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+      
+          {/* <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Challenge your articulation with these tricky phrases. Practice makes perfect!
-          </p>
-          <div className="w-16 sm:w-24 h-1 bg-indigo-500 mx-auto rounded-full mt-4"></div>
+          </p> */}
+          <div className="w-16 sm:w-24 h-1 bg-indigo-500 mx-auto rounded-full "></div>
         </header>
 
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
