@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Lock, ShieldCheck, LoaderCircle } from "lucide-react";
-import { toast,Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 import { STORAGE_KEYS } from "@/constants";
 
 type MainProps = {
@@ -13,7 +13,8 @@ export default function ResetModal({ open, setOpen }: MainProps) {
   const [loading, setLoading] = useState(false);
 
   const resetAllData = () => {
-    if (!password) return toast.error("Enter password please", {id:'toast err1'});
+    if (!password)
+      return toast.error("Enter password please", { id: "toast err1" });
     if (password !== "14572") {
       toast.error("Incorrect password!", { id: "toasty" });
       return;
@@ -39,9 +40,15 @@ export default function ResetModal({ open, setOpen }: MainProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div
+      onClick={() => setOpen(false)}
+      className="fixed cursor-pointer inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+    >
       <Toaster richColors position="top-center" />
-      <div className="bg-white dark:bg-gray-900 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md sm:max-w-lg mx-auto">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white dark:bg-gray-900 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md sm:max-w-lg mx-auto"
+      >
         {/* Header */}
 
         <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 rounded-t-3xl p-6 text-white">
@@ -80,14 +87,14 @@ export default function ResetModal({ open, setOpen }: MainProps) {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-6 py-2 rounded-xl font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all text-sm sm:text-base"
+              className="px-6 py-3 rounded-xl font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               type="button"
               onClick={resetAllData}
-              className="px-6 py-2 rounded-xl font-medium flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:from-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl text-sm sm:text-base"
+              className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:from-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl text-sm sm:text-base"
             >
               {loading ? (
                 <>

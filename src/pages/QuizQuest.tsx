@@ -1,12 +1,13 @@
 import { useTheme } from "@/hooks/useHook";
 import {
+  BarChart3,
   BookOpen,
   CheckCircle,
   ChevronLeft,
   ChevronRight,
+  ClipboardList,
   Clock,
   Home,
-  Laptop2,
   Play,
   RotateCcw,
   Sparkles,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { STORAGE_KEYS } from "@/constants";
 import quizData from "@/jsons/quizData";
@@ -557,7 +559,7 @@ const QuizApp: React.FC = () => {
             ))}
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Button 1 */}
           <div className="space-y-3 sm:space-y-4 max-w-2xl mx-auto">
             {state.currentTest < getTotalTests() && (
               <button
@@ -590,8 +592,10 @@ const QuizApp: React.FC = () => {
               </button>
             )}
 
+            {/* Action buttons 2 */}
             {state.testResults.length > 0 && (
               <div className="md:flex gap-4 md:pt-1 max-md:space-y-4">
+                {/* All results button */}
                 <button
                   onClick={() => {
                     playSend();
@@ -606,6 +610,8 @@ const QuizApp: React.FC = () => {
                     <span>View All Results & Analytics</span>
                   </div>
                 </button>
+                
+                {/* Reset button */}
                 <button
                   onClick={() => setOpenResetModal(true)}
                   className="w-full bg-red-500/10 dark:bg-red-500/20 hover:bg-red-500/20 dark:hover:bg-red-500/30 text-red-600 dark:text-red-400 p-4 sm:p-5 rounded-2xl sm:rounded-3xl font-semibold transition-all duration-300 border border-red-500/40 hover:border-red-500 shadow-lg hover:shadow-red-500/30 hover:scale-[1.01]"
@@ -623,21 +629,7 @@ const QuizApp: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-10 mb-2 flex  sm:flex-row gap-2 justify-center items-center text-center">
-          <p className="text-gray-400 text-sm sm:text-base">
-            from code to impact -{" "}
-            <span className="text-indigo-400 dark:text-indigo-300 underline font-medium">
-              <a
-                href="https://dikie.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                dikie.dev
-              </a>
-            </span>
-          </p>
-          <Laptop2 className="text-indigo-400 dark:text-indigo-300 w-4 h-4 sm:w-5 sm:h-5" />
-        </div>
+        <Footer />
       </div>
     );
   }
@@ -751,16 +743,16 @@ const QuizApp: React.FC = () => {
                 } else {
                   if (key === currentQ.correctAnswer) {
                     base +=
-                      " bg-indigo-600/90 border-indigo-500 text-white shadow-md";
+                      " bg-green-600/40 border-green-500 text-white shadow-md";
                   } else if (
                     key === state.selectedAnswer &&
                     key !== currentQ.correctAnswer
                   ) {
                     base +=
-                      " bg-red-600/80 border-red-600 text-white shadow-md";
+                      " bg-red-600/40 border-red-600 text-white shadow-md";
                   } else {
                     base +=
-                      " bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400";
+                      " bg-gray-100 dark:bg-gray-700/80 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400";
                   }
                 }
 
@@ -776,7 +768,7 @@ const QuizApp: React.FC = () => {
                     </span>
                     <span className="flex-1">{value}</span>
                     {state.showFeedback && key === currentQ.correctAnswer && (
-                      <CheckCircle className="w-6 h-6 text-indigo-400" />
+                      <CheckCircle className="w-6 h-6 text-green-400" />
                     )}
                     {state.showFeedback &&
                       key === state.selectedAnswer &&
@@ -790,19 +782,19 @@ const QuizApp: React.FC = () => {
 
             {/* Feedback */}
             {state.showFeedback && (
-              <div className="p-4 mt-4 bg-gray-100 dark:bg-gray-700 rounded-2xl border border-indigo-500 dark:border-indigo-600 shadow-md transition-colors duration-300">
+              <div className="p-4  mt-4 bg-gray-100 dark:bg-gray-700 rounded-2xl border border-indigo-500 dark:border-indigo-600 shadow-md transition-colors duration-300">
                 <div className="flex items-start gap-3">
                   {state.selectedAnswer === currentQ.correctAnswer ? (
                     <CheckCircle className="w-6 h-6 text-indigo-500 mt-1 flex-shrink-0" />
                   ) : (
-                    <XCircle className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+                    <XCircle className="w-6 h-6 text-red-400 mt-1 flex-shrink-0" />
                   )}
                   <div className="flex-1">
                     <p
                       className={`font-semibold text-lg mb-2 ${
                         state.selectedAnswer === currentQ.correctAnswer
                           ? "text-indigo-600"
-                          : "text-red-500"
+                          : "text-red-400"
                       }`}
                     >
                       {state.selectedAnswer === currentQ.correctAnswer
@@ -828,7 +820,7 @@ const QuizApp: React.FC = () => {
             {state.showFeedback && (
               <button
                 onClick={handleNext}
-                className="w-full mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.03] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
+                className="w-full mt-6 bg-gradient-to-l from-indigo-600 to-indigo-700 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.03] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
               >
                 {state.currentQuestion < currentQuestions.length - 1
                   ? "Next Question"
@@ -955,23 +947,8 @@ const QuizApp: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* Footer: Consistent branding footer */}
-        <div className="mt-10 mb-2 flex flex-col sm:flex-row gap-2 justify-center items-center text-center">
-          <p className="text-gray-400 text-sm sm:text-base">
-            from code to impact -{" "}
-            <span className="text-indigo-500 dark:text-indigo-400 underline font-medium">
-              <a
-                href="https://dikie.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                dikie.dev
-              </a>
-            </span>
-          </p>
-          <Laptop2 className="text-indigo-500 dark:text-indigo-400 w-4 h-4 sm:w-5 sm:h-5" />
-        </div>
+        {/* Footer */}
+        <Footer />
       </div>
     );
   }
@@ -1059,14 +1036,23 @@ const QuizApp: React.FC = () => {
           )}
 
           {/* Overall Stats: Summary statistics in a card grid */}
+
           {state.testResults.length > 0 && (
-            <div className="mt-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/20 dark:border-gray-700/20 shadow-xl">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <div className="mt-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-gray-200/20 dark:border-gray-700/20 shadow-2xl">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
                 Overall Performance
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-                <div className="text-center p-4 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-2xl hover:bg-indigo-100/50 dark:hover:bg-indigo-900/30 transition-colors duration-300 group">
-                  <div className="text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-8">
+                A snapshot of your progress 📊
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                {/* Average Score */}
+                <div className="flex flex-col items-center p-5 bg-gradient-to-br from-indigo-50 to-indigo-100/60 dark:from-indigo-900/30 dark:to-indigo-900/10 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                  <div className="p-3 bg-indigo-500/10 rounded-full mb-3">
+                    <BarChart3 className="w-6 h-6 text-indigo-500 dark:text-indigo-400" />
+                  </div>
+                  <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
                     {Math.round(
                       state.testResults.reduce(
                         (acc, r) => acc + r.percentage,
@@ -1075,31 +1061,46 @@ const QuizApp: React.FC = () => {
                     )}
                     %
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
                     Average Score
                   </p>
                 </div>
-                <div className="text-center p-4 bg-pink-50/50 dark:bg-pink-900/20 rounded-2xl hover:bg-pink-100/50 dark:hover:bg-pink-900/30 transition-colors duration-300 group">
-                  <div className="text-2xl sm:text-3xl font-bold text-pink-600 dark:text-pink-400 mb-1">
+
+                {/* Best Score */}
+                <div className="flex flex-col items-center p-5 bg-gradient-to-br from-pink-50 to-pink-100/60 dark:from-pink-900/30 dark:to-pink-900/10 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                  <div className="p-3 bg-pink-500/10 rounded-full mb-3">
+                    <Trophy className="w-6 h-6 text-pink-500 dark:text-pink-400" />
+                  </div>
+                  <div className="text-3xl font-bold text-pink-600 dark:text-pink-400">
                     {Math.max(...state.testResults.map((r) => r.percentage))}%
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
                     Best Score
                   </p>
                 </div>
-                <div className="text-center p-4 bg-yellow-50/50 dark:bg-yellow-900/20 rounded-2xl hover:bg-yellow-100/50 dark:hover:bg-yellow-900/30 transition-colors duration-300 group">
-                  <div className="text-2xl sm:text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-1">
+
+                {/* Tests Completed */}
+                <div className="flex flex-col items-center p-5 bg-gradient-to-br from-yellow-50 to-yellow-100/60 dark:from-yellow-900/30 dark:to-yellow-900/10 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                  <div className="p-3 bg-yellow-500/10 rounded-full mb-3">
+                    <ClipboardList className="w-6 h-6 text-yellow-500 dark:text-yellow-400" />
+                  </div>
+                  <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
                     {state.testResults.length}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
                     Tests Completed
                   </p>
                 </div>
-                <div className="text-center p-4 bg-indigo-50/50 dark:bg-indigo-900/20 rounded-2xl hover:bg-indigo-100/50 dark:hover:bg-indigo-900/30 transition-colors duration-300 group">
-                  <div className="text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">
+
+                {/* Excellent Scores */}
+                <div className="flex flex-col items-center p-5 bg-gradient-to-br from-green-50 to-green-100/60 dark:from-green-900/30 dark:to-green-900/10 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition">
+                  <div className="p-3 bg-green-500/10 rounded-full mb-3">
+                    <Star className="w-6 h-6 text-green-500 dark:text-green-400" />
+                  </div>
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">
                     {state.testResults.filter((r) => r.percentage >= 80).length}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-medium">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mt-1">
                     Excellent Scores
                   </p>
                 </div>
@@ -1107,22 +1108,8 @@ const QuizApp: React.FC = () => {
             </div>
           )}
 
-          {/* Footer: Consistent branding footer */}
-          <div className="mt-10 mb-4 flex flex-col sm:flex-row gap-2 justify-center items-center text-center">
-            <p className="text-gray-400 text-sm sm:text-base">
-              from code to impact -{" "}
-              <span className="text-indigo-400 dark:text-indigo-300 underline font-medium">
-                <a
-                  href="https://dikie.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  dikie.dev
-                </a>
-              </span>
-            </p>
-            <Laptop2 className="text-indigo-400 dark:text-indigo-300 w-4 h-4 sm:w-5 sm:h-5" />
-          </div>
+          {/* Footer */}
+          <Footer />
         </div>
       </div>
     );
