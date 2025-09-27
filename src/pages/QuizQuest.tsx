@@ -431,7 +431,7 @@ const QuizApp: React.FC = () => {
             </p>
             <button
               onClick={() => window.location.reload()}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-indigo-700 to-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105"
             >
               Retry Loading
             </button>
@@ -570,7 +570,7 @@ const QuizApp: React.FC = () => {
                   playSend();
                   startTest(state.currentTest);
                 }}
-                className="w-full bg-indigo-500/80 hover:bg-indigo-600/80 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-indigo-500/30 border border-indigo-400/20 relative overflow-hidden"
+                className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover: border border-indigo-400/20 relative overflow-hidden"
               >
                 <div className="flex items-center justify-center">
                   <div className="p-2 sm:p-3 bg-white/10 rounded-xl sm:rounded-2xl mr-3 sm:mr-4">
@@ -613,7 +613,7 @@ const QuizApp: React.FC = () => {
                     <span>View All Results & Analytics</span>
                   </div>
                 </button>
-                
+
                 {/* Reset button */}
                 <button
                   onClick={() => setOpenResetModal(true)}
@@ -655,7 +655,7 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("home");
               }}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02]"
+              className="bg-gradient-to-r from-indigo-700 to-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02]"
             >
               Go Home
             </button>
@@ -837,7 +837,159 @@ const QuizApp: React.FC = () => {
     );
   }
 
-  // Results Screen: Displays the outcome of the completed test with score, message, and navigation options
+  // Single Test Results Screen: Displays the outcome of the just completed test
+  if (state.gameState === "results") {
+    const latestResult = state.testResults[state.testResults.length - 1];
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 p-4 sm:p-6 transition-all duration-500">
+        <Navbar currentPage="Test Results" />
+        <div className="max-w-4xl mx-auto pt-16">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+              Test Results
+            </h1>
+            <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              Great job completing Test {latestResult.testNumber}!
+            </p>
+          </div>
+
+          {/* Results Card */}
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-2xl p-6 sm:p-8 mb-8">
+            {/* Score Display */}
+            <div className="text-center ">
+              <div className="relative inline-block">
+                <div
+                  className={`text-5xl sm:text-6xl font-black mb-2  ${
+                    latestResult.percentage >= 90
+                      ? "bg-gradient-to-r from-green-400 to-emerald-500"
+                      : latestResult.percentage >= 80
+                      ? "bg-gradient-to-r from-blue-400 to-indigo-500"
+                      : latestResult.percentage >= 70
+                      ? "bg-gradient-to-r from-yellow-400 to-orange-500"
+                      : "bg-gradient-to-r from-red-400 to-red-500"
+                  } bg-clip-text text-transparent`}
+                >
+                  {latestResult.percentage}%
+                </div>
+                <div className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {latestResult.score}/{latestResult.totalQuestions} Correct
+                </div>
+                <div
+                  className={`inline-flex fixed top-4 left-4 items-center px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider ${
+                    latestResult.percentage >= 90
+                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+                      : latestResult.percentage >= 80
+                      ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                      : latestResult.percentage >= 70
+                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+                      : "bg-red-100 text-red-700 dark:bg-red-600/40 dark:text-red-300"
+                  }`}
+                >
+                  {latestResult.percentage >= 90
+                    ? "🏆 Outstanding"
+                    : latestResult.percentage >= 80
+                    ? "⭐ Excellent"
+                    : latestResult.percentage >= 70
+                    ? "👍 Good"
+                    : "📚 Needs Work"}
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Message */}
+            <div className="text-center mb-4">
+              <p className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {getPerformanceMessage(latestResult.percentage)}
+              </p>
+            </div>
+
+            {/* Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
+                <BookOpen className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  Subject
+                </p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  {latestResult.subject}
+                </p>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
+                <Calendar className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  Date
+                </p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  {latestResult.date}
+                </p>
+              </div>
+              {latestResult.timeTaken && (
+                <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
+                  <Clock className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    Time Taken
+                  </p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                    {formatTime(latestResult.timeTaken)}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                {" "}
+                <button
+                  onClick={() => {
+                    playSend();
+                    setGameState("home");
+                  }}
+                  className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg  flex items-center justify-center gap-2"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                  Back to Home
+                </button>
+                {state.currentTest < getTotalTests() && (
+                  <button
+                    onClick={() => {
+                      playSend();
+                      startTest(state.currentTest);
+                    }}
+                    className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg  flex items-center justify-center gap-2"
+                  >
+                    <Play className="w-5 h-5" />
+                    Start Next Test
+                  </button>
+                )}
+              </div>
+
+              {state.testResults.length > 1 && (
+                <button
+                  onClick={() => {
+                    playSend();
+                    setGameState("allResults");
+                  }}
+                  className="w-full bg-white/20 dark:bg-gray-800/50 backdrop-blur-xl text-gray-900 dark:text-white font-semibold py-4 rounded-2xl transition-all duration-300 border border-indigo-400/30 hover:border-indigo-500 shadow-xl hover:shadow-indigo-500/20 hover:scale-[1.01] flex items-center justify-center gap-2"
+                >
+                  <Trophy className="w-5 h-5" />
+                  View All Results
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+
+  // All Results Screen: Displays the outcome of the completed test with score, message, and navigation options
 if (state.gameState === "allResults") {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 p-4 sm:p-6 transition-all duration-500">
