@@ -1,6 +1,6 @@
-import type { SpeechDrill } from "@/types";
+import type { Twister } from "@/types";
 
-export const speechDrills: SpeechDrill[] = [
+export const twisters: Twister[] = [
   {
     id: 1,
     text: "She sells sea shells by the sea shore.",

@@ -56,7 +56,7 @@ export interface Settings {
 }
 
 // Tongue Twisterss
-export type SpeechDrill = {
+export type Twister = {
   id: number;
   text: string;
   difficulty: "Easy" | "Medium" | "Hard";

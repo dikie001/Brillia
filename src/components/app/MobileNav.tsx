@@ -62,7 +62,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           ${
             open
               ? "translate-x-0 lg:translate-y-0"
-              : "translate-x-full lg:-translate-y-150"
+              : "translate-x-full lg:-translate-y-150 opacity-10"
           }`}
       >
         {/* Header */}
