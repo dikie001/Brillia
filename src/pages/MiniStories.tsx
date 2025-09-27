@@ -147,7 +147,7 @@ export default function MiniStories() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Mini Stories" />
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative  z-10 max-w-7xl mx-auto">
         <header className="text-center mb-12 pt-20 relative">
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Brief tales that linger in your heart long after the last word
@@ -161,12 +161,14 @@ export default function MiniStories() {
             onFavoriteClick={filterFavorites}
           />
         </div>
-        <Paginate
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          story={stories}
-        />
-        <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {stories.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            story={stories}
+          />
+        )}
+        <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
             const isFavorite = favorite.has(story.id);
             return (
@@ -230,6 +232,13 @@ export default function MiniStories() {
             );
           })}
         </div>
+        {stories.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            story={stories}
+          />
+        )}
       </div>
 
       {selectedStoryData && (

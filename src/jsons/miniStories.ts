@@ -157,7 +157,7 @@ const MiniStories: Story[] = [
     id: 20,
     title: "The Last Phone Booth",
     content:
-      "In bustling Nairobi, everyone had smartphones except for an old phone booth no one used. Kibet, curious, stepped inside and dialed a random number. To his shock, someone answered—it was his late grandfather. Each time he returned, he spoke to different ancestors, hearing stories of their struggles and advice. But one day, the booth vanished overnight. Though saddened, Kibet carried their wisdom with him, knowing the connections he had made would shape his future. Sometimes, the past calls us in unexpected ways.",
+      `In bustling Nairobi, everyone had smartphones except for an old phone booth no one used. Kibet, curious, stepped inside and dialed a random number. To his shock, someone answered—it was his late grandfather. Each time he returned, he spoke to different ancestors, hearing stories of their struggles and advice. But one day, the booth vanished overnight. Though saddened, Kibet carried their wisdom with him, knowing the connections he had made would shape his future. Sometimes, the past calls us in unexpected ways.`,
     genre: "Magical Realism",
     author: "Kibet Langat",
   },
