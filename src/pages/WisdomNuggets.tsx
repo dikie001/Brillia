@@ -11,8 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import { quotes } from "@/jsons/coolQuotes";
 import type { Quote } from "@/types";
-
-
+import Paginate from "../components/app/paginations";
+import { WISDOM_CURRENTPAGE } from "@/constants";
+import { toast } from "sonner";
 
 const categoryColors = {
   Motivation:
@@ -33,9 +34,6 @@ const categoryColors = {
     "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // initiative, drive
 };
 
-
-
-
 const FAVOURITE_QUOTES = "favorite-quote";
 
 export default function WisdomNuggets() {
@@ -43,9 +41,34 @@ export default function WisdomNuggets() {
   const [displayedQuotes, setDisplayedQuotes] = useState<Quote[]>([]);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const updateDisplayedQuotes = () => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    setDisplayedQuotes(quotes.slice(start, end));
+
+    if (end > quotes.length) {
+      toast.info("Ran out of facts, restarting from the top");
+      setCurrentPage(1);
+      localStorage.removeItem(WISDOM_CURRENTPAGE);
+    }
+  };
 
   useEffect(() => {
-    setDisplayedQuotes(quotes);
+    updateDisplayedQuotes();
+    if (currentPage !== 1) {
+      localStorage.setItem(WISDOM_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    const lastPage = localStorage.getItem(WISDOM_CURRENTPAGE);
+    if (lastPage) {
+      setCurrentPage(Number(lastPage));
+    }
+    updateDisplayedQuotes();
   }, []);
 
   const toggleFavorites = (id: number) => {
@@ -125,9 +148,7 @@ export default function WisdomNuggets() {
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full animate-ping"></div>
             </div>
           </div>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Words of wisdom to inspire, motivate, and illuminate your journey
-          </p>
+      
         </header>
 
         {/* Featured Quote */}
@@ -159,6 +180,15 @@ export default function WisdomNuggets() {
             </div>
           </div>
         </div>
+
+        {/* Top Paginate */}
+        {displayedQuotes.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={quotes.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         {/* Quotes Grid */}
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -258,6 +288,15 @@ export default function WisdomNuggets() {
             );
           })}
         </div>
+
+        {/* Bottom Paginate */}
+        {displayedQuotes.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={quotes.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         {/* Quote of the Day Section */}
         <div className="mt-20 text-center">

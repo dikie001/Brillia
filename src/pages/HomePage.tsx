@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar />
 
       <div className="relative z-10 max-w-6xl w-full text-center">
@@ -103,7 +103,7 @@ const HomePage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
           {sections.map((section, index) => {
             const hasCompleted =
               section.name === "Quiz Quest" || section.name === "Mini Stories";

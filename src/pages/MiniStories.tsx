@@ -5,8 +5,9 @@ import Navbar from "@/components/app/Navbar";
 import Paginate from "@/components/app/paginations";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
-import { CheckCheck, Heart, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { STORIES_CURRENTPAGE } from "@/constants";
+import { CheckCheck, Heart, LoaderCircle, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 
 // Define genre colors (all indigo theme)
@@ -37,6 +38,8 @@ export default function MiniStories() {
   const [read, setRead] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const storiesRef = useRef<Story[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     FetchData();
@@ -44,14 +47,10 @@ export default function MiniStories() {
 
   // Handle pagination
   useEffect(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = AllStories.slice(start, end);
-    setStories(currentItems);
-
+    PaginationPage();
     if (currentPage !== 1) {
       localStorage.setItem(
-        "brain-teaser-currentPage",
+        STORIES_CURRENTPAGE,
         JSON.stringify(currentPage)
       );
     }
@@ -59,6 +58,18 @@ export default function MiniStories() {
 
   // Fetch app data
   const FetchData = () => {
+    setLoading(true);
+    storiesRef.current = AllStories;
+
+    const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
+    if (lastPage) {
+      const num = Number(lastPage);
+      setCurrentPage(num);
+    } else {
+      setCurrentPage(1);
+      PaginationPage();
+    }
+
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
@@ -70,6 +81,7 @@ export default function MiniStories() {
       ? new Set<number>(JSON.parse(storedData))
       : new Set();
     setRead(readStories);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -81,6 +93,22 @@ export default function MiniStories() {
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [selectedStory]);
+
+  // Handle pagination
+  const PaginationPage = () => {
+    const storiesLength = AllStories ? AllStories.length : 0;
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = storiesRef.current.slice(start, end);
+    console.log(end, AllStories.length);
+
+    setStories(currentItems);
+    if (end > storiesLength) {
+      setCurrentPage(1);
+      localStorage.removeItem(STORIES_CURRENTPAGE);
+      toast.info("Out of stories, restarting from the top");
+    }
+  };
 
   const selectedStoryData = selectedStory
     ? stories.find((s) => s.id === selectedStory)
@@ -158,6 +186,16 @@ export default function MiniStories() {
             Brief tales that linger in your heart long after the last word
           </p>
         </header>
+
+        {/* Loading */}
+        {loading ||
+          (stories.length === 0 && (
+            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+              <p className="font-medium">Loading stories...</p>
+            </div>
+          ))}
+
         <div className="flex items-center justify-between px-2">
           <FilterBar
             setFilter={setFilter}
@@ -166,11 +204,12 @@ export default function MiniStories() {
             onFavoriteClick={filterFavorites}
           />
         </div>
-        {stories.length !== 0 && (
+        {filter === "All" && stories.length !== 0 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
+            totalItems={AllStories.length}
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -237,11 +276,14 @@ export default function MiniStories() {
             );
           })}
         </div>
-        <Paginate
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          story={stories}
-        />
+        {filter === "All" && (
+          <Paginate
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            story={stories}
+            totalItems={AllStories.length}
+          />
+        )}
       </div>
 
       {selectedStoryData &&

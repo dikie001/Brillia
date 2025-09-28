@@ -14,9 +14,10 @@ interface MainProps {
   currentPage: number;
   teasers?: Teaser[];
   story?: Story[];
+  totalItems?: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const Paginate = ({ currentPage, setCurrentPage, teasers }: MainProps) => {
+const Paginate = ({ currentPage, setCurrentPage, teasers, totalItems }: MainProps) => {
   return (
     <div>
       <Pagination>
@@ -46,9 +47,10 @@ const Paginate = ({ currentPage, setCurrentPage, teasers }: MainProps) => {
 
           <PaginationItem
             onClick={() => {
-              teasers &&
-                currentPage <= teasers.length &&
+              const totalPages = Math.ceil((totalItems || 0) / 10);
+              if (currentPage < totalPages) {
                 setCurrentPage((p) => p + 1);
+              }
             }}
           >
             <PaginationLink href={`#${currentPage}`}>

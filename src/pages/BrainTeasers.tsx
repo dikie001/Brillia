@@ -121,6 +121,7 @@ export default function BrainTeasersPage() {
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
+            totalItems={brainTeasers.length}
             setCurrentPage={setCurrentPage}
           />
         )}
@@ -215,6 +216,7 @@ export default function BrainTeasersPage() {
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
+            totalItems={brainTeasers.length}
             setCurrentPage={setCurrentPage}
           />
         )}

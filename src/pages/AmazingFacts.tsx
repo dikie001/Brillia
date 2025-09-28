@@ -8,14 +8,18 @@ import {
   Eye,
   Globe,
   Lightbulb,
+  LoaderCircle,
   Share2,
   Star,
   TrendingUp,
   Zap,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
+import Paginate from "../components/app/paginations";
+import { FACTS_CURRENTPAGE } from "@/constants";
+import { toast } from "sonner";
 
 const categoryColors = {
   Science:
@@ -29,7 +33,6 @@ const categoryColors = {
   Technology: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200", // neutral, modern
   Culture: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200", // human, vibrant
 };
-
 
 const categoryIcons = {
   Science: Atom,
@@ -51,15 +54,55 @@ export default function FactFrenzy() {
   const [viewedFacts, setViewedFacts] = useState<Set<number>>(new Set());
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [showFactOfDay, setShowFactOfDay] = useState(true);
+  const factsRef = useRef<Fact[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // Navigate to the next page in pagination
+  const PaginationPage = () => {
+    const factsLength = facts ? facts.length : 0;
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = factsRef.current.slice(start, end);
+    setDisplayedFacts(currentItems);
+    if (end > factsLength) {
+      toast.info("Ran out of facts, restarting from the top");
+      setCurrentPage(1);
+      localStorage.removeItem(FACTS_CURRENTPAGE);
+    }
+  };
+
+  // fetch current page info from storage
+  const FetchInfo = () => {
+    setLoading(true);
+    factsRef.current = facts;
+    const lastPage = localStorage.getItem(FACTS_CURRENTPAGE);
+    if (lastPage) {
+      const num = Number(lastPage);
+      setCurrentPage(num);
+    } else {
+      setCurrentPage(1);
+      PaginationPage();
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    setDisplayedFacts(facts);
+    FetchInfo();
     const savedData = localStorage.getItem(SAVED_FACTS);
     const savedFacts: Set<number> = savedData
       ? new Set(JSON.parse(savedData))
       : new Set();
     setSavedFacts(savedFacts);
   }, []);
+
+  useEffect(() => {
+    PaginationPage();
+    if (currentPage !== 1) {
+      localStorage.setItem(FACTS_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage]);
 
   const toggleSaved = (id: number) => {
     const newSaved = new Set(savedFacts);
@@ -112,6 +155,24 @@ export default function FactFrenzy() {
             Discover mind-blowing truths about our incredible world
           </p>
         </header>
+
+        {/* Top Paginate */}
+        {displayedFacts.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={facts.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
+
+        {/* Loading */}
+        {loading ||
+          (displayedFacts.length === 0 && (
+            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+              <p className="font-medium">Loading facts...</p>
+            </div>
+          ))}
 
         {showFactOfDay && (
           <div className="mb-16 relative">
@@ -207,7 +268,7 @@ export default function FactFrenzy() {
                     </span>
                   ))}
                 </div>
-                
+
                 {/* <div className="flex items-center gap-2 mb-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     Fun Level:
@@ -268,6 +329,15 @@ export default function FactFrenzy() {
             );
           })}
         </div>
+
+        {/* Bottom Paginate */}
+        {displayedFacts.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={facts.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         <div className="mt-20 text-center">
           <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
