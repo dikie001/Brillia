@@ -11,6 +11,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import Paginate from "../components/app/paginations";
 import { toast } from "sonner";
+import ContactAdminModal from "@/modals/ContactAdmin";
+import { TEASERS_CURRENTPAGE } from "@/constants";
 
 export type Teaser = {
   id: number;
@@ -41,20 +43,10 @@ export default function BrainTeasersPage() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [openContactAdmin, setOpenContactAdmin] = useState(false);
 
   useEffect(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = teasersRef.current.slice(start, end);
-    setTeasers(currentItems);
-    console.log(currentItems);
-    if (!currentItems || currentItems.length === 0) {
-      toast.info("Out of teasers, restarting from the top");
-      setCurrentPage(1);
-      setTeasers(teasersRef.current.slice(1, 10));
-      
-    }
-
+    PaginationPage();
     if (currentPage !== 1) {
       localStorage.setItem(
         "brain-teaser-currentPage",
@@ -64,18 +56,42 @@ export default function BrainTeasersPage() {
   }, [currentPage]);
 
   useEffect(() => {
+    FetchInfo();
+  }, []);
+
+  // Navigate to the next page in pagination
+  const PaginationPage = () => {
+    const teasersLength = brainTeasers ? brainTeasers.length : 0;
+    teasersLength === 0 && setOpenContactAdmin(true);
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = teasersRef.current.slice(start, end);
+    console.log(end, brainTeasers.length);
+
+    setTeasers(currentItems);
+    if (end > teasersLength) {
+      setCurrentPage(1);
+      localStorage.removeItem(TEASERS_CURRENTPAGE);
+      toast.info("Out of teasers, restarting from the top");
+      // setTimeout(() => setOpenContactAdmin(true), 2000);
+    }
+  };
+
+  // fetch current page info from storage
+  const FetchInfo = () => {
     setLoading(true);
     teasersRef.current = brainTeasers;
 
-    const lastPage = localStorage.getItem("brain-teaser-currentPage");
+    const lastPage = localStorage.getItem(TEASERS_CURRENTPAGE);
     if (lastPage) {
       const num = Number(lastPage);
       setCurrentPage(num);
     } else {
       setCurrentPage(1);
+      PaginationPage();
     }
     setLoading(false);
-  }, []);
+  };
 
   const toggleReveal = (id: number) => {
     const newRevealed = new Set(revealed);
@@ -90,7 +106,12 @@ export default function BrainTeasersPage() {
   return (
     <div className="min-h-screen p-2 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
-
+      {openContactAdmin && (
+        <ContactAdminModal
+          openContactAdmin={openContactAdmin}
+          setOpenContactAdmin={setOpenContactAdmin}
+        />
+      )}
       <div className="relative z-10 max-w-7xl mx-auto pt-16">
         {/* Header */}
         <header className="text-center mb-6 mt-4"></header>

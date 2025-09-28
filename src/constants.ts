@@ -5,3 +5,6 @@ export const STORAGE_KEYS = {
 };
 
 export const FONT_SIZES = ["small", "medium", "large"] as const;
+
+// Brain TEasers current page
+export const TEASERS_CURRENTPAGE = "brain-teaser-currentPage"
