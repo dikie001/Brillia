@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Paginate from "../components/app/paginations";
+import { toast } from "sonner";
 
 export type Teaser = {
   id: number;
@@ -46,6 +47,13 @@ export default function BrainTeasersPage() {
     const end = start + itemsPerPage;
     const currentItems = teasersRef.current.slice(start, end);
     setTeasers(currentItems);
+    console.log(currentItems);
+    if (!currentItems || currentItems.length === 0) {
+      toast.info("Out of teasers, restarting from the top");
+      setCurrentPage(1);
+      setTeasers(teasersRef.current.slice(1, 10));
+      
+    }
 
     if (currentPage !== 1) {
       localStorage.setItem(
@@ -80,16 +88,12 @@ export default function BrainTeasersPage() {
   };
 
   return (
-    <div className="min-h-screen p-2 bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-500">
+    <div className="min-h-screen p-2 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
 
       <div className="relative z-10 max-w-7xl mx-auto pt-16">
         {/* Header */}
-        <header className="text-center mb-6 mt-4">
-          <p className="text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-400">
-            Challenge your mind with these carefully curated puzzles and riddles
-          </p>
-        </header>
+        <header className="text-center mb-6 mt-4"></header>
 
         {/* Top Paginate */}
         {teasers.length !== 0 && (
@@ -103,7 +107,7 @@ export default function BrainTeasersPage() {
         {/* Loading */}
         {loading ||
           (teasers.length === 0 && (
-            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-gray-800 h-screen items-center justify-center w-full  ">
+            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
               <p className="font-medium">Loading teasers...</p>
             </div>
@@ -194,14 +198,14 @@ export default function BrainTeasersPage() {
           />
         )}
 
-        {teasers.length === 0 && (
+        {/* {teasers.length === 0 && (
           <div className="text-center py-12">
             <Brain className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
             <p className="text-xl text-gray-500 dark:text-gray-400">
               No teasers available.
             </p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

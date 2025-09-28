@@ -53,6 +53,8 @@ export type FunFacts = Fact[];
 export interface Settings {
   theme: "light" | "dark";
   soundsEnabled: boolean;
+  notificationsEnabled: boolean;
+  fontSize: "small" | "medium" | "large";
 }
 
 // Tongue Twisterss

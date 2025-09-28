@@ -8,11 +8,12 @@ import QuizQuest from "./pages/QuizQuest";
 import SettingsPage from "./pages/Settings";
 import TongueTwisters from "./pages/TongueTwisters";
 import WisdomNuggets from "./pages/WisdomNuggets";
+import { Toaster } from "sonner";
 
 const App = () => {
   return (
     <Router>
-
+      <Toaster richColors position="top-center" />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/brain-teasers" element={<BrainTeasers />} />{" "}
