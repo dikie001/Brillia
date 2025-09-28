@@ -3,8 +3,10 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { twisters } from "@/jsons/tongueTwisters";
 import type { Twister } from "@/types";
-import { Mic, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { LoaderCircle, Mic, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import Paginate from "../components/app/paginations";
+import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -14,6 +16,50 @@ const difficultyColors = {
 
 const TongueTwisters = () => {
   const [selectedTwister, setSelectedTwister] = useState<number | null>(null);
+  const [displayedTwisters, setDisplayedTwisters] = useState<Twister[]>([]);
+  const twistersRef = useRef<Twister[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // Navigate to the next page in pagination
+  const PaginationPage = () => {
+    const twistersLength = twistersRef.current.length;
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = twistersRef.current.slice(start, end);
+    setDisplayedTwisters(currentItems);
+    if (end > twistersLength) {
+      setCurrentPage(1);
+      localStorage.removeItem(TONGUETWISTERS_CURRENTPAGE);
+    }
+  };
+
+  // fetch current page info from storage
+  const FetchInfo = () => {
+    setLoading(true);
+    twistersRef.current = twisters.filter((drill) => drill.category === "Tongue Twister");
+    const lastPage = localStorage.getItem(TONGUETWISTERS_CURRENTPAGE);
+    if (lastPage) {
+      const num = Number(lastPage);
+      setCurrentPage(num);
+    } else {
+      setCurrentPage(1);
+      PaginationPage();
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    FetchInfo();
+  }, []);
+
+  useEffect(() => {
+    PaginationPage();
+    if (currentPage !== 1) {
+      localStorage.setItem(TONGUETWISTERS_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -25,12 +71,8 @@ const TongueTwisters = () => {
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [selectedTwister]);
 
-  const tongueTwisters:Twister[] = twisters.filter(
-    (drill) => drill.category === "Tongue Twister"
-  );
-
   const selectedTwisterData = selectedTwister
-    ? tongueTwisters.find((t) => t.id === selectedTwister)
+    ? twistersRef.current.find((t) => t.id === selectedTwister)
     : null;
 
   return (
@@ -51,8 +93,26 @@ const TongueTwisters = () => {
           <div className="w-16 sm:w-24 h-1 bg-indigo-500 mx-auto rounded-full "></div>
         </header>
 
+        {/* Top Paginate */}
+        {displayedTwisters.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={twistersRef.current.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
+
+        {/* Loading */}
+        {loading ||
+          (displayedTwisters.length === 0 && (
+            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+              <p className="font-medium">Loading twisters...</p>
+            </div>
+          ))}
+
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {tongueTwisters.map((twister, index) => (
+          {displayedTwisters.map((twister, index) => (
             <div
               key={twister.id}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
@@ -92,6 +152,15 @@ const TongueTwisters = () => {
             </div>
           ))}
         </div>
+
+        {/* Bottom Paginate */}
+        {displayedTwisters.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={twistersRef.current.length}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
 
         <div className="mt-20 text-center">
           <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">

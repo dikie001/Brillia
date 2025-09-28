@@ -17,7 +17,7 @@ interface MainProps {
   totalItems?: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
-const Paginate = ({ currentPage, setCurrentPage, teasers, totalItems }: MainProps) => {
+const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
   return (
     <div>
       <Pagination>
