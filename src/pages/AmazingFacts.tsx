@@ -65,6 +65,7 @@ export default function FactFrenzy() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = factsRef.current.slice(start, end);
+    console.log(currentItems)
     setDisplayedFacts(currentItems);
     if (end > factsLength) {
       toast.info("Ran out of facts, restarting from the top");
@@ -140,30 +141,9 @@ export default function FactFrenzy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative mt-18 z-10 max-w-7xl mx-auto">
         <Navbar currentPage="Amazing Facts" />
-        <header className="text-center mb-6">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative mt-12">
-              <Lightbulb className="w-16 h-16 text-indigo-500 dark:text-indigo-400" />
-              <div className="absolute -top-1 -right-1 w-8 h-8">
-                <Zap className="w-6 h-6 text-indigo-500 animate-bounce" />
-              </div>
-            </div>
-          </div>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Discover mind-blowing truths about our incredible world
-          </p>
-        </header>
-
-        {/* Top Paginate */}
-        {displayedFacts.length !== 0 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={facts.length}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
+        <header className="text-center mb-6"></header>
 
         {/* Loading */}
         {loading ||
@@ -175,7 +155,7 @@ export default function FactFrenzy() {
           ))}
 
         {showFactOfDay && (
-          <div className="mb-16 relative">
+          <div className="mb-8  relative">
             <div className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-4 right-4">
@@ -221,6 +201,15 @@ export default function FactFrenzy() {
               </div>
             </div>
           </div>
+        )}
+
+        {/* Top Paginate */}
+        {displayedFacts.length !== 0 && (
+          <Paginate
+            currentPage={currentPage}
+            totalItems={facts.length}
+            setCurrentPage={setCurrentPage}
+          />
         )}
 
         <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
