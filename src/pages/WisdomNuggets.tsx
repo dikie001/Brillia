@@ -139,29 +139,18 @@ export default function WisdomNuggets() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Wisdom Nuggets" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-8 mt-12">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative">
-              <QuoteIcon className="w-16 h-16 text-indigo-600 dark:text-indigo-400 transform rotate-12" />
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full animate-ping"></div>
-            </div>
-          </div>
-      
-        </header>
-
+      <div className="relative z-10 max-w-7xl mx-auto mt-18">
         {/* Featured Quote */}
-        <div className="mb-8">
-          <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+        <div className="mb-6">
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-3xl shadow-2xl text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
-              <QuoteIcon className="w-12 h-12 mb-6 opacity-80" />
-              <blockquote className="text-2xl md:text-3xl font-bold leading-relaxed mb-6">
+              <QuoteIcon className="w-12 h-12 mb-4 opacity-80" />
+              <blockquote className="md:text-2xl lg:text-3xl md:font-bold leading-relaxed mb-1 md:mb-2">
                 "{featuredQuote.text}"
               </blockquote>
               <div className="flex items-center justify-between">
-                <cite className="text-lg font-semibold opacity-90">
+                <cite className="text-sm font-semibold opacity-90">
                   — {featuredQuote.author}
                 </cite>
                 <div className="flex gap-2">
@@ -191,7 +180,7 @@ export default function WisdomNuggets() {
         )}
 
         {/* Quotes Grid */}
-        <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {displayedQuotes.map((quote, index) => {
             const isFavorite = favorite.has(quote.id);
             const isCopied = copied === quote.id;
@@ -199,13 +188,13 @@ export default function WisdomNuggets() {
             return (
               <div
                 key={quote.id}
-                className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105  `}
+                className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg p-4 hover:shadow-xl transition-all duration-500 hover:scale-105  `}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Quote Header */}
                 <div className="flex items-start justify-between mb-4">
                   <span
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold ${
+                    className={`px-3 py-1 rounded-full text-xs font-bold ${
                       categoryColors[quote.category]
                     }`}
                   >
@@ -220,7 +209,7 @@ export default function WisdomNuggets() {
                 </div>
 
                 {/* Quote Content */}
-                <div className="mb-4">
+                <div className="mb-2">
                   <QuoteIcon className="w-8 h-8 text-indigo-300 mb-2" />
                   <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
                     "{quote.text}"
@@ -231,7 +220,7 @@ export default function WisdomNuggets() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-3">
                   {quote.tags.map((tag) => (
                     <span
                       key={tag}
@@ -240,6 +229,10 @@ export default function WisdomNuggets() {
                       #{tag}
                     </span>
                   ))}
+                </div>
+                {/* Id numbers */}
+                <div className=" text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                  {quote.id}
                 </div>
 
                 {/* Action Buttons */}

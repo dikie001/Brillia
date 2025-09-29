@@ -120,7 +120,8 @@ const TongueTwisters = () => {
                   {twister.difficulty}
                 </span>
               </div>
-              <div className="bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+              {/* Twister id numbers */}
+              <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
                 {twister.id}
               </div>
 

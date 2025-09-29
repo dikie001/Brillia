@@ -1,4 +1,7 @@
 import Navbar from "@/components/app/Navbar";
+import { FACTS_CURRENTPAGE } from "@/constants";
+import { facts } from "@/jsons/amazingFacts";
+import type { Fact } from "@/types";
 import {
   Atom,
   BookmarkPlus,
@@ -7,20 +10,16 @@ import {
   Clock,
   Eye,
   Globe,
-  Lightbulb,
   LoaderCircle,
   Share2,
   Star,
   TrendingUp,
   X,
-  Zap,
+  Zap
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { facts } from "@/jsons/amazingFacts";
-import type { Fact } from "@/types";
-import Paginate from "../components/app/paginations";
-import { FACTS_CURRENTPAGE } from "@/constants";
 import { toast } from "sonner";
+import Paginate from "../components/app/paginations";
 
 const categoryColors = {
   Science:
@@ -241,6 +240,7 @@ export default function FactFrenzy() {
                 <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2.5">
                   {fact.fact}
                 </p>
+          
 
                 <div className="flex flex-wrap gap-2 mb-2">
                   {fact.tags.map((tag) => (
