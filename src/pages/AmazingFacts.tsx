@@ -12,6 +12,7 @@ import {
   Share2,
   Star,
   TrendingUp,
+  X,
   Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -155,15 +156,15 @@ export default function FactFrenzy() {
           ))}
 
         {showFactOfDay && (
-          <div className="mb-8  relative">
-            <div className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+          <div className="mb-6  relative">
+            <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-6 rounded-3xl shadow-2xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-4 right-4">
                 <button
                   onClick={() => setShowFactOfDay(false)}
                   className="text-white/80 hover:text-white text-2xl"
                 >
-                  ×
+                  <X size={20}/>
                 </button>
               </div>
               <div className="relative z-10">
@@ -174,14 +175,8 @@ export default function FactFrenzy() {
                 <p className="text-lg leading-relaxed mb-6">{factOfDay.fact}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        categoryColors[factOfDay.category]
-                      }`}
-                    >
-                      {factOfDay.category}
-                    </span>
-                    <span className="text-sm opacity-80">
+              
+                    <span className="text-xs opacity-80">
                       Source: {factOfDay.source}
                     </span>
                   </div>
@@ -212,7 +207,7 @@ export default function FactFrenzy() {
           />
         )}
 
-        <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
             const CategoryIcon = categoryIcons[fact.category];
             const isSaved = savedFacts.has(fact.id);
@@ -221,7 +216,7 @@ export default function FactFrenzy() {
             return (
               <div
                 key={fact.id}
-                className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
+                className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={() => markAsViewed(fact.id)}
               >
@@ -243,11 +238,11 @@ export default function FactFrenzy() {
                   )}
                 </div>
 
-                <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
+                <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2.5">
                   {fact.fact}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-2">
                   {fact.tags.map((tag) => (
                     <span
                       key={tag}
@@ -257,24 +252,6 @@ export default function FactFrenzy() {
                     </span>
                   ))}
                 </div>
-
-                {/* <div className="flex items-center gap-2 mb-4">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    Fun Level:
-                  </span>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < fact.funLevel
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300 dark:text-gray-600"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div> */}
 
                 <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
@@ -328,12 +305,12 @@ export default function FactFrenzy() {
           />
         )}
 
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
+        <div className="mt-6 text-center">
+          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Learning Never Stops
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <Brain className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Mind Expanding</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -341,7 +318,7 @@ export default function FactFrenzy() {
                 understanding of the world.
               </p>
             </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <CheckCircle className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Verified Sources</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -349,7 +326,7 @@ export default function FactFrenzy() {
                 institutions.
               </p>
             </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <Star className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Fun Learning</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
