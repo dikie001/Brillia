@@ -1,4 +1,3 @@
-
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { twisters } from "@/jsons/tongueTwisters";
@@ -10,7 +9,8 @@ import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Medium: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+  Medium:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
   Hard: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
 };
 
@@ -38,7 +38,9 @@ const TongueTwisters = () => {
   // fetch current page info from storage
   const FetchInfo = () => {
     setLoading(true);
-    twistersRef.current = twisters.filter((drill) => drill.category === "Tongue Twister");
+    twistersRef.current = twisters.filter(
+      (drill) => drill.category === "Tongue Twister"
+    );
     const lastPage = localStorage.getItem(TONGUETWISTERS_CURRENTPAGE);
     if (lastPage) {
       const num = Number(lastPage);
@@ -57,7 +59,10 @@ const TongueTwisters = () => {
   useEffect(() => {
     PaginationPage();
     if (currentPage !== 1) {
-      localStorage.setItem(TONGUETWISTERS_CURRENTPAGE, JSON.stringify(currentPage));
+      localStorage.setItem(
+        TONGUETWISTERS_CURRENTPAGE,
+        JSON.stringify(currentPage)
+      );
     }
   }, [currentPage]);
 
@@ -77,21 +82,8 @@ const TongueTwisters = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto mt-18 ">
         <Navbar currentPage="Tongue Twisters" />
-        <header className="text-center mb-6 pt-20">
-          <div className="relative inline-block">
-            <Mic className="w-16 h-16 text-indigo-500 dark:text-indigo-400 mx-auto mb-4" />
-            <div className="absolute -top-1 -right-2">
-              <Mic className="w-4 h-4 text-indigo-500 animate-pulse" />
-            </div>
-          </div>
-      
-          {/* <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Challenge your articulation with these tricky phrases. Practice makes perfect!
-          </p> */}
-          <div className="w-16 sm:w-24 h-1 bg-indigo-500 mx-auto rounded-full "></div>
-        </header>
 
         {/* Top Paginate */}
         {displayedTwisters.length !== 0 && (
@@ -111,11 +103,11 @@ const TongueTwisters = () => {
             </div>
           ))}
 
-        <div className="grid gap-4 lg:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedTwisters.map((twister, index) => (
             <div
               key={twister.id}
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => setSelectedTwister(twister.id)}
             >
@@ -127,6 +119,9 @@ const TongueTwisters = () => {
                 >
                   {twister.difficulty}
                 </span>
+              </div>
+              <div className="bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                {twister.id}
               </div>
 
               <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4 text-lg">
@@ -144,9 +139,7 @@ const TongueTwisters = () => {
                 ))}
               </div>
 
-              <button
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold transition-all duration-300 bg-indigo-500 text-white hover:bg-indigo-600"
-              >
+              <button className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-700 shadow text-white hover:bg-indigo-600">
                 View Twister
               </button>
             </div>
@@ -162,26 +155,26 @@ const TongueTwisters = () => {
           />
         )}
 
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
+        <div className="mt-6 text-center">
+          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Why Practice Tongue Twisters?
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+          <div className="grid md:grid-cols-3 gap-2 md:gap-4">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Improve Articulation</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Enhance your speech clarity and pronunciation skills.
               </p>
             </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Build Confidence</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Gain confidence in public speaking and communication.
               </p>
             </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-2xl p-6">
+            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
               <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
               <h3 className="font-bold text-lg mb-2">Fun Challenge</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">

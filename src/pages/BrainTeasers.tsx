@@ -136,7 +136,7 @@ export default function BrainTeasersPage() {
           ))}
 
         {/* Grid of teasers */}
-        <div className="grid gap-4 mb-6 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 mb-6  sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => {
             const isRevealed = revealed.has(teaser.id);
             const CategoryIcon = categoryIcons[teaser.category];
@@ -144,7 +144,7 @@ export default function BrainTeasersPage() {
             return (
               <div
                 key={teaser.id}
-                className="teaser-card group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 flex flex-col justify-between border border-white/20 dark:border-gray-700/20"
+                className="teaser-card group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg p-4 flex flex-col justify-between border border-white/20 dark:border-gray-700/20"
               >
                 <div>
                   {/* Header */}
@@ -173,6 +173,10 @@ export default function BrainTeasersPage() {
                       {teaser.question}
                     </p>
                   </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                  {teaser.id}
                 </div>
 
                 <div className="mt-2 pt-4 border-t border-gray-200 dark:border-gray-700">
