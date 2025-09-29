@@ -49,10 +49,7 @@ export default function MiniStories() {
   useEffect(() => {
     PaginationPage();
     if (currentPage !== 1) {
-      localStorage.setItem(
-        STORIES_CURRENTPAGE,
-        JSON.stringify(currentPage)
-      );
+      localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
     }
   }, [currentPage]);
 
@@ -133,13 +130,13 @@ export default function MiniStories() {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
-        toast.success("Story removed from favorites")
+        toast.success("Story removed from favorites");
         if (filter === "Favorites") {
           filterFavorites();
         }
       } else {
         newFavorite.add(id);
-        toast.success("Story added to favorites")
+        toast.success("Story added to favorites");
       }
 
       const existingData = localStorage.getItem(FAVOURITE_STORIES);
@@ -253,6 +250,10 @@ export default function MiniStories() {
                   </button>
                 </div>
 
+                <div className="bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                  {story.id}
+                </div>
+
                 <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {story.title}
                 </h2>
@@ -298,10 +299,10 @@ export default function MiniStories() {
                 className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="sticky top-0 bg-white dark:bg-gray-800 px-8 py-6 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
+                <div className="sticky top-0 bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
                   <div className="flex items-center justify-between">
                     <span
-                      className={`px-4 py-2 rounded-full text-sm font-bold ${
+                      className={`px-3 py-1 rounded-full text-sm font-bold ${
                         genreColors[selectedStoryData.genre]
                       }`}
                     >
@@ -339,8 +340,8 @@ export default function MiniStories() {
                     onClick={() => {
                       toggleFavorites(selectedStoryData.id);
                     }}
-                    className="flex cursor-pointer items-center gap-2 rounded-3xl shadow px-5 py-2.5 text-sm font-medium text-white 
-                 bg-gradient-to-r from-indigo-600 to-indigo-700 
+                    className="flex cursor-pointer items-center gap-2 rounded-3xl shadow-lg px-5 py-2.5 text-sm font-medium text-white 
+                 bg-gradient-to-r from-indigo-600 to-indigo-800 
                  hover:from-indigo-700 hover:to-indigo-800 
                  active:scale-95 transition-all"
                   >
