@@ -14,7 +14,7 @@ import type { Quote } from "@/types";
 import Paginate from "../components/app/paginations";
 import { APP_URL, WISDOM_CURRENTPAGE } from "@/constants";
 import { toast } from "sonner";
-import { shareQuote } from "@/utils/miniFunctions";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 
 const categoryColors = {
   Motivation:
@@ -96,15 +96,6 @@ export default function WisdomNuggets() {
     });
   };
 
-  const copyToClipboard = async (quote: Quote) => {
-    try {
-      await navigator.clipboard.writeText(`"${quote.text}" - ${quote.author}`);
-      setCopied(quote.id);
-      setTimeout(() => setCopied(null), 2000);
-    } catch {
-      console.error("Failed to copy quote");
-    }
-  };
 
 
 
@@ -230,7 +221,7 @@ export default function WisdomNuggets() {
                 <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => copyToClipboard(quote)}
+                      onClick={() => copyToClipboard(quote,setCopied)}
                       className={`p-2 rounded-full transition-all duration-300 ${
                         isCopied
                           ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
