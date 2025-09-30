@@ -1,13 +1,16 @@
 import { APP_URL } from "@/constants";
 import type { Quote } from "@/types";
 
-interface ShareTypes {
-  quote: Quote;
-  setCopied: (id: number | null) => void;
-}
+// interface ShareTypes {
+//   quote: Quote;
+//   setCopied: (id: number | null) => void;
+// }
 
 // Share Quotes
-export const shareQuote = async ({ quote, setCopied }: ShareTypes) => {
+export const shareQuote = async (
+  quote: Quote,
+  setCopied: (id: number | null) => void
+): Promise<void> => {
   if (navigator.share) {
     try {
       await navigator.share({
