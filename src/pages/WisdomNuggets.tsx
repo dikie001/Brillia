@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { quotes } from "@/jsons/coolQuotes";
 import type { Quote } from "@/types";
 import Paginate from "../components/app/paginations";
-import { WISDOM_CURRENTPAGE } from "@/constants";
+import { APP_URL, WISDOM_CURRENTPAGE } from "@/constants";
 import { toast } from "sonner";
 
 const categoryColors = {
@@ -107,8 +107,9 @@ export default function WisdomNuggets() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Inspirational Quote",
-          text: `"${quote.text}" - ${quote.author}`,
+          title: `✨ ${quote.category} quotes`,
+          text: `${quote.text} - ${quote.author}`,
+          url: APP_URL,
         });
       } catch {
         copyToClipboard(quote);
