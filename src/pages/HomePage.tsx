@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
+    <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden transition-colors duration-500">
       <Navbar />
 
       <div className="relative z-10 max-w-6xl w-full text-center">

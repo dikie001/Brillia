@@ -5,10 +5,11 @@ import ContactAdminModal from "@/modals/ContactAdmin";
 import {
   Eye,
   EyeOff,
+  Heart,
   LoaderCircle
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
 
 export type Teaser = {
@@ -19,6 +20,8 @@ export type Teaser = {
   category: "Logic" | "Riddle" | "Math" | "Lateral";
 };
 
+const FAVOURITE_TEASERS = "favourite-teasers";
+
 
 export default function BrainTeasersPage() {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
@@ -28,7 +31,7 @@ export default function BrainTeasersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [openContactAdmin, setOpenContactAdmin] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     PaginationPage();
@@ -74,6 +77,14 @@ export default function BrainTeasersPage() {
       setCurrentPage(1);
       PaginationPage();
     }
+
+    // Load favorites from localStorage
+    const storedFavorites = localStorage.getItem(FAVOURITE_TEASERS);
+    const favoriteTeasers: Set<number> = storedFavorites
+      ? new Set<number>(JSON.parse(storedFavorites))
+      : new Set();
+    setFavorite(favoriteTeasers);
+
     setLoading(false);
   };
 
@@ -85,6 +96,37 @@ export default function BrainTeasersPage() {
       newRevealed.add(id);
     }
     setRevealed(newRevealed);
+  };
+
+  // Toggle favorites
+  const toggleFavorites = (id: number) => {
+    setFavorite((prev) => {
+      const newFavorite = new Set(prev);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+        toast.success("Teaser removed from favorites");
+      } else {
+        newFavorite.add(id);
+        toast.success("Teaser added to favorites");
+      }
+
+      const existingData = localStorage.getItem(FAVOURITE_TEASERS);
+      const existingFavorites: Set<number> = existingData
+        ? new Set(JSON.parse(existingData))
+        : new Set();
+
+      if (existingFavorites.has(id)) {
+        existingFavorites.delete(id);
+      } else {
+        existingFavorites.add(id);
+      }
+
+      localStorage.setItem(
+        FAVOURITE_TEASERS,
+        JSON.stringify(Array.from(existingFavorites))
+      );
+      return newFavorite;
+    });
   };
 
   return (
@@ -137,8 +179,23 @@ export default function BrainTeasersPage() {
                         {teaser.category}
                       </span>
                     </div>
-
+                    <button
+                      onClick={() => toggleFavorites(teaser.id)}
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        favorite.has(teaser.id)
+                          ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                          : "text-gray-400 hover:text-indigo-600 hover:bg-red-50 dark:hover:bg-indigo-900/20"
+                      }`}
+                      title={
+                        favorite.has(teaser.id) ? "Remove from favorites" : "Add to favorites"
+                      }
+                    >
+                      <Heart
+                        className={`w-5 h-5 ${favorite.has(teaser.id) ? "fill-current" : ""}`}
+                      />
+                    </button>
                   </div>
+                  
 
                   <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">
                     Puzzle #{teaser.id}
@@ -210,6 +267,7 @@ export default function BrainTeasersPage() {
           </div>
         )} */}
       </div>
+      <Toaster richColors position="top-center" />
     </div>
   );
 }
