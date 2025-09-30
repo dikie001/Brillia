@@ -184,18 +184,21 @@ export default function BrainTeasersPage() {
                       className={`p-2 rounded-full transition-all duration-300 ${
                         favorite.has(teaser.id)
                           ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                          : "text-gray-400 hover:text-indigo-600 hover:bg-red-50 dark:hover:bg-indigo-900/20"
+                          : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                       }`}
                       title={
-                        favorite.has(teaser.id) ? "Remove from favorites" : "Add to favorites"
+                        favorite.has(teaser.id)
+                          ? "Remove from favorites"
+                          : "Add to favorites"
                       }
                     >
                       <Heart
-                        className={`w-5 h-5 ${favorite.has(teaser.id) ? "fill-current" : ""}`}
+                        className={`w-5 h-5 ${
+                          favorite.has(teaser.id) ? "fill-current" : ""
+                        }`}
                       />
                     </button>
                   </div>
-                  
 
                   <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">
                     Puzzle #{teaser.id}

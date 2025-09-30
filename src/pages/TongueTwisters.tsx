@@ -2,8 +2,9 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { twisters } from "@/jsons/tongueTwisters";
 import type { Twister } from "@/types";
-import { LoaderCircle, Mic, X } from "lucide-react";
+import { Heart, LoaderCircle, Mic, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
 import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
 
@@ -14,6 +15,8 @@ const difficultyColors = {
   Hard: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
 };
 
+const FAVOURITE_TWISTERS = "favourite-twisters";
+
 const TongueTwisters = () => {
   const [selectedTwister, setSelectedTwister] = useState<number | null>(null);
   const [displayedTwisters, setDisplayedTwisters] = useState<Twister[]>([]);
@@ -21,6 +24,7 @@ const TongueTwisters = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [favorite, setFavorite] = useState<Set<number>>(new Set());
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
@@ -49,7 +53,46 @@ const TongueTwisters = () => {
       setCurrentPage(1);
       PaginationPage();
     }
+
+    // Load favorites from localStorage
+    const storedFavorites = localStorage.getItem(FAVOURITE_TWISTERS);
+    const favoriteTwisters: Set<number> = storedFavorites
+      ? new Set<number>(JSON.parse(storedFavorites))
+      : new Set();
+    setFavorite(favoriteTwisters);
+
     setLoading(false);
+  };
+
+  // Toggle favorites
+  const toggleFavorites = (id: number) => {
+    setFavorite((prev) => {
+      const newFavorite = new Set(prev);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+        toast.success("Twister removed from favorites");
+      } else {
+        newFavorite.add(id);
+        toast.success("Twister added to favorites");
+      }
+
+      const existingData = localStorage.getItem(FAVOURITE_TWISTERS);
+      const existingFavorites: Set<number> = existingData
+        ? new Set(JSON.parse(existingData))
+        : new Set();
+
+      if (existingFavorites.has(id)) {
+        existingFavorites.delete(id);
+      } else {
+        existingFavorites.add(id);
+      }
+
+      localStorage.setItem(
+        FAVOURITE_TWISTERS,
+        JSON.stringify(Array.from(existingFavorites))
+      );
+      return newFavorite;
+    });
   };
 
   useEffect(() => {
@@ -119,6 +162,24 @@ const TongueTwisters = () => {
                 >
                   {twister.difficulty}
                 </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorites(twister.id);
+                  }}
+                  className={`p-2 rounded-full transition-all duration-300 ${
+                    favorite.has(twister.id)
+                      ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                      : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                  }`}
+                  title={
+                    favorite.has(twister.id) ? "Remove from favorites" : "Add to favorites"
+                  }
+                >
+                  <Heart
+                    className={`w-5 h-5 ${favorite.has(twister.id) ? "fill-current" : ""}`}
+                  />
+                </button>
               </div>
               {/* Twister id numbers */}
               <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
@@ -186,6 +247,7 @@ const TongueTwisters = () => {
         </div>
       </div>
       <Footer />
+      <Toaster richColors position="top-center" />
 
       {selectedTwisterData && (
         <div

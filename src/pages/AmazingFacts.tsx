@@ -10,15 +10,16 @@ import {
   Clock,
   Eye,
   Globe,
+  Heart,
   LoaderCircle,
   Share2,
   Star,
   TrendingUp,
   X,
-  Zap
+  Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
 
 const categoryColors = {
@@ -47,9 +48,11 @@ const categoryIcons = {
 };
 
 const SAVED_FACTS = "saved-facts";
+const FAVOURITE_FACTS = "favourite-facts";
 
 export default function FactFrenzy() {
   const [savedFacts, setSavedFacts] = useState<Set<number>>(new Set());
+  const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [displayedFacts, setDisplayedFacts] = useState<Fact[]>([]);
   const [viewedFacts, setViewedFacts] = useState<Set<number>>(new Set());
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
@@ -65,7 +68,7 @@ export default function FactFrenzy() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = factsRef.current.slice(start, end);
-    console.log(currentItems)
+    console.log(currentItems);
     setDisplayedFacts(currentItems);
     if (end > factsLength) {
       toast.info("Ran out of facts, restarting from the top");
@@ -96,6 +99,13 @@ export default function FactFrenzy() {
       ? new Set(JSON.parse(savedData))
       : new Set();
     setSavedFacts(savedFacts);
+
+    // Load favorites from localStorage
+    const storedFavorites = localStorage.getItem(FAVOURITE_FACTS);
+    const favoriteFacts: Set<number> = storedFavorites
+      ? new Set<number>(JSON.parse(storedFavorites))
+      : new Set();
+    setFavorite(favoriteFacts);
   }, []);
 
   useEffect(() => {
@@ -111,6 +121,37 @@ export default function FactFrenzy() {
     else newSaved.add(id);
     setSavedFacts(newSaved);
     localStorage.setItem(SAVED_FACTS, JSON.stringify(Array.from(newSaved)));
+  };
+
+  // Toggle favorites
+  const toggleFavorites = (id: number) => {
+    setFavorite((prev) => {
+      const newFavorite = new Set(prev);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+        toast.success("Fact removed from favorites");
+      } else {
+        newFavorite.add(id);
+        toast.success("Fact added to favorites");
+      }
+
+      const existingData = localStorage.getItem(FAVOURITE_FACTS);
+      const existingFavorites: Set<number> = existingData
+        ? new Set(JSON.parse(existingData))
+        : new Set();
+
+      if (existingFavorites.has(id)) {
+        existingFavorites.delete(id);
+      } else {
+        existingFavorites.add(id);
+      }
+
+      localStorage.setItem(
+        FAVOURITE_FACTS,
+        JSON.stringify(Array.from(existingFavorites))
+      );
+      return newFavorite;
+    });
   };
 
   const markAsViewed = (id: number) => {
@@ -163,7 +204,7 @@ export default function FactFrenzy() {
                   onClick={() => setShowFactOfDay(false)}
                   className="text-white/80 hover:text-white text-2xl"
                 >
-                  <X size={20}/>
+                  <X size={20} />
                 </button>
               </div>
               <div className="relative z-10">
@@ -174,7 +215,6 @@ export default function FactFrenzy() {
                 <p className="text-lg leading-relaxed mb-6">{factOfDay.fact}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-              
                     <span className="text-xs opacity-80">
                       Source: {factOfDay.source}
                     </span>
@@ -221,7 +261,6 @@ export default function FactFrenzy() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <CategoryIcon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-bold ${
                         categoryColors[fact.category]
@@ -230,17 +269,39 @@ export default function FactFrenzy() {
                       {fact.category}
                     </span>
                   </div>
-                  {fact.isVerified && (
+                  
+                  {/* {fact.isVerified && (
                     <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 p-1 rounded-full">
                       <CheckCircle className="w-4 h-4" />
                     </div>
-                  )}
+                  )} */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorites(fact.id);
+                    }}
+                    className={`p-2 rounded-full transition-all ${
+                      favorite.has(fact.id)
+                        ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                        : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                    }`}
+                    title={
+                      favorite.has(fact.id)
+                        ? "Remove from favorites"
+                        : "Add to favorites"
+                    }
+                  >
+                    <Heart
+                      className={`w-5 h-5 ${
+                        favorite.has(fact.id) ? "fill-current" : ""
+                      }`}
+                    />
+                  </button>
                 </div>
 
                 <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2.5">
                   {fact.fact}
                 </p>
-          
 
                 <div className="flex flex-wrap gap-2 mb-2">
                   {fact.tags.map((tag) => (
@@ -264,11 +325,6 @@ export default function FactFrenzy() {
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
-                    {isViewed && (
-                      <span className="text-xs text-green-600 dark:text-green-400 font-semibold flex items-center gap-1">
-                        <Eye className="w-3 h-3" /> Viewed
-                      </span>
-                    )}
                   </div>
                   <button
                     onClick={(e) => {
@@ -337,6 +393,7 @@ export default function FactFrenzy() {
           </div>
         </div>
       </div>
+      <Toaster richColors position="top-center" />
     </div>
   );
 }

@@ -189,9 +189,9 @@ export default function MiniStories() {
         {/* Loading */}
         {loading ||
           (stories.length === 0 && (
-            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+            <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium">Loading stories...</p>
+              <p className="font-medium mt-2">Loading stories...</p>
             </div>
           ))}
 
