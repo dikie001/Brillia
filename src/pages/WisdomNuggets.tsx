@@ -1,4 +1,8 @@
 import Navbar from "@/components/app/Navbar";
+import { WISDOM_CURRENTPAGE } from "@/constants";
+import { quotes } from "@/jsons/coolQuotes";
+import type { Quote } from "@/types";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
   Bookmark,
   CheckCircle,
@@ -9,12 +13,8 @@ import {
   Star,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { quotes } from "@/jsons/coolQuotes";
-import type { Quote } from "@/types";
-import Paginate from "../components/app/paginations";
-import { APP_URL, WISDOM_CURRENTPAGE } from "@/constants";
 import { toast } from "sonner";
-import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
+import Paginate from "../components/app/paginations";
 
 const categoryColors = {
   Motivation:

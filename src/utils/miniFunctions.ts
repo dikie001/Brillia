@@ -1,12 +1,13 @@
 import { APP_URL } from "@/constants";
 import type { Quote } from "@/types";
+import { toast } from "sonner";
 
 // interface ShareTypes {
 //   quote: Quote;
 //   setCopied: (id: number | null) => void;
 // }
 
-// Share Quotes
+// Share Quotes/teasers/stories/quizes etc
 export const shareQuote = async (
   quote: Quote,
   setCopied: (id: number | null) => void
@@ -23,6 +24,7 @@ export const shareQuote = async (
     }
   } else {
     copyToClipboard(quote, setCopied);
+    toast.info("This feature only works in mobile devices");
   }
 };
 
