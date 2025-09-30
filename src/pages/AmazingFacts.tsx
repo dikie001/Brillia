@@ -3,20 +3,15 @@ import { FACTS_CURRENTPAGE } from "@/constants";
 import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
 import {
-  Atom,
   BookmarkPlus,
   Brain,
   CheckCircle,
-  Clock,
-  Eye,
-  Globe,
   Heart,
   LoaderCircle,
   Share2,
   Star,
   TrendingUp,
-  X,
-  Zap,
+  X
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -35,17 +30,7 @@ const categoryColors = {
   Culture: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200", // human, vibrant
 };
 
-const categoryIcons = {
-  Science: Atom,
-  Nature: Globe,
-  History: Clock,
-  Space: Star,
-  Animals: Eye,
-  Technology: Zap,
-  "Human Body": Brain,
-  Geography: Globe,
-  Culture: Star,
-};
+
 
 const SAVED_FACTS = "saved-facts";
 const FAVOURITE_FACTS = "favourite-facts";
@@ -54,7 +39,6 @@ export default function FactFrenzy() {
   const [savedFacts, setSavedFacts] = useState<Set<number>>(new Set());
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [displayedFacts, setDisplayedFacts] = useState<Fact[]>([]);
-  const [viewedFacts, setViewedFacts] = useState<Set<number>>(new Set());
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [showFactOfDay, setShowFactOfDay] = useState(true);
   const factsRef = useRef<Fact[]>([]);
@@ -154,9 +138,7 @@ export default function FactFrenzy() {
     });
   };
 
-  const markAsViewed = (id: number) => {
-    setViewedFacts(new Set([...viewedFacts, id]));
-  };
+
 
   const shareFact = async (fact: Fact) => {
     if (navigator.share) {
@@ -248,16 +230,13 @@ export default function FactFrenzy() {
 
         <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
-            const CategoryIcon = categoryIcons[fact.category];
             const isSaved = savedFacts.has(fact.id);
-            const isViewed = viewedFacts.has(fact.id);
 
             return (
               <div
                 key={fact.id}
                 className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
-                onClick={() => markAsViewed(fact.id)}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
