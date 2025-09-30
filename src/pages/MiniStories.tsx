@@ -369,7 +369,7 @@ export default function MiniStories() {
         </div>
       )}
 
-      {filter !== "Favorites" && stories.length === 0 && (
+      {/* {filter !== "Favorites" && stories.length === 0 && (
         <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">
           <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
             {filter === "All"
@@ -386,7 +386,7 @@ export default function MiniStories() {
             )}
           </div>
         </div>
-      )}
+      )} */}
       <Footer />
     </div>
   );

@@ -21,6 +21,7 @@ export type Quote = {
     | "Innovation"
     | "Leadership"
     | "Love"
+    | "Discipline"
     | "Growth"
     | "Action";
   tags: string[];
