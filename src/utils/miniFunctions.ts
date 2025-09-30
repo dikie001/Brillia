@@ -1,41 +1,36 @@
 import { APP_URL } from "@/constants";
-import type { Quote } from "@/types";
+import type { Quote, Story } from "@/types";
 import { toast } from "sonner";
-
-// interface ShareTypes {
-//   quote: Quote;
-//   setCopied: (id: number | null) => void;
-// }
 
 // Share Quotes/teasers/stories/quizes etc
 export const shareQuote = async (
-  quote: Quote,
+  item: Quote | Story,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: `✨ ${quote.category} quotes`,
-        text: `${quote.text} - ${quote.author}`,
+        title: ` ✨ ${'category' in item? item.category : 'genre' in item? item.genre : 'Brillia'}`,
+        text: `${item.content} - ${item.author}`,
         url: APP_URL,
       });
     } catch {
-      copyToClipboard(quote, setCopied);
+      copyToClipboard(item, setCopied);
     }
   } else {
-    copyToClipboard(quote, setCopied);
+    copyToClipboard(item, setCopied);
     toast.info("This feature only works in mobile devices");
   }
 };
 
 // Copy to clipboard
 export const copyToClipboard = async (
-  quote: Quote,
+  item: Quote | Story,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
   try {
-    await navigator.clipboard.writeText(`"${quote.text}" - ${quote.author}`);
-    setCopied(quote.id);
+    await navigator.clipboard.writeText(`"${item}" - ${item.author}`);
+    setCopied(item.id);
     setTimeout(() => setCopied(null), 2000);
   } catch {
     console.error("Failed to copy quote");

@@ -6,9 +6,10 @@ import Paginate from "@/components/app/paginations";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { STORIES_CURRENTPAGE } from "@/constants";
-import { CheckCheck, Heart, LoaderCircle, X } from "lucide-react";
+import { CheckCheck, CheckCircle, Copy, Heart, LoaderCircle, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
@@ -40,6 +41,7 @@ export default function MiniStories() {
   const itemsPerPage = 10;
   const storiesRef = useRef<Story[]>([]);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState<number | null>(null);
 
   useEffect(() => {
     FetchData();
@@ -212,6 +214,8 @@ export default function MiniStories() {
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => {
             const isFavorite = favorite.has(story.id);
+            const isCopied = copied === story.id;
+
             return (
               <div
                 key={story.id}
@@ -264,6 +268,30 @@ export default function MiniStories() {
 
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
                   by {story.author}
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => copyToClipboard(story, setCopied)}
+                    className={`p-2 rounded-full transition-all duration-300 ${
+                      isCopied
+                        ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                        : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                    }`}
+                    title={isCopied ? "Copied!" : "Copy quote"}
+                  >
+                    {isCopied ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      <Copy className="w-5 h-5" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => shareQuote(story, setCopied)}
+                    className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                    title="Share quote"
+                  >
+                    <Share2 className="w-5 h-5" />
+                  </button>
                 </div>
                 <div
                   className={`flex text-indigo-400 gap-2 justify-end text-sm ${

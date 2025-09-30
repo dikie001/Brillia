@@ -9,7 +9,7 @@ export interface Story {
 // Quotes
 export type Quote = {
   id: number;
-  text: string;
+  content: string;
   author: string;
   category:
     | "Success"

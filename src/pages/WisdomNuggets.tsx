@@ -124,7 +124,7 @@ export default function WisdomNuggets() {
             <div className="relative z-10">
               <QuoteIcon className="w-12 h-12 mb-4 opacity-80" />
               <blockquote className="md:text-2xl lg:text-3xl md:font-bold leading-relaxed mb-1 md:mb-2">
-                "{featuredQuote.text}"
+                "{featuredQuote.content}"
               </blockquote>
               <div className="flex items-center justify-between">
                 <cite className="text-sm font-semibold opacity-90">
@@ -189,7 +189,7 @@ export default function WisdomNuggets() {
                 <div className="mb-2">
                   <QuoteIcon className="w-8 h-8 text-indigo-300 mb-2" />
                   <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
-                    "{quote.text}"
+                    "{quote.content}"
                   </blockquote>
                   <cite className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                     — {quote.author}
@@ -214,6 +214,7 @@ export default function WisdomNuggets() {
 
                 {/* Action Buttons */}
                 <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+                  {/* copy ans share */}
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => copyToClipboard(quote, setCopied)}

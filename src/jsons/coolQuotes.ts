@@ -3,7 +3,7 @@ import type { Quote } from "@/types";
 export const quotes:Quote[] =[
   {
     id: 1,
-    text: "The only way to do great work is to love what you do.",
+    content: "The only way to do great work is to love what you do.",
     author: "Steve Jobs",
     category: "Perseverance",
     tags: ["passion", "work", "love", "dedication"],
@@ -11,7 +11,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 2,
-    text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+    content: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
     author: "Winston Churchill",
     category: "Courage",
     tags: ["resilience", "failure", "success", "motivation"],
@@ -19,7 +19,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 3,
-    text: "Believe you can and you're halfway there.",
+    content: "Believe you can and you're halfway there.",
     author: "Theodore Roosevelt",
     category: "Wisdom",
     tags: ["belief", "confidence", "mindset", "potential"],
@@ -27,7 +27,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 4,
-    text: "The future belongs to those who believe in the beauty of their dreams.",
+    content: "The future belongs to those who believe in the beauty of their dreams.",
     author: "Eleanor Roosevelt",
     category: "Happiness",
     tags: ["dreams", "future", "belief", "inspiration"],
@@ -35,7 +35,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 5,
-    text: "It does not matter how slowly you go as long as you do not stop.",
+    content: "It does not matter how slowly you go as long as you do not stop.",
     author: "Confucius",
     category: "Perseverance",
     tags: ["patience", "consistency", "progress"],
@@ -43,7 +43,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 6,
-    text: "The only limit to our realization of tomorrow is our doubts of today.",
+    content: "The only limit to our realization of tomorrow is our doubts of today.",
     author: "Franklin D. Roosevelt",
     category: "Leadership",
     tags: ["doubt", "potential", "mindset", "future"],
@@ -51,7 +51,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 7,
-    text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    content: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
     author: "Aristotle",
     category: "Discipline",
     tags: ["habits", "excellence", "consistency", "action"],
@@ -59,7 +59,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 8,
-    text: "The journey of a thousand miles begins with a single step.",
+    content: "The journey of a thousand miles begins with a single step.",
     author: "Lao Tzu",
     category: "Perseverance",
     tags: ["beginnings", "journey", "action", "patience"],
@@ -67,7 +67,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 9,
-    text: "Act as if what you do makes a difference. It does.",
+    content: "Act as if what you do makes a difference. It does.",
     author: "William James",
     category: "Courage",
     tags: ["action", "impact", "purpose", "significance"],
@@ -75,7 +75,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 10,
-    text: "What you get by achieving your goals is not as important as what you become.",
+    content: "What you get by achieving your goals is not as important as what you become.",
     author: "Zig Ziglar",
     category: "Wisdom",
     tags: ["growth", "journey", "self-improvement", "goals"],
@@ -83,7 +83,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 11,
-    text: "Strive not to be a success, but rather to be of value.",
+    content: "Strive not to be a success, but rather to be of value.",
     author: "Albert Einstein",
     category: "Leadership",
     tags: ["value", "purpose", "success", "contribution"],
@@ -91,7 +91,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 12,
-    text: "Happiness is not something ready made. It comes from your own actions.",
+    content: "Happiness is not something ready made. It comes from your own actions.",
     author: "Dalai Lama",
     category: "Happiness",
     tags: ["action", "choice", "joy", "responsibility"],
@@ -99,7 +99,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 13,
-    text: "To handle yourself, use your head; to handle others, use your heart.",
+    content: "To handle yourself, use your head; to handle others, use your heart.",
     author: "Eleanor Roosevelt",
     category: "Leadership",
     tags: ["empathy", "wisdom", "management", "relationships"],
@@ -107,7 +107,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 14,
-    text: "The best way to predict the future is to create it.",
+    content: "The best way to predict the future is to create it.",
     author: "Peter Drucker",
     category: "Courage",
     tags: ["action", "future", "creation", "proactive"],
@@ -115,7 +115,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 15,
-    text: "Discipline is the bridge between goals and accomplishment.",
+    content: "Discipline is the bridge between goals and accomplishment.",
     author: "Jim Rohn",
     category: "Discipline",
     tags: ["goals", "success", "focus", "execution"],
@@ -123,7 +123,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 16,
-    text: "Your time is limited, so don't waste it living someone else's life.",
+    content: "Your time is limited, so don't waste it living someone else's life.",
     author: "Steve Jobs",
     category: "Wisdom",
     tags: ["authenticity", "purpose", "time", "individuality"],
@@ -131,7 +131,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 17,
-    text: "I have not failed. I've just found 10,000 ways that won't work.",
+    content: "I have not failed. I've just found 10,000 ways that won't work.",
     author: "Thomas A. Edison",
     category: "Perseverance",
     tags: ["failure", "learning", "resilience", "innovation"],
@@ -139,7 +139,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 18,
-    text: "If you want to lift yourself up, lift up someone else.",
+    content: "If you want to lift yourself up, lift up someone else.",
     author: "Booker T. Washington",
     category: "Happiness",
     tags: ["kindness", "service", "community", "empathy"],
@@ -147,7 +147,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 19,
-    text: "A leader is one who knows the way, goes the way, and shows the way.",
+    content: "A leader is one who knows the way, goes the way, and shows the way.",
     author: "John C. Maxwell",
     category: "Leadership",
     tags: ["guidance", "example", "vision", "integrity"],
@@ -155,7 +155,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 20,
-    text: "The mind is everything. What you think you become.",
+    content: "The mind is everything. What you think you become.",
     author: "Buddha",
     category: "Wisdom",
     tags: ["mindset", "thoughts", "reality", "manifestation"],
@@ -163,7 +163,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 21,
-    text: "Either you run the day, or the day runs you.",
+    content: "Either you run the day, or the day runs you.",
     author: "Jim Rohn",
     category: "Discipline",
     tags: ["proactivity", "control", "motivation", "time-management"],
@@ -171,7 +171,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 22,
-    text: "The brave man is not he who does not feel afraid, but he who conquers that fear.",
+    content: "The brave man is not he who does not feel afraid, but he who conquers that fear.",
     author: "Nelson Mandela",
     category: "Courage",
     tags: ["fear", "bravery", "strength", "overcoming"],
@@ -179,7 +179,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 23,
-    text: "Fall seven times and stand up eight.",
+    content: "Fall seven times and stand up eight.",
     author: "Japanese Proverb",
     category: "Perseverance",
     tags: ["resilience", "determination", "never-give-up"],
@@ -187,7 +187,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 24,
-    text: "For every minute you are angry you lose sixty seconds of happiness.",
+    content: "For every minute you are angry you lose sixty seconds of happiness.",
     author: "Ralph Waldo Emerson",
     category: "Happiness",
     tags: ["anger", "emotion", "choice", "peace"],
@@ -195,7 +195,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 25,
-    text: "The secret of getting ahead is getting started.",
+    content: "The secret of getting ahead is getting started.",
     author: "Mark Twain",
     category: "Discipline",
     tags: ["action", "procrastination", "beginnings", "motivation"],
@@ -203,7 +203,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 26,
-    text: "In the middle of difficulty lies opportunity.",
+    content: "In the middle of difficulty lies opportunity.",
     author: "Albert Einstein",
     category: "Wisdom",
     tags: ["opportunity", "challenge", "perspective", "adversity"],
@@ -211,7 +211,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 27,
-    text: "Management is doing things right; leadership is doing the right things.",
+    content: "Management is doing things right; leadership is doing the right things.",
     author: "Peter Drucker",
     category: "Leadership",
     tags: ["vision", "management", "effectiveness", "strategy"],
@@ -219,7 +219,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 28,
-    text: "You miss 100% of the shots you don't take.",
+    content: "You miss 100% of the shots you don't take.",
     author: "Wayne Gretzky",
     category: "Courage",
     tags: ["opportunity", "risk", "action", "regret"],
@@ -227,7 +227,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 29,
-    text: "The harder the conflict, the more glorious the triumph.",
+    content: "The harder the conflict, the more glorious the triumph.",
     author: "Thomas Paine",
     category: "Perseverance",
     tags: ["struggle", "victory", "adversity", "reward"],
@@ -235,7 +235,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 30,
-    text: "The purpose of our lives is to be happy.",
+    content: "The purpose of our lives is to be happy.",
     author: "Dalai Lama",
     category: "Happiness",
     tags: ["purpose", "life", "joy", "meaning"],
@@ -243,7 +243,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 31,
-    text: "Motivation is what gets you started. Habit is what keeps you going.",
+    content: "Motivation is what gets you started. Habit is what keeps you going.",
     author: "Jim Rohn",
     category: "Discipline",
     tags: ["motivation", "habits", "consistency", "long-term"],
@@ -251,7 +251,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 32,
-    text: "Do not wait to strike till the iron is hot; but make it hot by striking.",
+    content: "Do not wait to strike till the iron is hot; but make it hot by striking.",
     author: "William Butler Yeats",
     category: "Courage",
     tags: ["initiative", "action", "opportunity", "proactivity"],
@@ -259,7 +259,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 33,
-    text: "Knowing yourself is the beginning of all wisdom.",
+    content: "Knowing yourself is the beginning of all wisdom.",
     author: "Aristotle",
     category: "Wisdom",
     tags: ["self-awareness", "knowledge", "introspection", "growth"],
@@ -267,7 +267,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 34,
-    text: "A genuine leader is not a searcher for consensus but a molder of consensus.",
+    content: "A genuine leader is not a searcher for consensus but a molder of consensus.",
     author: "Martin Luther King Jr.",
     category: "Leadership",
     tags: ["vision", "influence", "change", "consensus"],
@@ -275,7 +275,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 35,
-    text: "It is never too late to be what you might have been.",
+    content: "It is never too late to be what you might have been.",
     author: "George Eliot",
     category: "Perseverance",
     tags: ["potential", "change", "hope", "dreams"],
@@ -283,7 +283,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 36,
-    text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    content: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
     author: "Nelson Mandela",
     category: "Perseverance",
     tags: ["resilience", "failure", "strength", "overcoming"],
@@ -291,7 +291,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 37,
-    text: "The roots of education are bitter, but the fruit is sweet.",
+    content: "The roots of education are bitter, but the fruit is sweet.",
     author: "Aristotle",
     category: "Discipline",
     tags: ["education", "hard-work", "reward", "learning"],
@@ -299,7 +299,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 38,
-    text: "If you are working on something that you really care about, you don’t have to be pushed.",
+    content: "If you are working on something that you really care about, you don’t have to be pushed.",
     author: "Steve Jobs",
     category: "Perseverance",
     tags: ["passion", "motivation", "purpose", "drive"],
@@ -307,7 +307,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 39,
-    text: "The only source of knowledge is experience.",
+    content: "The only source of knowledge is experience.",
     author: "Albert Einstein",
     category: "Wisdom",
     tags: ["experience", "learning", "knowledge", "practice"],
@@ -315,7 +315,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 40,
-    text: "The art of leadership is saying no, not yes. It is very easy to say yes.",
+    content: "The art of leadership is saying no, not yes. It is very easy to say yes.",
     author: "Tony Blair",
     category: "Leadership",
     tags: ["focus", "decision-making", "priorities", "strategy"],
@@ -323,7 +323,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 41,
-    text: "Life is 10% what happens to us and 90% how we react to it.",
+    content: "Life is 10% what happens to us and 90% how we react to it.",
     author: "Charles R. Swindoll",
     category: "Courage",
     tags: ["attitude", "perspective", "control", "reaction"],
@@ -331,7 +331,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 42,
-    text: "The foolish man seeks happiness in the distance, the wise grows it under his feet.",
+    content: "The foolish man seeks happiness in the distance, the wise grows it under his feet.",
     author: "James Oppenheim",
     category: "Happiness",
     tags: ["presence", "gratitude", "wisdom", "perspective"],
@@ -339,7 +339,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 43,
-    text: "Without self-discipline, success is impossible, period.",
+    content: "Without self-discipline, success is impossible, period.",
     author: "Lou Holtz",
     category: "Discipline",
     tags: ["success", "focus", "control", "dedication"],
@@ -347,7 +347,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 44,
-    text: "If you can dream it, you can do it.",
+    content: "If you can dream it, you can do it.",
     author: "Walt Disney",
     category: "Perseverance",
     tags: ["dreams", "imagination", "action", "potential"],
@@ -355,7 +355,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 45,
-    text: "He who has a why to live can bear almost any how.",
+    content: "He who has a why to live can bear almost any how.",
     author: "Friedrich Nietzsche",
     category: "Wisdom",
     tags: ["purpose", "meaning", "resilience", "motivation"],
@@ -363,7 +363,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 46,
-    text: "Become the leader you would follow.",
+    content: "Become the leader you would follow.",
     author: "Unknown",
     category: "Leadership",
     tags: ["integrity", "example", "self-reflection", "aspiration"],
@@ -371,7 +371,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 47,
-    text: "Courage is resistance to fear, mastery of fear – not absence of fear.",
+    content: "Courage is resistance to fear, mastery of fear – not absence of fear.",
     author: "Mark Twain",
     category: "Courage",
     tags: ["fear", "bravery", "mastery", "strength"],
@@ -379,7 +379,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 48,
-    text: "Happiness is when what you think, what you say, and what you do are in harmony.",
+    content: "Happiness is when what you think, what you say, and what you do are in harmony.",
     author: "Mahatma Gandhi",
     category: "Happiness",
     tags: ["integrity", "harmony", "authenticity", "peace"],
@@ -387,7 +387,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 49,
-    text: "The successful warrior is the average man, with laser-like focus.",
+    content: "The successful warrior is the average man, with laser-like focus.",
     author: "Bruce Lee",
     category: "Discipline",
     tags: ["focus", "success", "dedication", "consistency"],
@@ -395,7 +395,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 50,
-    text: "Perseverance is not a long race; it is many short races one after the other.",
+    content: "Perseverance is not a long race; it is many short races one after the other.",
     author: "Walter Elliot",
     category: "Perseverance",
     tags: ["consistency", "patience", "progress", "endurance"],
@@ -403,7 +403,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 51,
-    text: "The wise man is one who knows what he does not know.",
+    content: "The wise man is one who knows what he does not know.",
     author: "Lao Tzu",
     category: "Wisdom",
     tags: ["humility", "knowledge", "learning", "self-awareness"],
@@ -411,7 +411,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 52,
-    text: "The task of the leader is to get their people from where they are to where they have not been.",
+    content: "The task of the leader is to get their people from where they are to where they have not been.",
     author: "Henry Kissinger",
     category: "Leadership",
     tags: ["vision", "growth", "potential", "guidance"],
@@ -419,7 +419,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 53,
-    text: "All our dreams can come true, if we have the courage to pursue them.",
+    content: "All our dreams can come true, if we have the courage to pursue them.",
     author: "Walt Disney",
     category: "Courage",
     tags: ["dreams", "action", "pursuit", "ambition"],
@@ -427,7 +427,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 54,
-    text: "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
+    content: "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
     author: "Thich Nhat Hanh",
     category: "Happiness",
     tags: ["mindfulness", "presence", "joy", "gratitude"],
@@ -435,7 +435,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 55,
-    text: "The first and best victory is to conquer self.",
+    content: "The first and best victory is to conquer self.",
     author: "Plato",
     category: "Discipline",
     tags: ["self-control", "mastery", "victory", "introspection"],
@@ -443,7 +443,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 56,
-    text: "Genius is one percent inspiration and ninety-nine percent perspiration.",
+    content: "Genius is one percent inspiration and ninety-nine percent perspiration.",
     author: "Thomas A. Edison",
     category: "Perseverance",
     tags: ["hard-work", "effort", "genius", "dedication"],
@@ -451,7 +451,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 57,
-    text: "Turn your wounds into wisdom.",
+    content: "Turn your wounds into wisdom.",
     author: "Oprah Winfrey",
     category: "Wisdom",
     tags: ["resilience", "growth", "learning", "adversity"],
@@ -459,7 +459,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 58,
-    text: "The greatest leader is not necessarily the one who does the greatest things.",
+    content: "The greatest leader is not necessarily the one who does the greatest things.",
     author: "Ronald Reagan",
     category: "Leadership",
     tags: ["empowerment", "humility", "influence", "teamwork"],
@@ -467,7 +467,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 59,
-    text: "I am not afraid of storms, for I am learning how to sail my ship.",
+    content: "I am not afraid of storms, for I am learning how to sail my ship.",
     author: "Louisa May Alcott",
     category: "Courage",
     tags: ["strength", "learning", "challenge", "self-reliance"],
@@ -475,7 +475,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 60,
-    text: "True happiness is to enjoy the present, without anxious dependence upon the future.",
+    content: "True happiness is to enjoy the present, without anxious dependence upon the future.",
     author: "Seneca",
     category: "Happiness",
     tags: ["mindfulness", "stoicism", "presence", "peace"],
@@ -483,7 +483,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 61,
-    text: "With self-discipline most anything is possible.",
+    content: "With self-discipline most anything is possible.",
     author: "Theodore Roosevelt",
     category: "Discipline",
     tags: ["potential", "self-control", "achievement", "possibility"],
@@ -491,7 +491,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 62,
-    text: "A creative man is motivated by the desire to achieve, not by the desire to beat others.",
+    content: "A creative man is motivated by the desire to achieve, not by the desire to beat others.",
     author: "Ayn Rand",
     category: "Perseverance",
     tags: ["creativity", "motivation", "achievement", "purpose"],
@@ -499,7 +499,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 63,
-    text: "The only true wisdom is in knowing you know nothing.",
+    content: "The only true wisdom is in knowing you know nothing.",
     author: "Socrates",
     category: "Wisdom",
     tags: ["humility", "knowledge", "philosophy", "learning"],
@@ -507,7 +507,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 64,
-    text: "If your actions inspire others to dream more, learn more, do more and become more, you are a leader.",
+    content: "If your actions inspire others to dream more, learn more, do more and become more, you are a leader.",
     author: "John Quincy Adams",
     category: "Leadership",
     tags: ["inspiration", "influence", "empowerment", "vision"],
@@ -515,7 +515,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 65,
-    text: "Courage is what it takes to stand up and speak; courage is also what it takes to sit down and listen.",
+    content: "Courage is what it takes to stand up and speak; courage is also what it takes to sit down and listen.",
     author: "Winston Churchill",
     category: "Courage",
     tags: ["communication", "humility", "wisdom", "bravery"],
@@ -523,7 +523,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 66,
-    text: "The grand essentials to happiness in this life are something to do, something to love, and something to hope for.",
+    content: "The grand essentials to happiness in this life are something to do, something to love, and something to hope for.",
     author: "Joseph Addison",
     category: "Happiness",
     tags: ["purpose", "love", "hope", "fulfillment"],
@@ -531,7 +531,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 67,
-    text: "Amateurs sit and wait for inspiration, the rest of us just get up and go to work.",
+    content: "Amateurs sit and wait for inspiration, the rest of us just get up and go to work.",
     author: "Stephen King",
     category: "Discipline",
     tags: ["action", "work-ethic", "creativity", "consistency"],
@@ -539,7 +539,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 68,
-    text: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+    content: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
     author: "Thomas A. Edison",
     category: "Perseverance",
     tags: ["resilience", "success", "determination", "never-give-up"],
@@ -547,7 +547,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 69,
-    text: "The unexamined life is not worth living.",
+    content: "The unexamined life is not worth living.",
     author: "Socrates",
     category: "Wisdom",
     tags: ["introspection", "philosophy", "self-awareness", "meaning"],
@@ -555,7 +555,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 70,
-    text: "Leadership is the capacity to translate vision into reality.",
+    content: "Leadership is the capacity to translate vision into reality.",
     author: "Warren Bennis",
     category: "Leadership",
     tags: ["vision", "execution", "action", "achievement"],
@@ -563,7 +563,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 71,
-    text: "It takes courage to grow up and become who you really are.",
+    content: "It takes courage to grow up and become who you really are.",
     author: "E.E. Cummings",
     category: "Courage",
     tags: ["authenticity", "growth", "identity", "self-discovery"],
@@ -571,7 +571,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 72,
-    text: "Happiness is a state of activity.",
+    content: "Happiness is a state of activity.",
     author: "Aristotle",
     category: "Happiness",
     tags: ["action", "purpose", "engagement", "fulfillment"],
@@ -579,7 +579,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 73,
-    text: "Discipline is choosing between what you want now and what you want most.",
+    content: "Discipline is choosing between what you want now and what you want most.",
     author: "Abraham Lincoln",
     category: "Discipline",
     tags: ["choice", "goals", "sacrifice", "long-term"],
@@ -587,7 +587,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 74,
-    text: "Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.",
+    content: "Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.",
     author: "Samuel Beckett",
     category: "Perseverance",
     tags: ["failure", "resilience", "learning", "improvement"],
@@ -595,7 +595,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 75,
-    text: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
+    content: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
     author: "Rumi",
     category: "Wisdom",
     tags: ["change", "self-improvement", "growth", "perspective"],
@@ -603,7 +603,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 76,
-    text: "Before you are a leader, success is all about growing yourself. When you become a leader, success is all about growing others.",
+    content: "Before you are a leader, success is all about growing yourself. When you become a leader, success is all about growing others.",
     author: "Jack Welch",
     category: "Leadership",
     tags: ["growth", "mentorship", "empowerment", "success"],
@@ -611,7 +611,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 77,
-    text: "Courage doesn't always roar. Sometimes courage is the quiet voice at the end of the day saying 'I will try again tomorrow.'",
+    content: "Courage doesn't always roar. Sometimes courage is the quiet voice at the end of the day saying 'I will try again tomorrow.'",
     author: "Mary Anne Radmacher",
     category: "Courage",
     tags: ["resilience", "hope", "quiet-strength", "perseverance"],
@@ -619,7 +619,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 78,
-    text: "The secret of happiness, you see, is not found in seeking more, but in developing the capacity to enjoy less.",
+    content: "The secret of happiness, you see, is not found in seeking more, but in developing the capacity to enjoy less.",
     author: "Socrates",
     category: "Happiness",
     tags: ["minimalism", "contentment", "gratitude", "simplicity"],
@@ -627,7 +627,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 79,
-    text: "Talent without discipline is like an octopus on roller skates. There's plenty of movement, but you never know if it's going to be forward, backwards, or sideways.",
+    content: "Talent without discipline is like an octopus on roller skates. There's plenty of movement, but you never know if it's going to be forward, backwards, or sideways.",
     author: "H. Jackson Brown, Jr.",
     category: "Discipline",
     tags: ["talent", "focus", "potential", "direction"],
@@ -635,7 +635,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 80,
-    text: "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
+    content: "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
     author: "Vince Lombardi",
     category: "Perseverance",
     tags: ["willpower", "determination", "success", "mindset"],
@@ -643,7 +643,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 81,
-    text: "Count your age by friends, not years. Count your life by smiles, not tears.",
+    content: "Count your age by friends, not years. Count your life by smiles, not tears.",
     author: "John Lennon",
     category: "Wisdom",
     tags: ["perspective", "happiness", "relationships", "life"],
@@ -651,7 +651,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 82,
-    text: "A good leader takes a little more than his share of the blame, a little less than his share of the credit.",
+    content: "A good leader takes a little more than his share of the blame, a little less than his share of the credit.",
     author: "Arnold H. Glasow",
     category: "Leadership",
     tags: ["humility", "responsibility", "teamwork", "accountability"],
@@ -659,7 +659,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 83,
-    text: "What would you do if you weren't afraid?",
+    content: "What would you do if you weren't afraid?",
     author: "Spencer Johnson",
     category: "Courage",
     tags: ["fear", "action", "potential", "opportunity"],
@@ -667,7 +667,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 84,
-    text: "If you want to be happy, be.",
+    content: "If you want to be happy, be.",
     author: "Leo Tolstoy",
     category: "Happiness",
     tags: ["choice", "simplicity", "mindset", "decision"],
@@ -675,7 +675,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 85,
-    text: "Success is the sum of small efforts, repeated day in and day out.",
+    content: "Success is the sum of small efforts, repeated day in and day out.",
     author: "Robert Collier",
     category: "Discipline",
     tags: ["consistency", "habits", "success", "effort"],
@@ -683,7 +683,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 86,
-    text: "Through perseverance many people win success out of what seemed destined to be certain failure.",
+    content: "Through perseverance many people win success out of what seemed destined to be certain failure.",
     author: "Benjamin Disraeli",
     category: "Perseverance",
     tags: ["success", "failure", "resilience", "opportunity"],
@@ -691,7 +691,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 87,
-    text: "To attain knowledge, add things every day. To attain wisdom, remove things every day.",
+    content: "To attain knowledge, add things every day. To attain wisdom, remove things every day.",
     author: "Lao Tzu",
     category: "Wisdom",
     tags: ["simplicity", "focus", "knowledge", "minimalism"],
@@ -699,7 +699,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 88,
-    text: "The pessimist complains about the wind. The optimist expects it to change. The leader adjusts the sails.",
+    content: "The pessimist complains about the wind. The optimist expects it to change. The leader adjusts the sails.",
     author: "John C. Maxwell",
     category: "Leadership",
     tags: ["adaptability", "proactivity", "problem-solving", "optimism"],
@@ -707,7 +707,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 89,
-    text: "Life shrinks or expands in proportion to one's courage.",
+    content: "Life shrinks or expands in proportion to one's courage.",
     author: "Anaïs Nin",
     category: "Courage",
     tags: ["growth", "risk", "life", "expansion"],
@@ -715,7 +715,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 90,
-    text: "The art of being happy lies in the power of extracting happiness from common things.",
+    content: "The art of being happy lies in the power of extracting happiness from common things.",
     author: "Henry Ward Beecher",
     category: "Happiness",
     tags: ["gratitude", "perspective", "simplicity", "joy"],
@@ -723,7 +723,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 91,
-    text: "We must all suffer one of two things: the pain of discipline or the pain of regret or disappointment.",
+    content: "We must all suffer one of two things: the pain of discipline or the pain of regret or disappointment.",
     author: "Jim Rohn",
     category: "Discipline",
     tags: ["choice", "regret", "consequences", "hard-work"],
@@ -731,7 +731,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 92,
-    text: "It's not that I'm so smart, it's just that I stay with problems longer.",
+    content: "It's not that I'm so smart, it's just that I stay with problems longer.",
     author: "Albert Einstein",
     category: "Perseverance",
     tags: ["problem-solving", "patience", "focus", "determination"],
@@ -739,7 +739,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 93,
-    text: "The path to wisdom is paved with humility.",
+    content: "The path to wisdom is paved with humility.",
     author: "Unknown",
     category: "Wisdom",
     tags: ["humility", "learning", "growth", "self-awareness"],
@@ -747,7 +747,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 94,
-    text: "Innovation distinguishes between a leader and a follower.",
+    content: "Innovation distinguishes between a leader and a follower.",
     author: "Steve Jobs",
     category: "Leadership",
     tags: ["innovation", "creativity", "vision", "progress"],
@@ -755,7 +755,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 95,
-    text: "You can't be brave if you've only had wonderful things happen to you.",
+    content: "You can't be brave if you've only had wonderful things happen to you.",
     author: "Mary Tyler Moore",
     category: "Courage",
     tags: ["adversity", "strength", "resilience", "character"],
@@ -763,7 +763,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 96,
-    text: "Joy is a net of love by which you can catch souls.",
+    content: "Joy is a net of love by which you can catch souls.",
     author: "Mother Teresa",
     category: "Happiness",
     tags: ["joy", "love", "connection", "kindness"],
@@ -771,7 +771,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 97,
-    text: "The more you practice, the luckier you get.",
+    content: "The more you practice, the luckier you get.",
     author: "Gary Player",
     category: "Discipline",
     tags: ["practice", "luck", "hard-work", "preparation"],
@@ -779,7 +779,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 98,
-    text: "Failure is the opportunity to begin again more intelligently.",
+    content: "Failure is the opportunity to begin again more intelligently.",
     author: "Henry Ford",
     category: "Perseverance",
     tags: ["failure", "learning", "opportunity", "improvement"],
@@ -787,7 +787,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 99,
-    text: "Never mistake knowledge for wisdom. One helps you make a living; the other helps you make a life.",
+    content: "Never mistake knowledge for wisdom. One helps you make a living; the other helps you make a life.",
     author: "Sandra Carey",
     category: "Wisdom",
     tags: ["knowledge", "life", "meaning", "perspective"],
@@ -795,7 +795,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 100,
-    text: "If you would not be forgotten as soon as you are dead, either write things worth reading or do things worth writing.",
+    content: "If you would not be forgotten as soon as you are dead, either write things worth reading or do things worth writing.",
     author: "Benjamin Franklin",
     category: "Leadership",
     tags: ["legacy", "impact", "action", "purpose"],
@@ -803,7 +803,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 101,
-    text: "It is courage, courage, courage, that raises the blood of life to a splendid crimson.",
+    content: "It is courage, courage, courage, that raises the blood of life to a splendid crimson.",
     author: "George Bernard Shaw",
     category: "Courage",
     tags: ["bravery", "life", "passion", "vitality"],
@@ -811,7 +811,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 102,
-    text: "There is only one happiness in this life, to love and be loved.",
+    content: "There is only one happiness in this life, to love and be loved.",
     author: "George Sand",
     category: "Happiness",
     tags: ["love", "relationships", "connection", "joy"],
@@ -819,7 +819,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 103,
-    text: "The future depends on what you do today.",
+    content: "The future depends on what you do today.",
     author: "Mahatma Gandhi",
     category: "Discipline",
     tags: ["action", "future", "responsibility", "today"],
@@ -827,7 +827,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 104,
-    text: "Success is walking from failure to failure with no loss of enthusiasm.",
+    content: "Success is walking from failure to failure with no loss of enthusiasm.",
     author: "Winston Churchill",
     category: "Perseverance",
     tags: ["enthusiasm", "resilience", "failure", "optimism"],
@@ -835,7 +835,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 105,
-    text: "It is the mark of an educated mind to be able to entertain a thought without accepting it.",
+    content: "It is the mark of an educated mind to be able to entertain a thought without accepting it.",
     author: "Aristotle",
     category: "Wisdom",
     tags: ["open-mindedness", "critical-thinking", "intellect", "education"],
@@ -843,7 +843,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 106,
-    text: "Don't tell people how to do things, tell them what to do and let them surprise you with their results.",
+    content: "Don't tell people how to do things, tell them what to do and let them surprise you with their results.",
     author: "George S. Patton",
     category: "Leadership",
     tags: ["empowerment", "trust", "delegation", "creativity"],
@@ -851,7 +851,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 107,
-    text: "He who is brave is free.",
+    content: "He who is brave is free.",
     author: "Seneca",
     category: "Courage",
     tags: ["freedom", "bravery", "stoicism", "liberty"],
@@ -859,7 +859,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 108,
-    text: "The foolish man seeks happiness in the distance; the wise grows it under his feet.",
+    content: "The foolish man seeks happiness in the distance; the wise grows it under his feet.",
     author: "James Oppenheim",
     category: "Happiness",
     tags: ["gratitude", "presence", "wisdom", "mindfulness"],
@@ -867,7 +867,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 109,
-    text: "Excellence is a continuous process and not an accident.",
+    content: "Excellence is a continuous process and not an accident.",
     author: "A. P. J. Abdul Kalam",
     category: "Discipline",
     tags: ["excellence", "consistency", "process", "improvement"],
@@ -875,7 +875,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 110,
-    text: "Defeat is not the worst of failures. Not to have tried is the true failure.",
+    content: "Defeat is not the worst of failures. Not to have tried is the true failure.",
     author: "George Edward Woodberry",
     category: "Perseverance",
     tags: ["regret", "effort", "failure", "trying"],
@@ -883,7 +883,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 111,
-    text: "Wisdom begins in wonder.",
+    content: "Wisdom begins in wonder.",
     author: "Socrates",
     category: "Wisdom",
     tags: ["curiosity", "wonder", "learning", "philosophy"],
@@ -891,7 +891,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 112,
-    text: "The quality of a leader is reflected in the standards they set for themselves.",
+    content: "The quality of a leader is reflected in the standards they set for themselves.",
     author: "Ray Kroc",
     category: "Leadership",
     tags: ["standards", "excellence", "integrity", "example"],
@@ -899,7 +899,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 113,
-    text: "To dare is to lose one's footing momentarily. To not dare is to lose oneself.",
+    content: "To dare is to lose one's footing momentarily. To not dare is to lose oneself.",
     author: "Soren Kierkegaard",
     category: "Courage",
     tags: ["risk", "growth", "authenticity", "dare"],
@@ -907,7 +907,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 114,
-    text: "On a deeper level you are already complete. When you realize that, there is a playful, joyous energy behind what you do.",
+    content: "On a deeper level you are already complete. When you realize that, there is a playful, joyous energy behind what you do.",
     author: "Eckhart Tolle",
     category: "Happiness",
     tags: ["completeness", "joy", "presence", "self-acceptance"],
@@ -915,7 +915,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 115,
-    text: "Lack of discipline leads to frustration and self-loathing.",
+    content: "Lack of discipline leads to frustration and self-loathing.",
     author: "Unknown",
     category: "Discipline",
     tags: ["consequences", "self-respect", "frustration", "control"],
@@ -923,7 +923,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 116,
-    text: "A river cuts through rock, not because of its power, but because of its persistence.",
+    content: "A river cuts through rock, not because of its power, but because of its persistence.",
     author: "Jim Watkins",
     category: "Perseverance",
     tags: ["persistence", "consistency", "patience", "long-term"],
@@ -931,7 +931,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 117,
-    text: "The greatest wealth is to live content with little.",
+    content: "The greatest wealth is to live content with little.",
     author: "Plato",
     category: "Wisdom",
     tags: ["contentment", "minimalism", "wealth", "simplicity"],
@@ -939,7 +939,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 118,
-    text: "Lead me, follow me, or get out of my way.",
+    content: "Lead me, follow me, or get out of my way.",
     author: "George S. Patton",
     category: "Leadership",
     tags: ["decisiveness", "action", "clarity", "command"],
@@ -947,7 +947,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 119,
-    text: "Courage is grace under pressure.",
+    content: "Courage is grace under pressure.",
     author: "Ernest Hemingway",
     category: "Courage",
     tags: ["grace", "pressure", "composure", "strength"],
@@ -955,7 +955,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 120,
-    text: "Success is getting what you want, happiness is wanting what you get.",
+    content: "Success is getting what you want, happiness is wanting what you get.",
     author: "W. P. Kinsella",
     category: "Happiness",
     tags: ["success", "contentment", "gratitude", "perspective"],
@@ -963,7 +963,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 121,
-    text: "The secret to success is to start from scratch and keep on scratching.",
+    content: "The secret to success is to start from scratch and keep on scratching.",
     author: "Dennis Green",
     category: "Discipline",
     tags: ["hard-work", "persistence", "beginnings", "effort"],
@@ -971,7 +971,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 122,
-    text: "The oak fought the wind and was broken, the willow bent when it must and survived.",
+    content: "The oak fought the wind and was broken, the willow bent when it must and survived.",
     author: "Robert Jordan",
     category: "Perseverance",
     tags: ["adaptability", "flexibility", "resilience", "survival"],
@@ -979,7 +979,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 123,
-    text: "Let go of who you think you’re supposed to be and embrace who you are.",
+    content: "Let go of who you think you’re supposed to be and embrace who you are.",
     author: "Brené Brown",
     category: "Wisdom",
     tags: ["authenticity", "self-acceptance", "vulnerability", "identity"],
@@ -987,7 +987,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 124,
-    text: "A leader's job is to look into the future and see the organization, not as it is, but as it can become.",
+    content: "A leader's job is to look into the future and see the organization, not as it is, but as it can become.",
     author: "Unknown",
     category: "Leadership",
     tags: ["vision", "potential", "future", "growth"],
@@ -995,7 +995,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 125,
-    text: "Fear is a reaction. Courage is a decision.",
+    content: "Fear is a reaction. Courage is a decision.",
     author: "Winston Churchill",
     category: "Courage",
     tags: ["fear", "choice", "decision", "mindset"],
@@ -1003,7 +1003,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 126,
-    text: "The key to happiness is to be found in the realization that there is no key.",
+    content: "The key to happiness is to be found in the realization that there is no key.",
     author: "Unknown",
     category: "Happiness",
     tags: ["acceptance", "simplicity", "perspective", "joy"],
@@ -1011,7 +1011,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 127,
-    text: "Discipline is the soul of an army. It makes small numbers formidable; procures success to the weak, and esteem to all.",
+    content: "Discipline is the soul of an army. It makes small numbers formidable; procures success to the weak, and esteem to all.",
     author: "George Washington",
     category: "Discipline",
     tags: ["strength", "success", "respect", "organization"],
@@ -1019,7 +1019,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 128,
-    text: "Energy and persistence conquer all things.",
+    content: "Energy and persistence conquer all things.",
     author: "Benjamin Franklin",
     category: "Perseverance",
     tags: ["energy", "persistence", "determination", "success"],
@@ -1027,7 +1027,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 129,
-    text: "The beginning of wisdom is the definition of terms.",
+    content: "The beginning of wisdom is the definition of terms.",
     author: "Socrates",
     category: "Wisdom",
     tags: ["clarity", "knowledge", "definition", "understanding"],
@@ -1035,7 +1035,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 130,
-    text: "The function of leadership is to produce more leaders, not more followers.",
+    content: "The function of leadership is to produce more leaders, not more followers.",
     author: "Ralph Nader",
     category: "Leadership",
     tags: ["empowerment", "mentorship", "growth", "legacy"],
@@ -1043,7 +1043,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 131,
-    text: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+    content: "You have power over your mind - not outside events. Realize this, and you will find strength.",
     author: "Marcus Aurelius",
     category: "Courage",
     tags: ["stoicism", "control", "mindset", "strength"],
@@ -1051,7 +1051,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 132,
-    text: "Most folks are about as happy as they make up their minds to be.",
+    content: "Most folks are about as happy as they make up their minds to be.",
     author: "Abraham Lincoln",
     category: "Happiness",
     tags: ["mindset", "choice", "perspective", "control"],
@@ -1059,7 +1059,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 133,
-    text: "It is not enough to be busy. So are the ants. The question is: What are we busy about?",
+    content: "It is not enough to be busy. So are the ants. The question is: What are we busy about?",
     author: "Henry David Thoreau",
     category: "Discipline",
     tags: ["purpose", "focus", "productivity", "priorities"],
@@ -1067,7 +1067,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 134,
-    text: "Continuous effort - not strength or intelligence - is the key to unlocking our potential.",
+    content: "Continuous effort - not strength or intelligence - is the key to unlocking our potential.",
     author: "Winston Churchill",
     category: "Perseverance",
     tags: ["effort", "consistency", "potential", "hard-work"],
@@ -1075,7 +1075,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 135,
-    text: "Don't be afraid to give up the good to go for the great.",
+    content: "Don't be afraid to give up the good to go for the great.",
     author: "John D. Rockefeller",
     category: "Wisdom",
     tags: ["ambition", "growth", "sacrifice", "excellence"],
@@ -1083,7 +1083,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 136,
-    text: "The challenge of leadership is to be strong, but not rude; be kind, but not weak; be bold, but not bully; be thoughtful, but not lazy.",
+    content: "The challenge of leadership is to be strong, but not rude; be kind, but not weak; be bold, but not bully; be thoughtful, but not lazy.",
     author: "Jim Rohn",
     category: "Leadership",
     tags: ["balance", "character", "integrity", "nuance"],
@@ -1091,7 +1091,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 137,
-    text: "F-E-A-R has two meanings: 'Forget Everything And Run' or 'Face Everything And Rise.' The choice is yours.",
+    content: "F-E-A-R has two meanings: 'Forget Everything And Run' or 'Face Everything And Rise.' The choice is yours.",
     author: "Zig Ziglar",
     category: "Courage",
     tags: ["fear", "choice", "perspective", "rise"],
@@ -1099,7 +1099,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 138,
-    text: "Happiness is a warm puppy.",
+    content: "Happiness is a warm puppy.",
     author: "Charles M. Schulz",
     category: "Happiness",
     tags: ["simplicity", "joy", "love", "pets"],
@@ -1107,7 +1107,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 139,
-    text: "True discipline is not about punishment. It’s about correcting, guiding, and showing the way.",
+    content: "True discipline is not about punishment. It’s about correcting, guiding, and showing the way.",
     author: "Unknown",
     category: "Discipline",
     tags: ["guidance", "correction", "learning", "growth"],
@@ -1115,7 +1115,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 140,
-    text: "If you are going through hell, keep going.",
+    content: "If you are going through hell, keep going.",
     author: "Winston Churchill",
     category: "Perseverance",
     tags: ["adversity", "resilience", "determination", "endurance"],
@@ -1123,7 +1123,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 141,
-    text: "Holding onto anger is like drinking poison and expecting the other person to die.",
+    content: "Holding onto anger is like drinking poison and expecting the other person to die.",
     author: "Buddha",
     category: "Wisdom",
     tags: ["anger", "forgiveness", "letting-go", "peace"],
@@ -1131,7 +1131,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 142,
-    text: "Earn your leadership every day.",
+    content: "Earn your leadership every day.",
     author: "Michael Jordan",
     category: "Leadership",
     tags: ["consistency", "effort", "respect", "dedication"],
@@ -1139,7 +1139,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 143,
-    text: "The desire for safety stands against every great and noble enterprise.",
+    content: "The desire for safety stands against every great and noble enterprise.",
     author: "Tacitus",
     category: "Courage",
     tags: ["risk", "ambition", "safety", "enterprise"],
@@ -1147,7 +1147,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 144,
-    text: "The very pursuit of happiness is what makes us unhappy.",
+    content: "The very pursuit of happiness is what makes us unhappy.",
     author: "Unknown",
     category: "Happiness",
     tags: ["paradox", "presence", "acceptance", "mindfulness"],
@@ -1155,7 +1155,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 145,
-    text: "The price of greatness is responsibility.",
+    content: "The price of greatness is responsibility.",
     author: "Winston Churchill",
     category: "Discipline",
     tags: ["responsibility", "greatness", "accountability", "sacrifice"],
@@ -1163,7 +1163,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 146,
-    text: "Patience and perseverance have a magical effect before which difficulties disappear and obstacles vanish.",
+    content: "Patience and perseverance have a magical effect before which difficulties disappear and obstacles vanish.",
     author: "John Quincy Adams",
     category: "Perseverance",
     tags: ["patience", "obstacles", "magic", "effort"],
@@ -1171,7 +1171,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 147,
-    text: "True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us.",
+    content: "True wisdom comes to each of us when we realize how little we understand about life, ourselves, and the world around us.",
     author: "Socrates",
     category: "Wisdom",
     tags: ["humility", "understanding", "self-awareness", "learning"],
@@ -1179,7 +1179,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 148,
-    text: "To add value to others, one must first value others.",
+    content: "To add value to others, one must first value others.",
     author: "John C. Maxwell",
     category: "Leadership",
     tags: ["value", "respect", "empathy", "relationships"],
@@ -1187,7 +1187,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 149,
-    text: "Bravery is being the only one who knows you're afraid.",
+    content: "Bravery is being the only one who knows you're afraid.",
     author: "Franklin P. Jones",
     category: "Courage",
     tags: ["fear", "bravery", "perception", "strength"],
@@ -1195,7 +1195,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 150,
-    text: "For many men, the acquisition of wealth does not end their troubles, it only changes them.",
+    content: "For many men, the acquisition of wealth does not end their troubles, it only changes them.",
     author: "Seneca",
     category: "Happiness",
     tags: ["wealth", "problems", "perspective", "stoicism"],
@@ -1203,7 +1203,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 151,
-    text: "Mastering others is strength. Mastering yourself is true power.",
+    content: "Mastering others is strength. Mastering yourself is true power.",
     author: "Lao Tzu",
     category: "Discipline",
     tags: ["self-control", "power", "mastery", "strength"],
@@ -1211,7 +1211,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 152,
-    text: "It always seems impossible until it's done.",
+    content: "It always seems impossible until it's done.",
     author: "Nelson Mandela",
     category: "Perseverance",
     tags: ["possibility", "achievement", "perspective", "hope"],
@@ -1219,7 +1219,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 153,
-    text: "A wise man can learn more from a foolish question than a fool can learn from a wise answer.",
+    content: "A wise man can learn more from a foolish question than a fool can learn from a wise answer.",
     author: "Bruce Lee",
     category: "Wisdom",
     tags: ["learning", "questions", "humility", "perspective"],
@@ -1227,7 +1227,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 154,
-    text: "The true test of leadership is how well you function in a crisis.",
+    content: "The true test of leadership is how well you function in a crisis.",
     author: "Brian Tracy",
     category: "Leadership",
     tags: ["crisis", "resilience", "composure", "decision-making"],
@@ -1235,7 +1235,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 155,
-    text: "A man with outward courage dares to die; a man with inner courage dares to live.",
+    content: "A man with outward courage dares to die; a man with inner courage dares to live.",
     author: "Lao Tzu",
     category: "Courage",
     tags: ["life", "inner-strength", "resilience", "living"],
@@ -1243,7 +1243,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 156,
-    text: "Sanity and happiness are an impossible combination.",
+    content: "Sanity and happiness are an impossible combination.",
     author: "Mark Twain",
     category: "Happiness",
     tags: ["humor", "perspective", "life", "reality"],
@@ -1251,7 +1251,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 157,
-    text: "If you don't have discipline, you don't have anything.",
+    content: "If you don't have discipline, you don't have anything.",
     author: "Georges St-Pierre",
     category: "Discipline",
     tags: ["foundation", "success", "control", "essentials"],
@@ -1259,7 +1259,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 158,
-    text: "Many of life's failures are people who did not realize how close they were to success when they gave up.",
+    content: "Many of life's failures are people who did not realize how close they were to success when they gave up.",
     author: "Thomas A. Edison",
     category: "Perseverance",
     tags: ["failure", "success", "proximity", "giving-up"],
@@ -1267,7 +1267,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 159,
-    text: "Your assumptions are your windows on the world. Scrub them off every once in a while, or the light won't come in.",
+    content: "Your assumptions are your windows on the world. Scrub them off every once in a while, or the light won't come in.",
     author: "Isaac Asimov",
     category: "Wisdom",
     tags: ["assumptions", "perspective", "open-mindedness", "learning"],
@@ -1275,7 +1275,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 160,
-    text: "Leadership is not a position or a title, it is action and example.",
+    content: "Leadership is not a position or a title, it is action and example.",
     author: "Unknown",
     category: "Leadership",
     tags: ["action", "example", "influence", "character"],
@@ -1283,7 +1283,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 161,
-    text: "What is to give light must endure burning.",
+    content: "What is to give light must endure burning.",
     author: "Viktor Frankl",
     category: "Courage",
     tags: ["sacrifice", "purpose", "suffering", "impact"],
@@ -1291,7 +1291,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 162,
-    text: "There is no path to happiness: happiness is the path.",
+    content: "There is no path to happiness: happiness is the path.",
     author: "Buddha",
     category: "Happiness",
     tags: ["journey", "presence", "mindfulness", "process"],
@@ -1299,7 +1299,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 163,
-    text: "A man has to learn that he cannot command things, but that he can command himself.",
+    content: "A man has to learn that he cannot command things, but that he can command himself.",
     author: "Jack London",
     category: "Discipline",
     tags: ["self-control", "stoicism", "command", "power"],
@@ -1307,7 +1307,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 164,
-    text: "Perseverance is failing 19 times and succeeding the 20th.",
+    content: "Perseverance is failing 19 times and succeeding the 20th.",
     author: "Julie Andrews",
     category: "Perseverance",
     tags: ["failure", "success", "resilience", "numbers"],
@@ -1315,7 +1315,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 165,
-    text: "The older I get, the more I listen to people who don't talk much.",
+    content: "The older I get, the more I listen to people who don't talk much.",
     author: "Germain G. Glidden",
     category: "Wisdom",
     tags: ["listening", "silence", "observation", "experience"],
@@ -1323,7 +1323,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 166,
-    text: "No man will make a great leader who wants to do it all himself or get all the credit for doing it.",
+    content: "No man will make a great leader who wants to do it all himself or get all the credit for doing it.",
     author: "Andrew Carnegie",
     category: "Leadership",
     tags: ["delegation", "humility", "teamwork", "credit"],
@@ -1331,7 +1331,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 167,
-    text: "The most courageous act is still to think for yourself. Aloud.",
+    content: "The most courageous act is still to think for yourself. Aloud.",
     author: "Coco Chanel",
     category: "Courage",
     tags: ["individuality", "thinking", "voice", "authenticity"],
@@ -1339,7 +1339,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 168,
-    text: "Let us be grateful to the people who make us happy; they are the charming gardeners who make our souls blossom.",
+    content: "Let us be grateful to the people who make us happy; they are the charming gardeners who make our souls blossom.",
     author: "Marcel Proust",
     category: "Happiness",
     tags: ["gratitude", "relationships", "friendship", "joy"],
@@ -1347,7 +1347,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 169,
-    text: "The distance between your dreams and reality is called discipline.",
+    content: "The distance between your dreams and reality is called discipline.",
     author: "Unknown",
     category: "Discipline",
     tags: ["dreams", "reality", "action", "goals"],
@@ -1355,7 +1355,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 170,
-    text: "I can accept failure, everyone fails at something. But I can't accept not trying.",
+    content: "I can accept failure, everyone fails at something. But I can't accept not trying.",
     author: "Michael Jordan",
     category: "Perseverance",
     tags: ["failure", "effort", "trying", "regret"],
@@ -1363,7 +1363,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 171,
-    text: "We don't see things as they are, we see them as we are.",
+    content: "We don't see things as they are, we see them as we are.",
     author: "Anaïs Nin",
     category: "Wisdom",
     tags: ["perception", "perspective", "subjectivity", "reality"],
@@ -1371,7 +1371,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 172,
-    text: "Leadership is unlocking people's potential to become better.",
+    content: "Leadership is unlocking people's potential to become better.",
     author: "Bill Bradley",
     category: "Leadership",
     tags: ["potential", "growth", "empowerment", "mentorship"],
@@ -1379,7 +1379,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 173,
-    text: "Courage is the first of human qualities because it is the quality which guarantees the others.",
+    content: "Courage is the first of human qualities because it is the quality which guarantees the others.",
     author: "Aristotle",
     category: "Courage",
     tags: ["foundation", "virtue", "strength", "character"],
@@ -1387,7 +1387,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 174,
-    text: "The pleasure which we most rarely experience gives us greatest delight.",
+    content: "The pleasure which we most rarely experience gives us greatest delight.",
     author: "Epictetus",
     category: "Happiness",
     tags: ["pleasure", "rarity", "delight", "appreciation"],
@@ -1395,7 +1395,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 175,
-    text: "Self-respect is the fruit of discipline; the sense of dignity grows with the ability to say no to oneself.",
+    content: "Self-respect is the fruit of discipline; the sense of dignity grows with the ability to say no to oneself.",
     author: "Abraham Joshua Heschel",
     category: "Discipline",
     tags: ["self-respect", "dignity", "self-control", "choice"],
@@ -1403,7 +1403,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 176,
-    text: "Do today what others won't so tomorrow you can do what others can't.",
+    content: "Do today what others won't so tomorrow you can do what others can't.",
     author: "Jerry Rice",
     category: "Perseverance",
     tags: ["sacrifice", "hard-work", "future", "reward"],
@@ -1411,7 +1411,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 177,
-    text: "When you talk, you are only repeating what you already know. But if you listen, you may learn something new.",
+    content: "When you talk, you are only repeating what you already know. But if you listen, you may learn something new.",
     author: "Dalai Lama",
     category: "Wisdom",
     tags: ["listening", "learning", "communication", "humility"],
@@ -1419,7 +1419,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 178,
-    text: "The very essence of leadership is that you have to have a vision.",
+    content: "The very essence of leadership is that you have to have a vision.",
     author: "Theodore Hesburgh",
     category: "Leadership",
     tags: ["vision", "purpose", "direction", "future"],
@@ -1427,7 +1427,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 179,
-    text: "One isn't born with courage, one develops it.",
+    content: "One isn't born with courage, one develops it.",
     author: "Maya Angelou",
     category: "Courage",
     tags: ["growth", "development", "practice", "strength"],
@@ -1435,7 +1435,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 180,
-    text: "There are more things to alarm us than to harm us, and we suffer more often in apprehension than in reality.",
+    content: "There are more things to alarm us than to harm us, and we suffer more often in apprehension than in reality.",
     author: "Seneca",
     category: "Happiness",
     tags: ["anxiety", "fear", "reality", "stoicism"],
@@ -1443,7 +1443,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 181,
-    text: "Discipline is remembering what you want.",
+    content: "Discipline is remembering what you want.",
     author: "David Campbell",
     category: "Discipline",
     tags: ["focus", "goals", "memory", "clarity"],
@@ -1451,7 +1451,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 182,
-    text: "The man who moves a mountain begins by carrying away small stones.",
+    content: "The man who moves a mountain begins by carrying away small stones.",
     author: "Confucius",
     category: "Perseverance",
     tags: ["patience", "consistency", "progress", "small-steps"],
@@ -1459,7 +1459,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 183,
-    text: "A man who asks is a fool for five minutes. A man who never asks is a fool for life.",
+    content: "A man who asks is a fool for five minutes. A man who never asks is a fool for life.",
     author: "Chinese Proverb",
     category: "Wisdom",
     tags: ["questions", "learning", "humility", "curiosity"],
@@ -1467,7 +1467,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 184,
-    text: "Average leaders raise the bar on themselves; good leaders raise the bar for others; great leaders inspire others to raise their own bar.",
+    content: "Average leaders raise the bar on themselves; good leaders raise the bar for others; great leaders inspire others to raise their own bar.",
     author: "Orrin Woodward",
     category: "Leadership",
     tags: ["inspiration", "empowerment", "standards", "growth"],
@@ -1475,7 +1475,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 185,
-    text: "The secret of change is to focus all of your energy, not on fighting the old, but on building the new.",
+    content: "The secret of change is to focus all of your energy, not on fighting the old, but on building the new.",
     author: "Socrates",
     category: "Courage",
     tags: ["change", "focus", "creation", "progress"],
@@ -1483,7 +1483,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 186,
-    text: "Happiness is not in the mere possession of money; it lies in the joy of achievement, in the thrill of creative effort.",
+    content: "Happiness is not in the mere possession of money; it lies in the joy of achievement, in the thrill of creative effort.",
     author: "Franklin D. Roosevelt",
     category: "Happiness",
     tags: ["achievement", "creativity", "effort", "joy"],
@@ -1491,7 +1491,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 187,
-    text: "The pain you feel today is the strength you feel tomorrow.",
+    content: "The pain you feel today is the strength you feel tomorrow.",
     author: "Dwayne Johnson",
     category: "Discipline",
     tags: ["pain", "strength", "growth", "resilience"],
@@ -1499,7 +1499,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 188,
-    text: "Victory is always possible for the person who refuses to stop fighting.",
+    content: "Victory is always possible for the person who refuses to stop fighting.",
     author: "Napoleon Hill",
     category: "Perseverance",
     tags: ["victory", "determination", "fighting", "never-give-up"],
@@ -1507,7 +1507,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 189,
-    text: "The only thing that interferes with my learning is my education.",
+    content: "The only thing that interferes with my learning is my education.",
     author: "Albert Einstein",
     category: "Wisdom",
     tags: ["learning", "education", "curiosity", "thinking"],
@@ -1515,7 +1515,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 190,
-    text: "A commander's primary function is to create and preserve a state of mind in his troops reflected by the term 'morale'.",
+    content: "A commander's primary function is to create and preserve a state of mind in his troops reflected by the term 'morale'.",
     author: "George C. Marshall",
     category: "Leadership",
     tags: ["morale", "psychology", "team", "influence"],
@@ -1523,7 +1523,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 191,
-    text: "Courage is found in unlikely places.",
+    content: "Courage is found in unlikely places.",
     author: "J.R.R. Tolkien",
     category: "Courage",
     tags: ["bravery", "humility", "unexpected", "strength"],
@@ -1531,7 +1531,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 192,
-    text: "Resolve to keep happy, and your joy and you shall form an invincible host against difficulties.",
+    content: "Resolve to keep happy, and your joy and you shall form an invincible host against difficulties.",
     author: "Helen Keller",
     category: "Happiness",
     tags: ["resolve", "joy", "resilience", "mindset"],
@@ -1539,7 +1539,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 193,
-    text: "It's a luxury to be understood.",
+    content: "It's a luxury to be understood.",
     author: "Ralph Waldo Emerson",
     category: "Wisdom",
     tags: ["understanding", "communication", "empathy", "connection"],
@@ -1547,7 +1547,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 194,
-    text: "If you don't stick to your values when they're being tested, they're not values: they're hobbies.",
+    content: "If you don't stick to your values when they're being tested, they're not values: they're hobbies.",
     author: "Jon Stewart",
     category: "Discipline",
     tags: ["values", "integrity", "consistency", "character"],
@@ -1555,7 +1555,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 195,
-    text: "You may have to fight a battle more than once to win it.",
+    content: "You may have to fight a battle more than once to win it.",
     author: "Margaret Thatcher",
     category: "Perseverance",
     tags: ["resilience", "battle", "victory", "repetition"],
@@ -1563,7 +1563,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 196,
-    text: "An army of sheep led by a lion is better than an army of lions led by a sheep.",
+    content: "An army of sheep led by a lion is better than an army of lions led by a sheep.",
     author: "Alexander the Great",
     category: "Leadership",
     tags: ["strength", "example", "influence", "capability"],
@@ -1571,7 +1571,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 197,
-    text: "What man actually needs is not a tensionless state but rather the striving and struggling for a worthwhile goal.",
+    content: "What man actually needs is not a tensionless state but rather the striving and struggling for a worthwhile goal.",
     author: "Viktor Frankl",
     category: "Courage",
     tags: ["purpose", "struggle", "meaning", "goals"],
@@ -1579,7 +1579,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 198,
-    text: "The secret of being happy is accepting where you are in life and making the most out of every day.",
+    content: "The secret of being happy is accepting where you are in life and making the most out of every day.",
     author: "Unknown",
     category: "Happiness",
     tags: ["acceptance", "presence", "mindfulness", "gratitude"],
@@ -1587,7 +1587,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 199,
-    text: "A journey of a thousand miles must begin with a single step.",
+    content: "A journey of a thousand miles must begin with a single step.",
     author: "Lao Tzu",
     category: "Discipline",
     tags: ["beginnings", "action", "journey", "motivation"],
@@ -1595,7 +1595,7 @@ export const quotes:Quote[] =[
   },
   {
     id: 200,
-    text: "The world breaks everyone, and afterward, some are strong at the broken places.",
+    content: "The world breaks everyone, and afterward, some are strong at the broken places.",
     author: "Ernest Hemingway",
     category: "Perseverance",
     tags: ["resilience", "strength", "adversity", "healing"],
