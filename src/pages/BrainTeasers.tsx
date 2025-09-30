@@ -1,18 +1,15 @@
-import brainTeasers from "@/jsons/brainTeaser";
 import Navbar from "@/components/app/Navbar";
+import { TEASERS_CURRENTPAGE } from "@/constants";
+import brainTeasers from "@/jsons/brainTeaser";
+import ContactAdminModal from "@/modals/ContactAdmin";
 import {
-  Brain,
   Eye,
   EyeOff,
-  Lightbulb,
-  LoaderCircle,
-  Trophy,
+  LoaderCircle
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import Paginate from "../components/app/paginations";
 import { toast } from "sonner";
-import ContactAdminModal from "@/modals/ContactAdmin";
-import { TEASERS_CURRENTPAGE } from "@/constants";
+import Paginate from "../components/app/paginations";
 
 export type Teaser = {
   id: number;
@@ -22,19 +19,6 @@ export type Teaser = {
   category: "Logic" | "Riddle" | "Math" | "Lateral";
 };
 
-const difficultyColors = {
-  Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Medium:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Hard: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-};
-
-const categoryIcons = {
-  Logic: Brain,
-  Riddle: Lightbulb,
-  Math: Trophy,
-  Lateral: Eye,
-};
 
 export default function BrainTeasersPage() {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
@@ -44,6 +28,7 @@ export default function BrainTeasersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [openContactAdmin, setOpenContactAdmin] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     PaginationPage();
@@ -73,7 +58,6 @@ export default function BrainTeasersPage() {
       setCurrentPage(1);
       localStorage.removeItem(TEASERS_CURRENTPAGE);
       toast.info("Out of teasers, restarting from the top");
-      // setTimeout(() => setOpenContactAdmin(true), 2000);
     }
   };
 
@@ -139,7 +123,6 @@ export default function BrainTeasersPage() {
         <div className="grid gap-4 mb-6  sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => {
             const isRevealed = revealed.has(teaser.id);
-            const CategoryIcon = categoryIcons[teaser.category];
 
             return (
               <div
@@ -150,18 +133,11 @@ export default function BrainTeasersPage() {
                   {/* Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <CategoryIcon className="w-5 h-5 text-indigo-500" />
                       <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
                         {teaser.category}
                       </span>
                     </div>
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-bold ${
-                        difficultyColors[teaser.difficulty]
-                      }`}
-                    >
-                      {teaser.difficulty}
-                    </span>
+
                   </div>
 
                   <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">

@@ -405,7 +405,7 @@ const QuizApp: React.FC = () => {
   // Loading screen: Centered spinner with consistent background
   if (state.loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-500 border-t-transparent mx-auto mb-4"></div>
           <p className="text-indigo-600 dark:text-indigo-400 text-lg font-semibold">
@@ -419,7 +419,7 @@ const QuizApp: React.FC = () => {
   // Error screen: Card-style error display with retry option
   if (state.error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center max-w-md">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
             <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -444,7 +444,7 @@ const QuizApp: React.FC = () => {
   // No data available: Card-style message when quiz data is missing
   if (!state.quizData || state.quizData.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center max-w-md">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
             <BookOpen className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
@@ -472,7 +472,7 @@ const QuizApp: React.FC = () => {
   // Home Screen: Displays welcome, user stats, and action buttons for starting or viewing results
   if (state.gameState === "home") {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 relative overflow-hidden transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 p-4 sm:p-6 relative overflow-hidden transition-colors duration-300">
         <Navbar currentPage="Quiz Quest" />
         {openResetModal && (
           <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
@@ -570,7 +570,7 @@ const QuizApp: React.FC = () => {
                   playSend();
                   startTest(state.currentTest);
                 }}
-                className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover: border border-indigo-400/20 relative overflow-hidden"
+                className="w-full bg-gradient-to-r from-indigo-600 to-indigo-800 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover: border border-indigo-400/20 relative overflow-hidden"
               >
                 <div className="flex items-center justify-center">
                   <div className="p-2 sm:p-3 bg-white/10 rounded-xl sm:rounded-2xl mr-3 sm:mr-4">
@@ -582,7 +582,7 @@ const QuizApp: React.FC = () => {
                         ? "Start Your Journey"
                         : `Continue Test ${state.currentTest + 1}`}
                     </div>
-                    <div className="text-gray-700 dark:text-gray-300 text-sm font-medium mt-1">
+                    <div className="text-gray-300 dark:text-gray-300 text-sm font-medium mt-1">
                       {state.testResults.length === 0
                         ? "Begin your first quiz adventure"
                         : "Keep building your knowledge"}
@@ -623,7 +623,7 @@ const QuizApp: React.FC = () => {
                     <div className="p-2 bg-red-500/20 rounded-xl mr-3">
                       <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <span>Reset All Progress</span>
+                    <span>Reset Quiz Progress</span>
                   </div>
                 </button>
               </div>
@@ -644,7 +644,7 @@ const QuizApp: React.FC = () => {
 
     if (!currentQ) {
       return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
           <Navbar currentPage="Quiz Quest" />
           <div className="text-center pt-16">
             <p className="text-gray-900 dark:text-white text-xl font-semibold mb-4">
@@ -655,9 +655,10 @@ const QuizApp: React.FC = () => {
                 playSend();
                 setGameState("home");
               }}
-              className="bg-gradient-to-r from-indigo-700 to-indigo-600 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02]"
+              className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors font-semibold"
             >
-              Go Home
+              <ChevronLeft className="w-5 h-5 mr-2" />
+              Home
             </button>
           </div>
         </div>
@@ -665,7 +666,7 @@ const QuizApp: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 p-4 transition-colors duration-300">
         <Navbar currentPage="Quiz Quest" />
         <div className="max-w-4xl mx-auto pt-16 ">
           {/* Header */}
@@ -1002,13 +1003,13 @@ if (state.gameState === "allResults") {
               playSend();
               setGameState("home");
             }}
-            className="group flex items-center px-4 py-2 rounded-xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-md border border-indigo-200/50 dark:border-indigo-700/50 text-indigo-600 dark:text-indigo-400 hover:text-white hover:bg-indigo-500 dark:hover:bg-indigo-600 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors font-semibold"
           >
-            <ChevronLeft className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1" />
+            <ChevronLeft className="w-5 h-5 mr-2" />
             Home
           </button>
           <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
               Quiz Results
             </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto"></div>
@@ -1043,14 +1044,14 @@ if (state.gameState === "allResults") {
         ) : (
           <>
             {/* Enhanced results grid */}
-            <div className="space-y-6 mb-12">
+            <div className="space-y-6 mb-12 grid grid-cols-2 lg:grid-cols-3 gap-4">
               {state.testResults
                 .slice()
                 .reverse()
                 .map((result, index) => (
                   <div
                     key={index}
-                    className="group relative overflow-hidden bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-indigo-300/50 dark:hover:border-indigo-600/50"
+                    className="group flex relative  bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-indigo-300/50 dark:hover:border-indigo-600/50"
                   >
                     {/* Gradient overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -1066,41 +1067,39 @@ if (state.gameState === "allResults") {
                                 Test {result.testNumber}
                               </span>
                             </div>
-                            {result.percentage >= 90 && (
-                              <div className="inline-flex items-center px-2 py-1 bg-gradient-to-r from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/30 rounded-full">
-                                <Crown className="w-3 h-3 text-yellow-600 dark:text-yellow-400 mr-1" />
-                                <span className="text-xs font-bold text-yellow-700 dark:text-yellow-300">
-                                  EXCELLENT
-                                </span>
-                              </div>
-                            )}
                           </div>
 
                           {/* Subject with enhanced styling */}
-                          <h3 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                            {result.subject}
+                          <h3 className="md:text-lg lg:text-xl font-bold text-gray-900 dark:text-white mb-4">
+                            {result.subject.substring(0, 40)}...
                           </h3>
 
                           {/* Enhanced metadata */}
                           <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 text-gray-600 dark:text-gray-400">
                             <div className="flex items-center gap-2 bg-gray-100/50 dark:bg-gray-700/30 px-3 py-1.5 rounded-lg">
                               <Calendar className="w-4 h-4 text-indigo-500" />
-                              <span className="text-sm font-medium">
+                              <span className="text-xs md:text-sm font-medium">
                                 {result.date}
                               </span>
                             </div>
                             {result.timeTaken && (
                               <div className="flex items-center gap-2 bg-gray-100/50 dark:bg-gray-700/30 px-3 py-1.5 rounded-lg">
                                 <Clock className="w-4 h-4 text-green-500" />
-                                <span className="text-sm font-medium">
+                                <span className="text-xs md:text-sm font-medium">
                                   {formatTime(result.timeTaken)}
                                 </span>
                               </div>
                             )}
-                  
                           </div>
                         </div>
-
+                        {result.percentage >= 90 && (
+                          <div className="flex absolute -top-4  -right-2 p-1.5 justify-center shadow items-center bg-gradient-to-r from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/30 rounded-full">
+                            <Crown
+                              className=" text-yellow-600 dark:text-yellow-400 "
+                              size={20}
+                            />
+                          </div>
+                        )}
                         {/* Enhanced score display */}
                         <div className="text-center">
                           <div
