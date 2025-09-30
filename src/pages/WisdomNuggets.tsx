@@ -14,6 +14,7 @@ import type { Quote } from "@/types";
 import Paginate from "../components/app/paginations";
 import { APP_URL, WISDOM_CURRENTPAGE } from "@/constants";
 import { toast } from "sonner";
+import { shareQuote } from "@/utils/miniFunctions";
 
 const categoryColors = {
   Motivation:
@@ -105,21 +106,8 @@ export default function WisdomNuggets() {
     }
   };
 
-  const shareQuote = async (quote: Quote) => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `✨ ${quote.category} quotes`,
-          text: `${quote.text} - ${quote.author}`,
-          url: APP_URL,
-        });
-      } catch {
-        copyToClipboard(quote);
-      }
-    } else {
-      copyToClipboard(quote);
-    }
-  };
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
