@@ -28,6 +28,8 @@ const categoryColors = {
   Courage: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // bravery, strength
   Innovation:
     "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // creativity, future
+  Discipline:
+    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200", // creativity, future
   Leadership: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200", // guidance, influence
   Growth: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200", // progress, learning
   Action:
