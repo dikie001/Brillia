@@ -3,6 +3,7 @@ import { Menu, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
+import PWAInstall from "../PWAInstall";
 
 const greetings = [
   "Hello",
@@ -67,6 +68,7 @@ const Navbar = ({ currentPage }: MainProp) => {
 
       {/* Actions */}
       <div className="flex items-center gap-3">
+        <PWAInstall />
         <button
           onClick={toggleTheme}
           className="p-2 rounded-lg bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/40 dark:hover:bg-indigo-800/60 transition-colors"

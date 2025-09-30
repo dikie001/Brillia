@@ -1,5 +1,6 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import PWAInstall from "@/components/PWAInstall";
 import LearnerModal from "@/modals/Welcome";
 import {
   Book,
@@ -95,7 +96,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden transition-colors duration-500">
       <Navbar />
-
+<PWAInstall/>
       <div className="relative z-10 max-w-6xl w-full text-center">
         <div className="mb-8 mt-20">
           <p className="text-lg mb-4 font-medium max-w-3xl mx-auto leading-relaxed text-gray-600 dark:text-gray-400">

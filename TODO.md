@@ -1,11 +1,10 @@
-# TODO: Add Like Button to BrainTeasers.tsx
+# TODO: Transform App to Offline PWA with Install Button
 
 ## Tasks
-- [x] Update imports: add Heart from lucide-react, toast and Toaster from sonner
-- [x] Change state: replace [liked, setLiked] with [favorite, setFavorite] as Set<number>
-- [x] Add constant: FAVOURITE_TEASERS = "favourite-teasers"
-- [x] Update FetchInfo: load favorites from localStorage
-- [x] Add toggleFavorites function: similar to MiniStories.tsx
-- [x] Add heart button in teaser card header
-- [x] Add Toaster component to the page
-- [x] Test like functionality
+- [ ] Create public/manifest.json with app details and icons
+- [ ] Create public/sw.js service worker for caching
+- [ ] Update index.html with manifest link and PWA meta tags
+- [ ] Register service worker in main.tsx
+- [ ] Create PWAInstall component with install button
+- [ ] Add PWAInstall component to Navbar
+- [ ] Test PWA functionality

@@ -1,0 +1,21 @@
+{
+  "name": "Brillia",
+  "short_name": "Brillia",
+  "description": "A fun app with quizzes, facts, stories, and brain teasers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/images/logo-bg.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo-bg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
