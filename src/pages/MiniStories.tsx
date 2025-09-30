@@ -269,37 +269,39 @@ export default function MiniStories() {
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
                   by {story.author}
                 </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => copyToClipboard(story, setCopied)}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      isCopied
-                        ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
-                        : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => copyToClipboard(story, setCopied)}
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        isCopied
+                          ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                          : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                      }`}
+                      title={isCopied ? "Copied!" : "Copy quote"}
+                    >
+                      {isCopied ? (
+                        <CheckCircle className="w-5 h-5" />
+                      ) : (
+                        <Copy className="w-5 h-5" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => shareQuote(story, setCopied)}
+                      className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                      title="Share quote"
+                    >
+                      <Share2 className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div
+                    className={`flex text-indigo-400 gap-2 justify-end text-sm ${
+                      read.has(story.id) ? "" : "hidden"
                     }`}
-                    title={isCopied ? "Copied!" : "Copy quote"}
                   >
-                    {isCopied ? (
-                      <CheckCircle className="w-5 h-5" />
-                    ) : (
-                      <Copy className="w-5 h-5" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => shareQuote(story, setCopied)}
-                    className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
-                    title="Share quote"
-                  >
-                    <Share2 className="w-5 h-5" />
-                  </button>
-                </div>
-                <div
-                  className={`flex text-indigo-400 gap-2 justify-end text-sm ${
-                    read.has(story.id) ? "" : "hidden"
-                  }`}
-                >
-                  <p>Read</p>
-                  <CheckCheck className="text-indigo-400" size={20} />
+                    <p>Read</p>
+                    <CheckCheck className="text-indigo-400" size={20} />
+                  </div>
                 </div>
               </div>
             );
