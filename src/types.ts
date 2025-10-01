@@ -11,19 +11,7 @@ export type Quote = {
   id: number;
   content: string;
   author: string;
-  category:
-    | "Success"
-    | "Motivation"
-    | "Perseverance"
-    | "Happiness"
-    | "Courage"
-    | "Wisdom"
-    | "Innovation"
-    | "Leadership"
-    | "Love"
-    | "Discipline"
-    | "Growth"
-    | "Action";
+  category: string;
   tags: string[];
   popularity: number;
 };
