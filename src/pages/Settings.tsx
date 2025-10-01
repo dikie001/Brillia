@@ -3,16 +3,15 @@ import Navbar from "@/components/app/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "@/hooks/useHook";
-import { Bell, Moon, Sun, User, Volume2, Zap } from "lucide-react";
+import EditUserInfoModal from "@/modals/EditUserInfoModal";
+import { Bell, Moon, Sun, User, Volume2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import EditUserInfoModal from "@/modals/EditUserInfoModal";
 
 const Settings: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [soundsEnabled, setSoundsEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [name, setName] = useState("");
   const [hobby, setHobby] = useState("");
   const [subject, setSubject] = useState("");
@@ -25,8 +24,7 @@ const Settings: React.FC = () => {
     const savedNotifications =
       localStorage.getItem("notificationsEnabled") === "true";
     setNotificationsEnabled(savedNotifications);
-    const savedAnimations = localStorage.getItem("animationsEnabled") === "true";
-    setAnimationsEnabled(savedAnimations);
+
     const userInfo = localStorage.getItem("user-info");
     if (userInfo) {
       const parsed = JSON.parse(userInfo);
@@ -51,17 +49,6 @@ const Settings: React.FC = () => {
     toast.info("Feature coming soon...");
   };
 
-  // Handle animations toggle
-  const handleAnimationsToggle = () => {
-    const newAnimations = !animationsEnabled;
-    setAnimationsEnabled(newAnimations);
-    if (newAnimations) {
-      toast.success("Animations enabled");
-    } else {
-      toast.info("Animations disabled");
-    }
-    localStorage.setItem("animationsEnabled", newAnimations.toString());
-  };
 
   // Open edit modal
   const openEditModal = () => {
