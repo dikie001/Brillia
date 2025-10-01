@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Footer from "./Footer";
 
 type MobileMenuProps = {
   open: boolean;
@@ -111,8 +110,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
             })}
           </div>
 
-          {/* Footer */}
-    <Footer/>
+
         </div>
       </div>
     </>

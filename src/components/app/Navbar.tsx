@@ -61,7 +61,7 @@ const Navbar = ({ currentPage }: MainProp) => {
       {/* Greeting / Title */}
       <h1
         onClick={() => navigate("/")}
-        className="cursor-pointer text-3xl lg:text-4xl font-extrabold  bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 bg-clip-text text-transparent leading-tight"
+        className="cursor-pointer text-2xl lg:text-3xl font-extrabold  bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 bg-clip-text text-transparent leading-tight"
       >
         {navName}
       </h1>

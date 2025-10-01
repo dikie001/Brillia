@@ -1,9 +1,9 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import { useForm } from "@formspree/react";
 import { LoaderCircle, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
-import { useForm, ValidationError } from "@formspree/react";
 import { toast } from "sonner";
 
 const ContactDeveloper = () => {

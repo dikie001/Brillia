@@ -1,6 +1,6 @@
 import { BookOpen, Heart, LoaderCircle, Sparkles, User } from "lucide-react";
 import React, { useState } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 interface LearnerInfo {
   name: string;

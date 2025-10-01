@@ -579,9 +579,9 @@ const QuizApp: React.FC = () => {
                     <Play className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-100" />
                   </div>
                   <div className="text-left">
-                    <div className="text-lg sm:text-2xl font-bold">
+                    <div className="text-xl sm:text-2xl font-bold">
                       {state.testResults.length === 0
-                        ? "Start Your Journey"
+                        ? "Attempt Quiz"
                         : `Continue Test ${state.currentTest + 1}`}
                     </div>
                     <div className="text-gray-300 dark:text-gray-300 text-sm font-medium mt-1">
