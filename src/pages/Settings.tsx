@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "@/hooks/useHook";
 import { Bell, Moon, Sun, Volume2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const Settings: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -24,14 +25,15 @@ const Settings: React.FC = () => {
   const handleSoundToggle = () => {
     const newSounds = !soundsEnabled;
     setSoundsEnabled(newSounds);
+    if (!soundsEnabled) {
+      toast.success("Sounds enabled");
+    } 
     localStorage.setItem("soundsEnabled", newSounds.toString());
   };
 
   // Handle notifications toggle
   const handleNotificationsToggle = () => {
-    const newNotifications = !notificationsEnabled;
-    setNotificationsEnabled(newNotifications);
-    localStorage.setItem("notificationsEnabled", newNotifications.toString());
+    toast.info("Feature coming soon...");
   };
 
   return (
@@ -66,9 +68,9 @@ const Settings: React.FC = () => {
                     }
                   >
                     {theme === "dark" ? (
-                      <Sun className="w-4 h-4 mr-1" />
-                    ) : (
                       <Moon className="w-4 h-4 mr-1" />
+                    ) : (
+                      <Sun className="w-4 h-4 mr-1" />
                     )}
                     {theme}
                   </Button>

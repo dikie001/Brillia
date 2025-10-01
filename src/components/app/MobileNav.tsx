@@ -1,6 +1,7 @@
 import {
   Book,
   Home,
+  MessageSquare,
   Newspaper,
   Puzzle,
   Quote,
@@ -32,6 +33,7 @@ const menuItems = [
   { label: "Wisdom Nuggets", icon: Quote, to: "/wisdom-nuggets" },
   { label: "Tongue Twisters", icon: Wand, to: "/tongue-twisters" },
   { label: "Amazing Facts", icon: Newspaper, to: "/amazing-facts" },
+  { label: "Contact Developer", icon: MessageSquare, to: "/contact-developer" },
   { label: "Settings", icon: Settings, to: "/settings" },
 ];
 

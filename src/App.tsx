@@ -12,6 +12,7 @@ const QuizQuest = lazy(() => import("./pages/QuizQuest"));
 const SettingsPage = lazy(() => import("./pages/Settings"));
 const TongueTwisters = lazy(() => import("./pages/TongueTwisters"));
 const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
+const ContactDeveloper = lazy(() => import("./pages/ContactDeveloper"));
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
           <Route path="/tongue-twisters" element={<TongueTwisters />} />
           <Route path="/amazing-facts" element={<FactFrenzy />} />
+          <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>

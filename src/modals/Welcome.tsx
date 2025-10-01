@@ -1,6 +1,6 @@
 import { BookOpen, Heart, LoaderCircle, Sparkles, User } from "lucide-react";
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast, Toaster } from "sonner";
 
 interface LearnerInfo {
   name: string;
@@ -35,11 +35,21 @@ const LearnerModal = ({ onClose }: MainProps) => {
 
     if (formData.name && formData.subject && formData.hobby) {
       if (formData.hobby.length < 4) {
+        setLoading(false);
         return toast.error("Enter a valid hobby", { id: "hobby-err" });
       } else if (formData.name.length < 3) {
+        setLoading(false);
         return toast.error("Invalid name, enter your real name", {
           id: "name-err",
         });
+      } else if (!isNaN(Number(formData.name))) {
+        toast.error("Your name can not be a number!");
+        setLoading(false);
+        return;
+      } else if (!isNaN(Number(formData.hobby))) {
+        toast.error("Your hobby can not be a number!");
+        setLoading(false);
+        return;
       }
       try {
         localStorage.setItem(USER, JSON.stringify(formData));
@@ -49,6 +59,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
           onClose();
         }, 6000);
       } catch (err) {
+        setLoading(false);
         toast.error("Error saving details...", { id: "err-saving" });
         window.location.reload();
         console.log(err);
@@ -67,8 +78,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
     <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white/95 dark:bg-gray-900 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md mx-auto transform transition-all duration-500 ease-out">
         {/* Header */}
-        <Toaster />
-        <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-t-3xl p-6 text-white">
+        <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700  rounded-t-3xl p-6 text-white">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-white/20 rounded-xl">
               <Sparkles size={24} />
@@ -77,13 +87,13 @@ const LearnerModal = ({ onClose }: MainProps) => {
               {submitted ? (
                 <span>Brillia</span>
               ) : (
-                <span>Welcome, Learner!</span>
+                <span>Welcome to Brillia</span>
               )}
             </h2>
           </div>
           {!submitted && (
             <p className="text-white/90 text-sm">
-              Tell us a bit about yourself to personalize your experience
+              A few quick details to get started{" "}
             </p>
           )}
         </div>
@@ -177,7 +187,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
                 disabled={!isFormValid}
                 className={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 transform ${
                   isFormValid
-                    ? "bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 text-white hover:from-purple-700 hover:to-blue-700 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                    ? "bg-gradient-to-r from-indigo-600 to-indigo-700  text-white  hover:scale-[1.02] shadow-lg hover:shadow-xl"
                     : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                 }`}
               >
@@ -198,7 +208,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
                 <Sparkles size={32} className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-                Welcome, {formData.name.split(" ")[0]}! 🎉
+                Holla, {formData.name.split(" ")[0]}! 🎉
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
                 Great to have you here! Get ready for an amazing experience.
