@@ -2,7 +2,6 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { useTheme } from "@/hooks/useHook";
 import { Bell, Moon, Sun, User, Volume2, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -79,7 +78,6 @@ const Settings: React.FC = () => {
     setName(data.name);
     setHobby(data.hobby);
     setSubject(data.subject);
-    toast.success("Profile updated successfully!");
   };
 
   return (
@@ -135,7 +133,7 @@ const Settings: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span>Enable or disable sound effects</span>
+                <span>Enable  sound effects</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -159,7 +157,7 @@ const Settings: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span>Enable or disable notifications</span>
+                <span>Enable  notifications</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -189,28 +187,6 @@ const Settings: React.FC = () => {
             </CardContent>
           </Card>
 
-          {/* Animations Settings */}
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Zap className="w-5 h-5" />
-                Animations
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <span>Enable or disable animations</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={animationsEnabled}
-                    onChange={handleAnimationsToggle}
-                    className="sr-only peer"
-                  />
-                </label>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
       {isEditModalOpen && (
