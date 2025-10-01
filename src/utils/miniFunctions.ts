@@ -1,17 +1,21 @@
 import { APP_URL } from "@/constants";
-import type { Quote, Story } from "@/types";
+import type { Quote, Story, Twister } from "@/types";
 import { toast } from "sonner";
 
 // Share Quotes/teasers/stories/quizes etc
 export const shareQuote = async (
-  item: Quote | Story,
+  item: Quote | Story | Twister,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
+  const content = 'text' in item ? item.text : item.content;
+  const author = 'author' in item ? item.author : 'Brillia';
+  const category = 'category' in item ? item.category : 'genre' in item ? item.genre : 'Brillia';
+
   if (navigator.share) {
     try {
       await navigator.share({
-        title: ` ✨ ${'category' in item? item.category : 'genre' in item? item.genre : 'Brillia'}`,
-        text: `${item.content} - ${item.author}`,
+        title: ` ✨ ${category}`,
+        text: `${content} - ${author}`,
         url: APP_URL,
       });
     } catch {
@@ -25,11 +29,14 @@ export const shareQuote = async (
 
 // Copy to clipboard
 export const copyToClipboard = async (
-  item: Quote | Story,
+  item: Quote | Story | Twister,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
+  const content = 'text' in item ? item.text : item.content;
+  const author = 'author' in item ? item.author : 'Brillia';
+
   try {
-    await navigator.clipboard.writeText(`"${item}" - ${item.author}`);
+    await navigator.clipboard.writeText(`"${content}" - ${author}`);
     setCopied(item.id);
     setTimeout(() => setCopied(null), 2000);
   } catch {

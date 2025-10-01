@@ -1,4 +1,4 @@
-import { BookOpen, Heart, LoaderCircle, Sparkles, User } from "lucide-react";
+import { BookOpen, Heart, LoaderCircle, User } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 

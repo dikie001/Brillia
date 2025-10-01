@@ -2,7 +2,8 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { twisters } from "@/jsons/tongueTwisters";
 import type { Twister } from "@/types";
-import { Heart, LoaderCircle, Mic, X } from "lucide-react";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
+import { CheckCircle, Copy, Heart, LoaderCircle, Mic, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
@@ -25,6 +26,7 @@ const TongueTwisters = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
+  const [copied, setCopied] = useState<number | null>(null);
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
@@ -162,7 +164,7 @@ const TongueTwisters = () => {
                 >
                   {twister.difficulty}
                 </span>
-                <button
+                {/* <button
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleFavorites(twister.id);
@@ -179,7 +181,7 @@ const TongueTwisters = () => {
                   <Heart
                     className={`w-5 h-5 ${favorite.has(twister.id) ? "fill-current" : ""}`}
                   />
-                </button>
+                </button> */}
               </div>
               {/* Twister id numbers */}
               <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
@@ -201,9 +203,51 @@ const TongueTwisters = () => {
                 ))}
               </div>
 
-              <button className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold transition-all duration-300 bg-gradient-to-r from-indigo-600 to-indigo-700 shadow text-white hover:bg-indigo-600">
-                View Twister
-              </button>
+              {/* Action Buttons */}
+              <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => copyToClipboard(twister, setCopied)}
+                    className={`p-2 rounded-full transition-all duration-300 ${
+                      copied === twister.id
+                        ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                        : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                    }`}
+                    title={copied === twister.id ? "Copied!" : "Copy twister"}
+                  >
+                    {copied === twister.id ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      <Copy className="w-5 h-5" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => shareQuote(twister, setCopied)}
+                    className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                    title="Share twister"
+                  >
+                    <Share2 className="w-5 h-5" />
+                  </button>
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorites(twister.id);
+                  }}
+                  className={`p-2 rounded-full transition-all duration-300 ${
+                    favorite.has(twister.id)
+                      ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                      : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                  }`}
+                  title={
+                    favorite.has(twister.id) ? "Remove from favorites" : "Add to favorites"
+                  }
+                >
+                  <Heart
+                    className={`w-5 h-5 ${favorite.has(twister.id) ? "fill-current" : ""}`}
+                  />
+                </button>
+              </div>
             </div>
           ))}
         </div>
