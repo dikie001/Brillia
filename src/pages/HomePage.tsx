@@ -1,6 +1,5 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
-import PWAInstall from "@/components/PWAInstall";
 import LearnerModal from "@/modals/Welcome";
 import {
   Book,
