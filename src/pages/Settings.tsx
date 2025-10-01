@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "@/components/app/Navbar";
 import Footer from "@/components/app/Footer";
-import ResetProgress from "@/modals/ResetProgress";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Navbar from "@/components/app/Navbar";
 import { Button } from "@/components/ui/button";
-import { Sun, Moon, Volume2, Trash2, Bell, Type, Download } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "@/hooks/useHook";
-import { FONT_SIZES } from "@/constants";
+import { Bell, Moon, Sun, Volume2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 
 const Settings: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [soundsEnabled, setSoundsEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [fontSize, setFontSize] = useState<"small" | "medium" | "large">("medium");
-  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
   // Load settings from localStorage on mount
   useEffect(() => {
     const savedSounds = localStorage.getItem("soundsEnabled") === "true";
     setSoundsEnabled(savedSounds);
-    const savedNotifications = localStorage.getItem("notificationsEnabled") === "true";
+    const savedNotifications =
+      localStorage.getItem("notificationsEnabled") === "true";
     setNotificationsEnabled(savedNotifications);
-    const savedFontSize = (localStorage.getItem("fontSize") as "small" | "medium" | "large") || "medium";
-    setFontSize(savedFontSize);
   }, []);
 
   // Handle sound toggle
@@ -39,53 +34,9 @@ const Settings: React.FC = () => {
     localStorage.setItem("notificationsEnabled", newNotifications.toString());
   };
 
-  // Handle font size change
-  const handleFontSizeChange = (size: "small" | "medium" | "large") => {
-    setFontSize(size);
-    localStorage.setItem("fontSize", size);
-  };
-
-  // Handle data export
-  const handleDataExport = () => {
-    const data = {
-      settings: {
-        theme,
-        soundsEnabled,
-        notificationsEnabled,
-        fontSize,
-      },
-      progress: {
-        readStories: localStorage.getItem("read-stories"),
-        firstTime: localStorage.getItem("first-time"),
-      },
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "brillia-data.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  // Handle progress reset
-  const handleResetProgress = () => {
-    setIsResetModalOpen(true);
-  };
-
-  // Confirm reset
-  const confirmReset = () => {
-    localStorage.removeItem("read-stories");
-    localStorage.removeItem("first-time");
-    // Add other keys if needed
-    setIsResetModalOpen(false);
-    alert("Progress has been reset.");
-    window.location.reload(); // Reload to reflect changes
-  };
-
   return (
-    <div className="h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-500">
-      <Navbar currentPage="Settings"/>{" "}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent dark:text-white transition-colors duration-500">
+      <Navbar currentPage="Settings" />{" "}
       <div className="container mx-auto px-4 py-8 ">
         <div className="max-w-2xl mx-auto space-y-6 mt-20">
           {/* Theme Settings */}
@@ -108,19 +59,18 @@ const Settings: React.FC = () => {
                     variant={theme === "light" ? "default" : "outline"}
                     size="sm"
                     onClick={() => toggleTheme()}
-                    className={theme === "light" ? "bg-yellow-500 hover:bg-yellow-600" : ""}
+                    className={
+                      theme === "light"
+                        ? "bg-indigo-500 hover:bg-indigo-600"
+                        : ""
+                    }
                   >
-                    <Sun className="w-4 h-4 mr-1" />
-                    Light
-                  </Button>
-                  <Button
-                    variant={theme === "dark" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => toggleTheme()}
-                    className={theme === "dark" ? "bg-gray-800 hover:bg-gray-900" : ""}
-                  >
-                    <Moon className="w-4 h-4 mr-1" />
-                    Dark
+                    {theme === "dark" ? (
+                      <Sun className="w-4 h-4 mr-1" />
+                    ) : (
+                      <Moon className="w-4 h-4 mr-1" />
+                    )}
+                    {theme}
                   </Button>
                 </div>
               </div>
@@ -174,78 +124,8 @@ const Settings: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Font Size Settings */}
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Type className="w-5 h-5" />
-                Font Size
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <span>Select your preferred font size</span>
-                <div className="flex gap-2">
-                  {FONT_SIZES.map((size) => (
-                    <Button
-                      key={size}
-                      variant={fontSize === size ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleFontSizeChange(size)}
-                      className="capitalize"
-                    >
-                      {size}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Data Export */}
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Download className="w-5 h-5" />
-                Export Data
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4">
-                Download your settings and progress data as a JSON file.
-              </p>
-              <Button onClick={handleDataExport} variant="outline">
-                Export Data
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Progress Reset */}
-          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Trash2 className="w-5 h-5" />
-                Reset Progress
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-4">
-                Clear all saved progress, including completed stories and
-                quizzes.
-              </p>
-              <Button onClick={handleResetProgress} variant="destructive">
-                Reset Progress
-              </Button>
-            </CardContent>
-          </Card>
         </div>
       </div>
-      <ResetProgress
-        isOpen={isResetModalOpen}
-        onClose={() => setIsResetModalOpen(false)}
-        onConfirm={confirmReset}
-      />
       <Footer />
     </div>
   );
