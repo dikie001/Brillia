@@ -1,14 +1,14 @@
 import { APP_URL } from "@/constants";
-import type { Quote, Story, Twister } from "@/types";
+import type { Quote, Story, Twister, Fact } from "@/types";
 import { toast } from "sonner";
 
 // Share Quotes/teasers/stories/quizes etc
 export const shareQuote = async (
-  item: Quote | Story | Twister,
+  item: Quote | Story | Twister | Fact,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
-  const content = 'text' in item ? item.text : item.content;
-  const author = 'author' in item ? item.author : 'Brillia';
+  const content = 'text' in item ? item.text : 'fact' in item ? item.fact : item.content;
+  const author = 'author' in item ? item.author : 'source' in item ? item.source : 'Brillia';
   const category = 'category' in item ? item.category : 'genre' in item ? item.genre : 'Brillia';
 
   if (navigator.share) {
@@ -29,11 +29,11 @@ export const shareQuote = async (
 
 // Copy to clipboard
 export const copyToClipboard = async (
-  item: Quote | Story | Twister,
+  item: Quote | Story | Twister | Fact,
   setCopied: (id: number | null) => void
 ): Promise<void> => {
-  const content = 'text' in item ? item.text : item.content;
-  const author = 'author' in item ? item.author : 'Brillia';
+  const content = 'text' in item ? item.text : 'fact' in item ? item.fact : item.content;
+  const author = 'author' in item ? item.author : 'source' in item ? item.source : 'Brillia';
 
   try {
     await navigator.clipboard.writeText(`"${content}" - ${author}`);

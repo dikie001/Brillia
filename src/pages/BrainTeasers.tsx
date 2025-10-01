@@ -2,11 +2,15 @@ import Navbar from "@/components/app/Navbar";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import brainTeasers from "@/jsons/brainTeaser";
 import ContactAdminModal from "@/modals/ContactAdmin";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
+  CheckCircle,
+  Copy,
   Eye,
   EyeOff,
   Heart,
-  LoaderCircle
+  LoaderCircle,
+  Share2
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -32,6 +36,7 @@ export default function BrainTeasersPage() {
   const itemsPerPage = 10;
   const [openContactAdmin, setOpenContactAdmin] = useState(false);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
+  const [copied, setCopied] = useState<number | null>(null);
 
   useEffect(() => {
     PaginationPage();
@@ -179,25 +184,49 @@ export default function BrainTeasersPage() {
                         {teaser.category}
                       </span>
                     </div>
-                    <button
-                      onClick={() => toggleFavorites(teaser.id)}
-                      className={`p-2 rounded-full transition-all duration-300 ${
-                        favorite.has(teaser.id)
-                          ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                          : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                      }`}
-                      title={
-                        favorite.has(teaser.id)
-                          ? "Remove from favorites"
-                          : "Add to favorites"
-                      }
-                    >
-                      <Heart
-                        className={`w-5 h-5 ${
-                          favorite.has(teaser.id) ? "fill-current" : ""
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => copyToClipboard(teaser, setCopied)}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          copied === teaser.id
+                            ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                            : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                         }`}
-                      />
-                    </button>
+                        title={copied === teaser.id ? "Copied!" : "Copy teaser"}
+                      >
+                        {copied === teaser.id ? (
+                          <CheckCircle className="w-5 h-5" />
+                        ) : (
+                          <Copy className="w-5 h-5" />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => shareQuote(teaser, setCopied)}
+                        className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                        title="Share teaser"
+                      >
+                        <Share2 className="w-5 h-5" />
+                      </button>
+                      <button
+                        onClick={() => toggleFavorites(teaser.id)}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          favorite.has(teaser.id)
+                            ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                            : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                        }`}
+                        title={
+                          favorite.has(teaser.id)
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      >
+                        <Heart
+                          className={`w-5 h-5 ${
+                            favorite.has(teaser.id) ? "fill-current" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                   </div>
 
                   <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">

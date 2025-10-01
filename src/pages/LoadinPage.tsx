@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react"; // optional, keep if you want spinner
 
 const LoadingPage: React.FC = () => {
   return (
-    <div className="flex h-screen w-screen items-center justify-center  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-slate-900">
+    <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent">
       <div className="flex flex-col items-center space-y-6">
         {/* App Icon */}
         <img

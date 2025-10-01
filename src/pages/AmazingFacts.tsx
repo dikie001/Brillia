@@ -2,10 +2,12 @@ import Navbar from "@/components/app/Navbar";
 import { FACTS_CURRENTPAGE } from "@/constants";
 import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
   BookmarkPlus,
   Brain,
   CheckCircle,
+  Copy,
   Heart,
   LoaderCircle,
   Share2,
@@ -45,6 +47,7 @@ export default function FactFrenzy() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [copied, setCopied] = useState<number | null>(null);
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
@@ -140,18 +143,7 @@ export default function FactFrenzy() {
 
 
 
-  const shareFact = async (fact: Fact) => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Amazing Fact!",
-          text: `${fact.fact} - Source: ${fact.source}`,
-        });
-      } catch {
-        console.log("Share failed");
-      }
-    }
-  };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -296,11 +288,24 @@ export default function FactFrenzy() {
                 <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        shareFact(fact);
-                      }}
-                      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 hover:text-indigo-600 transition-all"
+                      onClick={() => copyToClipboard(fact, setCopied)}
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        copied === fact.id
+                          ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                          : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                      }`}
+                      title={copied === fact.id ? "Copied!" : "Copy fact"}
+                    >
+                      {copied === fact.id ? (
+                        <CheckCircle className="w-5 h-5" />
+                      ) : (
+                        <Copy className="w-5 h-5" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => shareQuote(fact, setCopied)}
+                      className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                      title="Share fact"
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
