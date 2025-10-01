@@ -29,6 +29,7 @@ import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
 import quiz from "../assets/images/quiz.png";
 import useSound from "../hooks/useSound";
+import { toast } from "sonner";
 
 type Options = {
   A: string;
@@ -322,6 +323,7 @@ const QuizApp: React.FC = () => {
 
   // Complete current test
   const completeTest = (): void => {
+    toast.success("Quiz completed!")
     playFinish();
     const currentQuestions = getCurrentTestQuestions();
     const timeTaken = state.startTime
@@ -405,7 +407,7 @@ const QuizApp: React.FC = () => {
   // Loading screen: Centered spinner with consistent background
   if (state.loading) {
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-center transition-colors duration-300">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-500 border-t-transparent mx-auto mb-4"></div>
           <p className="text-indigo-600 dark:text-indigo-400 text-lg font-semibold">
@@ -419,7 +421,7 @@ const QuizApp: React.FC = () => {
   // Error screen: Card-style error display with retry option
   if (state.error) {
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center max-w-md">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
             <XCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
@@ -444,7 +446,7 @@ const QuizApp: React.FC = () => {
   // No data available: Card-style message when quiz data is missing
   if (!state.quizData || state.quizData.length === 0) {
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-center p-4 transition-colors duration-300">
         <div className="text-center max-w-md">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-gray-700/20">
             <BookOpen className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
@@ -472,7 +474,7 @@ const QuizApp: React.FC = () => {
   // Home Screen: Displays welcome, user stats, and action buttons for starting or viewing results
   if (state.gameState === "home") {
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 p-4 sm:p-6 relative overflow-hidden transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 sm:p-6 relative overflow-hidden transition-colors duration-300">
         <Navbar currentPage="Quiz Quest" />
         {openResetModal && (
           <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
@@ -644,7 +646,7 @@ const QuizApp: React.FC = () => {
 
     if (!currentQ) {
       return (
-        <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-center transition-colors duration-300">
           <Navbar currentPage="Quiz Quest" />
           <div className="text-center pt-16">
             <p className="text-gray-900 dark:text-white text-xl font-semibold mb-4">
@@ -666,7 +668,7 @@ const QuizApp: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 p-4 transition-colors duration-300">
+      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 transition-colors duration-300">
         <Navbar currentPage="Quiz Quest" />
         <div className="max-w-4xl mx-auto pt-16 ">
           {/* Header */}
@@ -843,7 +845,7 @@ const QuizApp: React.FC = () => {
     const latestResult = state.testResults[state.testResults.length - 1];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 p-4 sm:p-6 transition-all duration-500">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 sm:p-6 transition-all duration-500">
         <Navbar currentPage="Test Results" />
         <div className="max-w-4xl mx-auto pt-16">
           {/* Header */}
@@ -853,7 +855,7 @@ const QuizApp: React.FC = () => {
             </h1>
             <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-4"></div>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Great job completing Test {latestResult.testNumber}!
+              Quiz Completed! {latestResult.testNumber}!
             </p>
           </div>
 
