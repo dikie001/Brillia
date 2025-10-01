@@ -2,15 +2,22 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useTheme } from "@/hooks/useHook";
-import { Bell, Moon, Sun, Volume2 } from "lucide-react";
+import { Bell, Moon, Sun, User, Volume2, Zap } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import EditUserInfoModal from "@/modals/EditUserInfoModal";
 
 const Settings: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [soundsEnabled, setSoundsEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [animationsEnabled, setAnimationsEnabled] = useState(true);
+  const [name, setName] = useState("");
+  const [hobby, setHobby] = useState("");
+  const [subject, setSubject] = useState("");
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Load settings from localStorage on mount
   useEffect(() => {
@@ -19,6 +26,15 @@ const Settings: React.FC = () => {
     const savedNotifications =
       localStorage.getItem("notificationsEnabled") === "true";
     setNotificationsEnabled(savedNotifications);
+    const savedAnimations = localStorage.getItem("animationsEnabled") === "true";
+    setAnimationsEnabled(savedAnimations);
+    const userInfo = localStorage.getItem("user-info");
+    if (userInfo) {
+      const parsed = JSON.parse(userInfo);
+      setName(parsed.name || "");
+      setHobby(parsed.hobby || "");
+      setSubject(parsed.subject || "");
+    }
   }, []);
 
   // Handle sound toggle
@@ -27,13 +43,43 @@ const Settings: React.FC = () => {
     setSoundsEnabled(newSounds);
     if (!soundsEnabled) {
       toast.success("Sounds enabled");
-    } 
+    }
     localStorage.setItem("soundsEnabled", newSounds.toString());
   };
 
   // Handle notifications toggle
   const handleNotificationsToggle = () => {
     toast.info("Feature coming soon...");
+  };
+
+  // Handle animations toggle
+  const handleAnimationsToggle = () => {
+    const newAnimations = !animationsEnabled;
+    setAnimationsEnabled(newAnimations);
+    if (newAnimations) {
+      toast.success("Animations enabled");
+    } else {
+      toast.info("Animations disabled");
+    }
+    localStorage.setItem("animationsEnabled", newAnimations.toString());
+  };
+
+  // Open edit modal
+  const openEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  // Close edit modal
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  // Handle save from modal
+  const handleSaveFromModal = (data: { name: string; hobby: string; subject: string }) => {
+    setName(data.name);
+    setHobby(data.hobby);
+    setSubject(data.subject);
+    toast.success("Profile updated successfully!");
   };
 
   return (
@@ -126,8 +172,54 @@ const Settings: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* User Profile Settings */}
+          <Card
+            onClick={openEditModal}
+            className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer"
+          >
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="w-5 h-5" />
+                User Profile
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-700 dark:text-gray-300">Click to edit your user information</p>
+            </CardContent>
+          </Card>
+
+          {/* Animations Settings */}
+          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="w-5 h-5" />
+                Animations
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <span>Enable or disable animations</span>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={animationsEnabled}
+                    onChange={handleAnimationsToggle}
+                    className="sr-only peer"
+                  />
+                </label>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
+      {isEditModalOpen && (
+        <EditUserInfoModal
+          currentData={{ name, hobby, subject }}
+          onSave={handleSaveFromModal}
+          onClose={closeEditModal}
+        />
+      )}
       <Footer />
     </div>
   );

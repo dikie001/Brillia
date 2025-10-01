@@ -35,7 +35,7 @@ const ContactDeveloper = () => {
   return (
     <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex flex-col transition-colors duration-500">
       <Navbar currentPage="Contact Developer" />
-      <div className="flex-1 mt-20 flex flex-col items-center justify-center p-6 font-sans relative overflow-hidden">
+      <div className="flex-1 mt-20 flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden">
         <div className="relative z-10 max-w-3xl w-full text-center">
           <p className="text-lg mb-8 text-gray-600 dark:text-gray-400">
             Get in touch with the developer through various channels.
@@ -47,7 +47,7 @@ const ContactDeveloper = () => {
               href="https://www.facebook.com/profile.php?id=100086299638167"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center p-6 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
+              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
             >
               <FaFacebook className="w-12 h-12 text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Facebook</h3>
@@ -61,7 +61,7 @@ const ContactDeveloper = () => {
               href="https://wa.me/254716957179?text=Greetings%2C%20I%20hope%20you%20are%20doing%20well.%20I%20would%20like%20to%20connect."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center p-6 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
+              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
             >
               <FaWhatsapp className="w-12 h-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
