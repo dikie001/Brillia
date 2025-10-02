@@ -132,14 +132,7 @@ export default function WisdomNuggets() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Wisdom Nuggets" />
 
-      <FilterBar
-        currentFilter={currentFilter}
-        setFilter={setCurrentFilter}
-        onFavoriteClick={onFavoriteClick}
-        genres={genres}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto mt-18">
+      <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Featured Quote */}
         <div className="mb-6">
           <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-3xl shadow-2xl text-white relative overflow-hidden">
@@ -169,6 +162,12 @@ export default function WisdomNuggets() {
             </div>
           </div>
         </div>
+        <FilterBar
+          currentFilter={currentFilter}
+          setFilter={setCurrentFilter}
+          onFavoriteClick={onFavoriteClick}
+          genres={genres}
+        />
 
         {/* Top Paginate */}
         {displayedQuotes.length !== 0 && (
@@ -195,7 +194,9 @@ export default function WisdomNuggets() {
                 <div className="flex items-start justify-between mb-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      categoryColors[quote.category as keyof typeof categoryColors]
+                      categoryColors[
+                        quote.category as keyof typeof categoryColors
+                      ]
                     }`}
                   >
                     {quote.category}

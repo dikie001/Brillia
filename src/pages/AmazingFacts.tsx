@@ -163,13 +163,6 @@ export default function FactFrenzy() {
         <Navbar currentPage="Amazing Facts" />
         <header className="text-center mb-6"></header>
 
-        <FilterBar
-          currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-          onFavoriteClick={onFavoriteClick}
-          genres={genres}
-        />
-
         {/* Loading */}
         {loading ||
           (displayedFacts.length === 0 && (
@@ -221,6 +214,13 @@ export default function FactFrenzy() {
           </div>
         )}
 
+        <FilterBar
+          currentFilter={currentFilter}
+          setFilter={setCurrentFilter}
+          onFavoriteClick={onFavoriteClick}
+          genres={genres}
+        />
+        
         {/* Top Paginate */}
         {displayedFacts.length !== 0 && (
           <Paginate
@@ -232,7 +232,6 @@ export default function FactFrenzy() {
 
         <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
-
             return (
               <div
                 key={fact.id}

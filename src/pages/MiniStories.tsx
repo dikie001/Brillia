@@ -207,7 +207,7 @@ export default function MiniStories() {
           <FilterBar
             setFilter={setFilter}
             currentFilter={currentFilter}
-            setCurrentFilter={setCurrentFilter}
+            // setCurrentFilter={setCurrentFilter}
             onFavoriteClick={filterFavorites}
           />
         </div>
