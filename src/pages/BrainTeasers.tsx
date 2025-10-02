@@ -184,7 +184,26 @@ export default function BrainTeasersPage() {
                         {teaser.category}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
+                  </div>
+
+                  <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                    Puzzle #{teaser.id}
+                  </h2>
+
+                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-4">
+                    <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                      {teaser.question}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                  {teaser.id}
+                </div>
+
+                <div className="mt-2  border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between w-full mb-2 mt-1">
+                    <div>
                       <button
                         onClick={() => copyToClipboard(teaser, setCopied)}
                         className={`p-2 rounded-full transition-all duration-300 ${
@@ -207,6 +226,9 @@ export default function BrainTeasersPage() {
                       >
                         <Share2 className="w-5 h-5" />
                       </button>
+                    </div>
+                    {/* Like button */}
+                    <div>
                       <button
                         onClick={() => toggleFavorites(teaser.id)}
                         className={`p-2 rounded-full transition-all duration-300 ${
@@ -228,23 +250,6 @@ export default function BrainTeasersPage() {
                       </button>
                     </div>
                   </div>
-
-                  <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">
-                    Puzzle #{teaser.id}
-                  </h2>
-
-                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-4">
-                    <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                      {teaser.question}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
-                  {teaser.id}
-                </div>
-
-                <div className="mt-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={() => toggleReveal(teaser.id)}
                     className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 ease-in-out ${
