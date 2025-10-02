@@ -227,7 +227,7 @@ export default function FactFrenzy() {
             return (
               <div
                 key={fact.id}
-                className="group bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
+                className="group relative bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -240,34 +240,6 @@ export default function FactFrenzy() {
                       {fact.category}
                     </span>
                   </div>
-                  
-                  {/* {fact.isVerified && (
-                    <div className="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 p-1 rounded-full">
-                      <CheckCircle className="w-4 h-4" />
-                    </div>
-                  )} */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorites(fact.id);
-                    }}
-                    className={`p-2 rounded-full transition-all ${
-                      favorite.has(fact.id)
-                        ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                        : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                    }`}
-                    title={
-                      favorite.has(fact.id)
-                        ? "Remove from favorites"
-                        : "Add to favorites"
-                    }
-                  >
-                    <Heart
-                      className={`w-5 h-5 ${
-                        favorite.has(fact.id) ? "fill-current" : ""
-                      }`}
-                    />
-                  </button>
                 </div>
 
                 <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2.5">
@@ -285,8 +257,13 @@ export default function FactFrenzy() {
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-3">
+                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                  {fact.id}
+                </div>
+
+                <div className="flex items-center justify-between w-full border-t mt-4 mb-4">
+                  {/* Share and copy btn */}
+                  <div className="gap-2 flex mt-1">
                     <button
                       onClick={() => copyToClipboard(fact, setCopied)}
                       className={`p-2 rounded-full transition-all duration-300 ${
@@ -310,24 +287,35 @@ export default function FactFrenzy() {
                       <Share2 className="w-5 h-5" />
                     </button>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleSaved(fact.id);
-                    }}
-                    className={`p-2 rounded-full transition-all ${
-                      isSaved
-                        ? "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                        : "text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                    }`}
-                  >
-                    <BookmarkPlus
-                      className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`}
-                    />
-                  </button>
+
+                  {/* Like button */}
+                  <div className="mt-1">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorites(fact.id);
+                      }}
+                      className={`p-2 rounded-full transition-all ${
+                        favorite.has(fact.id)
+                          ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                          : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                      }`}
+                      title={
+                        favorite.has(fact.id)
+                          ? "Remove from favorites"
+                          : "Add to favorites"
+                      }
+                    >
+                      <Heart
+                        className={`w-5 h-5 ${
+                          favorite.has(fact.id) ? "fill-current" : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                <div className="mt-2 absolute bottom-4 left-4 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" />
                   Source: {fact.source}
                 </div>
