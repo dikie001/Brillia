@@ -4,7 +4,6 @@ import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
-  BookmarkPlus,
   Brain,
   CheckCircle,
   Copy,
@@ -34,11 +33,9 @@ const categoryColors = {
 
 
 
-const SAVED_FACTS = "saved-facts";
 const FAVOURITE_FACTS = "favourite-facts";
 
 export default function FactFrenzy() {
-  const [savedFacts, setSavedFacts] = useState<Set<number>>(new Set());
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [displayedFacts, setDisplayedFacts] = useState<Fact[]>([]);
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
@@ -81,11 +78,7 @@ export default function FactFrenzy() {
 
   useEffect(() => {
     FetchInfo();
-    const savedData = localStorage.getItem(SAVED_FACTS);
-    const savedFacts: Set<number> = savedData
-      ? new Set(JSON.parse(savedData))
-      : new Set();
-    setSavedFacts(savedFacts);
+  
 
     // Load favorites from localStorage
     const storedFavorites = localStorage.getItem(FAVOURITE_FACTS);
@@ -102,13 +95,7 @@ export default function FactFrenzy() {
     }
   }, [currentPage]);
 
-  const toggleSaved = (id: number) => {
-    const newSaved = new Set(savedFacts);
-    if (newSaved.has(id)) newSaved.delete(id);
-    else newSaved.add(id);
-    setSavedFacts(newSaved);
-    localStorage.setItem(SAVED_FACTS, JSON.stringify(Array.from(newSaved)));
-  };
+
 
   // Toggle favorites
   const toggleFavorites = (id: number) => {
@@ -222,7 +209,6 @@ export default function FactFrenzy() {
 
         <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
-            const isSaved = savedFacts.has(fact.id);
 
             return (
               <div
