@@ -1,7 +1,7 @@
+import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import brainTeasers from "@/jsons/brainTeaser";
-import ContactAdminModal from "@/modals/ContactAdmin";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
   CheckCircle,
@@ -15,7 +15,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
-import FilterBar from "@/components/app/FilterBar";
 
 export type Teaser = {
   id: number;
@@ -35,7 +34,6 @@ export default function BrainTeasersPage() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const [openContactAdmin, setOpenContactAdmin] = useState(false);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
 
@@ -71,7 +69,6 @@ export default function BrainTeasersPage() {
     }
 
     const teasersLength = filteredTeasers.length;
-    teasersLength === 0 && setOpenContactAdmin(true);
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredTeasers.slice(start, end);
@@ -153,12 +150,7 @@ export default function BrainTeasersPage() {
   return (
     <div className="min-h-screen p-2 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
-      {openContactAdmin && (
-        <ContactAdminModal
-          openContactAdmin={openContactAdmin}
-          setOpenContactAdmin={setOpenContactAdmin}
-        />
-      )}
+
       <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Header */}
         <header className="text-center mb-6 mt-4"></header>
