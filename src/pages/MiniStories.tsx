@@ -6,7 +6,15 @@ import Paginate from "@/components/app/paginations";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { STORIES_CURRENTPAGE } from "@/constants";
-import { CheckCheck, CheckCircle, Copy, Heart, LoaderCircle, Share2, X } from "lucide-react";
+import {
+  CheckCheck,
+  CheckCircle,
+  Copy,
+  Heart,
+  LoaderCircle,
+  Share2,
+  X,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -234,24 +242,15 @@ export default function MiniStories() {
                   >
                     {story.genre}
                   </span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorites(story.id);
-                    }}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      isFavorite
-                        ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                        : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                  {/* REad story */}
+                  <div
+                    className={`flex text-indigo-400 gap-2 justify-end text-sm ${
+                      read.has(story.id) ? "" : "hidden"
                     }`}
-                    title={
-                      isFavorite ? "Remove from favorites" : "Add to favorites"
-                    }
                   >
-                    <Heart
-                      className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
-                    />
-                  </button>
+                    <p>Read</p>
+                    <CheckCheck className="text-indigo-400" size={20} />
+                  </div>
                 </div>
 
                 <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
@@ -269,38 +268,61 @@ export default function MiniStories() {
                 <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
                   by {story.author}
                 </div>
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => copyToClipboard(story, setCopied)}
-                      className={`p-2 rounded-full transition-all duration-300 ${
-                        isCopied
-                          ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
-                          : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                      }`}
-                      title={isCopied ? "Copied!" : "Copy quote"}
-                    >
-                      {isCopied ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : (
-                        <Copy className="w-5 h-5" />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => shareQuote(story, setCopied)}
-                      className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
-                      title="Share quote"
-                    >
-                      <Share2 className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <div
-                    className={`flex text-indigo-400 gap-2 justify-end text-sm ${
-                      read.has(story.id) ? "" : "hidden"
-                    }`}
-                  >
-                    <p>Read</p>
-                    <CheckCheck className="text-indigo-400" size={20} />
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex justify-between border-t mt-2.5"
+                >
+                  <div className="flex items-center w-full justify-between mt-1">
+                    {/* Copy and share */}
+                    <div className="gap-2 flex">
+                      <button
+                        onClick={() => copyToClipboard(story, setCopied)}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          isCopied
+                            ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                            : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                        }`}
+                        title={isCopied ? "Copied!" : "Copy quote"}
+                      >
+                        {isCopied ? (
+                          <CheckCircle className="w-5 h-5" />
+                        ) : (
+                          <Copy className="w-5 h-5" />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => shareQuote(story, setCopied)}
+                        className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                        title="Share quote"
+                      >
+                        <Share2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                    {/* Like button */}
+                    <div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorites(story.id);
+                        }}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          isFavorite
+                            ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
+                            : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                        }`}
+                        title={
+                          isFavorite
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      >
+                        <Heart
+                          className={`w-5 h-5 ${
+                            isFavorite ? "fill-current" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
