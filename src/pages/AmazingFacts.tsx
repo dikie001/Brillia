@@ -17,6 +17,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
+import FilterBar from "@/components/app/FilterBar";
 
 const categoryColors = {
   Science:
@@ -46,12 +47,27 @@ export default function FactFrenzy() {
   const itemsPerPage = 10;
   const [copied, setCopied] = useState<number | null>(null);
 
+  const [currentFilter, setCurrentFilter] = useState("All");
+
+  const onFavoriteClick = () => {
+    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
+  };
+
+  const genres = ["All", "Science", "Nature", "History", "Space", "Animals", "Technology", "Culture"];
+
   // Navigate to the next page in pagination
   const PaginationPage = () => {
-    const factsLength = facts ? facts.length : 0;
+    let filteredFacts = factsRef.current;
+    if (currentFilter === "Favorites") {
+      filteredFacts = factsRef.current.filter(fact => favorite.has(fact.id));
+    } else if (currentFilter !== "All") {
+      filteredFacts = factsRef.current.filter(fact => fact.category === currentFilter);
+    }
+
+    const factsLength = filteredFacts.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const currentItems = factsRef.current.slice(start, end);
+    const currentItems = filteredFacts.slice(start, end);
     console.log(currentItems);
     setDisplayedFacts(currentItems);
     if (end > factsLength) {
@@ -93,7 +109,7 @@ export default function FactFrenzy() {
     if (currentPage !== 1) {
       localStorage.setItem(FACTS_CURRENTPAGE, JSON.stringify(currentPage));
     }
-  }, [currentPage]);
+  }, [currentPage, currentFilter]);
 
 
 
@@ -146,6 +162,13 @@ export default function FactFrenzy() {
       <div className="relative mt-18 z-10 max-w-7xl mx-auto">
         <Navbar currentPage="Amazing Facts" />
         <header className="text-center mb-6"></header>
+
+        <FilterBar
+          currentFilter={currentFilter}
+          setFilter={setCurrentFilter}
+          onFavoriteClick={onFavoriteClick}
+          genres={genres}
+        />
 
         {/* Loading */}
         {loading ||

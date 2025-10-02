@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
 import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
+import FilterBar from "@/components/app/FilterBar";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -28,12 +29,27 @@ const TongueTwisters = () => {
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
 
+  const [currentFilter, setCurrentFilter] = useState("All");
+
+  const onFavoriteClick = () => {
+    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
+  };
+
+  const genres = ["All", "Easy", "Medium", "Hard"];
+
   // Navigate to the next page in pagination
   const PaginationPage = () => {
-    const twistersLength = twistersRef.current.length;
+    let filteredTwisters = twistersRef.current;
+    if (currentFilter === "Favorites") {
+      filteredTwisters = twistersRef.current.filter(twister => favorite.has(twister.id));
+    } else if (currentFilter !== "All") {
+      filteredTwisters = twistersRef.current.filter(twister => twister.difficulty === currentFilter);
+    }
+
+    const twistersLength = filteredTwisters.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const currentItems = twistersRef.current.slice(start, end);
+    const currentItems = filteredTwisters.slice(start, end);
     setDisplayedTwisters(currentItems);
     if (end > twistersLength) {
       setCurrentPage(1);
@@ -109,7 +125,7 @@ const TongueTwisters = () => {
         JSON.stringify(currentPage)
       );
     }
-  }, [currentPage]);
+  }, [currentPage, currentFilter]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -129,6 +145,13 @@ const TongueTwisters = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
       <div className="relative z-10 max-w-7xl mx-auto mt-18 ">
         <Navbar currentPage="Tongue Twisters" />
+
+        <FilterBar
+          currentFilter={currentFilter}
+          setFilter={setCurrentFilter}
+          onFavoriteClick={onFavoriteClick}
+          genres={genres}
+        />
 
         {/* Top Paginate */}
         {displayedTwisters.length !== 0 && (

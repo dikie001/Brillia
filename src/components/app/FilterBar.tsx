@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Filter, Heart } from "lucide-react";
 
-const genres = [
+const defaultGenres = [
   "All",
   "Mystery",
   "Fantasy",
@@ -15,13 +15,14 @@ interface FilterBarProps {
   currentFilter: string;
   setFilter: (filter: string) => void;
   onFavoriteClick: () => void;
-  setCurrentFilter: (currentFilter: string) => void;
+  genres?: string[];
 }
 
 export default function FilterBar({
   currentFilter,
   setFilter,
   onFavoriteClick,
+  genres = defaultGenres,
 }: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
 

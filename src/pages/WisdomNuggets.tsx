@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import FilterBar from "@/components/app/FilterBar";
 
 const categoryColors = {
   Motivation:
@@ -46,12 +47,27 @@ export default function WisdomNuggets() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const [currentFilter, setCurrentFilter] = useState("All");
+
+  const onFavoriteClick = () => {
+    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
+  };
+
+  const genres = ["All", "Motivation", "Love", "Success", "Wisdom", "Perseverance", "Happiness", "Courage", "Innovation", "Discipline", "Leadership", "Growth", "Action"];
+
   const updateDisplayedQuotes = () => {
+    let filteredQuotes = quotes;
+    if (currentFilter === "Favorites") {
+      filteredQuotes = quotes.filter(quote => favorite.has(quote.id));
+    } else if (currentFilter !== "All") {
+      filteredQuotes = quotes.filter(quote => quote.category === currentFilter);
+    }
+
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    setDisplayedQuotes(quotes.slice(start, end));
+    setDisplayedQuotes(filteredQuotes.slice(start, end));
 
-    if (end > quotes.length) {
+    if (end > filteredQuotes.length) {
       toast.info("Ran out of facts, restarting from the top");
       setCurrentPage(1);
       localStorage.removeItem(WISDOM_CURRENTPAGE);
@@ -63,7 +79,7 @@ export default function WisdomNuggets() {
     if (currentPage !== 1) {
       localStorage.setItem(WISDOM_CURRENTPAGE, JSON.stringify(currentPage));
     }
-  }, [currentPage]);
+  }, [currentPage, currentFilter]);
 
   useEffect(() => {
     const lastPage = localStorage.getItem(WISDOM_CURRENTPAGE);
@@ -115,6 +131,13 @@ export default function WisdomNuggets() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-6">
       <Navbar currentPage="Wisdom Nuggets" />
+
+      <FilterBar
+        currentFilter={currentFilter}
+        setFilter={setCurrentFilter}
+        onFavoriteClick={onFavoriteClick}
+        genres={genres}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto mt-18">
         {/* Featured Quote */}
@@ -172,7 +195,7 @@ export default function WisdomNuggets() {
                 <div className="flex items-start justify-between mb-4">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      categoryColors[quote.category]
+                      categoryColors[quote.category as keyof typeof categoryColors]
                     }`}
                   >
                     {quote.category}

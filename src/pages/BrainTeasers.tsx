@@ -15,6 +15,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
+import FilterBar from "@/components/app/FilterBar";
 
 export type Teaser = {
   id: number;
@@ -38,6 +39,14 @@ export default function BrainTeasersPage() {
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
 
+  const [currentFilter, setCurrentFilter] = useState("All");
+
+  const onFavoriteClick = () => {
+    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
+  };
+
+  const genres = ["All", "Logic", "Riddle", "Math", "Lateral"];
+
   useEffect(() => {
     PaginationPage();
     if (currentPage !== 1) {
@@ -46,7 +55,7 @@ export default function BrainTeasersPage() {
         JSON.stringify(currentPage)
       );
     }
-  }, [currentPage]);
+  }, [currentPage, currentFilter]);
 
   useEffect(() => {
     FetchInfo();
@@ -54,12 +63,19 @@ export default function BrainTeasersPage() {
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
-    const teasersLength = brainTeasers ? brainTeasers.length : 0;
+    let filteredTeasers = teasersRef.current;
+    if (currentFilter === "Favorites") {
+      filteredTeasers = teasersRef.current.filter(teaser => favorite.has(teaser.id));
+    } else if (currentFilter !== "All") {
+      filteredTeasers = teasersRef.current.filter(teaser => teaser.category === currentFilter);
+    }
+
+    const teasersLength = filteredTeasers.length;
     teasersLength === 0 && setOpenContactAdmin(true);
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const currentItems = teasersRef.current.slice(start, end);
-    console.log(end, brainTeasers.length);
+    const currentItems = filteredTeasers.slice(start, end);
+    console.log(end, teasersLength);
 
     setTeasers(currentItems);
     if (end > teasersLength) {
@@ -143,9 +159,16 @@ export default function BrainTeasersPage() {
           setOpenContactAdmin={setOpenContactAdmin}
         />
       )}
-      <div className="relative z-10 max-w-7xl mx-auto pt-16">
+      <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Header */}
         <header className="text-center mb-6 mt-4"></header>
+
+        <FilterBar
+          currentFilter={currentFilter}
+          setFilter={setCurrentFilter}
+          onFavoriteClick={onFavoriteClick}
+          genres={genres}
+        />
 
         {/* Top Paginate */}
         {teasers.length !== 0 && (
