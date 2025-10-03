@@ -166,7 +166,7 @@ const Settings: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="w-5 h-5" />
-                User Profile
+                My Profile
               </CardTitle>
             </CardHeader>
             <CardContent>
