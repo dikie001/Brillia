@@ -261,8 +261,6 @@ export default function MiniStories() {
 
                 <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {story.title}
-                </div>
-
                 </h2>
 
                 <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
@@ -333,7 +331,6 @@ export default function MiniStories() {
             );
           })}
         </div>
-                  {story.id}
         {filter === "All" && (
           <Paginate
             currentPage={currentPage}
@@ -415,16 +412,7 @@ export default function MiniStories() {
           );
         })()}
 
-      {filter === "Favorites" && stories.length === 0 && (
-        <div className="flex shadow-lg flex-col items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">
-          <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
-            No favorites yet
-          </p>
-          <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">
-            Mark stories as favorites to see them here.
-          </p>
-        </div>
-      )}
+      {filter === "Favorites" && stories.length === 0 && <NoFavorites />}
 
       {/* {filter !== "Favorites" && stories.length === 0 && (
         <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">

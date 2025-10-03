@@ -56,7 +56,7 @@ export default function BrainTeasersPage() {
     PaginationPage();
     if (currentPage !== 1) {
       localStorage.setItem(
-        "brain-teaser-currentPage",
+        TEASERS_CURRENTPAGE,
         JSON.stringify(currentPage)
       );
     }

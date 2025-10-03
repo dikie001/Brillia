@@ -33,9 +33,6 @@ export default function FilterBar({
 
   const handleFavoriteClick = () => {
     onFavoriteClick();
-    currentFilter === "Favorites" ? setFilter("All") :
-    setFilter("Favorites");
-    
   };
 
   const getFilterButtonText = () => {
