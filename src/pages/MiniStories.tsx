@@ -2,6 +2,7 @@
 import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
@@ -260,6 +261,8 @@ export default function MiniStories() {
 
                 <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                   {story.title}
+                </div>
+
                 </h2>
 
                 <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
@@ -330,6 +333,7 @@ export default function MiniStories() {
             );
           })}
         </div>
+                  {story.id}
         {filter === "All" && (
           <Paginate
             currentPage={currentPage}

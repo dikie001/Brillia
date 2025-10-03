@@ -1,5 +1,6 @@
 import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
+import NoFavorites from "@/components/app/NoFavorites";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import brainTeasers from "@/jsons/brainTeaser";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -186,6 +187,9 @@ export default function BrainTeasersPage() {
               <p className="font-medium">Loading teasers...</p>
             </div>
           ))}
+
+        {/* No favorites */}
+        {currentFilter === "Favorites" && teasers.length === 0 && <NoFavorites />}
 
         {/* Grid of teasers */}
         <div className="grid gap-4 mb-6  sm:grid-cols-2 lg:grid-cols-3">
