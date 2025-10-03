@@ -1,22 +1,22 @@
+import FilterBar from "@/components/app/FilterBar";
+import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { WISDOM_CURRENTPAGE } from "@/constants";
 import { quotes } from "@/jsons/coolQuotes";
 import type { Quote } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
-  Bookmark,
   CheckCircle,
   Copy,
   Heart,
   QuoteIcon,
   Share2,
   Star,
-  X,
+  X
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import FilterBar from "@/components/app/FilterBar";
 
 const categoryColors = {
   Motivation:
@@ -203,7 +203,7 @@ export default function WisdomNuggets() {
         )}
 
         {/* Quotes Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedQuotes.map((quote, index) => {
             const isFavorite = favorite.has(quote.id);
             const isCopied = copied === quote.id;
@@ -317,24 +317,7 @@ export default function WisdomNuggets() {
           />
         )}
 
-        {/* Quote of the Day Section */}
-        <div className="mt-20 text-center">
-          <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-indigo-600 to-indigo-700 bg-clip-text text-transparent">
-            Daily Inspiration
-          </h2>
-          <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Start each day with a dose of wisdom. New quotes refresh
-              automatically.
-            </p>
-            <div className="flex justify-center gap-4">
-              <button className="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300">
-                <Bookmark className="w-4 h-4 inline mr-2" />
-                Save Today's Quote
-              </button>
-            </div>
-          </div>
-        </div>
+  <Footer/>
       </div>
     </div>
   );
