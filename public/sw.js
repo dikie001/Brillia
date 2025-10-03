@@ -1,4 +1,4 @@
-const CACHE_NAME = 'brillia-v1';
+const CACHE_NAME = 'brillia-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -47,25 +47,34 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
+  if (event.request.mode === 'navigate') {
+    // Network first for navigation requests (HTML)
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match('/');
+      })
+    );
+  } else {
+    // Cache first for assets
+    event.respondWith(
+      caches.match(event.request).then(response => {
         if (response) {
           return response;
         }
-        return fetch(event.request).then(response => {
-          // Don't cache if not a success
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
+        return fetch(event.request).then(res => {
+          // Don't cache if not a success or not basic type
+          if (!res || res.status !== 200 || res.type !== 'basic') {
+            return res;
           }
           // Clone the response
-          const responseToCache = response.clone();
+          const resClone = res.clone();
           caches.open(CACHE_NAME)
             .then(cache => {
-              cache.put(event.request, responseToCache);
+              cache.put(event.request, resClone);
             });
-          return response;
+          return res;
         });
       })
-  );
+    );
+  }
 });

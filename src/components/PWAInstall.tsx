@@ -1,4 +1,4 @@
-import { Download, X, Smartphone } from "lucide-react";
+import { Smartphone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function PWAInstall() {
@@ -122,32 +122,7 @@ export default function PWAInstall() {
         </div>
       )}
 
-      {/* Floating Install Button */}
-      {!showBanner && (
-        <div className="fixed bottom-6 right-6 z-50">
-          <button
-            onClick={handleInstallClick}
-            disabled={isInstalling}
-            className="group relative flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-indigo-500/25 dark:shadow-indigo-900/30 font-medium transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            aria-label="Install application"
-          >
-            {isInstalling ? (
-              <>
-                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                <span className="hidden sm:inline">Installing...</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
-                <span className="hidden sm:inline">Install App</span>
-              </>
-            )}
-
-            {/* Pulse effect on hover */}
-            <span className="absolute inset-0 rounded-full bg-indigo-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-          </button>
-        </div>
-      )}
+  
 
       <style>{`
         @keyframes slideDown {
