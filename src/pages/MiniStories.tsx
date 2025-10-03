@@ -53,6 +53,7 @@ export default function MiniStories() {
 
   useEffect(() => {
     FetchData();
+    setCurrentFilter("All")
   }, []);
 
   // Handle pagination

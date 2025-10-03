@@ -26,6 +26,12 @@ export type Teaser = {
 
 const FAVOURITE_TEASERS = "favourite-teasers";
 
+const categoryColors = {
+  Logic: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+  Riddle: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  Math: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+  Lateral: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+};
 
 export default function BrainTeasersPage() {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
@@ -43,7 +49,7 @@ export default function BrainTeasersPage() {
     setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
   };
 
-  const genres = ["All", "Logic", "Riddle", "Math", "Lateral"];
+  const genres = ["All", ...new Set(brainTeasers.map((t) => t.category))];
 
   useEffect(() => {
     PaginationPage();
@@ -195,7 +201,13 @@ export default function BrainTeasersPage() {
                   {/* Header */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-bold ${
+                          categoryColors[
+                            teaser.category as keyof typeof categoryColors
+                          ]
+                        }`}
+                      >
                         {teaser.category}
                       </span>
                     </div>
