@@ -11,6 +11,7 @@ import {
   QuoteIcon,
   Share2,
   Star,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -46,6 +47,7 @@ export default function WisdomNuggets() {
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [showFeaturedQuote, setShowFeaturedQuote] = useState(true);
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
@@ -53,14 +55,30 @@ export default function WisdomNuggets() {
     setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
   };
 
-  const genres = ["All", "Motivation", "Love", "Success", "Wisdom", "Perseverance", "Happiness", "Courage", "Innovation", "Discipline", "Leadership", "Growth", "Action"];
+  const genres = [
+    "All",
+    "Motivation",
+    "Love",
+    "Success",
+    "Wisdom",
+    "Perseverance",
+    "Happiness",
+    "Courage",
+    "Innovation",
+    "Discipline",
+    "Leadership",
+    "Growth",
+    "Action",
+  ];
 
   const updateDisplayedQuotes = () => {
     let filteredQuotes = quotes;
     if (currentFilter === "Favorites") {
-      filteredQuotes = quotes.filter(quote => favorite.has(quote.id));
+      filteredQuotes = quotes.filter((quote) => favorite.has(quote.id));
     } else if (currentFilter !== "All") {
-      filteredQuotes = quotes.filter(quote => quote.category === currentFilter);
+      filteredQuotes = quotes.filter(
+        (quote) => quote.category === currentFilter
+      );
     }
 
     const start = (currentPage - 1) * itemsPerPage;
@@ -134,11 +152,11 @@ export default function WisdomNuggets() {
 
       <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Featured Quote */}
-        <div className="mb-6">
+        {showFeaturedQuote && <div className="mb-6">
           <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-3xl shadow-2xl text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative z-10">
-              <QuoteIcon className="w-12 h-12 mb-4 opacity-80" />
+              <QuoteIcon className="w-10 h-10 mb-4 opacity-80" />
               <blockquote className="md:text-2xl lg:text-3xl md:font-bold leading-relaxed mb-1 md:mb-2">
                 "{featuredQuote.content}"
               </blockquote>
@@ -159,9 +177,15 @@ export default function WisdomNuggets() {
                   ))}
                 </div>
               </div>
+              <X
+                className="absolute -top-1 -right-1 cursor-pointer"
+                size={20}
+                onClick={() => setShowFeaturedQuote(false)}
+              />
             </div>
           </div>
-        </div>
+        </div>}
+
         <FilterBar
           currentFilter={currentFilter}
           setFilter={setCurrentFilter}
@@ -211,7 +235,7 @@ export default function WisdomNuggets() {
 
                 {/* Quote Content */}
                 <div className="mb-2">
-                  <QuoteIcon className="w-8 h-8 text-indigo-300 mb-2" />
+                  <QuoteIcon className="w-6 h-6 text-indigo-300 mb-2" />
                   <blockquote className="text-lg font-medium leading-relaxed text-gray-800 dark:text-gray-200 mb-2">
                     "{quote.content}"
                   </blockquote>
