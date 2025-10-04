@@ -1,14 +1,22 @@
+import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import NoFavorites from "@/components/app/NoFavorites";
+import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
 import { twisters } from "@/jsons/tongueTwisters";
 import type { Twister } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
-import { CheckCircle, Copy, Heart, LoaderCircle, Mic, Share2, X } from "lucide-react";
+import {
+  CheckCircle,
+  Copy,
+  Heart,
+  LoaderCircle,
+  Share2,
+  X
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
-import FilterBar from "@/components/app/FilterBar";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -31,19 +39,19 @@ const TongueTwisters = () => {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const onFavoriteClick = () => {
-    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
-  };
-
-  const genres = ["All", "Easy", "Medium", "Hard"];
+  const genres = ["All", "Favorites", "Easy", "Medium", "Hard"];
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
     let filteredTwisters = twistersRef.current;
     if (currentFilter === "Favorites") {
-      filteredTwisters = twistersRef.current.filter(twister => favorite.has(twister.id));
+      filteredTwisters = twistersRef.current.filter((twister) =>
+        favorite.has(twister.id)
+      );
     } else if (currentFilter !== "All") {
-      filteredTwisters = twistersRef.current.filter(twister => twister.difficulty === currentFilter);
+      filteredTwisters = twistersRef.current.filter(
+        (twister) => twister.difficulty === currentFilter
+      );
     }
 
     const twistersLength = filteredTwisters.length;
@@ -53,6 +61,7 @@ const TongueTwisters = () => {
     setDisplayedTwisters(currentItems);
     if (end > twistersLength) {
       setCurrentPage(1);
+      
       localStorage.removeItem(TONGUETWISTERS_CURRENTPAGE);
     }
   };
@@ -148,8 +157,7 @@ const TongueTwisters = () => {
 
         <FilterBar
           currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-          onFavoriteClick={onFavoriteClick}
+          setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
 
@@ -163,13 +171,14 @@ const TongueTwisters = () => {
         )}
 
         {/* Loading */}
-        {loading ||
-          (displayedTwisters.length === 0 && (
-            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium">Loading twisters...</p>
-            </div>
-          ))}
+        {loading && (
+          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+            <p className="font-medium">Loading twisters...</p>
+          </div>
+        )}
+
+        {currentFilter === "Favorites" && displayedTwisters.length === 0 && <NoFavorites />}
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedTwisters.map((twister, index) => (
@@ -187,24 +196,6 @@ const TongueTwisters = () => {
                 >
                   {twister.difficulty}
                 </span>
-                {/* <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorites(twister.id);
-                  }}
-                  className={`p-2 rounded-full transition-all duration-300 ${
-                    favorite.has(twister.id)
-                      ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                      : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                  }`}
-                  title={
-                    favorite.has(twister.id) ? "Remove from favorites" : "Add to favorites"
-                  }
-                >
-                  <Heart
-                    className={`w-5 h-5 ${favorite.has(twister.id) ? "fill-current" : ""}`}
-                  />
-                </button> */}
               </div>
               {/* Twister id numbers */}
               <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
@@ -263,11 +254,15 @@ const TongueTwisters = () => {
                       : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                   }`}
                   title={
-                    favorite.has(twister.id) ? "Remove from favorites" : "Add to favorites"
+                    favorite.has(twister.id)
+                      ? "Remove from favorites"
+                      : "Add to favorites"
                   }
                 >
                   <Heart
-                    className={`w-5 h-5 ${favorite.has(twister.id) ? "fill-current" : ""}`}
+                    className={`w-5 h-5 ${
+                      favorite.has(twister.id) ? "fill-current" : ""
+                    }`}
                   />
                 </button>
               </div>
@@ -284,7 +279,7 @@ const TongueTwisters = () => {
           />
         )}
 
-        <div className="mt-6 text-center">
+        {/* <div className="mt-6 text-center">
           <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Why Practice Tongue Twisters?
           </h2>
@@ -311,10 +306,10 @@ const TongueTwisters = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <Footer />
-      <Toaster richColors position="top-center" />
+      {/* <Toaster richColors position="top-center" /> */}
 
       {selectedTwisterData && (
         <div
@@ -355,7 +350,7 @@ const TongueTwisters = () => {
             </div>
 
             <div className="px-8 py-6 flex justify-between border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 rounded-b-3xl">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm max-sm:hidden text-gray-500 dark:text-gray-400">
                 Press ESC to close
               </span>
               <div className="flex flex-wrap gap-2">
