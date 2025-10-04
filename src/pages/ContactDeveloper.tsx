@@ -103,7 +103,7 @@ const ContactDeveloper = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <input
                   type="email"
@@ -112,7 +112,7 @@ const ContactDeveloper = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <textarea
                   name="message"
@@ -121,7 +121,7 @@ const ContactDeveloper = () => {
                   onChange={handleInputChange}
                   required
                   rows={4}
-                  className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
                 />
                 <button
                   type="submit"
