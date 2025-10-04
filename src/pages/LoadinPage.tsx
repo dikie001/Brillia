@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader2 } from "lucide-react"; 
+import { Loader2 } from "lucide-react";
 import { useTheme } from "@/hooks/useHook";
 
 const LoadingPage: React.FC = () => {

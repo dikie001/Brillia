@@ -1,9 +1,11 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import type { LearnerInfo } from "@/modals/Welcome";
 import { useForm } from "@formspree/react";
 import { LoaderCircle, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const ContactDeveloper = () => {
@@ -14,6 +16,9 @@ const ContactDeveloper = () => {
   });
   const [loading, setLoading] = useState(false);
   const [state, handleSubmit] = useForm("mgvvgozj");
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const [user, setUser] = useState<LearnerInfo>();
 
   useEffect(() => {
     if (state.succeeded) {
@@ -21,7 +26,8 @@ const ContactDeveloper = () => {
       setFormData({ name: "", email: "", message: "" });
       return setLoading(false);
     } else if (state.errors) {
-      toast.error("Ran into an error, Try again");
+      toast.error("Make sure you have internet connection");
+      setLoading(false);
     }
   }, [state.succeeded, state.errors]);
 
@@ -32,16 +38,22 @@ const ContactDeveloper = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Get all the user data from storage
+  useEffect(() => {
+    const info = localStorage.getItem("user-info");
+    const userInfo = info && JSON.parse(info);
+    setUser(userInfo);
+  }, []);
   return (
     <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex flex-col transition-colors duration-500">
       <Navbar currentPage="Contact Developer" />
-      <div className="flex-1 mt-20 flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden">
+      <div className="flex-1 mt-20  flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden">
         <div className="relative z-10 max-w-3xl w-full text-center">
           <p className="text-lg mb-8 text-gray-600 dark:text-gray-400">
             Get in touch with the developer through various channels.
           </p>
 
-          <div className="grid grid-cols-2  gap-4 mb-8">
+          <div className="grid grid-cols-2  gap-4 mb-4">
             {/* Facebook */}
             <a
               href="https://www.facebook.com/profile.php?id=100086299638167"
@@ -70,13 +82,19 @@ const ContactDeveloper = () => {
               </p>
             </a>
           </div>
-
+          <div className="flex fex-row justify-center items-center mb-2">
+            <hr className="text-white w-full" />
+            <h1 className="text-center mb-4 text-gray-400 px-4 mt-4">OR</h1>
+            <hr className="text-white w-full" />
+          </div>
           <div className="">
             {/* Form */}
-            <div className="flex flex-col p-6 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700/50">
+            <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700  rounded-t-3xl p-6 text-white">
               <h3 className="text-xl font-semibold mb-4">
                 Send a Direct Message
               </h3>
+            </div>
+            <div className="flex flex-col p-6 bg-white/80 dark:bg-gray-800/50 rounded-b-3xl shadow-xl border border-gray-200 dark:border-gray-700/50">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   type="text"
@@ -107,8 +125,37 @@ const ContactDeveloper = () => {
                 />
                 <button
                   type="submit"
-                  onClick={() => setLoading(true)}
-                  className="w-full cursor-pointer flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  onClick={() => {
+                    setLoading(true);
+                    if (
+                      formData.name === "" ||
+                      formData.email === "" ||
+                      formData.message === ""
+                    ) {
+                      toast.error("Fill all the inputs please");
+                      setLoading(false);
+                      setCount((prev) => prev + 1);
+                      if (count >= 2) {
+                        toast.info(
+                          `Just take your time and fill all the inputs ${
+                            user?.name.split(" ")[0]
+                          }`
+                        );
+                        if (count >= 4) {
+                          toast.warning(
+                            "You will be redirected to the home page"
+                          );
+                        }
+                        if (count >= 6) {
+                          toast.success("Redirected to home page");
+                          setTimeout(() => {
+                            navigate("/");
+                          }, 500);
+                        }
+                      }
+                    }
+                  }}
+                  className="w-full cursor-pointer flex items-center justify-center gap-2 p-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <LoaderCircle className="animate-spin w-5 h-5" />
