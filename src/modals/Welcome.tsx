@@ -203,7 +203,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
             </div>
           ) : (
             // Success State
-            <div className="text-center py-8">
+            <div className="text-center p-6">
               <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sparkles size={32} className="text-white" />
               </div>

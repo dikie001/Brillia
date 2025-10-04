@@ -122,11 +122,7 @@ export default function WisdomNuggets() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const onFavoriteClick = () => {
-    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
-  };
-
-  const genres = ["All", ...new Set(quotes.map((q) => q.category))];
+  const genres = ["All","Favorites", ...new Set(quotes.map((q) => q.category))];
 
   const updateDisplayedQuotes = () => {
     let filteredQuotes = quotes;
@@ -247,13 +243,13 @@ export default function WisdomNuggets() {
 
         <FilterBar
           currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-          onFavoriteClick={onFavoriteClick}
+          setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
 
         {/* Top Paginate */}
-        {displayedQuotes.length !== 0 && (
+
+        {displayedQuotes.length !== 0 && displayedQuotes.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={quotes.length}
@@ -357,11 +353,15 @@ export default function WisdomNuggets() {
                           : "text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                       }`}
                       title={
-                        isFavorite ? "Remove from favorites" : "Add to favorites"
+                        isFavorite
+                          ? "Remove from favorites"
+                          : "Add to favorites"
                       }
                     >
                       <Heart
-                        className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`}
+                        className={`w-5 h-5 ${
+                          isFavorite ? "fill-current" : ""
+                        }`}
                       />
                     </button>
                   </div>
@@ -372,7 +372,7 @@ export default function WisdomNuggets() {
         )}
 
         {/* Bottom Paginate */}
-        {displayedQuotes.length !== 0 && (
+        {displayedQuotes.length !== 0 && displayedQuotes.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={quotes.length}
