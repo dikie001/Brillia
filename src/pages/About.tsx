@@ -18,10 +18,10 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
-      <Navbar currentPage="About Brillia" />
+      <Navbar currentPage="About " />
 
       <div className="pt-20 px-4 pb-8">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-6">
           {/* Header */}
           <div className="text-center space-y-4">
             <div className="flex justify-center">
@@ -32,7 +32,7 @@ const About = () => {
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
               About Brillia
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className=" text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Your daily companion for inspiration, learning, and fun. Discover
               amazing facts, challenge your mind, and grow every day.
             </p>
@@ -98,7 +98,7 @@ const About = () => {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold">dikie.dev</h3>
+                  <a href="dikie.vercel.app" className="text-xl text-indigo-500 underline font-semibold">Dickens Omondi</a>
                   <p className="text-gray-600 dark:text-gray-300">
                     Passionate developer creating inspiring web experiences
                   </p>
@@ -127,7 +127,7 @@ const About = () => {
                 <Badge variant="outline">Tailwind CSS</Badge>
                 <Badge variant="outline">Vite</Badge>
                 <Badge variant="outline">PWA</Badge>
-                <Badge variant="outline">Progressive Web App</Badge>
+                <Badge variant="outline">ShadCN</Badge>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
                 Brillia is built as a Progressive Web App, meaning it can be

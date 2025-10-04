@@ -1,11 +1,12 @@
 import FilterBar from "@/components/app/FilterBar";
+import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import NoFavorites from "@/components/app/NoFavorites";
 import { FACTS_CURRENTPAGE } from "@/constants";
 import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
-  Brain,
   CheckCircle,
   Copy,
   Heart,
@@ -13,13 +14,11 @@ import {
   Share2,
   Star,
   TrendingUp,
-  X,
+  X
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import Footer from "@/components/app/Footer";
-import NoFavorites from "@/components/app/NoFavorites";
 
 const categoryColors = {
   Science:

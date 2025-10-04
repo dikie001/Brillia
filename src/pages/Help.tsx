@@ -167,7 +167,7 @@ const Help = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Can't find what you're looking for? We're here to help!
+                Can't find what you're looking for? I'm here to help!
               </p>
               <button
                 onClick={() => window.location.href = '/contact-developer'}
