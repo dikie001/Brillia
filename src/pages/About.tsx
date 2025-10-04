@@ -1,4 +1,5 @@
 import Navbar from "@/components/app/Navbar";
+import Footer from "@/components/app/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Info, Sparkles, User, Globe } from "lucide-react";
@@ -16,7 +17,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
       <Navbar currentPage="About" />
 
       <div className="pt-20 px-4 pb-8">
@@ -24,11 +25,11 @@ const About = () => {
           {/* Header */}
           <div className="text-center space-y-4">
             <div className="flex justify-center">
-              <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full">
-                <Info className="w-12 h-12 text-white" />
+              <div className="p-4 rounded-full bg-indigo-100 dark:bg-gray-800">
+                <Info className="w-12 h-12 text-indigo-600 dark:text-indigo-400" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">
               About Brillia
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -37,7 +38,7 @@ const About = () => {
           </div>
 
           {/* App Details */}
-          <Card className="shadow-lg">
+          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-indigo-500" />
@@ -70,7 +71,7 @@ const About = () => {
           </Card>
 
           {/* Developer Info */}
-          <Card className="shadow-lg">
+          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="w-5 h-5 text-indigo-500" />
@@ -79,8 +80,8 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">D</span>
+                <div className="w-16 h-16 bg-indigo-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                  <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xl">D</span>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">dikie.dev</h3>
@@ -95,7 +96,7 @@ const About = () => {
           </Card>
 
           {/* Version & Tech */}
-          <Card className="shadow-lg">
+          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Globe className="w-5 h-5 text-indigo-500" />
@@ -119,6 +120,7 @@ const About = () => {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
