@@ -88,7 +88,7 @@ const Help = () => {
           </div>
 
           {/* Quick Help Cards */}
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center">
                 <Download className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
