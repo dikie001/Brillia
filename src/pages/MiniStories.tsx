@@ -42,7 +42,6 @@ const FAVOURITE_STORIES = "favourite-stories";
 export default function MiniStories() {
   const [stories, setStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
-  const [filter, setFilter] = useState<string>("All");
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [read, setRead] = useState<Set<number>>(new Set());
@@ -123,11 +122,12 @@ export default function MiniStories() {
     ? stories.find((s) => s.id === selectedStory)
     : null;
 
+    // FIlter categories
   useEffect(() => {
-    if (filter === "Favorites") return;
-    if (filter === "All") return setStories(AllStories);
-    setStories(AllStories.filter((story) => story.genre === filter));
-  }, [filter]);
+    if(currentFilter === "Favorites") return filterFavorites()
+    if (currentFilter === "All") return setStories(AllStories);
+    setStories(AllStories.filter((story) => story.genre === currentFilter));
+  }, [currentFilter]);
 
   const filterFavorites = () => {
     const favs = [...favorite].map((f) =>
@@ -143,7 +143,7 @@ export default function MiniStories() {
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
         toast.success("Story removed from favorites");
-        if (filter === "Favorites") {
+        if (currentFilter === "Favorites") {
           filterFavorites();
         }
       } else {
@@ -207,13 +207,12 @@ export default function MiniStories() {
 
         <div className="flex items-center justify-between px-2">
           <FilterBar
-            setFilter={setFilter}
+            setCurrentFilter={setCurrentFilter}
             currentFilter={currentFilter}
-            // setCurrentFilter={setCurrentFilter}
-            onFavoriteClick={filterFavorites}
+    
           />
         </div>
-        {filter === "All" && stories.length !== 0 && (
+        {currentFilter === "All" && stories.length !== 0 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -331,14 +330,13 @@ export default function MiniStories() {
             );
           })}
         </div>
-        {filter === "All" && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
             totalItems={AllStories.length}
           />
-        )}
+        
       </div>
 
       {selectedStoryData &&
@@ -412,7 +410,7 @@ export default function MiniStories() {
           );
         })()}
 
-      {filter === "Favorites" && stories.length === 0 && <NoFavorites />}
+      {currentFilter === "Favorites" && stories.length === 0 && <NoFavorites />}
 
       {/* {filter !== "Favorites" && stories.length === 0 && (
         <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">

@@ -1,9 +1,9 @@
+import { Filter } from "lucide-react";
 import { useState } from "react";
-import { Filter, Heart } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 const defaultGenres = [
   "All",
+  "Favorites",
   "Mystery",
   "Fantasy",
   "Drama",
@@ -14,32 +14,26 @@ const defaultGenres = [
 
 interface FilterBarProps {
   currentFilter: string;
-  setFilter: (filter: string) => void;
-  onFavoriteClick: () => void;
+  setCurrentFilter: (filter: string) => void;
   genres?: string[];
 }
 
 
 export default function FilterBar({
   currentFilter,
-  setFilter,
-  onFavoriteClick,
+  setCurrentFilter,
   genres = defaultGenres,
 }: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
-const location = useLocation()
   const handleGenreSelect = (genre: string) => {
-    setFilter(genre);
+    setCurrentFilter(genre);
     setIsOpen(false);
   };
 
-  const handleFavoriteClick = () => {
-    onFavoriteClick();
-  };
 
   const getFilterButtonText = () => {
-    if (currentFilter === "All") return "All stories";
-    if (currentFilter === "Favorites") return "Favorites";
+    // if (currentFilter === "All") return "All ";
+    // if (currentFilter === "Favorites") return "Favorites";
     return currentFilter;
   };
 
@@ -48,7 +42,7 @@ const location = useLocation()
       {/* Mobile Layout */}
       <div className="sm:hidden space-y-3 ">
         <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
-          Filter stories by category
+          Filter by category
         </p>
         <div className="flex gap-2">
           <button
@@ -59,13 +53,6 @@ const location = useLocation()
             <span className="truncate">{getFilterButtonText()}</span>
           </button>
 
-          <button
-            onClick={handleFavoriteClick}
-            className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm focus:ring-2 focus:ring-indigo-500"
-          >
-            <Heart className="w-4 h-4 text-indigo-500" />
-            <span className="hidden sm:inline">Favorites</span>
-          </button>
         </div>
       </div>
 
@@ -78,19 +65,12 @@ const location = useLocation()
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 px-4 py-2 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md"
+            className="flex items-center gap-2 px-6 py-2 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md"
           >
             <Filter className="w-4 h-4 text-indigo-500" />
             {getFilterButtonText()}
           </button>
 
-          <button
-            onClick={handleFavoriteClick}
-            className="flex items-center gap-2 px-4 py-2 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md focus:ring-2 focus:ring-indigo-500"
-          >
-            <Heart className="w-4 h-4 text-indigo-500" />
-            Favorites
-          </button>
         </div>
       </div>
 
@@ -100,7 +80,7 @@ const location = useLocation()
             onClick={() => setIsOpen(false)}
             className="fixed inset-0 bg-black/40 z-40"
           />
-          <div className="absolute grid grid-cols-4 top-12 sm:top-12 left-0 sm:left-auto right-0 sm:right-auto bg-white dark:bg-gray-800 shadow-xl rounded-3xl p-4 border border-gray-200 dark:border-gray-700 z-50 sm:min-w-48 mx-4 sm:mx-0">
+          <div className="absolute top-12 sm:top-12 left-0 sm:left-auto right-0 sm:right-auto bg-white dark:bg-gray-800 shadow-xl rounded-3xl p-4 border border-gray-200 dark:border-gray-700 z-50 sm:min-w-48 mx-4 sm:mx-0">
             {genres.map((genre) => (
               <button
                 key={genre}

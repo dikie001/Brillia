@@ -46,11 +46,7 @@ export default function BrainTeasersPage() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const onFavoriteClick = () => {
-    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
-  };
-
-  const genres = ["All", ...new Set(brainTeasers.map((t) => t.category))];
+  const genres = ["All", "Favorites", ...new Set(brainTeasers.map((t) => t.category))];
 
   useEffect(() => {
     PaginationPage();
@@ -95,7 +91,6 @@ export default function BrainTeasersPage() {
     teasersRef.current = brainTeasers;
 
     const lastPage = localStorage.getItem(TEASERS_CURRENTPAGE);
-    console.log(lastPage);
     if (lastPage) {
       const num = Number(lastPage);
       setCurrentPage(num);
@@ -110,7 +105,6 @@ export default function BrainTeasersPage() {
       ? new Set<number>(JSON.parse(storedFavorites))
       : new Set();
     setFavorite(favoriteTeasers);
-
     setLoading(false);
   };
 
@@ -171,8 +165,7 @@ export default function BrainTeasersPage() {
 
         <FilterBar
           currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-          onFavoriteClick={onFavoriteClick}
+          setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
 

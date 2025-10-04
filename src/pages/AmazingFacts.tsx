@@ -1,3 +1,4 @@
+import FilterBar from "@/components/app/FilterBar";
 import Navbar from "@/components/app/Navbar";
 import { FACTS_CURRENTPAGE } from "@/constants";
 import { facts } from "@/jsons/amazingFacts";
@@ -17,7 +18,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
-import FilterBar from "@/components/app/FilterBar";
 
 const categoryColors = {
   Science:
@@ -49,11 +49,7 @@ export default function FactFrenzy() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const onFavoriteClick = () => {
-    setCurrentFilter(currentFilter === "Favorites" ? "All" : "Favorites");
-  };
-
-  const genres = ["All", "Science", "Nature", "History", "Space", "Animals", "Technology", "Culture"];
+  const genres = ["All","Favorites", "Science", "Nature", "History", "Space", "Animals", "Technology", "Culture"];
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
@@ -216,8 +212,7 @@ export default function FactFrenzy() {
 
         <FilterBar
           currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-          onFavoriteClick={onFavoriteClick}
+          setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
         
