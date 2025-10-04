@@ -1,4 +1,5 @@
 import FilterBar from "@/components/app/FilterBar";
+import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import { TEASERS_CURRENTPAGE } from "@/constants";
@@ -14,7 +15,7 @@ import {
   Share2,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
 
 export type Teaser = {
@@ -170,7 +171,7 @@ export default function BrainTeasersPage() {
         />
 
         {/* Top Paginate */}
-        {teasers.length !== 0 && (
+        {teasers.length !== 0 && teasers.length === 10 && (
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
@@ -180,13 +181,12 @@ export default function BrainTeasersPage() {
         )}
 
         {/* Loading */}
-        {loading ||
-          (teasers.length === 0 && (
-            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium">Loading teasers...</p>
-            </div>
-          ))}
+        {loading && (
+          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+            <p className="font-medium">Loading teasers...</p>
+          </div>
+        )}
 
         {/* No favorites */}
         {currentFilter === "Favorites" && teasers.length === 0 && (
@@ -319,7 +319,7 @@ export default function BrainTeasersPage() {
         </div>
 
         {/* Bottom Paginate */}
-        {teasers.length !== 0 && (
+        {teasers.length !== 0 && teasers.length === 10 && (
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
@@ -327,17 +327,8 @@ export default function BrainTeasersPage() {
             setCurrentPage={setCurrentPage}
           />
         )}
-
-        {/* {teasers.length === 0 && (
-          <div className="text-center py-12">
-            <Brain className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
-            <p className="text-xl text-gray-500 dark:text-gray-400">
-              No teasers available.
-            </p>
-          </div>
-        )} */}
       </div>
-      <Toaster richColors position="top-center" />
+      <Footer />
     </div>
   );
 }

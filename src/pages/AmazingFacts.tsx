@@ -13,7 +13,7 @@ import {
   Share2,
   Star,
   TrendingUp,
-  X
+  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -32,8 +32,6 @@ const categoryColors = {
   Culture: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200", // human, vibrant
 };
 
-
-
 const FAVOURITE_FACTS = "favourite-facts";
 
 export default function FactFrenzy() {
@@ -49,15 +47,27 @@ export default function FactFrenzy() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const genres = ["All","Favorites", "Science", "Nature", "History", "Space", "Animals", "Technology", "Culture"];
+  const genres = [
+    "All",
+    "Favorites",
+    "Science",
+    "Nature",
+    "History",
+    "Space",
+    "Animals",
+    "Technology",
+    "Culture",
+  ];
 
   // Navigate to the next page in pagination
   const PaginationPage = () => {
     let filteredFacts = factsRef.current;
     if (currentFilter === "Favorites") {
-      filteredFacts = factsRef.current.filter(fact => favorite.has(fact.id));
+      filteredFacts = factsRef.current.filter((fact) => favorite.has(fact.id));
     } else if (currentFilter !== "All") {
-      filteredFacts = factsRef.current.filter(fact => fact.category === currentFilter);
+      filteredFacts = factsRef.current.filter(
+        (fact) => fact.category === currentFilter
+      );
     }
 
     const factsLength = filteredFacts.length;
@@ -90,7 +100,6 @@ export default function FactFrenzy() {
 
   useEffect(() => {
     FetchInfo();
-  
 
     // Load favorites from localStorage
     const storedFavorites = localStorage.getItem(FAVOURITE_FACTS);
@@ -106,8 +115,6 @@ export default function FactFrenzy() {
       localStorage.setItem(FACTS_CURRENTPAGE, JSON.stringify(currentPage));
     }
   }, [currentPage, currentFilter]);
-
-
 
   // Toggle favorites
   const toggleFavorites = (id: number) => {
@@ -139,10 +146,6 @@ export default function FactFrenzy() {
       return newFavorite;
     });
   };
-
-
-
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -215,9 +218,9 @@ export default function FactFrenzy() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
-        
+
         {/* Top Paginate */}
-        {displayedFacts.length !== 0 && (
+        {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={facts.length}
@@ -328,7 +331,7 @@ export default function FactFrenzy() {
         </div>
 
         {/* Bottom Paginate */}
-        {displayedFacts.length !== 0 && (
+        {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={facts.length}

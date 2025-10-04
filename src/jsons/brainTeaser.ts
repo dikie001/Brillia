@@ -1730,7 +1730,7 @@ const brainTeasers: Teaser[] = [
     category: "Lateral",
   },
   {
-    id: 1,
+    id: 201,
     question:
       "You have two ropes, each burning for exactly 60 minutes but unevenly. How can you measure exactly 45 minutes?",
     answer:
@@ -1739,7 +1739,7 @@ const brainTeasers: Teaser[] = [
     category: "Logic",
   },
   {
-    id: 2,
+    id: 202,
     question:
       "A man walks into a room with 3 switches and a closed door. Behind the door are 3 light bulbs. How can he determine which switch controls which bulb if he can only open the door once?",
     answer:
@@ -1748,7 +1748,7 @@ const brainTeasers: Teaser[] = [
     category: "Logic",
   },
   {
-    id: 3,
+    id: 203,
     question:
       "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
     answer:
@@ -1757,7 +1757,7 @@ const brainTeasers: Teaser[] = [
     category: "Riddle",
   },
   {
-    id: 4,
+    id: 204,
     question:
       "A farmer has 17 sheep and all but 9 die. How many are left alive?",
     answer: "9. The phrasing 'all but 9 die' means 9 are still alive.",
@@ -1765,7 +1765,7 @@ const brainTeasers: Teaser[] = [
     category: "Math",
   },
   {
-    id: 5,
+    id: 205,
     question:
       "You have a 3-liter jug and a 5-liter jug. How can you measure exactly 4 liters of water?",
     answer:
@@ -1774,7 +1774,7 @@ const brainTeasers: Teaser[] = [
     category: "Math",
   },
   {
-    id: 6,
+    id: 206,
     question:
       "A man pushes his car to a hotel and tells the owner he’s bankrupt. Why?",
     answer:
@@ -1783,14 +1783,14 @@ const brainTeasers: Teaser[] = [
     category: "Lateral",
   },
   {
-    id: 7,
+    id: 207,
     question: "Which weighs more, a pound of feathers or a pound of bricks?",
     answer: "They weigh the same: one pound each.",
     difficulty: "Easy",
     category: "Logic",
   },
   {
-    id: 8,
+    id: 208,
     question:
       "A man leaves home running. He turns left three times and returns home. Who is he?",
     answer:
@@ -1799,14 +1799,14 @@ const brainTeasers: Teaser[] = [
     category: "Lateral",
   },
   {
-    id: 9,
+    id: 209,
     question: "What has keys but can’t open locks?",
     answer: "A piano. It has keys but cannot open anything physically.",
     difficulty: "Easy",
     category: "Riddle",
   },
   {
-    id: 10,
+    id: 210,
     question:
       "I am an odd number. Take away a letter and I become even. What number am I?",
     answer: "Seven. Remove the 's' and it becomes 'even'.",
@@ -1814,7 +1814,7 @@ const brainTeasers: Teaser[] = [
     category: "Riddle",
   },
   {
-    id: 11,
+    id: 211,
     question:
       "You’re in a room with a single match, a kerosene lamp, a candle, and a fireplace. What do you light first?",
     answer: "The match. You need it to light anything else.",
@@ -1822,7 +1822,7 @@ const brainTeasers: Teaser[] = [
     category: "Logic",
   },
   {
-    id: 12,
+    id: 212,
     question:
       "If it takes 5 machines 5 minutes to make 5 gadgets, how long would 100 machines take to make 100 gadgets?",
     answer:
@@ -1831,7 +1831,7 @@ const brainTeasers: Teaser[] = [
     category: "Math",
   },
   {
-    id: 13,
+    id: 213,
     question:
       "A man was born in 1955 and died in 2005 at the age of 50. How is this possible?",
     answer:
@@ -1840,21 +1840,21 @@ const brainTeasers: Teaser[] = [
     category: "Lateral",
   },
   {
-    id: 14,
+    id: 214,
     question: "Forward I am heavy, backward I am not. What am I?",
     answer: "Ton. Forward it's 'ton' (heavy), backward 'not'.",
     difficulty: "Medium",
     category: "Riddle",
   },
   {
-    id: 15,
+    id: 215,
     question: "Divide 30 by 1/2 and add 10. What’s the answer?",
     answer: "70. 30 ÷ 1/2 = 60, then add 10 = 70.",
     difficulty: "Medium",
     category: "Math",
   },
   {
-    id: 16,
+    id: 216,
     question:
       "A plane crashes on the border of two countries. Where do they bury the survivors?",
     answer: "Nowhere. Survivors aren’t buried.",
@@ -1862,7 +1862,7 @@ const brainTeasers: Teaser[] = [
     category: "Logic",
   },
   {
-    id: 17,
+    id: 217,
     question:
       "A man wants to cross a river with a fox, a chicken, and grain. He can only carry one at a time. How does he do it?",
     answer:
@@ -1871,7 +1871,7 @@ const brainTeasers: Teaser[] = [
     category: "Logic",
   },
   {
-    id: 18,
+    id: 218,
     question:
       "You see a house with all four sides facing south. A bear walks past. What color is the bear?",
     answer:
@@ -1880,7 +1880,7 @@ const brainTeasers: Teaser[] = [
     category: "Riddle",
   },
   {
-    id: 19,
+    id: 219,
     question:
       "A dad and son get into a car accident. The dad dies at the scene. The son is rushed to the hospital. The doctor says, 'I can’t operate on him, he’s my son.' How is this possible?",
     answer: "The doctor is the boy’s mother.",
@@ -1888,7 +1888,7 @@ const brainTeasers: Teaser[] = [
     category: "Lateral",
   },
   {
-    id: 20,
+    id: 220,
     question:
       "If you have me, you want to share me. If you share me, you haven’t got me. What am I?",
     answer: "A secret.",

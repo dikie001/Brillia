@@ -198,22 +198,20 @@ export default function MiniStories() {
         </header>
 
         {/* Loading */}
-        {loading 
-          && (
-            <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium mt-2">Loading stories...</p>
-            </div>
-          )}
+        {loading && (
+          <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+            <p className="font-medium mt-2">Loading stories...</p>
+          </div>
+        )}
 
         <div className="flex items-center justify-between px-2">
           <FilterBar
             setCurrentFilter={setCurrentFilter}
             currentFilter={currentFilter}
-    
           />
         </div>
-        {currentFilter === "All" && stories.length !== 0 && (
+        {stories.length !== 0 && stories.length === 10 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -331,13 +329,14 @@ export default function MiniStories() {
             );
           })}
         </div>
+        {stories.length !== 0 && stories.length === 10 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
             totalItems={AllStories.length}
           />
-        
+        )}
       </div>
 
       {selectedStoryData &&

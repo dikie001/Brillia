@@ -162,7 +162,7 @@ const TongueTwisters = () => {
         />
 
         {/* Top Paginate */}
-        {displayedTwisters.length !== 0 && (
+        {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={twistersRef.current.length}
@@ -178,7 +178,9 @@ const TongueTwisters = () => {
           </div>
         )}
 
-        {currentFilter === "Favorites" && displayedTwisters.length === 0 && <NoFavorites />}
+        {currentFilter === "Favorites" && displayedTwisters.length === 0 && (
+          <NoFavorites />
+        )}
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedTwisters.map((twister, index) => (
@@ -271,7 +273,7 @@ const TongueTwisters = () => {
         </div>
 
         {/* Bottom Paginate */}
-        {displayedTwisters.length !== 0 && (
+        {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
           <Paginate
             currentPage={currentPage}
             totalItems={twistersRef.current.length}
