@@ -89,7 +89,7 @@ const Help = () => {
 
           {/* Quick Help Cards */}
           <div className="grid md:grid-cols-3 gap-4">
-            <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center">
                 <Download className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
                 <CardTitle className="text-lg">Installation</CardTitle>
@@ -101,7 +101,7 @@ const Help = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center">
                 <WifiOff className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
                 <CardTitle className="text-lg">Offline Use</CardTitle>
@@ -113,7 +113,7 @@ const Help = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader className="text-center">
                 <Settings className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
                 <CardTitle className="text-lg">Settings</CardTitle>
@@ -127,7 +127,7 @@ const Help = () => {
           </div>
 
           {/* FAQ Accordion */}
-          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <Card className="bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-indigo-500" />
@@ -136,10 +136,10 @@ const Help = () => {
             </CardHeader>
             <CardContent className="space-y-2">
               {faqs.map((faq, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div key={index} className="border  border-gray-200 dark:border-gray-700 rounded-2xl">
                   <button
                     onClick={() => toggleItem(index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    className="w-full  flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors"
                   >
                     <span className="font-medium">{faq.question}</span>
                     <ChevronDown
@@ -159,7 +159,7 @@ const Help = () => {
           </Card>
 
           {/* Contact Support */}
-          <Card className="bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-800 shadow-lg">
+          <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-indigo-200 dark:border-indigo-800 shadow-lg">
             <CardHeader>
               <CardTitle className="text-center text-indigo-600 dark:text-indigo-400">
                 Still Need Help?
@@ -171,7 +171,7 @@ const Help = () => {
               </p>
               <button
                 onClick={() => window.location.href = '/contact-developer'}
-                className="bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 transition-colors"
+                className="bg-gradient-to-r from-indigo-600 to-indigo-800 cursor-pointer text-white px-6 py-2 rounded-xl hover:bg-indigo-600 transition-colors"
               >
                 Contact Developer
               </button>

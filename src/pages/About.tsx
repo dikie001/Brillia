@@ -13,12 +13,12 @@ const About = () => {
     "Tongue Twisters - Improve your pronunciation skills",
     "Amazing Facts - Discover fascinating facts about the world",
     "Offline Support - Works completely offline once installed",
-    "PWA Ready - Install as a native app on your device"
+    "PWA Ready - Install as a native app on your device",
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
-      <Navbar currentPage="About" />
+      <Navbar currentPage="About Brillia" />
 
       <div className="pt-20 px-4 pb-8">
         <div className="max-w-4xl mx-auto space-y-8">
@@ -33,12 +33,13 @@ const About = () => {
               About Brillia
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Your daily companion for inspiration, learning, and fun. Discover amazing facts, challenge your mind, and grow every day.
+              Your daily companion for inspiration, learning, and fun. Discover
+              amazing facts, challenge your mind, and grow every day.
             </p>
           </div>
 
           {/* App Details */}
-          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-indigo-500" />
@@ -48,11 +49,14 @@ const About = () => {
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-semibold text-lg mb-2">What is Brillia?</h3>
+                  <h3 className="font-semibold text-lg mb-2">
+                    What is Brillia?
+                  </h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Brillia is a Progressive Web App designed to inspire and educate users daily.
-                    Whether you're looking to challenge your brain, learn something new, or simply enjoy
-                    some light-hearted content, Brillia has something for everyone.
+                    Brillia is a Progressive Web App designed to inspire and
+                    educate users daily. Whether you're looking to challenge
+                    your brain, learn something new, or simply enjoy some
+                    light-hearted content, Brillia has something for everyone.
                   </p>
                 </div>
                 <div>
@@ -61,7 +65,9 @@ const About = () => {
                     {features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <div className="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-600 dark:text-gray-300">{feature}</span>
+                        <span className="text-gray-600 dark:text-gray-300">
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -71,7 +77,7 @@ const About = () => {
           </Card>
 
           {/* Developer Info */}
-          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="w-5 h-5 text-indigo-500" />
@@ -81,22 +87,33 @@ const About = () => {
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-16 h-16 bg-indigo-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                  <span className="text-indigo-600 dark:text-indigo-400 font-bold text-xl">D</span>
+                  <img
+                    src="/images/dikie.jpg"
+                    alt="dikie"
+                    style={{
+                      imageRendering:"auto",
+                    }}
+                    loading="lazy"
+                    className="rotate-270 rounded-2xl w-full h-full object-cover object-center"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">dikie.dev</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Passionate developer creating inspiring web experiences</p>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Passionate developer creating inspiring web experiences
+                  </p>
                 </div>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
-                This app was built with ❤️ using modern web technologies including React, TypeScript,
-                Tailwind CSS, and Vite. It's designed to be fast, accessible, and enjoyable for all users.
+                This app was built with ❤️ using modern web technologies
+                including React, TypeScript, Tailwind CSS, and Vite. It's
+                designed to be fast, accessible, and enjoyable for all users.
               </p>
             </CardContent>
           </Card>
 
           {/* Version & Tech */}
-          <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Globe className="w-5 h-5 text-indigo-500" />
@@ -105,16 +122,17 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2 mb-4">
-                <Badge variant="secondary">React</Badge>
-                <Badge variant="secondary">TypeScript</Badge>
-                <Badge variant="secondary">Tailwind CSS</Badge>
-                <Badge variant="secondary">Vite</Badge>
-                <Badge variant="secondary">PWA</Badge>
-                <Badge variant="secondary">Progressive Web App</Badge>
+                <Badge variant="outline">React</Badge>
+                <Badge variant="outline">TypeScript</Badge>
+                <Badge variant="outline">Tailwind CSS</Badge>
+                <Badge variant="outline">Vite</Badge>
+                <Badge variant="outline">PWA</Badge>
+                <Badge variant="outline">Progressive Web App</Badge>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
-                Brillia is built as a Progressive Web App, meaning it can be installed on your device
-                and works offline. All content is cached locally for the best user experience.
+                Brillia is built as a Progressive Web App, meaning it can be
+                installed on your device and works offline. All content is
+                cached locally for the best user experience.
               </p>
             </CardContent>
           </Card>
