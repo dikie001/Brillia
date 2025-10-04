@@ -18,6 +18,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../components/app/paginations";
+import Footer from "@/components/app/Footer";
+import NoFavorites from "@/components/app/NoFavorites";
 
 const categoryColors = {
   Science:
@@ -163,13 +165,12 @@ export default function FactFrenzy() {
         <header className="text-center mb-6"></header>
 
         {/* Loading */}
-        {loading ||
-          (displayedFacts.length === 0 && (
+        {loading && (
             <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
               <p className="font-medium">Loading facts...</p>
             </div>
-          ))}
+          )}
 
         {showFactOfDay && (
           <div className="mb-6  relative">
@@ -228,6 +229,8 @@ export default function FactFrenzy() {
           />
         )}
 
+{/* NO favorites */}
+{currentFilter === "Favorites" && displayedFacts.length === 0 && <NoFavorites/>}
         <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
             return (
@@ -338,7 +341,7 @@ export default function FactFrenzy() {
             setCurrentPage={setCurrentPage}
           />
         )}
-
+{/* 
         <div className="mt-6 text-center">
           <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Learning Never Stops
@@ -369,9 +372,9 @@ export default function FactFrenzy() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <Toaster richColors position="top-center" />
+      <Footer/>
     </div>
   );
 }
