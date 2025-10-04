@@ -205,7 +205,7 @@ export default function BrainTeasersPage() {
               >
                 <div>
                   {/* Header */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -219,11 +219,11 @@ export default function BrainTeasersPage() {
                     </div>
                   </div>
 
-                  <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+                  <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">
                     Puzzle #{teaser.id}
                   </h2>
 
-                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-4">
+                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-1">
                     <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                       {teaser.question}
                     </p>

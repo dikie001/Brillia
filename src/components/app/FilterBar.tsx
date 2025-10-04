@@ -32,8 +32,7 @@ export default function FilterBar({
 
 
   const getFilterButtonText = () => {
-    // if (currentFilter === "All") return "All ";
-    // if (currentFilter === "Favorites") return "Favorites";
+
     return currentFilter;
   };
 
@@ -47,7 +46,7 @@ export default function FilterBar({
         <div className="flex gap-2">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm"
+            className="flex-1 flex items-center cursor-pointer justify-center gap-2 px-3 py-2.5 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm"
           >
             <Filter className="w-4 h-4 text-indigo-500" />
             <span className="truncate">{getFilterButtonText()}</span>
@@ -65,7 +64,7 @@ export default function FilterBar({
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2 px-6 py-2 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md"
+            className="flex items-center gap-2 cursor-pointer px-6 py-2 rounded-3xl text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-md"
           >
             <Filter className="w-4 h-4 text-indigo-500" />
             {getFilterButtonText()}
@@ -85,7 +84,7 @@ export default function FilterBar({
               <button
                 key={genre}
                 onClick={() => handleGenreSelect(genre)}
-                className={`w-full text-left px-4 py-3 sm:px-3 sm:py-2 rounded-2xl text-sm font-medium ${
+                className={`w-full text-left px-4 cursor-pointer py-3 sm:px-3 sm:py-2 rounded-2xl text-sm font-medium ${
                   currentFilter === genre
                     ? "bg-indigo-600 text-white"
                     : "text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900"
