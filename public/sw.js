@@ -1,4 +1,4 @@
-const CACHE_NAME = 'brillia-v2';
+const CACHE_NAME = 'brillia-v3';
 const urlsToCache = [
   '/',
   '/index.html',
