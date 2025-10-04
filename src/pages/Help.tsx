@@ -113,17 +113,6 @@ const Help = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader className="text-center">
-                <Settings className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
-                <CardTitle className="text-lg">Settings</CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Customize your experience with themes and preferences.
-                </p>
-              </CardContent>
-            </Card>
           </div>
 
           {/* FAQ Accordion */}
