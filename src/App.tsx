@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import { lazy, Suspense } from "react";
 import LoadingPage from "./pages/LoadinPage";
+import About from "./pages/About";
+import Help from "./pages/Help";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/help" element={<Help />} />
         </Routes>
       </Suspense>
     </Router>
