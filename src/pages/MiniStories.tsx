@@ -130,6 +130,7 @@ export default function MiniStories() {
   }, [currentFilter]);
 
   const filterFavorites = () => {
+    setLoading(false)
     const favs = [...favorite].map((f) =>
       AllStories.find((story) => story.id === f)
     );
@@ -197,13 +198,13 @@ export default function MiniStories() {
         </header>
 
         {/* Loading */}
-        {loading ||
-          (stories.length === 0 && (
+        {loading 
+          && (
             <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
               <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
               <p className="font-medium mt-2">Loading stories...</p>
             </div>
-          ))}
+          )}
 
         <div className="flex items-center justify-between px-2">
           <FilterBar
@@ -412,24 +413,6 @@ export default function MiniStories() {
 
       {currentFilter === "Favorites" && stories.length === 0 && <NoFavorites />}
 
-      {/* {filter !== "Favorites" && stories.length === 0 && (
-        <div className="flex flex-col shadow-lg items-center justify-center p-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 text-center">
-          <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
-            {filter === "All"
-              ? "Failed to fetch stories, contact admin"
-              : `No stories have been added for ${filter}`}
-          </p>
-          <div className="text-gray-400 dark:text-gray-500 text-sm mt-2">
-            {filter === "All" ? (
-              <button className="px-6 py-4 bg-indigo-600 text-white hover:bg-indigo-500 dark:hover:bg-indigo-900 rounded-md transition-colors  dark:hover:text-indigo-300">
-                Contact admin
-              </button>
-            ) : (
-              `Check back later for ${filter} stories`
-            )}
-          </div>
-        </div>
-      )} */}
       <Footer />
     </div>
   );
