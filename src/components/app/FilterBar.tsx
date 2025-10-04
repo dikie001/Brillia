@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Filter, Heart } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const defaultGenres = [
   "All",
@@ -18,6 +19,7 @@ interface FilterBarProps {
   genres?: string[];
 }
 
+
 export default function FilterBar({
   currentFilter,
   setFilter,
@@ -25,7 +27,7 @@ export default function FilterBar({
   genres = defaultGenres,
 }: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+const location = useLocation()
   const handleGenreSelect = (genre: string) => {
     setFilter(genre);
     setIsOpen(false);
@@ -37,7 +39,7 @@ export default function FilterBar({
 
   const getFilterButtonText = () => {
     if (currentFilter === "All") return "All stories";
-    if (currentFilter === "Favorites") return "Stories";
+    if (currentFilter === "Favorites") return "Favorites";
     return currentFilter;
   };
 
@@ -98,7 +100,7 @@ export default function FilterBar({
             onClick={() => setIsOpen(false)}
             className="fixed inset-0 bg-black/40 z-40"
           />
-          <div className="absolute top-12 sm:top-12 left-0 sm:left-auto right-0 sm:right-auto bg-white dark:bg-gray-800 shadow-xl rounded-3xl p-4 border border-gray-200 dark:border-gray-700 z-50 sm:min-w-48 mx-4 sm:mx-0">
+          <div className="absolute grid grid-cols-4 top-12 sm:top-12 left-0 sm:left-auto right-0 sm:right-auto bg-white dark:bg-gray-800 shadow-xl rounded-3xl p-4 border border-gray-200 dark:border-gray-700 z-50 sm:min-w-48 mx-4 sm:mx-0">
             {genres.map((genre) => (
               <button
                 key={genre}

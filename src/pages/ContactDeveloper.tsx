@@ -132,21 +132,21 @@ const ContactDeveloper = () => {
                       formData.email === "" ||
                       formData.message === ""
                     ) {
-                      toast.error("Fill all the inputs please");
+                      toast.error("Fill all the input fields please");
                       setLoading(false);
                       setCount((prev) => prev + 1);
                       if (count >= 2) {
                         toast.info(
-                          `Just take your time and fill all the inputs ${
+                          `Just take your time and fill all the fields ${
                             user?.name.split(" ")[0]
-                          }`
+                          }!`
                         );
-                        if (count >= 4) {
+                        if (count >= 3) {
                           toast.warning(
                             "You will be redirected to the home page"
                           );
                         }
-                        if (count >= 6) {
+                        if (count >= 4) {
                           toast.success("Redirected to home page");
                           setTimeout(() => {
                             navigate("/");

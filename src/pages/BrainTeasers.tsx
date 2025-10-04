@@ -11,7 +11,7 @@ import {
   EyeOff,
   Heart,
   LoaderCircle,
-  Share2
+  Share2,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -55,10 +55,7 @@ export default function BrainTeasersPage() {
   useEffect(() => {
     PaginationPage();
     if (currentPage !== 1) {
-      localStorage.setItem(
-        TEASERS_CURRENTPAGE,
-        JSON.stringify(currentPage)
-      );
+      localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(currentPage));
     }
   }, [currentPage, currentFilter]);
 
@@ -70,19 +67,22 @@ export default function BrainTeasersPage() {
   const PaginationPage = () => {
     let filteredTeasers = teasersRef.current;
     if (currentFilter === "Favorites") {
-      filteredTeasers = teasersRef.current.filter(teaser => favorite.has(teaser.id));
+      filteredTeasers = teasersRef.current.filter((teaser) =>
+        favorite.has(teaser.id)
+      );
     } else if (currentFilter !== "All") {
-      filteredTeasers = teasersRef.current.filter(teaser => teaser.category === currentFilter);
+      filteredTeasers = teasersRef.current.filter(
+        (teaser) => teaser.category === currentFilter
+      );
     }
 
     const teasersLength = filteredTeasers.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredTeasers.slice(start, end);
-    console.log(end, teasersLength);
 
     setTeasers(currentItems);
-    if (end > teasersLength) {
+    if (end > teasersLength && !teasers) {
       setCurrentPage(1);
       localStorage.removeItem(TEASERS_CURRENTPAGE);
       toast.info("Out of teasers, restarting from the top");
@@ -95,6 +95,7 @@ export default function BrainTeasersPage() {
     teasersRef.current = brainTeasers;
 
     const lastPage = localStorage.getItem(TEASERS_CURRENTPAGE);
+    console.log(lastPage);
     if (lastPage) {
       const num = Number(lastPage);
       setCurrentPage(num);
@@ -154,6 +155,12 @@ export default function BrainTeasersPage() {
     });
   };
 
+  useEffect(() => {
+    if (currentPage !== 1) {
+      localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage]);
+
   return (
     <div className="min-h-screen p-2 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
@@ -189,7 +196,9 @@ export default function BrainTeasersPage() {
           ))}
 
         {/* No favorites */}
-        {currentFilter === "Favorites" && teasers.length === 0 && <NoFavorites />}
+        {currentFilter === "Favorites" && teasers.length === 0 && (
+          <NoFavorites />
+        )}
 
         {/* Grid of teasers */}
         <div className="grid gap-4 mb-6  sm:grid-cols-2 lg:grid-cols-3">
