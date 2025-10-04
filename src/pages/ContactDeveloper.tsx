@@ -26,7 +26,9 @@ const ContactDeveloper = () => {
       setFormData({ name: "", email: "", message: "" });
       return setLoading(false);
     } else if (state.errors) {
-      toast.error("Make sure you have internet connection");
+      toast.error(
+        `Make sure you have internet connection, ${user?.name.split(" ")[0]}`
+      );
       setLoading(false);
     }
   }, [state.succeeded, state.errors]);
@@ -59,7 +61,7 @@ const ContactDeveloper = () => {
               href="https://www.facebook.com/profile.php?id=100086299638167"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
+              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-indigo-600/10 dark:border-indigo-600/20 hover:-translate-y-2"
             >
               <FaFacebook className="w-12 h-12 text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Facebook</h3>
@@ -73,7 +75,7 @@ const ContactDeveloper = () => {
               href="https://wa.me/254716957179?text=Greetings%2C%20I%20hope%20you%20are%20doing%20well.%20I%20would%20like%20to%20connect."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700/50 hover:-translate-y-2"
+              className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-indigo-600/10 dark:border-indigo-600/20 hover:-translate-y-2"
             >
               <FaWhatsapp className="w-12 h-12 text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
@@ -83,9 +85,9 @@ const ContactDeveloper = () => {
             </a>
           </div>
           <div className="flex fex-row justify-center items-center mb-2">
-            <hr className="text-white w-full" />
+            <hr className=" w-full" />
             <h1 className="text-center mb-4 text-gray-400 px-4 mt-4">OR</h1>
-            <hr className="text-white w-full" />
+            <hr className=" w-full" />
           </div>
           <div className="">
             {/* Form */}
