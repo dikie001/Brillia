@@ -87,17 +87,17 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
-                <div className=" bg-indigo-100 overflow-hidden dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full overflow-hidden bg-indigo-100 dark:bg-gray-800 flex items-center justify-center">
                   <img
-                    src="/images/dikie.jpg"
+                    src="/images/apple.jpeg"
                     alt="dikie"
-                    width={100}
-                    height={100}
-              
+                    width={140}
+                    height={140}
                     loading="lazy"
-                    className="rounded-full object-cover rotate-[270deg] object-center"
+                    className="object-cover  rounded-full transition-transform duration-300 hover:scale-105"
                   />
                 </div>
+
                 <div>
                   <a
                     href="dikie.vercel.app"

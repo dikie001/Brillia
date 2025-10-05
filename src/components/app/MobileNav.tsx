@@ -1,8 +1,8 @@
 import {
   Book,
-  HelpCircle,
   Home,
   Info,
+  LucideShieldQuestionMark,
   MessageSquare,
   Newspaper,
   Puzzle,
@@ -28,7 +28,6 @@ interface User {
 
 const menuItems = [
   { label: "Home", icon: Home, to: "/" },
-  { label: "Guide", icon: HelpCircle, to: "/guide" },
   { label: "Brain Teasers", icon: Puzzle, to: "/brain-teasers" },
   { label: "Mini Stories", icon: Book, to: "/mini-stories" },
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },
@@ -36,7 +35,7 @@ const menuItems = [
   { label: "Tongue Twisters", icon: Wand, to: "/tongue-twisters" },
   { label: "Amazing Facts", icon: Newspaper, to: "/amazing-facts" },
   { label: "Contact Developer", icon: MessageSquare, to: "/contact-developer" },
-  { label: "About", icon: Info, to: "/about" },
+  { label: "About", icon: LucideShieldQuestionMark, to: "/about" },
   { label: "Help", icon: Info, to: "/help" },
   { label: "Settings", icon: Settings, to: "/settings" },
 ];
@@ -63,7 +62,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
       {/* Side Menu */}
       <div
-        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 h-screen lg:h-140 lg:rounded-b-xl shadow-2xl z-50 transform transition-transform duration-300 flex flex-col
+        className={`fixed top-0 right-0 lg:right-1/2 lg:translate-x-1/2 lg:w-150 w-72 h-screen lg:h-160 lg:rounded-b-xl shadow-2xl z-50 transform transition-transform duration-300 flex flex-col
           bg-white/90 dark:bg-gray-950/90 border-l border-indigo-200/40 dark:border-indigo-800/40
           ${
             open
@@ -79,7 +78,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
           <button
             onClick={onClose}
-            className="p-2 rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition"
+            className="p-2 rounded-md cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-400/40 transition"
           >
             <X className="w-5 h-5 text-indigo-500 dark:text-indigo-300" />
           </button>
@@ -87,7 +86,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
         {/* Menu Buttons */}
         <div className="flex flex-col h-full mb-4">
-          <div className="flex flex-1 flex-col p-5 space-y-3 text-gray-700 dark:text-gray-200">
+          <div className="flex flex-1 flex-col p-5 space-y-2 text-gray-700 dark:text-gray-200">
             {menuItems.map((item) => {
               const active = location.pathname === item.to;
               return (

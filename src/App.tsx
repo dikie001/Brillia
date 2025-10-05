@@ -6,9 +6,7 @@ import LoadingPage from "./pages/LoadinPage";
 import About from "./pages/About";
 import Help from "./pages/Help";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
-const GuidePage = lazy(() => import("./pages/Guide"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
-const Guide = lazy(() => import("./pages/Guide"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const MiniStories = lazy(() => import("./pages/MiniStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -26,7 +24,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/brain-teasers" element={<BrainTeasers />} />{" "}
-          <Route path="/guide" element={<Guide />} />
           <Route path="/mini-stories" element={<MiniStories />} />{" "}
           <Route path="/quiz-quest" element={<QuizQuest />} />{" "}
           <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
@@ -37,7 +34,6 @@ const App = () => {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/guide" element={<GuidePage />} />
         </Routes>
       </Suspense>
     </Router>
