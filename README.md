@@ -104,6 +104,7 @@ Brillia is built with modern web technologies for optimal performance and user e
 
 ### State Management & Data
 - **Local Storage** - Client-side data persistence
+-**Session Storage** - Temporary client-side data storage that’s cleared when the browser tab or session ends.
 
 ### Development Tools
 - **ESLint** - Code linting and formatting
