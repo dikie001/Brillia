@@ -3,6 +3,7 @@ import Footer from "@/components/app/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Info, Sparkles, User, Globe } from "lucide-react";
+import { APP_VERSION } from "@/constants";
 
 const About = () => {
   const features = [
@@ -156,7 +157,7 @@ const About = () => {
                   <span className="font-medium text-gray-900 dark:text-gray-100">
                     Version
                   </span>
-                  <Badge variant="secondary">1.0.0</Badge>
+                  <Badge variant="outline">{APP_VERSION}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-gray-900 dark:text-gray-100">
