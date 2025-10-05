@@ -4,7 +4,7 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
-import AllStories from "@/jsons/miniStories";
+import AllStories  from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { STORIES_CURRENTPAGE } from "@/constants";
 import {
@@ -60,7 +60,7 @@ export default function MiniStories() {
 
   useEffect(() => {
     FetchData();
-    setCurrentFilter("All")
+    setCurrentFilter("All");
   }, []);
 
   // Handle pagination
@@ -129,15 +129,15 @@ export default function MiniStories() {
     ? stories.find((s) => s.id === selectedStory)
     : null;
 
-    // FIlter categories
+  // FIlter categories
   useEffect(() => {
-    if(currentFilter === "Favorites") return filterFavorites()
+    if (currentFilter === "Favorites") return filterFavorites();
     if (currentFilter === "All") return setStories(AllStories);
     setStories(AllStories.filter((story) => story.genre === currentFilter));
   }, [currentFilter]);
 
   const filterFavorites = () => {
-    setLoading(false)
+    setLoading(false);
     const favs = [...favorite].map((f) =>
       AllStories.find((story) => story.id === f)
     );
@@ -218,7 +218,7 @@ export default function MiniStories() {
             currentFilter={currentFilter}
           />
         </div>
-        {stories.length !== 0 && stories.length === 10 && (
+        {stories.length !== 0 && stories.length === 5 && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

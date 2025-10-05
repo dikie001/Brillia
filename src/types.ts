@@ -2,7 +2,18 @@ export interface Story {
   id: number;
   title: string;
   content: string;
-  genre: string;
+  genre:
+    | "Fantasy"
+    | "Adventure"
+    | "Mystery"
+    | "Environmental"
+    | "Sci-Fi"
+    | "Historical Fantasy"
+    | "Paranormal"
+    | "Thriller"
+    | "Time Travel"
+    | "Historical"
+    | "Magical Realism";
   author: string;
 }
 
@@ -22,7 +33,7 @@ export type Quote = {
     | "Knowledge"
     | "Happiness"
     | "Perseverance";
-    tags: string[];
+  tags: string[];
   popularity: number;
 };
 
