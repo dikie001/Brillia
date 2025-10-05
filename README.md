@@ -40,7 +40,6 @@ Discover fascinating, mind-blowing facts about the world, science, history, and 
 - **Responsive Design**: Optimized for all screen sizes - mobile, tablet, and desktop
 - **Sound Effects**: Audio feedback for interactions and achievements
 - **Progress Tracking**: Keep track of your completed stories and quiz scores
-- **Accessibility**: Built with accessibility best practices in mind
 
 ## 🚀 Quick Start
 
@@ -52,8 +51,8 @@ Discover fascinating, mind-blowing facts about the world, science, history, and 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/brillia.git
-   cd brillia
+   git clone https://github.com/dikie001/Brillia
+   cd Brillia
    ```
 
 2. **Install dependencies**
