@@ -17,6 +17,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import { Badge } from "@/components/ui/badge";
 
 const difficultyColors = {
   Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -210,12 +211,11 @@ const TongueTwisters = () => {
 
               <div className="flex flex-wrap gap-2 mb-4">
                 {twister.tags.map((tag) => (
-                  <span
+                  <Badge variant='outline'
                     key={tag}
-                    className="px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full text-xs font-medium"
                   >
                     #{tag}
-                  </span>
+                  </Badge>
                 ))}
               </div>
 
@@ -357,12 +357,11 @@ const TongueTwisters = () => {
               </span>
               <div className="flex flex-wrap gap-2">
                 {selectedTwisterData.tags.map((tag) => (
-                  <span
+                  <Badge variant='outline'
                     key={tag}
-                    className="px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-medium"
                   >
                     #{tag}
-                  </span>
+                  </Badge>
                 ))}
               </div>
             </div>

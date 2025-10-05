@@ -15,8 +15,8 @@ const LoadingPage: React.FC = () => {
           className="h-20 w-20 animate-pulse"
         />
 
-        {/* Spinner (optional, remove if you want only icon) */}
-        <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+        {/* Loading Spinner */}
+                <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
 
         <p className="text-slate-300 text-lg font-medium">Loading...</p>
       </div>

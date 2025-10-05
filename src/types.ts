@@ -11,8 +11,18 @@ export type Quote = {
   id: number;
   content: string;
   author: string;
-  category: string;
-  tags: string[];
+  category:
+    | "Motivation"
+    | "Wisdom"
+    | "Life"
+    | "Success"
+    | "Love"
+    | "Courage"
+    | "Imagination"
+    | "Knowledge"
+    | "Happiness"
+    | "Perseverance";
+    tags: string[];
   popularity: number;
 };
 

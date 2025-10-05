@@ -18,95 +18,23 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import { Badge } from "@/components/ui/badge";
 
 const categoryColors = {
-  Motivation: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Love: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Wisdom: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Perseverance: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Happiness: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
-  Courage: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-  Innovation: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Discipline: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Leadership: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
-  Growth: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-  Action: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Passion: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
-  Strength: "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
-  Philosophy: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200",
-  Individuality: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
-  Purpose: "bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200",
-  Change: "bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200",
+  Motivation:
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+  Wisdom:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
   Life: "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200",
-  Resilience: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-  Mindset: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200",
-  Value: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Work: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Humility: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Peace: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Excellence: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Creativity: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
-  Exploration: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-  Adaptability: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Potential: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
-  Endurance: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-  Dreams: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Hope: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
-  Learning: "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
-  Simplicity: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200",
-  Adventure: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
-  Mindfulness: "bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200",
-  Character: "bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200",
-  Authenticity: "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200",
-  Destiny: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-  Living: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200",
-  Appreciation: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Forgiveness: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Mind: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Perspective: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Conviction: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Kindness: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
-  Imagination: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-  Expression: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Acceptance: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
-  Joy: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-  Belief: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Choice: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
-  Ambition: "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
-  Risk: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200",
-  Beauty: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
-  Doubt: "bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200",
-  Impact: "bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200",
-  Focus: "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200",
-  Present: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-  Patience: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200",
-  Justice: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Effort: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Opportunity: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Honesty: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Friendship: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Knowledge: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
-  Experience: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-  Optimism: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Selfworth: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
-  Education: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-  Reading: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Thinking: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
-  Freedom: "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
-  Strategy: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200",
-  Possibility: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
-  Gratitude: "bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200",
-  Power: "bg-stone-100 text-stone-800 dark:bg-stone-900 dark:text-stone-200",
-  Preparation: "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200",
-  Sacrifice: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200",
-  Understanding: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200",
-  Time: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Curiosity: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Attitude: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Fear: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Control: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Redemption: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+  Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  Love: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
+  Courage: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+  Imagination:
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+  Knowledge:
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+  Happiness: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
+  Perseverance: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
 };
 
 const FAVOURITE_QUOTES = "favorite-quote";
@@ -122,7 +50,18 @@ export default function WisdomNuggets() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const genres = ["All","Favorites", ...new Set(quotes.map((q) => q.category))];
+  const genres = [
+  "Motivation",
+  "Wisdom",
+  "Life",
+  "Success",
+  "Love",
+  "Courage",
+  "Imagination",
+  "Knowledge",
+  "Happiness",
+  "Perseverance"
+]
 
   const updateDisplayedQuotes = () => {
     let filteredQuotes = quotes;
@@ -305,12 +244,11 @@ export default function WisdomNuggets() {
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-3">
                     {quote.tags.map((tag) => (
-                      <span
+                      <Badge variant="outline"
                         key={tag}
-                        className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs text-gray-600 dark:text-gray-400"
                       >
                         #{tag}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                   {/* Id numbers */}

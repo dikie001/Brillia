@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 const READ_STORIES = "read-stories";
 
