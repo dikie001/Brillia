@@ -1,7 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { ADMIN_PASSWORD, STORAGE_KEYS } from "@/constants";
+import { LoaderCircle, Lock, ShieldCheck } from "lucide-react";
 import { useState } from "react";
-import { Lock, ShieldCheck, LoaderCircle } from "lucide-react";
 import { toast, Toaster } from "sonner";
-import { STORAGE_KEYS } from "@/constants";
 
 type MainProps = {
   open: boolean;
@@ -15,7 +16,7 @@ export default function ResetModal({ open, setOpen }: MainProps) {
   const resetAllData = () => {
     if (!password)
       return toast.error("Enter password please", { id: "toast err1" });
-    if (password !== "14572") {
+    if (password !== ADMIN_PASSWORD) {
       toast.error("Incorrect password!", { id: "toasty" });
       return;
     }
@@ -28,12 +29,12 @@ export default function ResetModal({ open, setOpen }: MainProps) {
         localStorage.removeItem(STORAGE_KEYS.CURRENT_TEST_INDEX);
         toast.success("Data cleared successfully ");
         window.location.reload();
-      }, 1000);
+      }, 1500);
     } catch (err) {
       console.error("Error resetting data:", err);
       toast.error("Something went wrong!");
     } finally {
-      setTimeout(() => setLoading(false), 1500);
+      setTimeout(() => setLoading(false), 1800);
     }
   };
 
@@ -84,17 +85,17 @@ export default function ResetModal({ open, setOpen }: MainProps) {
 
           {/* Actions */}
           <div className="flex  sm:flex-row justify-end gap-3">
-            <button
+            <Button
               type="button"
+              variant="secondary"
               onClick={() => setOpen(false)}
-              className="px-6 py-3 rounded-xl font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all text-sm sm:text-base"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              variant='destructive'
               onClick={resetAllData}
-              className="px-6 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:from-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl text-sm sm:text-base"
             >
               {loading ? (
                 <>
@@ -103,7 +104,7 @@ export default function ResetModal({ open, setOpen }: MainProps) {
               ) : (
                 "Confirm Reset"
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
