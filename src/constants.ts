@@ -29,3 +29,6 @@ export const APP_VERSION = "1.0.6";
 
 // Admin password
 export const ADMIN_PASSWORD = "14572";
+
+// TEst results
+export const TEST_RESULTS = "quiz_test_results";

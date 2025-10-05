@@ -1,5 +1,6 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
+import { TEST_RESULTS } from "@/constants";
 import LearnerModal from "@/modals/Welcome";
 import {
   Book,
@@ -8,10 +9,11 @@ import {
   Quote,
   Sparkles,
   Trophy,
-  Wand
+  Wand,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const READ_STORIES = "read-stories";
 
@@ -80,6 +82,7 @@ const HomePage: React.FC = () => {
 
   // Fetch completion data from storage
   useEffect(() => {
+    // For stories
     const rawData = localStorage.getItem(READ_STORIES);
     const completedStories = rawData ? JSON.parse(rawData).length : [];
     if (!completedStories || completedStories.length === 0) {
@@ -88,6 +91,19 @@ const HomePage: React.FC = () => {
       setCompleted((prev) => ({
         ...prev,
         stories: Number(JSON.parse(completedStories)),
+      }));
+    }
+
+    // For Quiz
+    const rawQuizData = localStorage.getItem(TEST_RESULTS);
+    const completedQuizes = rawQuizData ? JSON.parse(rawQuizData).length : [];
+    if (!completedQuizes || completedQuizes.length === 0) {
+      setCompleted((prev) => ({ ...prev, quiz: 0 }));
+    } else {
+
+      setCompleted((prev) => ({
+        ...prev,
+        quiz: Number(JSON.parse(completedQuizes)),
       }));
     }
   }, []);
@@ -138,12 +154,14 @@ const HomePage: React.FC = () => {
                       hasCompleted ? "block" : "hidden"
                     } flex items-center gap-2 justify-center space-x-4 text-sm text-gray-500 dark:text-gray-400`}
                   >
-                    <span className="flex items-center text-green-600">
+                    <span className="flex items-center font-medium text-green-600">
                       <Trophy className="w-4 h-4 mr-1" />
                       {section.name === "Mini Stories"
                         ? completed.stories
-                        : completed.quiz}{" "}
-                      completed
+                        : completed.quiz}
+                      {section.name === "Mini Stories"
+                        ? " Stories read"
+                        : " Tests completed"}
                     </span>
                   </div>
                 </div>
