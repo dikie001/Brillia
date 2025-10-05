@@ -86,19 +86,24 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 bg-indigo-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <div className=" bg-indigo-100 overflow-hidden dark:bg-gray-800 rounded-full flex items-center justify-center">
                   <img
                     src="/images/dikie.jpg"
                     alt="dikie"
-                    style={{
-                      imageRendering:"auto",
-                    }}
+                    width={100}
+                    height={100}
+              
                     loading="lazy"
-                    className="rotate-270 rounded-2xl w-full h-full object-cover object-center"
+                    className="rounded-full object-cover rotate-[270deg] object-center"
                   />
                 </div>
                 <div>
-                  <a href="dikie.vercel.app" className="text-xl text-indigo-500 underline font-semibold">Dickens Omondi</a>
+                  <a
+                    href="dikie.vercel.app"
+                    className="text-xl text-indigo-500 underline font-semibold"
+                  >
+                    Dickens Omondi
+                  </a>
                   <p className="text-gray-600 dark:text-gray-300">
                     Passionate developer creating inspiring web experiences
                   </p>
@@ -134,6 +139,38 @@ const About = () => {
                 installed on your device and works offline. All content is
                 cached locally for the best user experience.
               </p>
+            </CardContent>
+          </Card>
+
+          {/* App Version */}
+          <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Info className="w-5 h-5 text-indigo-500" />
+                App Version & Updates
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                    Version
+                  </span>
+                  <Badge variant="secondary">1.0.0</Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                    Last Updated
+                  </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                    5<sup>Th</sup> October 2024
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Regular updates bring new features, bug fixes, and content.
+                  Check back often for the latest improvements!
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>
