@@ -80,14 +80,14 @@ const About = () => {
           {/* Developer Info */}
           <Card className="bg-white rounded-3xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 -mb-2">
                 <User className="w-5 h-5 text-indigo-500" />
                 About the Developer
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-24 h-24  overflow-hidden  dark:bg-gray-800 flex items-center justify-center">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="w-24 h-24 sm:w-20 sm:h-20 overflow-hidden  dark:bg-gray-800 flex items-center justify-center">
                   <img
                     src="/images/apple.jpeg"
                     alt="dikie"
