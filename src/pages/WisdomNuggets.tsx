@@ -139,13 +139,13 @@ export default function WisdomNuggets() {
   const featuredQuote = quotes[currentQuoteIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-4">
       <Navbar currentPage="Wisdom Nuggets" />
 
       <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Featured Quote */}
         {showFeaturedQuote && (
-          <div className="mb-6">
+          <div >
             <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-3xl shadow-2xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="relative z-10">

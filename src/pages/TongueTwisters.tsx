@@ -152,8 +152,8 @@ const TongueTwisters = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="relative z-10 max-w-7xl mx-auto mt-18 ">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-4">
+      <div className="relative z-10 max-w-7xl mx-auto mt-12 ">
         <Navbar currentPage="Tongue Twisters" />
 
         <FilterBar
@@ -315,7 +315,7 @@ const TongueTwisters = () => {
 
       {selectedTwisterData && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedTwister(null)}
         >
           <div
@@ -325,7 +325,7 @@ const TongueTwisters = () => {
             <div className="sticky top-0 bg-white dark:bg-gray-800 px-8 py-6 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
               <div className="flex items-center justify-between">
                 <span
-                  className={`px-4 py-2 rounded-full text-sm font-bold ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium ${
                     difficultyColors[selectedTwisterData.difficulty]
                   }`}
                 >
@@ -338,14 +338,14 @@ const TongueTwisters = () => {
                   <X size={20} />
                 </button>
               </div>
-              <h1 className="text-4xl font-black mt-4 text-gray-800 dark:text-gray-100">
+              <h1 className="text-xl md:text-2xl font-black mt-4 text-gray-800 dark:text-gray-100">
                 Tongue Twister
               </h1>
             </div>
 
             <div className="px-8 py-8">
               <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-2xl whitespace-pre-line text-center font-serif italic">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-xl md:text-2xl  whitespace-pre-line text-center font-serif italic">
                   "{selectedTwisterData.text}"
                 </p>
               </div>

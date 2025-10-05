@@ -193,15 +193,11 @@ export default function MiniStories() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 p-4">
       <Navbar currentPage="Mini Stories" />
       <Toaster richColors position="top-center" />
-      <div className="relative  z-10 max-w-7xl mx-auto">
-        <header className="text-center mb-12 pt-20 relative">
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Brief tales that linger in your heart long after the last word
-          </p>
-        </header>
+      <div className="relative  z-10 max-w-7xl mx-auto pt-12">
+
 
         {/* Loading */}
         {loading && (

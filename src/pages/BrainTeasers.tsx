@@ -157,12 +157,11 @@ export default function BrainTeasersPage() {
   }, [currentPage]);
 
   return (
-    <div className="min-h-screen p-2 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
+    <div className="min-h-screen p-4 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
 
-      <div className="relative z-10 max-w-7xl mx-auto pt-18">
+      <div className="relative z-10 max-w-7xl mx-auto pt-14">
         {/* Header */}
-        <header className="text-center mb-6 mt-4"></header>
 
         <FilterBar
           currentFilter={currentFilter}
