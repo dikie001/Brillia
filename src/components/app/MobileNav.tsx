@@ -1,5 +1,6 @@
 import {
   Book,
+  HelpCircle,
   Home,
   Info,
   MessageSquare,
@@ -27,6 +28,7 @@ interface User {
 
 const menuItems = [
   { label: "Home", icon: Home, to: "/" },
+  { label: "Guide", icon: HelpCircle, to: "/guide" },
   { label: "Brain Teasers", icon: Puzzle, to: "/brain-teasers" },
   { label: "Mini Stories", icon: Book, to: "/mini-stories" },
   { label: "Quiz Quest", icon: Sparkles, to: "/quiz-quest" },

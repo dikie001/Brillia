@@ -12,7 +12,7 @@ import {
   Heart,
   LoaderCircle,
   Share2,
-  X
+  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -62,7 +62,7 @@ const TongueTwisters = () => {
     setDisplayedTwisters(currentItems);
     if (end > twistersLength) {
       setCurrentPage(1);
-      
+
       localStorage.removeItem(TONGUETWISTERS_CURRENTPAGE);
     }
   };
@@ -211,9 +211,7 @@ const TongueTwisters = () => {
 
               <div className="flex flex-wrap gap-2 mb-4">
                 {twister.tags.map((tag) => (
-                  <Badge variant='outline'
-                    key={tag}
-                  >
+                  <Badge variant="outline" key={tag}>
                     #{tag}
                   </Badge>
                 ))}
@@ -238,7 +236,10 @@ const TongueTwisters = () => {
                     )}
                   </button>
                   <button
-                    onClick={() => shareQuote(twister, setCopied)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      shareQuote(twister, setCopied);
+                    }}
                     className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                     title="Share twister"
                   >
@@ -357,9 +358,7 @@ const TongueTwisters = () => {
               </span>
               <div className="flex flex-wrap gap-2">
                 {selectedTwisterData.tags.map((tag) => (
-                  <Badge variant='outline'
-                    key={tag}
-                  >
+                  <Badge variant="outline" key={tag}>
                     #{tag}
                   </Badge>
                 ))}

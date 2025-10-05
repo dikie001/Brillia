@@ -10,3 +10,13 @@
 - [x] Remove the two conditional `Paginate` renders and replace with one
 - [x] Ensure `PaginationPage` is called after setting `filteredStories`
 - [x] Fix bugs in Paginate component: move onClick to PaginationLink instead of PaginationItem
+
+# Create Guide Page for New Users
+
+- [x] Create src/pages/Guide.tsx with step-by-step instructions for each feature
+- [x] Add route /guide in src/App.tsx
+- [x] Add Guide menu item in src/components/app/MobileNav.tsx
+- [x] Use existing UI components (Card, Button) for consistency
+- [x] Include icons and simple instructions for MiniStories, BrainTeasers, AmazingFacts, WisdomNuggets, TongueTwisters, QuizQuest
+- [x] Add general tips section
+- [x] Test navigation and responsiveness
