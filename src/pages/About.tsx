@@ -87,7 +87,7 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-20 h-20 rounded-full overflow-hidden bg-indigo-100 dark:bg-gray-800 flex items-center justify-center">
+                <div className="w-20 h-20  overflow-hidden  dark:bg-gray-800 flex items-center justify-center">
                   <img
                     src="/images/apple.jpeg"
                     alt="dikie"
