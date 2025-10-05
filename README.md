@@ -101,12 +101,9 @@ Brillia is built with modern web technologies for optimal performance and user e
 ### Styling & UI
 - **Tailwind CSS 4** - Utility-first CSS framework
 - **ShadCN/UI** - Beautiful, accessible component library
-- **Radix UI** - Unstyled, accessible UI primitives
-- **Framer Motion** - Smooth animations and transitions
 - **Lucide React** - Beautiful icon library
 
 ### State Management & Data
-- **Zustand** - Lightweight state management
 - **Local Storage** - Client-side data persistence
 
 ### Development Tools
@@ -193,7 +190,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Dickens Omondi**
 - Website: [dikie.vercel.app](https://dikie.vercel.app)
 - Email: dickensomondi@gmail.com
-- LinkedIn: [Your LinkedIn Profile]
+<!-- - LinkedIn:  -->
 
 Built with ❤️ using modern web technologies. Designed to be fast, accessible, and enjoyable for all users.
 
