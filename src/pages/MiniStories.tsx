@@ -22,20 +22,27 @@ import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
-  Romance:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Mystery:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
   Fantasy:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  Drama:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
   Adventure:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
-  "Slice of Life":
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // Motivation / Adventure
+  Mystery:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
+  Environmental:
+    "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200", // Life
+  "Sci-Fi":
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
+  "Historical Fantasy":
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
+  Paranormal: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // Courage
+  Thriller: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // Courage
+  "Time Travel":
+    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // Motivation
+  Historical:
+    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
+  "Magical Realism":
+    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
 };
-
 const READ_STORIES = "read-stories";
 const FAVOURITE_STORIES = "favourite-stories";
 
