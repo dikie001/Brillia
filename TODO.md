@@ -1,3 +1,3 @@
-- [x] Update service worker to enable full offline functionality
-- [ ] Test offline capabilities by simulating offline mode
-- [ ] Ensure all app data and assets are cached for offline use
+- [x] Create src/modals/InstallationModal.tsx with detailed installation instructions
+- [x] Create src/modals/OfflineModal.tsx explaining offline capabilities
+- [x] Edit src/pages/Help.tsx to add modal state, click handlers, and render modals

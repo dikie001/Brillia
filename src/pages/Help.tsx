@@ -1,11 +1,15 @@
-import Navbar from "@/components/app/Navbar";
 import Footer from "@/components/app/Footer";
+import Navbar from "@/components/app/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { HelpCircle, MessageSquare, Settings, Download, WifiOff, ChevronDown } from "lucide-react";
+import { ChevronDown, Download, HelpCircle, MessageSquare, WifiOff } from "lucide-react";
 import { useState } from "react";
+import InstallationModal from "@/modals/InstallationModal";
+import OfflineModal from "@/modals/OfflineModal";
 
 const Help = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
+  const [showInstallationModal, setShowInstallationModal] = useState(false);
+  const [showOfflineModal, setShowOfflineModal] = useState(false);
 
   const toggleItem = (index: number) => {
     setOpenItems(prev =>
@@ -89,7 +93,10 @@ const Help = () => {
 
           {/* Quick Help Cards */}
           <div className="grid md:grid-cols-2 gap-4">
-            <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
+            <Card
+              onClick={() => setShowInstallationModal(true)}
+              className="cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl shadow-lg hover:shadow-xl transition-shadow"
+            >
               <CardHeader className="text-center">
                 <Download className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
                 <CardTitle className="text-lg">Installation</CardTitle>
@@ -101,7 +108,10 @@ const Help = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
+            <Card
+              onClick={() => setShowOfflineModal(true)}
+              className="cursor-pointer bg-white dark:bg-gray-800 border rounded-3xl border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow"
+            >
               <CardHeader className="text-center">
                 <WifiOff className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
                 <CardTitle className="text-lg">Offline Use</CardTitle>
@@ -112,7 +122,6 @@ const Help = () => {
                 </p>
               </CardContent>
             </Card>
-
           </div>
 
           {/* FAQ Accordion */}
@@ -169,6 +178,13 @@ const Help = () => {
         </div>
       </div>
       <Footer />
+
+      {showInstallationModal && (
+        <InstallationModal onClose={() => setShowInstallationModal(false)} />
+      )}
+      {showOfflineModal && (
+        <OfflineModal onClose={() => setShowOfflineModal(false)} />
+      )}
     </div>
   );
 };

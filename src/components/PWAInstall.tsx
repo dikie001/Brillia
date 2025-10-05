@@ -80,7 +80,7 @@ export default function PWAInstall() {
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-lg mb-1">Install App</h3>
+                <h3 className="font-semibold text-lg mb-1">Install Brillia</h3>
                 <p className="text-sm text-indigo-100 mb-4">
                   Add to your home screen for quick access and offline use
                 </p>
