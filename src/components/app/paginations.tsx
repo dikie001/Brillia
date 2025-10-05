@@ -22,19 +22,24 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
     <div>
       <Pagination>
         <PaginationContent className="mb-6">
-          <PaginationItem
-            onClick={() => {
-              currentPage !== 1 && setCurrentPage((p) => p - 1);
-            }}
-          >
-            <PaginationPrevious href={`#${currentPage}`} />
+          <PaginationItem>
+            <PaginationPrevious
+              href={`#${currentPage}`}
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage !== 1) setCurrentPage((p) => p - 1);
+              }}
+            />
           </PaginationItem>
 
-          <PaginationItem
-            className={`${currentPage === 1 && "hidden"}`}
-            onClick={() => setCurrentPage((p) => p - 1)}
-          >
-            <PaginationLink href={`#${currentPage}`}>
+          <PaginationItem className={`${currentPage === 1 && "hidden"}`}>
+            <PaginationLink
+              href={`#${currentPage}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentPage((p) => p - 1);
+              }}
+            >
               {currentPage - 1}
             </PaginationLink>
           </PaginationItem>
@@ -45,24 +50,29 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
             </PaginationLink>
           </PaginationItem>
 
-          <PaginationItem
-            onClick={() => {
-              const totalPages = Math.ceil((totalItems || 0) / 10);
-              if (currentPage < totalPages) {
-                setCurrentPage((p) => p + 1);
-              }
-            }}
-          >
-            <PaginationLink href={`#${currentPage}`}>
+          <PaginationItem>
+            <PaginationLink
+              href={`#${currentPage}`}
+              onClick={(e) => {
+                e.preventDefault();
+                const totalPages = Math.ceil((totalItems || 0) / 10);
+                if (currentPage < totalPages) {
+                  setCurrentPage((p) => p + 1);
+                }
+              }}
+            >
               {currentPage + 1}
             </PaginationLink>
           </PaginationItem>
 
-          <PaginationItem
-            className={`${currentPage > 1 && "hidden"}`}
-            onClick={() => setCurrentPage((p) => p + 2)}
-          >
-            <PaginationLink href={`#${currentPage + 2}`}>
+          <PaginationItem className={`${currentPage > 1 && "hidden"}`}>
+            <PaginationLink
+              href={`#${currentPage + 2}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentPage((p) => p + 2);
+              }}
+            >
               {currentPage + 2}
             </PaginationLink>
           </PaginationItem>
@@ -70,8 +80,14 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
-          <PaginationItem onClick={() => setCurrentPage((p) => p + 1)}>
-            <PaginationNext href={`#${currentPage}`} />
+          <PaginationItem>
+            <PaginationNext
+              href={`#${currentPage}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentPage((p) => p + 1);
+              }}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

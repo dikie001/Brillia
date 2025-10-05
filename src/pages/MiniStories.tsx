@@ -1,4 +1,3 @@
-// import AllStories from "public/jsons/miniStories";
 import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
@@ -48,6 +47,7 @@ const FAVOURITE_STORIES = "favourite-stories";
 
 export default function MiniStories() {
   const [stories, setStories] = useState<Story[]>([]);
+  const [filteredStories, setFilteredStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
@@ -63,18 +63,20 @@ export default function MiniStories() {
     setCurrentFilter("All");
   }, []);
 
-  // Handle pagination
+  // Handle pagination and filter changes
   useEffect(() => {
-    PaginationPage();
+    PaginationPage(filteredStories);
     if (currentPage !== 1) {
       localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
     }
-  }, [currentPage]);
+  }, [currentPage, filteredStories]);
 
   // Fetch app data
   const FetchData = () => {
     setLoading(true);
     storiesRef.current = AllStories;
+    setFilteredStories(AllStories);
+    console.log(storiesRef.current)
 
     const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
     if (lastPage) {
@@ -82,7 +84,6 @@ export default function MiniStories() {
       setCurrentPage(num);
     } else {
       setCurrentPage(1);
-      PaginationPage();
     }
 
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
@@ -110,15 +111,15 @@ export default function MiniStories() {
   }, [selectedStory]);
 
   // Handle pagination
-  const PaginationPage = () => {
-    const storiesLength = AllStories ? AllStories.length : 0;
+  const PaginationPage = (filtered: Story[]) => {
+    const storiesLength = filtered.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const currentItems = storiesRef.current.slice(start, end);
-    console.log(end, AllStories.length);
+    const currentItems = filtered.slice(start, end);
+    console.log(end, storiesLength);
 
     setStories(currentItems);
-    if (end > storiesLength) {
+    if (end > storiesLength && storiesLength > 0) {
       setCurrentPage(1);
       localStorage.removeItem(STORIES_CURRENTPAGE);
       toast.info("Out of stories, restarting from the top");
@@ -129,20 +130,20 @@ export default function MiniStories() {
     ? stories.find((s) => s.id === selectedStory)
     : null;
 
-  // FIlter categories
+  // Filter categories
   useEffect(() => {
-    if (currentFilter === "Favorites") return filterFavorites();
-    if (currentFilter === "All") return setStories(AllStories);
-    setStories(AllStories.filter((story) => story.genre === currentFilter));
-  }, [currentFilter]);
+    let filtered: Story[] = [];
+    if (currentFilter === "Favorites") {
+      filtered = AllStories.filter((story) => favorite.has(story.id));
+    } else if (currentFilter === "All") {
+      filtered = AllStories;
+    } else {
+      filtered = AllStories.filter((story) => story.genre === currentFilter);
+    }
+    setFilteredStories(filtered);
+  }, [currentFilter, favorite]);
 
-  const filterFavorites = () => {
-    setLoading(false);
-    const favs = [...favorite].map((f) =>
-      AllStories.find((story) => story.id === f)
-    );
-    setStories(favs.filter((story): story is Story => story !== undefined));
-  };
+
 
   // Toggle favs
   const toggleFavorites = (id: number) => {
@@ -151,9 +152,7 @@ export default function MiniStories() {
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
         toast.success("Story removed from favorites");
-        if (currentFilter === "Favorites") {
-          filterFavorites();
-        }
+    
       } else {
         newFavorite.add(id);
         toast.success("Story added to favorites");
@@ -218,16 +217,17 @@ export default function MiniStories() {
             currentFilter={currentFilter}
           />
         </div>
-        {stories.length !== 0 && stories.length === 5 && (
+
+                {filteredStories.length >= itemsPerPage && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
-            totalItems={AllStories.length}
+            totalItems={filteredStories.length}
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stories.map((story, index) => {
+          {stories.slice(0,10).map((story, index) => {
             const isFavorite = favorite.has(story.id);
             const isCopied = copied === story.id;
 
@@ -336,12 +336,12 @@ export default function MiniStories() {
             );
           })}
         </div>
-        {stories.length !== 0 && stories.length === 10 && (
+        {filteredStories.length >= itemsPerPage && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             story={stories}
-            totalItems={AllStories.length}
+            totalItems={filteredStories.length}
           />
         )}
       </div>
