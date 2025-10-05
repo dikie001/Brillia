@@ -1,4 +1,4 @@
-const CACHE_NAME = 'brillia-v3';
+const CACHE_NAME = 'brillia-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -12,6 +12,9 @@ const urlsToCache = [
   '/amazing-facts',
   '/contact-developer',
   '/settings',
+  '/about',
+  '/help',
+  '/loadinpage',
   // Cache main app assets
   '/src/main.tsx',
   '/src/index.css',
@@ -19,6 +22,7 @@ const urlsToCache = [
   '/images/logo.png',
   '/images/logo-bg.png',
   '/images/logo.ico',
+  '/images/dikie.jpg',
   '/src/assets/images/3d-house.png',
   '/src/assets/images/available.png',
   '/src/assets/images/average.png',
