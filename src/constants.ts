@@ -25,7 +25,7 @@ export const TONGUETWISTERS_CURRENTPAGE = "tongue-twisters-currentPage";
 export const APP_URL = "https://brillia-six.vercel.app";
 
 // Version number
-export const APP_VERSION = "1.0.6";
+export const APP_VERSION = "1.1.7";
 
 // Admin password
 export const ADMIN_PASSWORD = "14572";

@@ -28,6 +28,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
     }));
   };
 
+// Save learner details
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
