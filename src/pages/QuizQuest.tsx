@@ -27,7 +27,7 @@ import Navbar from "@/components/app/Navbar";
 import { STORAGE_KEYS } from "@/constants";
 import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
-import quiz from "../assets/images/quiz.png";
+import logo from "/images/logo.png";
 import useSound from "../hooks/useSound";
 import { toast } from "sonner";
 
@@ -689,7 +689,7 @@ const QuizApp: React.FC = () => {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Test {state.currentTest + 1}
                 </h2>
-                <img src={quiz} className="h-10" alt="quiz icon" />
+                <img src={logo} className="h-10" alt="logo" />
               </div>
               <p className="text-indigo-600 dark:text-indigo-400 font-medium">
                 {currentQ.subject}

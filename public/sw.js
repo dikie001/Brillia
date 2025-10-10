@@ -9,7 +9,6 @@ const urlsToCache = [
   "/src/assets/react.svg",
   // Images
   "/images/logo.png",
-  "/images/logo-bg.png",
   "/images/logo.ico",
   "/images/dikie.jpg",
 

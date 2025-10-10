@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import PWAInstall from "../PWAInstall";
+import logo from "/images/logo.png"
 
 const greetings = [
   "Hello",
@@ -57,14 +58,15 @@ const Navbar = ({ currentPage }: MainProp) => {
     <nav className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-4 py-4 shadow-lg  backdrop-blur-2xl transition-colors duration-300 ">
       {/* Mobile Menu */}
       <MobileNav open={openMenu} onClose={() => setOpenMenu(false)} />
-
       {/* Greeting / Title */}
-      <h1
+      <div
         onClick={() => navigate("/")}
-        className="cursor-pointer text-2xl lg:text-3xl font-extrabold  bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 bg-clip-text text-transparent leading-tight"
+        className="cursor-pointer text-2xl flex gap-2 lg:text-3xl font-extrabold  bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-400 bg-clip-text text-transparent leading-tight"
       >
+        {" "}
+        <img src={logo} className="h-10" alt="" />
         {navName}
-      </h1>
+      </div>
 
       {/* Actions */}
       <div className="flex items-center gap-3">
