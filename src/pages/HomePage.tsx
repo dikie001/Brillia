@@ -26,6 +26,7 @@ const HomePage: React.FC = () => {
   const [openLearnerModal, setOpenLearnerModal] = useState(false);
   const [completed, setCompleted] = useState<Complete>({ stories: 0, quiz: 0 });
 
+  // Sections info
   const sections = [
     {
       name: "Brain Teasers",
@@ -177,7 +178,7 @@ const HomePage: React.FC = () => {
         <LearnerModal
           onClose={() => {
             setOpenLearnerModal(false);
-            window.location.reload();
+            navigate("/")
           }}
         />
       )}
