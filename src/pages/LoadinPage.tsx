@@ -10,13 +10,13 @@ const LoadingPage: React.FC = () => {
       <div className="flex flex-col items-center space-y-6">
         {/* App Icon */}
         <img
-          src="/images/logo-bg.png"
+          src="/images/logo.png"
           alt="Brillia Logo"
           className="h-20 w-20 animate-pulse"
         />
 
         {/* Loading Spinner */}
-                <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+        <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
 
         <p className="text-slate-300 text-lg font-medium">Loading...</p>
       </div>
