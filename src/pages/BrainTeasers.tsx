@@ -73,17 +73,12 @@ export default function BrainTeasersPage() {
       );
     }
 
-    const teasersLength = filteredTeasers.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredTeasers.slice(start, end);
 
     setTeasers(currentItems);
-    if (end > teasersLength && !teasers) {
-      setCurrentPage(1);
-      localStorage.removeItem(TEASERS_CURRENTPAGE);
-      toast.info("Out of teasers, restarting from the top");
-    }
+
   };
 
   // fetch current page info from storage

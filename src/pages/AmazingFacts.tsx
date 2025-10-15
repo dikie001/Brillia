@@ -71,17 +71,12 @@ export default function FactFrenzy() {
       );
     }
 
-    const factsLength = filteredFacts.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredFacts.slice(start, end);
     console.log(currentItems);
     setDisplayedFacts(currentItems);
-    if (end > factsLength) {
-      toast.info("Ran out of facts, restarting from the top");
-      setCurrentPage(1);
-      localStorage.removeItem(FACTS_CURRENTPAGE);
-    }
+
   };
 
   // fetch current page info from storage

@@ -2,6 +2,7 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
+import { Badge } from "@/components/ui/badge";
 import { WISDOM_CURRENTPAGE } from "@/constants";
 import { quotes } from "@/jsons/coolQuotes";
 import type { Quote } from "@/types";
@@ -16,9 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import { Badge } from "@/components/ui/badge";
 
 const categoryColors = {
   Motivation:
@@ -77,11 +76,6 @@ export default function WisdomNuggets() {
     const end = start + itemsPerPage;
     setDisplayedQuotes(filteredQuotes.slice(start, end));
 
-    if (end > filteredQuotes.length) {
-      toast.info("Ran out of facts, restarting from the top");
-      setCurrentPage(1);
-      localStorage.removeItem(WISDOM_CURRENTPAGE);
-    }
   };
 
   useEffect(() => {

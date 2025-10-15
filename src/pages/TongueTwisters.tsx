@@ -55,16 +55,11 @@ const TongueTwisters = () => {
       );
     }
 
-    const twistersLength = filteredTwisters.length;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredTwisters.slice(start, end);
     setDisplayedTwisters(currentItems);
-    if (end > twistersLength) {
-      setCurrentPage(1);
 
-      localStorage.removeItem(TONGUETWISTERS_CURRENTPAGE);
-    }
   };
 
   // fetch current page info from storage

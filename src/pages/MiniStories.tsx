@@ -117,13 +117,8 @@ export default function MiniStories() {
     const end = start + itemsPerPage;
     const currentItems = filtered.slice(start, end);
     console.log(end, storiesLength);
-
     setStories(currentItems);
-    if (end > storiesLength && storiesLength > 0) {
-      setCurrentPage(1);
-      localStorage.removeItem(STORIES_CURRENTPAGE);
-      toast.info("Out of stories, restarting from the top");
-    }
+
   };
 
   const selectedStoryData = selectedStory
