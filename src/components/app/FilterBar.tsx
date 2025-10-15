@@ -30,7 +30,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-6 ">
+    <div className="w-full flex justify-between max-w-4xl mx-auto px-4 py-6 ">
       {/* Filter Button */}
       <div className="flex items-center gap-3 mx-auto justify-center">
         <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
@@ -77,8 +77,10 @@ export default function FilterBar({
               </div>
             </>
           )}
+          
         </div>
       </div>
+      <div>Showing {}</div>
     </div>
   );
 }

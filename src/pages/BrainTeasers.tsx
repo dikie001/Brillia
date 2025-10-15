@@ -17,6 +17,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import { Button } from "@/components/ui/button";
 
 export type Teaser = {
   id: number;
@@ -47,7 +48,11 @@ export default function BrainTeasersPage() {
 
   const [currentFilter, setCurrentFilter] = useState("All");
 
-  const genres = ["All", "Favorites", ...new Set(brainTeasers.map((t) => t.category))];
+  const genres = [
+    "All",
+    "Favorites",
+    ...new Set(brainTeasers.map((t) => t.category)),
+  ];
 
   useEffect(() => {
     PaginationPage();
@@ -78,7 +83,6 @@ export default function BrainTeasersPage() {
     const currentItems = filteredTeasers.slice(start, end);
 
     setTeasers(currentItems);
-
   };
 
   // fetch current page info from storage
@@ -163,6 +167,24 @@ export default function BrainTeasersPage() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
+        {currentPage * 10 > teasersRef.current.length && (
+          <Button
+            onClick={() => {
+              setCurrentPage(1);
+                    localStorage.setItem(
+                      TEASERS_CURRENTPAGE,
+                      JSON.stringify(2)
+                    ); 
+
+            }}
+            variant="default"
+          >
+            Reset
+          </Button>
+        )}
+        <div>
+          showing {currentPage * 10} of {teasersRef.current.length}
+        </div>
 
         {/* Top Paginate */}
         {teasers.length !== 0 && teasers.length === 10 && (
