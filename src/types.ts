@@ -1,6 +1,6 @@
 export interface Story {
-  id: number;
-  title: string;
+  id: number | "DO";
+  title: string ;
   content:string;
   genre:
     | "Fantasy"

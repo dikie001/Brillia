@@ -5,14 +5,22 @@ const ASSETS = [
   "/index.html",
   "/manifest.webmanifest",
 
-  // Core icons
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
+  // Routes
+  "/brain-teasers",
+  "/mini-stories",
+  "/quiz-quest",
+  "/wisdom-nuggets",
+  "/tongue-twisters",
+  "/amazing-facts",
+  "/contact-developer",
+  "/settings",
+  "/about",
+  "/help",
 
   // Images
   "/images/logo.png",
   "/images/logo.ico",
-  "/images/dikie.jpg",
+  "/images/apple.jpeg",
 
   // Sounds
   "/sounds/correct.mp3",
@@ -20,7 +28,10 @@ const ASSETS = [
   "/sounds/finish.mp3",
   "/sounds/send.mp3",
   "/sounds/success.mp3",
-  "/sounds/wrong.mp3"
+  "/sounds/wrong.mp3",
+
+  // Other assets
+  "/vite.svg"
 ];
 
 self.addEventListener("install", (event) => {
