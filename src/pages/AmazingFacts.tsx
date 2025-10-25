@@ -22,16 +22,22 @@ import Paginate from "../components/app/paginations";
 
 const categoryColors = {
   Science:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // intellectual, calm
-  Nature: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200", // natural, peaceful
-  History: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200", // warm, vintage feel
+    "bg-sky-900/40 text-sky-300 border border-sky-800", // calm, futuristic glow
+  Nature:
+    "bg-emerald-900/40 text-emerald-300 border border-emerald-800", // earthy, balanced
+  History:
+    "bg-amber-900/40 text-amber-300 border border-amber-800", // warm, vintage tone
   Space:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // cosmic, mysterious
+    "bg-violet-900/40 text-violet-300 border border-violet-800", // cosmic depth
   Animals:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200", // energetic, lively
-  Technology: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200", // neutral, modern
-  Culture: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200", // human, vibrant
+    "bg-orange-900/40 text-orange-300 border border-orange-800", // vibrant, organic
+  Technology:
+    "bg-slate-900/40 text-slate-300 border border-slate-800", // sleek, neutral
+  Culture:
+    "bg-rose-900/40 text-rose-300 border border-rose-800", // expressive warmth
 };
+
+
 
 const FAVOURITE_FACTS = "favourite-facts";
 

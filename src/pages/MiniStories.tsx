@@ -24,26 +24,30 @@ import { useNavigate } from "react-router-dom";
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
   Fantasy:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
+    "bg-gradient-to-r from-violet-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // dreamy, elegant
   Adventure:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // Motivation / Adventure
+    "bg-gradient-to-r from-sky-900/40 to-blue-900/40 text-sky-300 border border-sky-800", // dynamic, bold
   Mystery:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
+    "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800", // enigmatic warmth
   Environmental:
-    "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200", // Life
+    "bg-gradient-to-r from-emerald-900/40 to-teal-900/40 text-emerald-300 border border-emerald-800", // organic calm
   "Sci-Fi":
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
+    "bg-gradient-to-r from-cyan-900/40 to-indigo-900/40 text-cyan-300 border border-cyan-800", // futuristic glow
   "Historical Fantasy":
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
-  Paranormal: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // Courage
-  Thriller: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200", // Courage
+    "bg-gradient-to-r from-orange-900/40 to-amber-900/40 text-orange-300 border border-orange-800", // regal tone
+  Paranormal:
+    "bg-gradient-to-r from-rose-900/40 to-red-900/40 text-rose-300 border border-rose-800", // eerie intensity
+  Thriller:
+    "bg-gradient-to-r from-slate-900/40 to-zinc-900/40 text-slate-300 border border-slate-800", // cold tension
   "Time Travel":
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200", // Motivation
+    "bg-gradient-to-r from-indigo-900/40 to-cyan-900/40 text-indigo-300 border border-indigo-800", // temporal glow
   Historical:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200", // Wisdom
+    "bg-gradient-to-r from-stone-900/40 to-amber-900/40 text-stone-300 border border-stone-800", // grounded warmth
   "Magical Realism":
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200", // Imagination
+    "bg-gradient-to-r from-pink-900/40 to-purple-900/40 text-pink-300 border border-pink-800", // surreal softness
 };
+
+
 const READ_STORIES = "read-stories";
 const FAVOURITE_STORIES = "favourite-stories";
 

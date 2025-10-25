@@ -19,11 +19,13 @@ import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
 import { Badge } from "@/components/ui/badge";
 
-const difficultyColors = {
-  Easy: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+const difficultyColors: Record<string, string> = {
+  Easy:
+    "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800", // calm, rewarding
   Medium:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Hard: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+    "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800", // alert, balanced challenge
+  Hard:
+    "bg-gradient-to-r from-indigo-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // bold, intense, premium
 };
 
 const FAVOURITE_TWISTERS = "favourite-twisters";

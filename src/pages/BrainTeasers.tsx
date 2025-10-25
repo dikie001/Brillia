@@ -29,11 +29,15 @@ export type Teaser = {
 
 const FAVOURITE_TEASERS = "favourite-teasers";
 
-const categoryColors = {
-  Logic: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Riddle: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Math: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  Lateral: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+const categoryColors: Record<string, string> = {
+  Logic:
+    "bg-gradient-to-r from-blue-900/40 to-sky-900/40 text-sky-300 border border-sky-800", // sharp, analytical
+  Riddle:
+    "bg-gradient-to-r from-emerald-900/40 to-teal-900/40 text-emerald-300 border border-emerald-800", // playful, mysterious
+  Math:
+    "bg-gradient-to-r from-violet-900/40 to-purple-900/40 text-violet-300 border border-violet-800", // intelligent, deep
+  Lateral:
+    "bg-gradient-to-r from-rose-900/40 to-red-900/40 text-rose-300 border border-rose-800", // creative, bold
 };
 
 export default function BrainTeasersPage() {

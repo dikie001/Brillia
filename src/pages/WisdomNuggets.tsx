@@ -19,22 +19,29 @@ import {
 import { useEffect, useState } from "react";
 import Paginate from "../components/app/paginations";
 
-const categoryColors = {
+const categoryColors: Record<string, string> = {
   Motivation:
-    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+    "bg-gradient-to-r from-sky-900/40 to-indigo-900/40 text-sky-300 border border-sky-800",
   Wisdom:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  Life: "bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-200",
-  Success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Love: "bg-pink-100 text-pink-700 dark:bg-pink-900 dark:text-pink-300",
-  Courage: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+    "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800",
+  Life:
+    "bg-gradient-to-r from-zinc-900/40 to-stone-900/40 text-zinc-300 border border-zinc-800",
+  Success:
+    "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800",
+  Love:
+    "bg-gradient-to-r from-rose-900/40 to-pink-900/40 text-rose-300 border border-rose-800",
+  Courage:
+    "bg-gradient-to-r from-red-900/40 to-orange-900/40 text-orange-300 border border-red-800",
   Imagination:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+    "bg-gradient-to-r from-violet-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-violet-800",
   Knowledge:
-    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
-  Happiness: "bg-lime-100 text-lime-800 dark:bg-lime-900 dark:text-lime-200",
-  Perseverance: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+    "bg-gradient-to-r from-teal-900/40 to-cyan-900/40 text-teal-300 border border-teal-800",
+  Happiness:
+    "bg-gradient-to-r from-lime-900/40 to-green-900/40 text-lime-300 border border-lime-800",
+  Perseverance:
+    "bg-gradient-to-r from-blue-900/40 to-cyan-900/40 text-cyan-300 border border-blue-800",
 };
+
 
 const FAVOURITE_QUOTES = "favorite-quote";
 
