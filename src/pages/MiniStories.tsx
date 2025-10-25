@@ -24,28 +24,32 @@ import { useNavigate } from "react-router-dom";
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
   Fantasy:
-    "bg-gradient-to-r from-violet-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // dreamy, elegant
+    "bg-gradient-to-r from-violet-200/40 to-fuchsia-200/40 text-violet-900 dark:border border-violet-800 dark:from-violet-900/40 dark:to-fuchsia-900/40 dark:text-fuchsia-300",
   Adventure:
-    "bg-gradient-to-r from-sky-900/40 to-blue-900/40 text-sky-300 border border-sky-800", // dynamic, bold
+    "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
   Mystery:
-    "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800", // enigmatic warmth
+    "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
   Environmental:
-    "bg-gradient-to-r from-emerald-900/40 to-teal-900/40 text-emerald-300 border border-emerald-800", // organic calm
+    "bg-gradient-to-r from-emerald-200/40 to-teal-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-teal-900/40 dark:text-emerald-300",
   "Sci-Fi":
-    "bg-gradient-to-r from-cyan-900/40 to-indigo-900/40 text-cyan-300 border border-cyan-800", // futuristic glow
+    "bg-gradient-to-r from-cyan-200/40 to-indigo-200/40 text-cyan-900 dark:border border-cyan-800 dark:from-cyan-900/40 dark:to-indigo-900/40 dark:text-cyan-300",
   "Historical Fantasy":
-    "bg-gradient-to-r from-orange-900/40 to-amber-900/40 text-orange-300 border border-orange-800", // regal tone
+    "bg-gradient-to-r from-orange-200/40 to-amber-200/40 text-orange-900 dark:border border-orange-800 dark:from-orange-900/40 dark:to-amber-900/40 dark:text-orange-300",
   Paranormal:
-    "bg-gradient-to-r from-rose-900/40 to-red-900/40 text-rose-300 border border-rose-800", // eerie intensity
+    "bg-gradient-to-r from-rose-200/40 to-red-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-red-900/40 dark:text-rose-300",
   Thriller:
-    "bg-gradient-to-r from-slate-900/40 to-zinc-900/40 text-slate-300 border border-slate-800", // cold tension
+    "bg-gradient-to-r from-slate-200/40 to-zinc-200/40 text-slate-900 dark:border border-slate-800 dark:from-slate-900/40 dark:to-zinc-900/40 dark:text-slate-300",
   "Time Travel":
-    "bg-gradient-to-r from-indigo-900/40 to-cyan-900/40 text-indigo-300 border border-indigo-800", // temporal glow
+    "bg-gradient-to-r from-indigo-200/40 to-cyan-200/40 text-indigo-900 dark:border border-indigo-800 dark:from-indigo-900/40 dark:to-cyan-900/40 dark:text-indigo-300",
   Historical:
-    "bg-gradient-to-r from-stone-900/40 to-amber-900/40 text-stone-300 border border-stone-800", // grounded warmth
+    "bg-gradient-to-r from-stone-200/40 to-amber-200/40 text-stone-900 dark:border border-stone-800 dark:from-stone-900/40 dark:to-amber-900/40 dark:text-stone-300",
   "Magical Realism":
-    "bg-gradient-to-r from-pink-900/40 to-purple-900/40 text-pink-300 border border-pink-800", // surreal softness
+    "bg-gradient-to-r from-pink-200/40 to-purple-200/40 text-pink-900 dark:border border-pink-800 dark:from-pink-900/40 dark:to-purple-900/40 dark:text-pink-300",
+  "dikie.dev":
+    "bg-gradient-to-r from-cyan-100/40 to-cyan-400/40 text-emerald-900 dark:border border-emerald-800 dark:from-cyan-800/40 dark:to-cyan-900/40 dark:text-emerald-300",
 };
+
+
 
 
 const READ_STORIES = "read-stories";
@@ -85,13 +89,13 @@ export default function MiniStories() {
     setFilteredStories(AllStories);
     console.log(storiesRef.current);
 
-    const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
-    if (lastPage) {
-      const num = Number(lastPage);
-      setCurrentPage(num);
-    } else {
-      setCurrentPage(1);
-    }
+    // const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
+    // if (lastPage) {
+    //   const num = Number(lastPage);
+    //   setCurrentPage(num);
+    // } else {
+    //   setCurrentPage(1);
+    // }
 
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
@@ -126,11 +130,7 @@ export default function MiniStories() {
     console.log(end, storiesLength);
 
     setStories(currentItems);
-    // if (end > storiesLength && storiesLength > 0) {
-    //   setCurrentPage(1);
-    //   localStorage.removeItem(STORIES_CURRENTPAGE);
-    //   toast.info("Out of stories, restarting from the top");
-    // }
+
   };
 
   const selectedStoryData = selectedStory

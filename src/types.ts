@@ -1,7 +1,7 @@
 export interface Story {
   id: number;
   title: string;
-  content: string;
+  content:string;
   genre:
     | "Fantasy"
     | "Adventure"
@@ -12,7 +12,7 @@ export interface Story {
     | "Paranormal"
     | "Thriller"
     | "Time Travel"
-    | "Historical"
+    | "Historical"| "dikie.dev"
     | "Magical Realism";
   author: string;
 }
