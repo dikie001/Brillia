@@ -1,6 +1,5 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "@/hooks/useHook";
 import EditUserInfoModal from "@/modals/EditUserInfoModal";
@@ -49,7 +48,6 @@ const Settings: React.FC = () => {
     toast.info("Feature coming soon...");
   };
 
-
   // Open edit modal
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -61,7 +59,11 @@ const Settings: React.FC = () => {
   };
 
   // Handle save from modal
-  const handleSaveFromModal = (data: { name: string; hobby: string; subject: string }) => {
+  const handleSaveFromModal = (data: {
+    name: string;
+    hobby: string;
+    subject: string;
+  }) => {
     setName(data.name);
     setHobby(data.hobby);
     setSubject(data.subject);
@@ -88,23 +90,25 @@ const Settings: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span>Select theme mode</span>
                 <div className="flex gap-2">
-                  <Button
-                    variant={theme === "light" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => toggleTheme()}
-                    className={
-                      theme === "light"
-                        ? "bg-indigo-500 hover:bg-indigo-600"
-                        : ""
-                    }
-                  >
-                    {theme === "dark" ? (
-                      <Moon className="w-4 h-4 mr-1" />
-                    ) : (
-                      <Sun className="w-4 h-4 mr-1" />
-                    )}
-                    {theme}
-                  </Button>
+                  <div className="">
+                    <button
+                      onClick={toggleTheme}
+                      className="relative w-14 h-8 rounded-full bg-gray-200 dark:bg-gray-700 shadow-inner transition-colors duration-300"
+                      aria-label="Toggle theme"
+                    >
+                      <div
+                        className={`absolute top-1 w-6 h-6 rounded-full bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
+                          theme === "light" ? "left-1" : "left-7"
+                        }`}
+                      >
+                        {theme === "light" ? (
+                          <Sun className="w-3.5 h-3.5 text-amber-500" />
+                        ) : (
+                          <Moon className="w-3.5 h-3.5 text-indigo-500" />
+                        )}
+                      </div>
+                    </button>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -120,7 +124,7 @@ const Settings: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span>Enable  sound effects</span>
+                <span>Enable sound effects</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -144,7 +148,7 @@ const Settings: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
-                <span>Enable  notifications</span>
+                <span>Enable notifications</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -170,10 +174,11 @@ const Settings: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-700 dark:text-gray-300">Click to edit your user information</p>
+              <p className="text-gray-700 dark:text-gray-300">
+                Click to edit your user information
+              </p>
             </CardContent>
           </Card>
-
         </div>
       </div>
       {isEditModalOpen && (

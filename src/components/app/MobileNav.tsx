@@ -81,7 +81,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
         className="fixed inset-0 bg-black/60 h-screen backdrop-blur-sm z-40"
       />
 
-      <div className="fixed top-0 right-0 w-full sm:w-80 lg:w-96 h-screen flex flex-col bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-hidden">
+      <div className="fixed top-0 right-0 w-74 sm:w-80 lg:w-96 h-screen flex flex-col bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-hidden">
         {/* Header */}
         <div className="relative bg-gradient-to-br from-indigo-600 to-indigo-800 dark:from-indigo-600 dark:to-indigo-800 p-4">
           <button

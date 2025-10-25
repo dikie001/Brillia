@@ -3,7 +3,7 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
-import AllStories  from "@/jsons/miniStories";
+import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { STORIES_CURRENTPAGE } from "@/constants";
 import {
@@ -18,6 +18,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
@@ -57,6 +59,7 @@ export default function MiniStories() {
   const storiesRef = useRef<Story[]>([]);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     FetchData();
@@ -76,7 +79,7 @@ export default function MiniStories() {
     setLoading(true);
     storiesRef.current = AllStories;
     setFilteredStories(AllStories);
-    console.log(storiesRef.current)
+    console.log(storiesRef.current);
 
     const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
     if (lastPage) {
@@ -143,8 +146,6 @@ export default function MiniStories() {
     setFilteredStories(filtered);
   }, [currentFilter, favorite]);
 
-
-
   // Toggle favs
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
@@ -152,7 +153,6 @@ export default function MiniStories() {
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
         toast.success("Story removed from favorites");
-    
       } else {
         newFavorite.add(id);
         toast.success("Story added to favorites");
@@ -197,8 +197,6 @@ export default function MiniStories() {
       <Navbar currentPage="Mini Stories" />
       <Toaster richColors position="top-center" />
       <div className="relative  z-10 max-w-7xl mx-auto pt-12">
-
-
         {/* Loading */}
         {loading && (
           <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
@@ -214,7 +212,7 @@ export default function MiniStories() {
           />
         </div>
 
-                {filteredStories.length >= itemsPerPage && (
+        {filteredStories.length >= itemsPerPage && (
           <Paginate
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -223,7 +221,26 @@ export default function MiniStories() {
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stories.slice(0,10).map((story, index) => {
+          {stories.length === 0  && (
+            <div className="flex flex-col items-center justify-center text-center py-4 space-y-4">
+              <p className="text-xl font-semibold"> 
+              </p>
+              <p className="text-muted-foreground">
+                You’ve read all available stories. New ones will drop soon.
+              </p>
+              <Button
+                variant="default"
+                className="cursor-pointer"
+                onClick={() =>
+                  navigate("/contact-developer")
+                }
+              >
+                Contact Developer
+              </Button> 
+            </div>
+          )}
+
+          {stories.slice(0, 10).map((story, index) => {
             const isFavorite = favorite.has(story.id);
             const isCopied = copied === story.id;
 

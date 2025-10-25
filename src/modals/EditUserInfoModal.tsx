@@ -79,7 +79,7 @@ const EditUserInfoModal: React.FC<EditUserInfoModalProps> = ({
             <div className="p-2 bg-white/20 rounded-xl">
               <User size={24} />
             </div>
-            <h2 className="text-2xl font-bold">Edit User Info</h2>
+            <h2 className="text-2xl font-bold">Edit your Info</h2>
           </div>
           <p className="text-white/90 text-sm">Update your details</p>
         </div>
@@ -170,7 +170,7 @@ const EditUserInfoModal: React.FC<EditUserInfoModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 py-3 px-6 rounded-xl font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
+                className="flex-1 py-3 px-4 rounded-xl font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
               >
                 Cancel
               </button>
@@ -178,7 +178,7 @@ const EditUserInfoModal: React.FC<EditUserInfoModalProps> = ({
                 type="button"
                 onClick={handleSubmit}
                 disabled={!isFormValid || loading}
-                className={`flex-1 py-3 px-6 rounded-xl font-medium transition-all duration-300 transform ${
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 transform ${
                   isFormValid && !loading
                     ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:scale-[1.02] shadow-lg hover:shadow-xl"
                     : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"

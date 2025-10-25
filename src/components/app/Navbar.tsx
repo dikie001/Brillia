@@ -1,10 +1,10 @@
 import { useTheme } from "@/hooks/useHook";
-import { Menu, Sun } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import PWAInstall from "../PWAInstall";
-import logo from "/images/logo.png"
+import logo from "/images/logo.png";
 
 const greetings = [
   "Hello",
@@ -71,16 +71,25 @@ const Navbar = ({ currentPage }: MainProp) => {
       {/* Actions */}
       <div className="flex items-center gap-3">
         <PWAInstall />
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-900/40 dark:hover:bg-indigo-800/60 transition-colors"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-5 w-5 text-indigo-400" />
-          ) : (
-            <div className="h-5 w-5">🌙</div>
-          )}
-        </button>
+
+        {/* Theme button */}
+          <button
+            onClick={toggleTheme}
+            className="relative w-14 h-7 cursor-pointer rounded-full bg-gray-200 dark:bg-gray-700 shadow-inner transition-colors duration-300"
+            aria-label="Toggle theme"
+          >
+            <div
+              className={`absolute top-0.5 w-6 h-6 rounded-full  bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
+                theme === "light" ? "left-1" : "left-7"
+              }`}
+            >
+              {theme === "light" ? (
+                <Sun className="w-3.5 h-3.5 text-amber-500" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-indigo-500" />
+              )}
+            </div>
+          </button>
 
         <button
           onClick={() => setOpenMenu(!openMenu)}
