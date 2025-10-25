@@ -79,14 +79,14 @@ const Navbar = ({ currentPage }: MainProp) => {
           aria-label="Toggle theme"
         >
           <div
-            className={`absolute top-0.5 w-6 h-6 rounded-full  bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
+            className={`absolute top-0.5  w-6 h-6 rounded-full  bg-white dark:bg-indigo-600  shadow-md flex items-center justify-center transition-all duration-300 ease-in-out ${
               theme === "light" ? "left-1" : "left-7"
             }`}
           >
             {theme === "light" ? (
               <Sun className="w-3.5 h-3.5 text-amber-500" />
             ) : (
-              <Moon className="w-3.5 h-3.5 text-indigo-500" />
+              <Moon className="w-3.5 h-3.5 text-indigo-500 dark:text-white" />
             )}
           </div>
         </button>

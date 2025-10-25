@@ -15,9 +15,10 @@ import {
   User,
   ChevronDown,
   ChevronUp,
+  type LucideIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, type Location } from "react-router-dom";
 
 type MobileMenuProps = {
   open: boolean;
@@ -32,7 +33,7 @@ interface User {
 
 interface MenuItem {
   label: string;
-  icon: React.ComponentType<any>;
+  icon: LucideIcon;
   to: string;
 }
 
@@ -59,14 +60,14 @@ const settingsItems: MenuItem[] = [
 
 export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location:Location = useLocation();
   const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
   const [activitiesOpen, setActivitiesOpen] = useState(true);
   const [supportOpen, setSupportOpen] = useState(false);
 
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
-    userDetails && setUser(JSON.parse(userDetails));
+    if (userDetails) setUser(JSON.parse(userDetails));
   }, []);
 
   const isGroupActive = (items: MenuItem[]) =>
@@ -206,14 +207,14 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
 type GroupProps = {
   title: string;
-  icon: any;
+  icon: LucideIcon;
   open: boolean;
   toggle: () => void;
   items: MenuItem[];
   isGroupActive: (items: MenuItem[]) => boolean;
   navigate: (path: string) => void;
   onClose: () => void;
-  location: any;
+  location: Location;
 };
 
 function MenuGroup({
