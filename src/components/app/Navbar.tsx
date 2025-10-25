@@ -49,7 +49,7 @@ const Navbar = ({ currentPage }: MainProp) => {
         : currentPage || "Brillia";
 
     setNavName(newNavname);
-  }, []);
+  }, [currentPage, location, randomIndex]);
 
   const Randomize = () =>
     setRandomIndex(Math.floor(Math.random() * greetings.length));
@@ -73,23 +73,23 @@ const Navbar = ({ currentPage }: MainProp) => {
         <PWAInstall />
 
         {/* Theme button */}
-          <button
-            onClick={toggleTheme}
-            className="relative w-14 h-7 cursor-pointer rounded-full bg-gray-200 dark:bg-gray-700 shadow-inner transition-colors duration-300"
-            aria-label="Toggle theme"
+        <button
+          onClick={toggleTheme}
+          className="relative w-14 h-7 cursor-pointer rounded-full bg-gray-200 dark:bg-gray-700 shadow-inner transition-colors duration-300"
+          aria-label="Toggle theme"
+        >
+          <div
+            className={`absolute top-0.5 w-6 h-6 rounded-full  bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
+              theme === "light" ? "left-1" : "left-7"
+            }`}
           >
-            <div
-              className={`absolute top-0.5 w-6 h-6 rounded-full  bg-white shadow-md flex items-center justify-center transition-all duration-300 ${
-                theme === "light" ? "left-1" : "left-7"
-              }`}
-            >
-              {theme === "light" ? (
-                <Sun className="w-3.5 h-3.5 text-amber-500" />
-              ) : (
-                <Moon className="w-3.5 h-3.5 text-indigo-500" />
-              )}
-            </div>
-          </button>
+            {theme === "light" ? (
+              <Sun className="w-3.5 h-3.5 text-amber-500" />
+            ) : (
+              <Moon className="w-3.5 h-3.5 text-indigo-500" />
+            )}
+          </div>
+        </button>
 
         <button
           onClick={() => setOpenMenu(!openMenu)}
