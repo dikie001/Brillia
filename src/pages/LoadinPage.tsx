@@ -18,7 +18,7 @@ const LoadingPage: React.FC = () => {
         {/* Loading Spinner */}
         <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
 
-        <p className="text-slate-300 text-lg font-medium">Loading...</p>
+        <p className="dark:text-white text-lg font-medium">Loading...</p>
       </div>
     </div>
   );
