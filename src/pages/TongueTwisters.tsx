@@ -41,6 +41,7 @@ const TongueTwisters = () => {
   const [copied, setCopied] = useState<number | null>(null);
 
   const [currentFilter, setCurrentFilter] = useState("All");
+  const [totalFiltered, setTotalFiltered] = useState(0);
 
   const genres = ["All", "Favorites", "Easy", "Medium", "Hard"];
 
@@ -56,6 +57,8 @@ const TongueTwisters = () => {
         (twister) => twister.difficulty === currentFilter
       );
     }
+
+    setTotalFiltered(filteredTwisters.length);
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -158,12 +161,15 @@ const TongueTwisters = () => {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Showing {displayedTwisters.length} of {totalFiltered} items
+        </div>
 
         {/* Top Paginate */}
         {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
           <Paginate
             currentPage={currentPage}
-            totalItems={twistersRef.current.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}
@@ -274,7 +280,7 @@ const TongueTwisters = () => {
         {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
           <Paginate
             currentPage={currentPage}
-            totalItems={twistersRef.current.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}

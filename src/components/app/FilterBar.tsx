@@ -80,7 +80,6 @@ export default function FilterBar({
           
         </div>
       </div>
-      <div>Showing {}</div>
     </div>
   );
 }

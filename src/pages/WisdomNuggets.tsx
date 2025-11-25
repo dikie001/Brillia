@@ -55,6 +55,7 @@ export default function WisdomNuggets() {
   const [showFeaturedQuote, setShowFeaturedQuote] = useState(true);
 
   const [currentFilter, setCurrentFilter] = useState("All");
+  const [totalFiltered, setTotalFiltered] = useState(0);
 
   const genres = [
   "Motivation",
@@ -78,6 +79,8 @@ export default function WisdomNuggets() {
         (quote) => quote.category === currentFilter
       );
     }
+
+    setTotalFiltered(filteredQuotes.length);
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -186,6 +189,9 @@ export default function WisdomNuggets() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Showing {displayedQuotes.length} of {totalFiltered} items
+        </div>
 
         {/* Top Paginate */}
 

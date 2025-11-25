@@ -53,6 +53,7 @@ export default function FactFrenzy() {
   const [copied, setCopied] = useState<number | null>(null);
 
   const [currentFilter, setCurrentFilter] = useState("All");
+  const [totalFiltered, setTotalFiltered] = useState(0);
 
   const genres = [
     "All",
@@ -76,6 +77,8 @@ export default function FactFrenzy() {
         (fact) => fact.category === currentFilter
       );
     }
+
+    setTotalFiltered(filteredFacts.length);
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -219,12 +222,15 @@ export default function FactFrenzy() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Showing {displayedFacts.length} of {totalFiltered} items
+        </div>
 
         {/* Top Paginate */}
         {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
           <Paginate
             currentPage={currentPage}
-            totalItems={facts.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}
@@ -337,7 +343,7 @@ export default function FactFrenzy() {
         {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
           <Paginate
             currentPage={currentPage}
-            totalItems={facts.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}

@@ -51,6 +51,7 @@ export default function BrainTeasersPage() {
   const [copied, setCopied] = useState<number | null>(null);
 
   const [currentFilter, setCurrentFilter] = useState("All");
+  const [totalFiltered, setTotalFiltered] = useState(0);
 
   const genres = [
     "All",
@@ -81,6 +82,8 @@ export default function BrainTeasersPage() {
         (teaser) => teaser.category === currentFilter
       );
     }
+
+    setTotalFiltered(filteredTeasers.length);
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -186,8 +189,8 @@ export default function BrainTeasersPage() {
             Reset
           </Button>
         )}
-        <div>
-          showing {currentPage * 10} of {teasersRef.current.length}
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Showing {currentPage*itemsPerPage} of {totalFiltered} items
         </div>
 
         {/* Top Paginate */}
@@ -195,7 +198,7 @@ export default function BrainTeasersPage() {
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
-            totalItems={brainTeasers.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}
@@ -343,7 +346,7 @@ export default function BrainTeasersPage() {
           <Paginate
             currentPage={currentPage}
             teasers={teasers}
-            totalItems={brainTeasers.length}
+            totalItems={totalFiltered}
             setCurrentPage={setCurrentPage}
           />
         )}

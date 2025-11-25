@@ -49,9 +49,6 @@ const genreColors: Record<string, string> = {
     "bg-gradient-to-r from-cyan-100/40 to-cyan-400/40 text-emerald-900 dark:border border-emerald-800 dark:from-cyan-800/40 dark:to-cyan-900/40 dark:text-emerald-300",
 };
 
-
-
-
 const READ_STORIES = "read-stories";
 const FAVOURITE_STORIES = "favourite-stories";
 
@@ -67,7 +64,7 @@ export default function MiniStories() {
   const storiesRef = useRef<Story[]>([]);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     FetchData();
@@ -130,7 +127,6 @@ export default function MiniStories() {
     console.log(end, storiesLength);
 
     setStories(currentItems);
-
   };
 
   const selectedStoryData = selectedStory
@@ -216,6 +212,10 @@ export default function MiniStories() {
           />
         </div>
 
+        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Showing {stories.length} of {filteredStories.length} items
+        </div>
+
         {filteredStories.length >= itemsPerPage && (
           <Paginate
             currentPage={currentPage}
@@ -225,22 +225,19 @@ export default function MiniStories() {
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stories.length === 0  && (
+          {stories.length === 0 && (
             <div className="flex flex-col items-center justify-center text-center py-4 space-y-4">
-              <p className="text-xl font-semibold"> 
-              </p>
+              <p className="text-xl font-semibold"></p>
               <p className="text-muted-foreground">
                 You’ve read all available stories. New ones will drop soon.
               </p>
               <Button
                 variant="default"
                 className="cursor-pointer"
-                onClick={() =>
-                  navigate("/contact-developer")
-                }
+                onClick={() => navigate("/contact-developer")}
               >
                 Contact Developer
-              </Button> 
+              </Button>
             </div>
           )}
 
@@ -278,7 +275,7 @@ export default function MiniStories() {
                 </div>
 
                 <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
-                  {story.id}
+                  {story.id === 1000 ? 'dev': story.id}
                 </div>
 
                 <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
