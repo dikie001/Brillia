@@ -223,7 +223,7 @@ export default function FactFrenzy() {
           genres={genres}
         />
         <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {displayedFacts.length} of {totalFiltered} items
+          Showing {currentPage * itemsPerPage} of {totalFiltered} items
         </div>
 
         {/* Top Paginate */}
