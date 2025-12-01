@@ -2,6 +2,7 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
+import { Button } from "@/components/ui/button";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import brainTeasers from "@/jsons/brainTeaser";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -17,7 +18,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import { Button } from "@/components/ui/button";
 
 export type Teaser = {
   id: number;
