@@ -27,9 +27,9 @@ import Navbar from "@/components/app/Navbar";
 import { STORAGE_KEYS } from "@/constants";
 import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
-import logo from "/images/logo.png";
-import useSound from "../hooks/useSound";
 import { toast } from "sonner";
+import useSound from "../hooks/useSound";
+import logo from "/images/logo.png";
 
 type Options = {
   A: string;
@@ -499,7 +499,7 @@ const QuizApp: React.FC = () => {
       </p>
     </div>
 
-    {/* Stats Grid */}
+    {/* Stats Grid - Enhanced with Lift and Glow */}
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
       {[
         {
@@ -521,7 +521,7 @@ const QuizApp: React.FC = () => {
           sub: "Tests Done",
         },
         {
-          icon: <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />, // Changed icon for variety
+          icon: <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />,
           label: "Success Rate",
           value: state.testResults.length > 0
               ? Math.round(state.testResults.reduce((acc, r) => acc + r.percentage, 0) / state.testResults.length)
@@ -532,9 +532,9 @@ const QuizApp: React.FC = () => {
       ].map((stat, i) => (
         <div
           key={i}
-          className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center text-center justify-center group"
+          className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
         >
-          <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 transition-transform duration-300">
+          <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
             {stat.icon}
           </div>
           <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
@@ -575,7 +575,7 @@ const QuizApp: React.FC = () => {
         </button>
       )}
 
-      {/* Secondary Actions */}
+      {/* Secondary Actions - Enhanced with Scale and Icon Animation */}
       {state.testResults.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <button
@@ -583,17 +583,17 @@ const QuizApp: React.FC = () => {
               playSend();
               setGameState("allResults");
             }}
-            className="flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
           >
-            <Trophy className="w-5 h-5 text-amber-500" />
+            <Trophy className="w-5 h-5 text-amber-500 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
             View Analytics
           </button>
 
           <button
             onClick={() => setOpenResetModal(true)}
-            className="flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors"
+            className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 dark:hover:border-rose-800 transition-all duration-200"
           >
-            <RotateCcw className="w-5 h-5" />
+            <RotateCcw className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-180" />
             Reset Progress
           </button>
         </div>
