@@ -12,9 +12,7 @@ import {
   Sparkles,
   Wand,
   X,
-  User,
   ChevronDown,
-  ChevronUp,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -60,7 +58,7 @@ const settingsItems: MenuItem[] = [
 
 export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
-  const location:Location = useLocation();
+  const location = useLocation();
   const [user, setUser] = useState<User>({ name: "", hobby: "", subject: "" });
   const [activitiesOpen, setActivitiesOpen] = useState(true);
   const [supportOpen, setSupportOpen] = useState(false);
@@ -77,69 +75,95 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
 
   return (
     <>
+      {/* Enhanced Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 h-screen backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200"
       />
 
-      <div className="fixed top-0 right-0 w-74 sm:w-80 lg:w-96 h-screen flex flex-col bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-hidden">
-        {/* Header */}
-        <div className="relative bg-gradient-to-br from-indigo-600 to-indigo-800 dark:from-indigo-600 dark:to-indigo-800 p-4">
+      {/* Modern Sidebar */}
+      <div className="fixed top-0 right-0 w-80 sm:w-96 h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white dark:from-gray-900 dark:to-gray-950 shadow-2xl z-50 animate-in slide-in-from-right duration-300">
+        {/* Beautiful Header */}
+        <div className="relative p-6 pb-8">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-black/20 cursor-pointer transition"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 hover:rotate-90 group"
+            aria-label="Close menu"
           >
-            <X className="w-4 h-4 text-white" />
+            <X className="w-5 h-5 text-gray-700 dark:text-gray-200 transition-transform" />
           </button>
 
-          <div className="flex items-center gap-2">
-            <img
-              src="/images/logo.png"
-              className="h-10 cursor-pointer"
-              onClick={() => navigate("/")}
-              alt="logo"
-            />
-            <div>
-              <h2 className="text-xl font-semibold text-white">
-                {user.name || "Brillia"}
-              </h2>
-              <p className="text-sm text-indigo-100">Explore & Learn</p>
+          {/* User Profile Card */}
+          <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="flex items-center gap-3">
+              <div
+                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/30 cursor-pointer hover:scale-105 transition-transform"
+                onClick={() => navigate("/")}
+              >
+                <img
+                  src="/images/logo.png"
+                  className="w-8 h-8 rounded-full object-cover"
+                  alt="logo"
+                />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-white tracking-tight">
+                  {user.name || "Brillia"}
+                </h2>
+                <p className="text-sm text-white/90 font-medium">
+                  Explore & Learn
+                </p>
+              </div>
             </div>
+            {user.hobby && (
+              <div className="mt-3 pt-3 border-t border-white/20">
+                <p className="text-xs text-white/80">
+                  Hobby:{" "}
+                  <span className="text-white font-semibold">{user.hobby}</span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Scrollable Menu */}
-        <nav className="flex-1  px-4 py-3 space-y-2 overflow-y-auto bg-gray-50 dark:bg-gray-900/50">
-          {/* Main */}
-          {mainItems.map(({ label, icon: Icon, to }) => {
-            const active = location.pathname === to;
-            return (
-              <button
-                key={label}
-                onClick={() => {
-                  navigate(to);
-                  onClose();
-                }}
-                className={`flex items-center cursor-pointer gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition
-                ${
-                  active
-                    ? "bg-indigo-800/30 text-white shadow-md"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800/80"
-                }`}
-              >
-                <Icon
-                  className={`w-4 h-4 ${
+        <nav className="flex-1 px-4 pb-4 space-y-2 overflow-y-auto custom-scrollbar">
+          {/* Main Navigation */}
+          <div className="space-y-1.5">
+            {mainItems.map(({ label, icon: Icon, to }) => {
+              const active = location.pathname === to;
+              return (
+                <button
+                  key={label}
+                  onClick={() => {
+                    navigate(to);
+                    onClose();
+                  }}
+                  className={`group flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
-                      ? "text-white"
-                      : "text-indigo-500 dark:text-indigo-400"
+                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
+                      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:scale-[1.01] hover:shadow-md"
                   }`}
-                />
-                {label}
-              </button>
-            );
-          })}
+                >
+                  <Icon
+                    className={`w-5 h-5 transition-transform duration-200 group-hover:scale-110 ${
+                      active
+                        ? "text-white"
+                        : "text-indigo-500 dark:text-indigo-400"
+                    }`}
+                  />
+                  <span className="tracking-wide">{label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Activities */}
+          {/* Modern Divider */}
+          <div className="relative py-3">
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent" />
+          </div>
+
+          {/* Activities Group */}
           <MenuGroup
             title="Activities"
             icon={Sparkles}
@@ -152,7 +176,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
             location={location}
           />
 
-          {/* Support */}
+          {/* Support Group */}
           <MenuGroup
             title="Support"
             icon={Info}
@@ -165,42 +189,71 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
             location={location}
           />
 
+          {/* Divider */}
+          <div className="relative py-3">
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent" />
+          </div>
+
           {/* Settings */}
-          {settingsItems.map(({ label, icon: Icon, to }) => {
-            const active = location.pathname === to;
-            return (
-              <button
-                key={label}
-                onClick={() => {
-                  navigate(to);
-                  onClose();
-                }}
-                className={`flex items-center cursor-pointer gap-3 w-full py-3 px-4 rounded-xl text-sm font-medium transition
-                ${
-                  active
-                    ? "bg-indigo-800/20 text-white shadow-md"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800/80"
-                }`}
-              >
-                <Icon
-                  className={`w-4 h-4 ${
+          <div className="space-y-1.5">
+            {settingsItems.map(({ label, icon: Icon, to }) => {
+              const active = location.pathname === to;
+              return (
+                <button
+                  key={label}
+                  onClick={() => {
+                    navigate(to);
+                    onClose();
+                  }}
+                  className={`group flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
-                      ? "text-white"
-                      : "text-indigo-500 dark:text-indigo-400"
+                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30"
+                      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:shadow-md"
                   }`}
-                />
-                {label}
-              </button>
-            );
-          })}
+                >
+                  <Icon
+                    className={`w-5 h-5 transition-transform duration-200 group-hover:rotate-12 ${
+                      active
+                        ? "text-white"
+                        : "text-indigo-500 dark:text-indigo-400"
+                    }`}
+                  />
+                  <span className="tracking-wide">{label}</span>
+                </button>
+              );
+            })}
+          </div>
         </nav>
 
-        {/* Footer */}
-        <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 text-xs flex justify-between text-gray-500 dark:text-gray-400">
-          <span>© {new Date().getFullYear()} dikie.dev</span>
-          <span className="font-mono">v{APP_VERSION}</span>
+        {/* Enhanced Footer */}
+        <footer className="border-t border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md px-6 py-4">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-medium text-gray-600 dark:text-gray-400">
+              © {new Date().getFullYear()} dikie.dev
+            </span>
+            <span className="px-2.5 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 text-indigo-700 dark:text-indigo-400 rounded-lg font-mono font-medium border border-indigo-200 dark:border-gray-700">
+              v{APP_VERSION}
+            </span>
+          </div>
         </footer>
       </div>
+
+      {/* Custom Scrollbar Styles */}
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(99, 102, 241, 0.3);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(99, 102, 241, 0.5);
+        }
+      `}</style>
     </>
   );
 }
@@ -231,29 +284,34 @@ function MenuGroup({
   const activeGroup = isGroupActive(items);
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <button
         onClick={toggle}
-        className={`flex items-center cursor-pointer justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition
-        ${
+        className={`group flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
           activeGroup
-            ? "bg-indigo-100  dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300"
-            : "bg-white  dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/80"
+            ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-800"
+            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80"
         }`}
       >
         <div className="flex items-center gap-3">
-          <IconGroup className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-          <span>{title}</span>
+          <IconGroup
+            className={`w-5 h-5 transition-all duration-200 group-hover:scale-110 ${
+              activeGroup
+                ? "text-indigo-600 dark:text-indigo-400"
+                : "text-gray-500 dark:text-gray-400"
+            }`}
+          />
+          <span className="tracking-wide">{title}</span>
         </div>
-        {open ? (
-          <ChevronUp className="w-4 h-4" />
-        ) : (
-          <ChevronDown className="w-4 h-4" />
-        )}
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-300 ${
+            open ? "rotate-180" : "rotate-0"
+          }`}
+        />
       </button>
 
       {open && (
-        <div className="ml-3 mt-1 border-l-2 border-indigo-200 dark:border-indigo-800 pl-2 space-y-1 transition-all">
+        <div className="ml-2 pl-4 border-l-2 border-indigo-200 dark:border-indigo-800/50 space-y-1 animate-in slide-in-from-top-2 duration-200">
           {items.map(({ label, icon: Icon, to }) => {
             const active = location.pathname === to;
             return (
@@ -263,15 +321,18 @@ function MenuGroup({
                   navigate(to);
                   onClose();
                 }}
-                className={`flex items-center cursor-pointer gap-2 w-full px-3 py-2 rounded-lg text-xs transition
-                ${
+                className={`group flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
                   active
-                    ? "bg-indigo-800/20 ring ring-indigo-800 text-white font-medium"
-                    : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-indigo-400"
+                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium shadow-md shadow-indigo-500/20 scale-[1.02]"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-indigo-400 hover:translate-x-1"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                {label}
+                <Icon
+                  className={`w-4 h-4 transition-transform duration-200 group-hover:scale-110 ${
+                    active ? "text-white" : ""
+                  }`}
+                />
+                <span className="tracking-wide">{label}</span>
               </button>
             );
           })}
