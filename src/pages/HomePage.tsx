@@ -12,6 +12,7 @@ import {
   Wand,
   ArrowRight,
   TrendingUp,
+  Play,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,14 +29,26 @@ const HomePage: React.FC = () => {
   const [openLearnerModal, setOpenLearnerModal] = useState(false);
   const [completed, setCompleted] = useState<Complete>({ stories: 0, quiz: 0 });
 
-  // Sections info
-  const sections = [
+  // 1. Separate Quiz Quest specific data
+  const quizSection = {
+    name: "Quiz Quest",
+    icon: <Sparkles />,
+    description: "Test your general knowledge with our ultimate challenge.",
+    color: "from-cyan-500 to-blue-600",
+    bgGradient:
+      "from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
+    to: "quiz-quest",
+  };
+
+  // 2. Other Sections
+  const otherSections = [
     {
       name: "Brain Teasers",
       icon: <Puzzle />,
       description: "Challenge your logical thinking",
       color: "from-purple-500 to-indigo-600",
-      bgGradient: "from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20",
+      bgGradient:
+        "from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20",
       to: "/brain-teasers",
     },
     {
@@ -43,23 +56,17 @@ const HomePage: React.FC = () => {
       icon: <Book />,
       description: "Discover powerful narratives",
       color: "from-emerald-500 to-teal-600",
-      bgGradient: "from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20",
+      bgGradient:
+        "from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20",
       to: "/mini-stories",
-    },
-    {
-      name: "Quiz Quest",
-      icon: <Sparkles />,
-      description: "Test your general knowledge",
-      color: "from-cyan-500 to-blue-600",
-      bgGradient: "from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
-      to: "quiz-quest",
     },
     {
       name: "Wisdom Nuggets",
       icon: <Quote />,
       description: "Daily inspiration and insights",
       color: "from-amber-500 to-orange-600",
-      bgGradient: "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
+      bgGradient:
+        "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
       to: "wisdom-nuggets",
     },
     {
@@ -67,7 +74,8 @@ const HomePage: React.FC = () => {
       icon: <Wand />,
       description: "Master pronunciation and fluency",
       color: "from-pink-500 to-rose-600",
-      bgGradient: "from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20",
+      bgGradient:
+        "from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20",
       to: "tongue-twisters",
     },
     {
@@ -75,12 +83,12 @@ const HomePage: React.FC = () => {
       icon: <Newspaper />,
       description: "Cool random facts",
       color: "from-violet-500 to-purple-600",
-      bgGradient: "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
+      bgGradient:
+        "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
       to: "amazing-facts",
     },
   ];
 
-  // Handle category card click
   const HandleCategoryClick = (destination: string) => navigate(destination);
 
   useEffect(() => {
@@ -88,147 +96,192 @@ const HomePage: React.FC = () => {
     if (!isFirstTime) setTimeout(() => setOpenLearnerModal(true), 1200);
   }, []);
 
-  // Fetch completion data from storage
   useEffect(() => {
-    // For stories
     const rawData = localStorage.getItem(READ_STORIES);
     const completedStories = rawData ? JSON.parse(rawData).length : 0;
-    setCompleted((prev) => ({ ...prev, stories: completedStories }));
 
-    // For Quiz
     const rawQuizData = localStorage.getItem(TEST_RESULTS);
     const completedQuizes = rawQuizData ? JSON.parse(rawQuizData).length : 0;
-    setCompleted((prev) => ({ ...prev, quiz: completedQuizes }));
+
+    setCompleted({ stories: completedStories, quiz: completedQuizes });
   }, []);
 
   const totalProgress = completed.stories + completed.quiz;
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 flex flex-col relative overflow-hidden transition-colors duration-500">
-      {/* Animated background elements */}
+      
+      {/* Background Blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-300/10 dark:bg-pink-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-300/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
       </div>
 
       <Navbar />
 
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        {/* Hero Section */}
-        <div className="text-center mb-12 space-y-6 animate-in fade-in duration-700">
-          {/* Stats Badge */}
+        {/* Header Section */}
+        <div className="text-center mb-10 space-y-4 animate-in fade-in duration-700">
           {totalProgress > 0 && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-lg shadow-indigo-500/30 animate-in slide-in-from-top duration-500">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-lg shadow-indigo-500/30 text-sm font-semibold mb-4">
               <TrendingUp className="w-4 h-4" />
-              <span className="text-sm font-semibold">
-                {totalProgress} Activities Completed!
-              </span>
+              <span>{totalProgress} Activities Completed!</span>
             </div>
           )}
-
-          {/* Tagline */}
-          <div className="space-y-3">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent leading-tight px-4">
-              Learn. Grow. Excel.
-            </h1>
-            <p className="text-lg sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed text-gray-600 dark:text-gray-400 px-4">
-              Brain challenges. Daily insights. Smarter you.
-            </p>
-          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Learn. Grow. Excel.
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+            Daily challenges to sharpen your mind.
+          </p>
         </div>
 
-        {/* Category Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 animate-in fade-in duration-1000">
-          {sections.map((section, index) => {
-            const hasCompleted =
-              section.name === "Quiz Quest" || section.name === "Mini Stories";
-            const completionCount = 
-              section.name === "Mini Stories" ? completed.stories : completed.quiz;
+        {/* --- FEATURED HERO BANNER: QUIZ QUEST --- */}
+        <div className="mb-12 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <button
+            onClick={() => HandleCategoryClick(quizSection.to)}
+            className="group relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
+          >
+            {/* Top gradient bar */}
+            <div
+              className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${quizSection.color} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`}
+            />
+
+            {/* Background gradient on hover */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${quizSection.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+            />
+
+            {/* Banner Layout: Flex Column on Mobile, Row on Desktop */}
+            <div className="relative p-8 md:p-10 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
+              
+              {/* Left: Icon & Gradient Blob */}
+              <div className="relative flex-shrink-0">
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
+                />
+                <div
+                  className={`relative p-5 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
+                >
+                  {React.cloneElement(quizSection.icon, {
+                    className: "w-10 h-10 text-white",
+                  })}
+                </div>
+              </div>
+
+              {/* Middle: Text Content */}
+              <div className="flex-1 text-center md:text-left space-y-2">
+                <h3 className="text-3xl font-extrabold text-gray-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-cyan-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent transition-colors duration-300">
+                  {quizSection.name}
+                </h3>
+                <p className="text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300 max-w-md mx-auto md:mx-0">
+                  {quizSection.description}
+                </p>
+                
+                {/* Mobile-only Stats */}
+                {completed.quiz > 0 && (
+                  <div className="md:hidden pt-2 flex justify-center">
+                     <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-3 py-1 rounded-full">
+                       {completed.quiz} Tests Done
+                     </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Right: Action / Stats */}
+              <div className="flex-shrink-0 flex items-center gap-4">
+                 {/* Desktop Stats */}
+                 {completed.quiz > 0 && (
+                  <div className="hidden md:block text-right">
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{completed.quiz}</p>
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Completed</p>
+                  </div>
+                 )}
+
+                 {/* Play Button visual */}
+                 <div className={`
+                    hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300
+                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
+                 `}>
+                    <span>Start</span>
+                    <Play className="w-4 h-4 fill-current" />
+                 </div>
+
+                 {/* Simple Arrow for Mobile */}
+                 <div className="md:hidden p-3 rounded-full bg-gray-100 dark:bg-gray-700/50 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20 transition-colors">
+                    <ArrowRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
+                 </div>
+              </div>
+
+            </div>
+          </button>
+        </div>
+        {/* --- END FEATURED HERO BANNER --- */}
+
+        {/* Grid for other items */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {otherSections.map((section, index) => {
+            const hasCompleted = section.name === "Mini Stories";
+            const completionCount = completed.stories;
 
             return (
               <button
                 key={section.name}
                 onClick={() => HandleCategoryClick(section.to)}
-                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden"
-                style={{ 
+                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
+                style={{
                   animationDelay: `${index * 100}ms`,
-                  animation: 'slideUp 0.6s ease-out forwards',
-                  opacity: 0
+                  animation: "slideUp 0.6s ease-out forwards",
+                  opacity: 0,
                 }}
               >
-                {/* Top gradient bar */}
                 <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${section.color} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`}
+                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${section.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}
                 />
-
-                {/* Background gradient on hover */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${section.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-
-                {/* Content */}
-                <div className="relative flex flex-col items-center text-center space-y-4">
-                  {/* Icon */}
-                  <div className="relative">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${section.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`}
-                    />
-                    <div
-                      className={`relative p-4 rounded-2xl bg-gradient-to-r ${section.color} shadow-md group-hover:shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}
-                    >
-                      {React.cloneElement(section.icon, {
-                        className: "w-8 h-8 text-white",
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Title & Description */}
-                  <div className="space-y-2">
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent">
-                      {section.name}
-                    </h3>
-                    <p className="text-sm font-medium leading-relaxed text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
-                      {section.description}
-                    </p>
-                  </div>
-
-                  {/* Completion Badge */}
-                  {hasCompleted && completionCount > 0 && (
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full text-xs font-semibold shadow-md">
-                      <Trophy className="w-3.5 h-3.5" />
-                      <span>
-                        {completionCount} {section.name === "Mini Stories" ? "Stories" : "Tests"}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Hover Arrow */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                    <div className={`p-2 rounded-full bg-gradient-to-r ${section.color}`}>
-                      <ArrowRight className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
+                
+                <div className="mb-4 relative">
+                   <div className={`absolute inset-0 bg-gradient-to-r ${section.color} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300`}/>
+                   <div className={`relative p-3 rounded-xl bg-gradient-to-r ${section.color} shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                      {React.cloneElement(section.icon, { className: "w-6 h-6 text-white" })}
+                   </div>
                 </div>
+
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {section.name}
+                </h3>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  {section.description}
+                </p>
+
+                {hasCompleted && completionCount > 0 && (
+                  <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1 rounded-full">
+                    <Trophy className="w-3 h-3" />
+                    <span>{completionCount} Read</span>
+                  </div>
+                )}
               </button>
             );
           })}
         </div>
 
         {/* Motivational Section */}
-        <div className="mt-16 text-center space-y-4 animate-in fade-in duration-1000" style={{ animationDelay: '600ms' }}>
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Start your learning journey today!
-            </p>
+        <div
+          className="mt-16 text-center animate-in fade-in duration-1000"
+          style={{ animationDelay: "600ms" }}
+        >
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-200/30 dark:border-gray-700/30">
+            <Sparkles className="w-4 h-4 text-indigo-500" />
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+              Keep pushing your limits!
+            </span>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
       <Footer />
-
       {openLearnerModal && (
         <LearnerModal
           onClose={() => {
@@ -237,18 +290,11 @@ const HomePage: React.FC = () => {
           }}
         />
       )}
-
-      {/* Keyframes for animations */}
+      
       <style>{`
         @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>
