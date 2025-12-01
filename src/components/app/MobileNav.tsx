@@ -78,7 +78,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
       {/* Enhanced Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+        className="fixed inset-0 h-screen bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200"
       />
 
       {/* Modern Sidebar */}
@@ -94,7 +94,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           </button>
 
           {/* User Profile Card */}
-          <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="bg-gradient-to-br from-indigo-500 via-purple-900 to-black/80 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center gap-3">
               <div
                 className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/30 cursor-pointer hover:scale-105 transition-transform"
@@ -141,7 +141,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                   }}
                   className={`group flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
-                      ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
+                      ? "bg-gradient-to-r from-indigo-900 to-purple-900 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
                       : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:scale-[1.01] hover:shadow-md"
                   }`}
                 >
