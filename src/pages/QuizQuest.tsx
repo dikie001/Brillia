@@ -121,7 +121,7 @@ const QuizApp: React.FC = () => {
     const initializeApp = async (): Promise<void> => {
       try {
         // Try to load quiz data from  or show error
-        let loadedQuizData: QuizType[] = quizData;
+        const loadedQuizData: QuizType[] = quizData;
 
         // Load saved data from localStorage
         const savedResults = loadSavedResults();
@@ -159,7 +159,8 @@ const QuizApp: React.FC = () => {
   // Fetch User details from stoarge
   useEffect(() => {
     const details = localStorage.getItem("user-info");
-    details && setUser(JSON.parse(details));
+    const parsesData = details && JSON.parse(details);
+    setUser(parsesData);
   }, []);
 
   // Save progress whenever quiz state changes
@@ -179,6 +180,7 @@ const QuizApp: React.FC = () => {
     state.currentTest,
     state.currentQuestion,
     state.score,
+    state.startTime,
     state.gameState,
     state.loading,
   ]);
@@ -474,140 +476,163 @@ const QuizApp: React.FC = () => {
   // Home Screen: Displays welcome, user stats, and action buttons for starting or viewing results
   if (state.gameState === "home") {
     return (
-<div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative transition-colors duration-300">
-  <Navbar currentPage="Quiz Quest" />
-  
-  {openResetModal && (
-    <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
-  )}
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative transition-colors duration-300">
+        <Navbar currentPage="Quiz Quest" />
 
-  <main className="flex-1 flex flex-col  justify-center w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 relative z-10">
-    
-    {/* Header Section */}
-    <div className="text-center mb-10 sm:mb-12 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
-        <Sparkles className="w-3.5 h-3.5" />
-        <span>Grade 9 Quiz Master</span>
+        {openResetModal && (
+          <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
+        )}
+
+        <main className="flex-1 flex flex-col  justify-center w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 relative z-10">
+          {/* Header Section */}
+          <div className="text-center mb-10 sm:mb-12 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Grade 9 Quiz Master</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+              Welcome back,{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                {user.name}
+              </span>
+            </h1>
+
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Track your progress, challenge yourself, and master new topics
+              today.
+            </p>
+          </div>
+
+          {/* Stats Grid - Enhanced with Lift and Glow */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
+            {[
+              {
+                icon: (
+                  <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                ),
+                label: "Questions",
+                value: state.quizData.length,
+                sub: "Quizes available",
+              },
+              {
+                icon: (
+                  <Target className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                ),
+                label: "Tests",
+                value: getTotalTests(),
+                sub: "Tests ready",
+              },
+              {
+                icon: (
+                  <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                ),
+                label: "Completed",
+                value: state.testResults.length,
+                sub: "Tests Done",
+              },
+              {
+                icon: (
+                  <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                ),
+                label: "Success Rate",
+                value:
+                  state.testResults.length > 0
+                    ? Math.round(
+                        state.testResults.reduce(
+                          (acc, r) => acc + r.percentage,
+                          0
+                        ) / state.testResults.length
+                      )
+                    : 0,
+                sub: "Average Score",
+                isPercent: true,
+              },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
+              >
+                <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
+                  {stat.icon}
+                </div>
+                <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+                  {stat.value}
+                  {stat.isPercent && (
+                    <span className="text-lg align-top opacity-60">%</span>
+                  )}
+                </div>
+                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
+                  {stat.sub}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Main Actions Area */}
+          <div className="max-w-2xl mx-auto w-full space-y-6">
+            {/* Primary CTA: Start Test */}
+            {state.currentTest < getTotalTests() && (
+              <button
+                onClick={() => {
+                  playSend();
+                  startTest(state.currentTest);
+                }}
+                className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
+              >
+                <div className="relative flex items-center justify-between rounded-[14px] bg-indigo-600/10 px-6 py-5 sm:px-8 sm:py-6 transition-colors group-hover:bg-indigo-600/0">
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">
+                      {state.testResults.length === 0
+                        ? "Get Started"
+                        : "Up Next"}
+                    </span>
+                    <span className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                      {state.testResults.length === 0
+                        ? "Start First Quiz"
+                        : `Continue Test ${state.currentTest + 1}`}
+                    </span>
+                  </div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white text-white group-hover:text-indigo-600">
+                    <Play className="w-6 h-6 ml-1 fill-current" />
+                  </div>
+                </div>
+              </button>
+            )}
+
+            {/* Secondary Actions - Enhanced with Scale and Icon Animation */}
+            {state.testResults.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button
+                  onClick={() => {
+                    playSend();
+                    setGameState("allResults");
+                  }}
+                  className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
+                >
+                  <Trophy className="w-5 h-5 text-amber-500 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
+                  View Analytics
+                </button>
+
+                <button
+                  onClick={() => setOpenResetModal(true)}
+                  className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 dark:hover:border-rose-800 transition-all duration-200"
+                >
+                  <RotateCcw className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-180" />
+                  Reset Progress
+                </button>
+              </div>
+            )}
+          </div>
+        </main>
+
+        <Footer />
       </div>
-      
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-        Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">{user.name}</span>
-      </h1>
-      
-      <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-        Track your progress, challenge yourself, and master new topics today.
-      </p>
-    </div>
-
-    {/* Stats Grid - Enhanced with Lift and Glow */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
-      {[
-        {
-          icon: <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />,
-          label: "Questions",
-          value: state.quizData.length,
-          sub: "Quizes available",
-        },
-        {
-          icon: <Target className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
-          label: "Tests",
-          value: getTotalTests(),
-          sub: "Tests ready",
-        },
-        {
-          icon: <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
-          label: "Completed",
-          value: state.testResults.length,
-          sub: "Tests Done",
-        },
-        {
-          icon: <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />,
-          label: "Success Rate",
-          value: state.testResults.length > 0
-              ? Math.round(state.testResults.reduce((acc, r) => acc + r.percentage, 0) / state.testResults.length)
-              : 0,
-          sub: "Average Score",
-          isPercent: true,
-        },
-      ].map((stat, i) => (
-        <div
-          key={i}
-          className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
-        >
-          <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
-            {stat.icon}
-          </div>
-          <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
-            {stat.value}{stat.isPercent && <span className="text-lg align-top opacity-60">%</span>}
-          </div>
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
-            {stat.sub}
-          </div>
-        </div>
-      ))}
-    </div>
-
-    {/* Main Actions Area */}
-    <div className="max-w-2xl mx-auto w-full space-y-6">
-      
-      {/* Primary CTA: Start Test */}
-      {state.currentTest < getTotalTests() && (
-        <button
-          onClick={() => {
-            playSend();
-            startTest(state.currentTest);
-          }}
-          className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
-        >
-          <div className="relative flex items-center justify-between rounded-[14px] bg-indigo-600/10 px-6 py-5 sm:px-8 sm:py-6 transition-colors group-hover:bg-indigo-600/0">
-            <div className="flex flex-col text-left">
-              <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">
-                {state.testResults.length === 0 ? "Get Started" : "Up Next"}
-              </span>
-              <span className="text-2xl sm:text-3xl font-bold text-white mt-1">
-                {state.testResults.length === 0 ? "Start First Quiz" : `Continue Test ${state.currentTest + 1}`}
-              </span>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white text-white group-hover:text-indigo-600">
-              <Play className="w-6 h-6 ml-1 fill-current" />
-            </div>
-          </div>
-        </button>
-      )}
-
-      {/* Secondary Actions - Enhanced with Scale and Icon Animation */}
-      {state.testResults.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <button
-            onClick={() => {
-              playSend();
-              setGameState("allResults");
-            }}
-            className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
-          >
-            <Trophy className="w-5 h-5 text-amber-500 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
-            View Analytics
-          </button>
-
-          <button
-            onClick={() => setOpenResetModal(true)}
-            className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 dark:hover:border-rose-800 transition-all duration-200"
-          >
-            <RotateCcw className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-180" />
-            Reset Progress
-          </button>
-        </div>
-      )}
-    </div>
-  </main>
-
-  <Footer />
-</div>
     );
   }
 
   // Quiz Screen: Handles the active quiz session with questions, options, and feedback
-  if (state.gameState === "quiz") {
+if (state.gameState === "quiz") {
     const currentQuestions = getCurrentTestQuestions();
     const currentQ = currentQuestions[state.currentQuestion];
 
@@ -635,7 +660,7 @@ const QuizApp: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen  bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 transition-colors duration-300">
         <Navbar currentPage="Quiz Quest" />
         <div className="max-w-4xl mx-auto pt-16 ">
           {/* Header */}
@@ -693,9 +718,45 @@ const QuizApp: React.FC = () => {
           {/* Question Card */}
           <div className="bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300">
             {/* Question */}
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-6">
               {currentQ.question}
             </h3>
+
+            {/* Feedback - MOVED TO TOP */}
+            {state.showFeedback && (
+              <div className="mb-6 p-4 bg-white/60 dark:bg-gray-700/60 rounded-2xl border border-indigo-500 dark:border-indigo-600 shadow-md transition-all duration-300">
+                <div className="flex items-start gap-3">
+                  {state.selectedAnswer === currentQ.correctAnswer ? (
+                    <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                  ) : (
+                    <XCircle className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+                  )}
+                  <div className="flex-1">
+                    <p
+                      className={`font-bold text-lg mb-1 ${
+                        state.selectedAnswer === currentQ.correctAnswer
+                          ? "text-green-600 dark:text-green-400"
+                          : "text-red-500 dark:text-red-400"
+                      }`}
+                    >
+                      {state.selectedAnswer === currentQ.correctAnswer
+                        ? "Correct!"
+                        : "Incorrect"}
+                    </p>
+                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
+                      {currentQ.explanation}
+                    </p>
+                    {state.selectedAnswer !== currentQ.correctAnswer && (
+                      <p className="text-sm text-green-700 dark:text-green-300 font-medium bg-green-100 dark:bg-green-900/30 p-2 rounded-lg inline-block border border-green-200 dark:border-green-800">
+                        Correct answer:{" "}
+                        <strong>{currentQ.correctAnswer}</strong> –{" "}
+                        {currentQ.options[currentQ.correctAnswer]}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Options */}
             <div className="grid gap-3">
@@ -706,7 +767,7 @@ const QuizApp: React.FC = () => {
                 ][]
               ).map(([key, value]) => {
                 let base =
-                  "w-full p-3 rounded-2xl text-start font-medium transition-all duration-300 transform hover:scale-[1.02] border-2 flex items-center";
+                  "w-full p-3 rounded-2xl text-start font-medium transition-all duration-300 transform hover:scale-[1.01] border-2 flex items-center";
 
                 if (!state.showFeedback) {
                   base +=
@@ -716,16 +777,16 @@ const QuizApp: React.FC = () => {
                 } else {
                   if (key === currentQ.correctAnswer) {
                     base +=
-                      " bg-green-600/40 border-green-500 text-white shadow-md";
+                      " bg-green-600/20 border-green-500 text-green-800 dark:text-green-100 shadow-md ring-1 ring-green-500";
                   } else if (
                     key === state.selectedAnswer &&
                     key !== currentQ.correctAnswer
                   ) {
                     base +=
-                      " bg-red-600/40 border-red-600 text-white shadow-md";
+                      " bg-red-600/20 border-red-500 text-red-800 dark:text-red-100 shadow-md";
                   } else {
                     base +=
-                      " bg-gray-100 dark:bg-gray-700/80 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400";
+                      " bg-gray-100 dark:bg-gray-700/50 border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500 opacity-70";
                   }
                 }
 
@@ -741,59 +802,23 @@ const QuizApp: React.FC = () => {
                     </span>
                     <span className="flex-1">{value}</span>
                     {state.showFeedback && key === currentQ.correctAnswer && (
-                      <CheckCircle className="w-6 h-6 text-green-400" />
+                      <CheckCircle className="w-6 h-6 text-green-500 ml-2" />
                     )}
                     {state.showFeedback &&
                       key === state.selectedAnswer &&
                       key !== currentQ.correctAnswer && (
-                        <XCircle className="w-6 h-6 text-red-400" />
+                        <XCircle className="w-6 h-6 text-red-500 ml-2" />
                       )}
                   </button>
                 );
               })}
             </div>
 
-            {/* Feedback */}
-            {state.showFeedback && (
-              <div className="p-4  mt-4 bg-gray-100 dark:bg-gray-700 rounded-2xl border border-indigo-500 dark:border-indigo-600 shadow-md transition-colors duration-300">
-                <div className="flex items-start gap-3">
-                  {state.selectedAnswer === currentQ.correctAnswer ? (
-                    <CheckCircle className="w-6 h-6 text-gren-400 mt-1 flex-shrink-0" />
-                  ) : (
-                    <XCircle className="w-6 h-6 text-red-400 mt-1 flex-shrink-0" />
-                  )}
-                  <div className="flex-1">
-                    <p
-                      className={`font-semibold text-lg mb-1 ${
-                        state.selectedAnswer === currentQ.correctAnswer
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }`}
-                    >
-                      {state.selectedAnswer === currentQ.correctAnswer
-                        ? "Correct!"
-                        : "Incorrect"}
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-1">
-                      {currentQ.explanation}
-                    </p>
-                    {state.selectedAnswer !== currentQ.correctAnswer && (
-                      <p className="text-sm text-green-600 dark:text-green-400 font-medium">
-                        Correct answer:{" "}
-                        <strong>{currentQ.correctAnswer}</strong> –{" "}
-                        {currentQ.options[currentQ.correctAnswer]}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
             {/* Next Button */}
             {state.showFeedback && (
               <button
                 onClick={handleNext}
-                className="w-full mt-6 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.03] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
+                className="w-full mt-8 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
               >
                 {state.currentQuestion < currentQuestions.length - 1
                   ? "Next Question"

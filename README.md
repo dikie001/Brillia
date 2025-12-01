@@ -1,6 +1,6 @@
 # Brillia 🌟
 
-[![Version](https://img.shields.io/badge/version-1.0.5-blue.svg)](https://brillia-six.vercel.app)
+[![Version](https://img.shields.io/badge/version-1.1.8-blue.svg)](https://brillia-six.vercel.app)
 [![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.1.2-purple.svg)](https://vitejs.dev/)
@@ -9,7 +9,7 @@
 
 > Your daily companion for inspiration, learning, and fun. Discover amazing facts, challenge your mind, and grow every day.
 
-[🌐 Live Demo](https://brillia-six.vercel.app) | [📱 Install PWA](https://brillia-six.vercel.app) | [📧 Contact Developer](mailto:omondidickens255@gmail.com.com)
+[🌐 Live Demo](https://brillia-six.vercel.app) | [📱 Install PWA](https://brillia-six.vercel.app) | [📧 Contact Developer](mailto:dickensomondi@gmail.com)
 
 ## ✨ Features
 
@@ -40,6 +40,11 @@ Discover fascinating, mind-blowing facts about the world, science, history, and 
 - **Responsive Design**: Optimized for all screen sizes - mobile, tablet, and desktop
 - **Sound Effects**: Audio feedback for interactions and achievements
 - **Progress Tracking**: Keep track of your completed stories and quiz scores
+
+## 🆕 Recent Updates
+
+### v1.1.8
+- **Content Count Display**: Added item count indicators on all content pages (Mini Stories, Brain Teasers, Tongue Twisters, Wisdom Nuggets, Amazing Facts) showing "Showing X of Y items" for better user experience and navigation awareness.
 
 ## 🚀 Quick Start
 
