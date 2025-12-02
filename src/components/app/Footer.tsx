@@ -2,7 +2,7 @@ import { Laptop2 } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <div className="mt-10  flex sm:flex-row gap-2 justify-center items-center text-center">
+    <div className="mt-10 mb-4  flex sm:flex-row gap-2 justify-center items-center text-center">
       <p className="text-gray-400 text-sm">
         from code to impact -{" "}
         <span className="text-green-500 dark:text-green-400 underline font-medium">
