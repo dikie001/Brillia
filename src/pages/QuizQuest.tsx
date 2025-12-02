@@ -4,6 +4,7 @@ import {
   BookOpen,
   Calendar,
   CheckCircle,
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   ClipboardCheck,
@@ -833,155 +834,131 @@ if (state.gameState === "quiz") {
   }
 
   // Single Test Results Screen: Displays the outcome of the just completed test
-  if (state.gameState === "results") {
+if (state.gameState === "results") {
     const latestResult = state.testResults[state.testResults.length - 1];
+    
+    // Logic for styling based on score
+    // const isPassing = latestResult.percentage >= 60;
+    const isExcellent = latestResult.percentage >= 80;
+    
+    const themeColor = 
+      latestResult.percentage >= 90 ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200" :
+      latestResult.percentage >= 70 ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 border-blue-200" :
+      latestResult.percentage >= 50 ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200" :
+      "text-red-600 bg-red-50 dark:bg-red-900/20 border-red-200";
+
+    const accentColor = themeColor.split(" ")[0]; // Extract text color for icons
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 sm:p-6 transition-all duration-500">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <Navbar currentPage="Test Results" />
-        <div className="max-w-4xl mx-auto pt-16">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-              Test Results
-            </h1>
-            <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-4"></div>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              Quiz Completed {latestResult.testNumber}!
-            </p>
-          </div>
 
-          {/* Results Card */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-2xl p-6 sm:p-8 mb-8">
-            {/* Score Display */}
-            <div className="text-center ">
-              <div className="relative inline-block">
-                <div
-                  className={`text-5xl font-black mb-2  ${
-                    latestResult.percentage >= 90
-                      ? "bg-gradient-to-r from-green-400 to-emerald-500"
-                      : latestResult.percentage >= 80
-                      ? "bg-gradient-to-r from-blue-400 to-indigo-500"
-                      : latestResult.percentage >= 70
-                      ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                      : "bg-gradient-to-r from-red-400 to-red-500"
-                  } bg-clip-text text-transparent`}
-                >
-                  {latestResult.percentage}%
-                </div>
-                <div className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {latestResult.score}/{latestResult.totalQuestions} Correct
-                </div>
-                <div
-                  className={`inline-flex fixed top-4 left-4 items-center px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${
-                    latestResult.percentage >= 90
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                      : latestResult.percentage >= 80
-                      ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-                      : latestResult.percentage >= 70
-                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
-                      : "bg-red-100 text-red-700 dark:bg-red-600/40 dark:text-red-300"
-                  }`}
-                >
-                  {latestResult.percentage >= 90
-                    ? "🏆 Outstanding"
-                    : latestResult.percentage >= 80
-                    ? "⭐ Excellent"
-                    : latestResult.percentage >= 70
-                    ? "👍 Good"
-                    : latestResult.percentage >= 60
-                    ? "Keep going"
-                    : "📚 Needs Work"}
-                </div>
+        <div className="flex-1 flex items-center  mt-16 justify-center p-4 sm:p-6 animate-fade-in-up">
+          <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+            
+            {/* Header Section */}
+            <div className="pt-4 pb-6 px-8 text-center">
+              <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${themeColor.split(" ").slice(1).join(" ")}`}>
+                {isExcellent ? (
+                  <Trophy className={`w-8 h-8 ${accentColor}`} />
+                ) : (
+                  <CheckCircle2 className={`w-8 h-8 ${accentColor}`} />
+                )}
               </div>
-            </div>
-
-            {/* Performance Message */}
-            <div className="text-center mb-4">
-              <p className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                {getPerformanceMessage(latestResult.percentage)}
+              <h1 className="text-2xl font-bold tracking-tight mb-1">
+                {isExcellent ? "Outstanding Job!" : "Test Completed"}
+              </h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
+                You finished Test #{latestResult.testNumber}
               </p>
             </div>
 
-            {/* Details Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-              <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
-                <BookOpen className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                  Subjects
-                </p>
-                <p className="text-lg font-bold text-gray-900 dark:text-white">
-                  {latestResult.subject.substring(0, 74)}...
-                </p>
-              </div>
-              <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
-                <Calendar className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                  Date
-                </p>
-                <p className="text-lg font-bold text-gray-900 dark:text-white">
-                  {latestResult.date}
+            {/* Score Display */}
+            <div className="px-8 pb-8 text-center border-b border-gray-100 dark:border-gray-800">
+              <div className="relative inline-flex flex-col items-center">
+                <span className={`text-6xl font-black tracking-tighter ${accentColor}`}>
+                  {latestResult.percentage}%
+                </span>
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mt-2 ${themeColor}`}>
+                  {getPerformanceMessage(latestResult.percentage)}
+                </span>
+                <p className="mt-3 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {latestResult.score} out of {latestResult.totalQuestions} Correct
                 </p>
               </div>
-              {latestResult.timeTaken && (
-                <div className="bg-gray-50 dark:bg-gray-700/50 shadow rounded-2xl p-4 text-center">
-                  <Clock className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                    Time Taken
-                  </p>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
-                    {formatTime(latestResult.timeTaken)}
-                  </p>
-                </div>
-              )}
             </div>
 
-            {/* Action Buttons */}
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                {" "}
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 divide-x divide-gray-100 dark:divide-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
+              <div className="p-4 flex flex-col items-center text-center">
+                <BookOpen className="w-4 h-4 text-gray-400 mb-1" />
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Subject</span>
+                <span className="text-sm font-semibold truncate w-full" title={latestResult.subject}>
+                  {latestResult.subject.length > 10 ? latestResult.subject.substring(0, 10) + '..' : latestResult.subject}
+                </span>
+              </div>
+              <div className="p-4 flex flex-col items-center text-center">
+                <Clock className="w-4 h-4 text-gray-400 mb-1" />
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Time</span>
+                <span className="text-sm font-semibold">
+                  {latestResult.timeTaken ? formatTime(latestResult.timeTaken) : "--:--"}
+                </span>
+              </div>
+              <div className="p-4 flex flex-col items-center text-center">
+                <Calendar className="w-4 h-4 text-gray-400 mb-1" />
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Date</span>
+                <span className="text-sm font-semibold whitespace-nowrap">
+                  {latestResult.date}
+                </span>
+              </div>
+            </div>
+
+            {/* Actions Footer */}
+            <div className="p-6 space-y-3 bg-white dark:bg-gray-900">
+              {state.currentTest < getTotalTests() ? (
+                <button
+                  onClick={() => {
+                    playSend();
+                    startTest(state.currentTest);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 rounded-xl transition-all transform active:scale-[0.98] shadow-md shadow-indigo-200 dark:shadow-none"
+                >
+                  Start Next Test <Play className="w-4 h-4" />
+                </button>
+              ) : (
+                <div className="w-full h-12 flex items-center justify-center text-gray-400 font-medium bg-gray-100 dark:bg-gray-800 rounded-xl cursor-not-allowed">
+                  All Tests Completed
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => {
                     playSend();
                     setGameState("home");
                   }}
-                  className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg  flex items-center justify-center gap-2"
+                  className="w-full flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium h-10 rounded-xl transition-colors"
                 >
-                  <ChevronLeft className="w-5 h-5" />
-                  Back to Home
+                  <ChevronLeft className="w-4 h-4" /> Home
                 </button>
-                {state.currentTest < getTotalTests() && (
+
+                {state.testResults.length > 1 && (
                   <button
                     onClick={() => {
                       playSend();
-                      startTest(state.currentTest);
+                      setGameState("allResults");
                     }}
-                    className="w-full bg-gradient-to-r from-indigo-700 to-indigo-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg  flex items-center justify-center gap-2"
+                    className="w-full flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium h-10 rounded-xl transition-colors"
                   >
-                    <Play className="w-5 h-5" />
-                    Start Next Test
+                    <Trophy className="w-4 h-4" /> History
                   </button>
                 )}
               </div>
-
-              {state.testResults.length > 1 && (
-                <button
-                  onClick={() => {
-                    playSend();
-                    setGameState("allResults");
-                  }}
-                  className="w-full bg-white/20 dark:bg-gray-800/50 backdrop-blur-xl text-gray-900 dark:text-white font-semibold py-4 rounded-2xl transition-all duration-300 border border-indigo-400/30 hover:border-indigo-500 shadow-xl hover:shadow-indigo-500/20 hover:scale-[1.01] flex items-center justify-center gap-2"
-                >
-                  <Trophy className="w-5 h-5" />
-                  View All Results
-                </button>
-              )}
             </div>
+            
           </div>
-
-          {/* Footer */}
-          <Footer />
         </div>
+        <Footer />
       </div>
     );
   }

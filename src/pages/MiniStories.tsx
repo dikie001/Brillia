@@ -3,9 +3,10 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
+import { STORIES_CURRENTPAGE } from "@/constants";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
-import { STORIES_CURRENTPAGE } from "@/constants";
+import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
   CheckCheck,
   CheckCircle,
@@ -15,11 +16,8 @@ import {
   Share2,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
-import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 // Define genre colors (all indigo theme)
 const genreColors: Record<string, string> = {
@@ -64,35 +62,17 @@ export default function MiniStories() {
   const storiesRef = useRef<Story[]>([]);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    FetchData();
-    setCurrentFilter("All");
-  }, []);
-
-  // Handle pagination and filter changes
-  useEffect(() => {
-    PaginationPage(filteredStories);
-    if (currentPage !== 1) {
-      localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
-    }
-  }, [currentPage, filteredStories]);
-
-  // Fetch app data
-  const FetchData = () => {
+  // Define FetchData via useCallback to avoid dependency issues
+  const FetchData = useCallback(() => {
     setLoading(true);
     storiesRef.current = AllStories;
     setFilteredStories(AllStories);
-    console.log(storiesRef.current);
 
+    // Optional: Restore last page if needed
     // const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
-    // if (lastPage) {
-    //   const num = Number(lastPage);
-    //   setCurrentPage(num);
-    // } else {
-    //   setCurrentPage(1);
-    // }
+    // if (lastPage) setCurrentPage(Number(lastPage));
 
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
@@ -106,8 +86,30 @@ export default function MiniStories() {
       : new Set();
     setRead(readStories);
     setLoading(false);
-  };
+  }, []);
 
+  useEffect(() => {
+    FetchData();
+    setCurrentFilter("All");
+  }, [FetchData]);
+
+  // Handle pagination calculation
+  const PaginationPage = useCallback((filtered: Story[]) => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = filtered.slice(start, end);
+    setStories(currentItems);
+  }, [currentPage, itemsPerPage]);
+
+  // Sync pagination when stories or page changes
+  useEffect(() => {
+    PaginationPage(filteredStories);
+    if (currentPage !== 1) {
+      localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage, filteredStories, PaginationPage]);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "Escape" && selectedStory !== null) {
@@ -118,19 +120,9 @@ export default function MiniStories() {
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [selectedStory]);
 
-  // Handle pagination
-  const PaginationPage = (filtered: Story[]) => {
-    const storiesLength = filtered.length;
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = filtered.slice(start, end);
-    console.log(end, storiesLength);
-
-    setStories(currentItems);
-  };
-
+  // Get selected story data (search in AllStories to find it even if paginated)
   const selectedStoryData = selectedStory
-    ? stories.find((s) => s.id === selectedStory)
+    ? AllStories.find((s) => s.id === selectedStory)
     : null;
 
   // Filter categories
@@ -143,6 +135,9 @@ export default function MiniStories() {
     } else {
       filtered = AllStories.filter((story) => story.genre === currentFilter);
     }
+    
+    // Reset to page 1 on filter change
+    setCurrentPage(1);
     setFilteredStories(filtered);
   }, [currentFilter, favorite]);
 
@@ -159,19 +154,19 @@ export default function MiniStories() {
       }
 
       const existingData = localStorage.getItem(FAVOURITE_STORIES);
-      const existingfavorites: Set<number> = existingData
+      const existingFavorites: Set<number> = existingData
         ? new Set(JSON.parse(existingData))
         : new Set();
 
-      if (existingfavorites.has(id)) {
-        existingfavorites.delete(id);
+      if (existingFavorites.has(id)) {
+        existingFavorites.delete(id);
       } else {
-        existingfavorites.add(id);
+        existingFavorites.add(id);
       }
 
       localStorage.setItem(
         FAVOURITE_STORIES,
-        JSON.stringify(Array.from(existingfavorites))
+        JSON.stringify(Array.from(existingFavorites))
       );
       return newFavorite;
     });
@@ -196,10 +191,10 @@ export default function MiniStories() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 p-4">
       <Navbar currentPage="Mini Stories" />
       <Toaster richColors position="top-center" />
-      <div className="relative  z-10 max-w-7xl mx-auto pt-12">
+      <div className="relative z-10 max-w-7xl mx-auto pt-12">
         {/* Loading */}
         {loading && (
-          <div className="flex flex-col absolute inset-0  bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full">
             <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
             <p className="font-medium mt-2">Loading stories...</p>
           </div>
@@ -225,25 +220,34 @@ export default function MiniStories() {
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {stories.length === 0 && (
-            <div className="flex flex-col items-center justify-center text-center py-4 space-y-4">
-              <p className="text-xl font-semibold"></p>
-              <p className="text-muted-foreground">
-                You’ve read all available stories. New ones will drop soon.
+          {/* {stories.length === 0 &&  !=="favorites" && (
+            <div className="flex flex-col items-center justify-center text-center py-4 space-y-4 col-span-full">
+              <p className="text-xl font-semibold">
+                {currentFilter !== "All" && "No matches found"}
               </p>
-              <Button
-                variant="default"
-                className="cursor-pointer"
-                onClick={() => navigate("/contact-developer")}
-              >
-                Contact Developer
-              </Button>
+              <p className="text-muted-foreground">
+                {currentFilter === "All"
+                  ? "You’ve read all available stories. New ones will drop soon."
+                  : `We couldn't find any stories in the "${currentFilter}" category.`}
+              </p>
+              
+              {currentFilter === "All" && (
+                <Button
+                  variant="default"
+                  className="cursor-pointer"
+                  onClick={() => navigate("/contact-developer")}
+                >
+                  Contact Developer
+                </Button>
+              )}
             </div>
-          )}
+          )} */}
 
           {stories.slice(0, 10).map((story, index) => {
             const isFavorite = favorite.has(story.id);
             const isCopied = copied === story.id;
+            // Fallback genre color
+            const genreColorClass = genreColors[story.genre] || genreColors["Fantasy"];
 
             return (
               <div
@@ -255,15 +259,13 @@ export default function MiniStories() {
                   saveReadStories(story.id);
                 }}
               >
-                <div className="flex items-start justify-between ">
+                <div className="flex items-start justify-between">
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      genreColors[story.genre]
-                    }`}
+                    className={`px-3 py-1 rounded-full text-xs font-bold ${genreColorClass}`}
                   >
                     {story.genre}
                   </span>
-                  {/* REad story */}
+                  {/* Read story */}
                   <div
                     className={`flex text-indigo-400 gap-2 justify-end text-sm ${
                       read.has(story.id) ? "" : "hidden"
@@ -274,7 +276,7 @@ export default function MiniStories() {
                   </div>
                 </div>
 
-                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
+                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2 shadow-lg w-8 h-8 rounded-full">
                   {story.id === 1000 ? 'dev': story.id}
                 </div>
 
@@ -363,6 +365,8 @@ export default function MiniStories() {
       {selectedStoryData &&
         (() => {
           const isFavorite = favorite.has(selectedStoryData.id);
+          const genreColorClass = genreColors[selectedStoryData.genre] || genreColors["Fantasy"];
+
           return (
             <div
               className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -375,9 +379,7 @@ export default function MiniStories() {
                 <div className="sticky top-0 bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
                   <div className="flex items-center justify-between">
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-bold ${
-                        genreColors[selectedStoryData.genre]
-                      }`}
+                      className={`px-3 py-1 rounded-full text-sm font-bold ${genreColorClass}`}
                     >
                       {selectedStoryData.genre}
                     </span>
@@ -414,9 +416,9 @@ export default function MiniStories() {
                       toggleFavorites(selectedStoryData.id);
                     }}
                     className="flex cursor-pointer items-center gap-2 rounded-3xl shadow-lg px-5 py-2.5 text-sm font-medium text-white 
-                 bg-gradient-to-r from-indigo-600 to-indigo-800 
-                 hover:from-indigo-700 hover:to-indigo-800 
-                 active:scale-95 transition-all"
+                  bg-gradient-to-r from-indigo-600 to-indigo-800 
+                  hover:from-indigo-700 hover:to-indigo-800 
+                  active:scale-95 transition-all"
                   >
                     <Heart
                       className={`w-5 h-5 ${

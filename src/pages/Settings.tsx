@@ -5,18 +5,17 @@ import { useTheme } from "@/hooks/useHook";
 import EditUserInfoModal from "@/modals/EditUserInfoModal";
 import {
   Bell,
+  Edit2,
+  Info,
+  Lock,
   Moon,
-  Sun,
-  User,
-  Volume2,
+  RotateCcw,
   Settings as SettingsIcon,
   Shield,
+  Sun,
   Trash2,
-  RotateCcw,
-  Info,
-  Edit2,
-  Lock,
   Unlock,
+  Volume2
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
