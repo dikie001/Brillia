@@ -1,6 +1,7 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ADMIN_PASSWORD } from "@/constants";
 import { useTheme } from "@/hooks/useHook";
 import EditUserInfoModal from "@/modals/EditUserInfoModal";
 import {
@@ -15,9 +16,10 @@ import {
   Sun,
   Trash2,
   Unlock,
-  Volume2
+  Volume2,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Settings: React.FC = () => {
@@ -29,6 +31,8 @@ const Settings: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
   const [isAdminUnlocked, setIsAdminUnlocked] = useState(false);
+  const PASSWORD = ADMIN_PASSWORD;
+  const navigate = useNavigate();
 
   // Load settings
   useEffect(() => {
@@ -62,8 +66,9 @@ const Settings: React.FC = () => {
   };
 
   const handleAdminUnlock = () => {
-    if (adminPassword === "admin123") {
+    if (adminPassword === PASSWORD) {
       setIsAdminUnlocked(true);
+
       toast.success("Admin access granted");
     } else {
       toast.error("Incorrect password");
@@ -71,6 +76,7 @@ const Settings: React.FC = () => {
     setAdminPassword("");
   };
 
+  // REset default
   const handleResetToDefaults = () => {
     setSoundsEnabled(true);
     localStorage.setItem("soundsEnabled", "true");
@@ -86,6 +92,7 @@ const Settings: React.FC = () => {
       setSubject("");
       setIsAdminUnlocked(false);
       toast.success("All data cleared");
+      navigate("/");
     }
   };
 
