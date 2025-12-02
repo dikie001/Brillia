@@ -5,7 +5,7 @@ const ASSETS = [
   "/index.html",
   "/manifest.webmanifest",
 
-  // Routes
+  // SPA routes (must all map to index.html)
   "/brain-teasers",
   "/mini-stories",
   "/quiz-quest",
@@ -21,6 +21,7 @@ const ASSETS = [
   "/images/logo.png",
   "/images/logo.ico",
   "/images/apple.jpeg",
+  "/images/icon.png",
 
   // Sounds
   "/sounds/correct.mp3",
@@ -30,21 +31,38 @@ const ASSETS = [
   "/sounds/success.mp3",
   "/sounds/wrong.mp3",
 
-  // Other assets
-  "/vite.svg"
+  "/vite.svg",
 ];
 
+// Force-install all assets + route fallbacks
 self.addEventListener("install", (event) => {
-  console.log("🧱 Installing offline-ready service worker...");
   event.waitUntil(
-    caches.open(CACHE_VERSION)
-      .then((cache) => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_VERSION).then(async (cache) => {
+      await cache.addAll(ASSETS);
+
+      // Add route fallbacks manually
+      for (const route of [
+        "/brain-teasers",
+        "/mini-stories",
+        "/quiz-quest",
+        "/wisdom-nuggets",
+        "/tongue-twisters",
+        "/amazing-facts",
+        "/contact-developer",
+        "/settings",
+        "/about",
+        "/help",
+      ]) {
+        await cache.put(route, await cache.match("/index.html"));
+      }
+
+      return self.skipWaiting();
+    })
   );
 });
 
+// Activation cleanup
 self.addEventListener("activate", (event) => {
-  console.log("⚡ Activating offline service worker...");
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
@@ -54,15 +72,28 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+// Fetch handler
 self.addEventListener("fetch", (event) => {
+  const request = event.request;
+
+  // Handle SPA navigation
+  if (request.mode === "navigate") {
+    event.respondWith(
+      caches.match("/index.html").then((cached) => cached || fetch(request))
+    );
+    return;
+  }
+
+  // Everything else: cache-first
   event.respondWith(
-    caches.match(event.request).then((cached) => {
+    caches.match(request).then((cached) => {
       return (
         cached ||
-        fetch(event.request)
+        fetch(request)
           .then((response) => {
-            const clone = response.clone();
-            caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, clone));
+            caches
+              .open(CACHE_VERSION)
+              .then((cache) => cache.put(request, response.clone()));
             return response;
           })
           .catch(() => cached)
