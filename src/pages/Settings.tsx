@@ -131,7 +131,7 @@ const Settings: React.FC = () => {
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
-              <CardContent className="relative pt-0 px-6 pb-6">
+              <CardContent className="relative pt-0 px-4 pb-2">
                 <div className="flex justify-between items-end -mt-12 mb-4">
                   <div className="h-24 w-24 rounded-2xl bg-white dark:bg-gray-800 p-1.5 shadow-lg rotate-3 group-hover:rotate-0 transition-transform duration-300">
                     <div className="h-full w-full rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center overflow-hidden">
@@ -165,9 +165,9 @@ const Settings: React.FC = () => {
                         {subject}
                       </span>
                     )}
-                    <span className="px-3 py-1 bg-indigo-100/80 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-lg text-xs font-semibold uppercase tracking-wider">
+                    {/* <span className="px-3 py-1 bg-indigo-100/80 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-lg text-xs font-semibold uppercase tracking-wider">
                       Free Plan
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </CardContent>
