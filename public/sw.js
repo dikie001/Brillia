@@ -1,11 +1,10 @@
-const CACHE_VERSION = "brillia-offline-v1";
+const CACHE_VERSION = "brillia-offline-v2";
 
 const ASSETS = [
   "/",
   "/index.html",
   "/manifest.webmanifest",
 
-  // SPA routes (must all map to index.html)
   "/brain-teasers",
   "/mini-stories",
   "/quiz-quest",
@@ -17,13 +16,11 @@ const ASSETS = [
   "/about",
   "/help",
 
-  // Images
   "/images/logo.png",
   "/images/logo.ico",
   "/images/apple.jpeg",
   "/images/icon.png",
 
-  // Sounds
   "/sounds/correct.mp3",
   "/sounds/error.mp3",
   "/sounds/finish.mp3",
@@ -34,14 +31,14 @@ const ASSETS = [
   "/vite.svg",
 ];
 
-// Force-install all assets + route fallbacks
+// INSTALL
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then(async (cache) => {
       await cache.addAll(ASSETS);
 
-      // Add route fallbacks manually
-      for (const route of [
+      const html = await cache.match("/index.html");
+      const routes = [
         "/brain-teasers",
         "/mini-stories",
         "/quiz-quest",
@@ -52,8 +49,12 @@ self.addEventListener("install", (event) => {
         "/settings",
         "/about",
         "/help",
-      ]) {
-        await cache.put(route, await cache.match("/index.html"));
+      ];
+
+      if (html) {
+        for (const r of routes) {
+          await cache.put(r, html.clone());
+        }
       }
 
       return self.skipWaiting();
@@ -61,43 +62,58 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activation cleanup
+// ACTIVATE
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.map((key) => key !== CACHE_VERSION && caches.delete(key))
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.map((key) => key !== CACHE_VERSION && caches.delete(key)))
       )
-    ).then(() => self.clients.claim())
+      .then(() => self.clients.claim())
   );
 });
 
-// Fetch handler
+// FETCH — bulletproof version
 self.addEventListener("fetch", (event) => {
-  const request = event.request;
+  const req = event.request;
 
-  // Handle SPA navigation
-  if (request.mode === "navigate") {
+  // Only GET is cacheable
+  if (req.method !== "GET") {
+    return;
+  }
+
+  // SPA fallback
+  if (req.mode === "navigate") {
     event.respondWith(
-      caches.match("/index.html").then((cached) => cached || fetch(request))
+      caches.match("/index.html").then((cached) => cached || fetch(req))
     );
     return;
   }
 
-  // Everything else: cache-first
   event.respondWith(
-    caches.match(request).then((cached) => {
-      return (
-        cached ||
-        fetch(request)
-          .then((response) => {
-            caches
-              .open(CACHE_VERSION)
-              .then((cache) => cache.put(request, response.clone()));
-            return response;
-          })
-          .catch(() => cached)
-      );
+    caches.match(req).then(async (cached) => {
+      if (cached) return cached;
+
+      try {
+        const network = await fetch(req);
+
+        // Can't cache opaque, error, or non-cloneable responses
+        if (!network || !network.ok || network.type === "opaque") {
+          return network;
+        }
+
+        // Safe clone
+        const clone = network.clone();
+
+        // Store safely
+        const cache = await caches.open(CACHE_VERSION);
+        cache.put(req, clone);
+
+        return network;
+      } catch {
+        return cached;
+      }
     })
   );
 });
