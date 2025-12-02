@@ -140,7 +140,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* --- FEATURED HERO BANNER: QUIZ QUEST --- */}
-        <div className="mb-12 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div className="mb-6  flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <button
             onClick={() => HandleCategoryClick(quizSection.to)}
             className="group relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
@@ -222,7 +222,7 @@ const HomePage: React.FC = () => {
         {/* --- END FEATURED HERO BANNER --- */}
 
         {/* Grid for other items */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {otherSections.map((section, index) => {
             const hasCompleted = section.name === "Mini Stories";
             const completionCount = completed.stories;
