@@ -1,18 +1,20 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { TEST_RESULTS } from "@/constants";
+import useSound from "@/hooks/useSound";
 import LearnerModal from "@/modals/Welcome";
 import {
+  ArrowRight,
   Book,
   Newspaper,
+  Pen,
+  Play,
   Puzzle,
   Quote,
   Sparkles,
-  Trophy,
-  Wand,
-  ArrowRight,
   TrendingUp,
-  Play,
+  Trophy,
+  Wand
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,13 +28,14 @@ type Complete = {
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { playSend } = useSound();
   const [openLearnerModal, setOpenLearnerModal] = useState(false);
   const [completed, setCompleted] = useState<Complete>({ stories: 0, quiz: 0 });
 
   // 1. Separate Quiz Quest specific data
   const quizSection = {
     name: "Quiz Quest",
-    icon: <Sparkles />,
+    icon: <Pen />,
     description: "Test your general knowledge with our ultimate challenge.",
     color: "from-cyan-500 to-blue-600",
     bgGradient:
@@ -89,7 +92,10 @@ const HomePage: React.FC = () => {
     },
   ];
 
-  const HandleCategoryClick = (destination: string) => navigate(destination);
+  const HandleCategoryClick = (destination: string) => {
+    playSend();
+    navigate(destination);
+  };
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("first-time");
@@ -156,7 +162,7 @@ const HomePage: React.FC = () => {
             />
 
             {/* Banner Layout: Flex Column on Mobile, Row on Desktop */}
-            <div className="relative p-8 md:p-10 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
+            <div className="relative p-4 md:p-8 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
               
               {/* Left: Icon & Gradient Blob */}
               <div className="relative flex-shrink-0">
@@ -164,7 +170,7 @@ const HomePage: React.FC = () => {
                   className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
                 />
                 <div
-                  className={`relative p-5 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
+                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
                 >
                   {React.cloneElement(quizSection.icon, {
                     className: "w-10 h-10 text-white",
