@@ -1,19 +1,25 @@
-# TODO: Enhance Settings Page
+# Add playSend Sound to All Buttons and Clickables
 
-## Layout and Hierarchy Improvements
-- [ ] Add section headings (Appearance, Audio, Profile, Admin) to organize settings
-- [ ] Adjust spacing and use responsive grid for cards on larger screens
+## Files to Update:
 
-## Additional Features
-- [ ] Add "Reset to Defaults" button in Profile section to reset all settings
+- [ ] src/pages/Settings.tsx
+- [ ] src/pages/WisdomNuggets.tsx
+- [ ] src/pages/NotFound.tsx
+- [ ] src/pages/MiniStories.tsx
+- [ ] src/pages/Help.tsx
+- [ ] src/pages/ContactDeveloper.tsx
+- [ ] src/pages/TongueTwisters.tsx
+- [ ] src/pages/BrainTeasers.tsx
 
-## Admin Functionality
-- [ ] Add state for admin access and password input
-- [ ] Add admin card with password protection (hardcoded password: "admin123")
-- [ ] Implement conditional rendering for admin options once unlocked
-- [ ] Add admin actions: Clear All Data, Reset Settings, View App Info
-- [ ] Ensure admin actions are safe and provide confirmations
+## Steps for Each File:
 
-## Testing and Followup
-- [ ] Test updated page for functionality and responsiveness
-- [ ] Verify password protection and admin actions work correctly
+1. Import useSound hook
+2. Destructure playSend from useSound()
+3. Add playSend() call to each onClick handler
+4. Ensure existing functionality is preserved
+
+## Implementation Notes:
+
+- Wrap existing onClick functions with playSend()
+- Example: onClick={() => { playSend(); existingFunction(); }}
+- For simple handlers, add playSend() before the action

@@ -46,6 +46,7 @@ const categoryColors: Record<string, string> = {
 const FAVOURITE_QUOTES = "favorite-quote";
 
 export default function WisdomNuggets() {
+  const { playSend } = useSound();
   const [copied, setCopied] = useState<number | null>(null);
   const [displayedQuotes, setDisplayedQuotes] = useState<Quote[]>([]);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
