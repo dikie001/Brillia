@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useHook";
 import { AlertTriangle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useSound from "@/hooks/useSound";
 
 export default function NotFound() {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const {playSend}=useSound()
   console.log(theme)
 
   return (
@@ -29,7 +31,7 @@ export default function NotFound() {
       {/* CTA */}
       <div className="mt-8">
         <Button
-          onClick={() => navigate("/")}
+          onClick={() => { playSend(); navigate("/"); }}
           className="rounded-xl px-10 py-6 bg-indigo-600 text-white font-semibold shadow-md hover:bg-indigo-500 transition-colors"
         >
           Back to Home

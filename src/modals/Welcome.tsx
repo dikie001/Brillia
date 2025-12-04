@@ -28,7 +28,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
     }));
   };
 
-// Save learner details
+  // Save learner details
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -54,10 +54,11 @@ const LearnerModal = ({ onClose }: MainProps) => {
       try {
         localStorage.setItem(USER, JSON.stringify(formData));
         localStorage.setItem("first-time", "false");
+        localStorage.setItem("soundsEnabled", "true");
         setTimeout(() => {
           toast.success(" Account created  successfully", { id: "success" });
-          onClose()
-        },2000);
+          onClose();
+        }, 2000);
       } catch (err) {
         setLoading(false);
         toast.error("Error saving details...", { id: "err-saving" });
@@ -84,9 +85,9 @@ const LearnerModal = ({ onClose }: MainProps) => {
             </div>
             <h2 className="text-2xl font-bold">Welcome to Brillia</h2>
           </div>
-            <p className="text-white/90 text-sm">
-              A few quick details to get started{" "}
-            </p>
+          <p className="text-white/90 text-sm">
+            A few quick details to get started{" "}
+          </p>
         </div>
 
         {/* Form Content */}

@@ -7,6 +7,7 @@ import { STORIES_CURRENTPAGE } from "@/constants";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
+import useSound from "@/hooks/useSound";
 import {
   CheckCheck,
   CheckCircle,
@@ -51,6 +52,7 @@ const READ_STORIES = "read-stories";
 const FAVOURITE_STORIES = "favourite-stories";
 
 export default function MiniStories() {
+  const { playSend } = useSound();
   const [stories, setStories] = useState<Story[]>([]);
   const [filteredStories, setFilteredStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<number | null>(null);

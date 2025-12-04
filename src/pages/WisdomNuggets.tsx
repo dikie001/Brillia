@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Paginate from "../components/app/paginations";
+import useSound from "@/hooks/useSound";
 
 const categoryColors: Record<string, string> = {
   Motivation:
@@ -178,7 +179,7 @@ export default function WisdomNuggets() {
                 <X
                   className="absolute -top-1 -right-1 cursor-pointer"
                   size={20}
-                  onClick={() => setShowFeaturedQuote(false)}
+                  onClick={() => { playSend(); setShowFeaturedQuote(false); }}
                 />
               </div>
             </div>
@@ -269,7 +270,7 @@ export default function WisdomNuggets() {
                     {/* copy ans share */}
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => copyToClipboard(quote, setCopied)}
+                        onClick={() => { playSend(); copyToClipboard(quote, setCopied); }}
                         className={`p-2 rounded-full transition-all duration-300 ${
                           isCopied
                             ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -292,7 +293,7 @@ export default function WisdomNuggets() {
                       </button>
                     </div>
                     <button
-                      onClick={() => toggleFavorites(quote.id)}
+                      onClick={() => { playSend(); toggleFavorites(quote.id); }}
                       className={`p-2 rounded-full transition-all duration-300 ${
                         isFavorite
                           ? "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
