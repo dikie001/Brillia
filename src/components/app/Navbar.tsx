@@ -61,6 +61,19 @@ const Navbar = ({ currentPage }: MainProp) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (openMenu) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [openMenu]);
+
   const Randomize = () =>
     setRandomIndex(Math.floor(Math.random() * greetings.length));
 
