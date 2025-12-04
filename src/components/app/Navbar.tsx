@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import PWAInstall from "../PWAInstall";
 import logo from "/images/logo.png";
+import useSound from "@/hooks/useSound";
 
 const greetings = [
   "Hello",
@@ -37,6 +38,7 @@ const Navbar = ({ currentPage }: MainProp) => {
   const navigate = useNavigate();
   const location = window.location.pathname;
   const [navName, setNavName] = useState("");
+  const { playSend } = useSound();
 
   useEffect(() => {
     const rawUserDetails = localStorage.getItem("user-info");
@@ -92,12 +94,15 @@ const Navbar = ({ currentPage }: MainProp) => {
 
           {/* Logo & Greeting */}
           <div
-            onClick={() => navigate("/")}
+            onClick={() => {
+              playSend();
+              navigate("/");
+            }}
             className="group flex items-center gap-2.5 cursor-pointer"
           >
             {/* Logo with animation */}
             <div className="relative w-10 h-10 flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300" />
+              <div className="absolute inset-0  rounded-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300" />
               <img
                 src={logo}
                 className="relative w-full h-full object-contain transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
@@ -121,7 +126,10 @@ const Navbar = ({ currentPage }: MainProp) => {
 
             {/* Theme Toggle - Enhanced Design */}
             <button
-              onClick={toggleTheme}
+              onClick={() => {
+                playSend()
+                toggleTheme();
+              }}
               className={`relative w-16 h-8 rounded-full transition-all duration-300 shadow-inner ${
                 theme === "light"
                   ? "bg-gradient-to-r from-amber-200 to-orange-200"
