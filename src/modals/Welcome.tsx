@@ -55,7 +55,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
         localStorage.setItem(USER, JSON.stringify(formData));
         localStorage.setItem("first-time", "false");
         setTimeout(() => {
-          toast.success("Information saved successfully", { id: "success" });
+          toast.success(" Account created  successfully", { id: "success" });
           onClose()
         },2000);
       } catch (err) {
@@ -103,10 +103,11 @@ const LearnerModal = ({ onClose }: MainProps) => {
               </label>
               <input
                 type="text"
+                autoComplete="name"
+                autoFocus
                 value={formData.name}
                 onChange={(e) => handleInputChange("name", e.target.value)}
                 placeholder="Enter your name"
-                autoFocus
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-purple-600 outline-none transition-all duration-300 bg-gray-50 dark:bg-gray-800 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-900"
               />
             </div>
