@@ -5,6 +5,8 @@ import { lazy, Suspense } from "react";
 import LoadingPage from "./pages/LoadinPage";
 import About from "./pages/About";
 import Help from "./pages/Help";
+import Results from "./pages/Results";
+import AdminDashboard from "./pages/AdminDashboard";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -29,10 +31,12 @@ const App = () => {
           <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
           <Route path="/tongue-twisters" element={<TongueTwisters />} />
           <Route path="/amazing-facts" element={<FactFrenzy />} />
+          <Route path="/results" element={<Results />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/about" element={<About />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
         </Routes>
       </Suspense>
