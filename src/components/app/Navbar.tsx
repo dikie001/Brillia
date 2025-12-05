@@ -8,17 +8,18 @@ import logo from "/images/logo.png";
 import useSound from "@/hooks/useSound";
 
 const greetings = [
-  "Hello",
-  "Hi",
-  "Howdy",
-  "Greetings",
-  "Salutations",
-  "Ahoy",
-  "Hola",
-  "What's up",
-  "Good day",
-  "Bonjour",
+  "Hey",
+  "Hi!",
+  "Yo!",
+  "Sup",
+  "Hao",
+  "Ayo",
+  "Ell",
+  "Hii",
+  "Yoh",
+  "Eyo",
 ];
+
 
 interface User {
   name: string;
@@ -48,12 +49,13 @@ const Navbar = ({ currentPage }: MainProp) => {
     const newNavname =
       location === "/"
         ? `${greetings[randomIndex]} ${
-            userDetails?.name?.split(" ")[0] || "Learner"
+            userDetails?.name?.split(" ")[0] || ""
           }`
         : currentPage || "Brillia";
 
     setNavName(newNavname);
-  }, [currentPage, location, randomIndex]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, location]);
 
   useEffect(() => {
     const handleScroll = () => {
