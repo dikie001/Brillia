@@ -18,6 +18,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import useSound from "@/hooks/useSound";
 
 export type Teaser = {
   id: number;
@@ -34,8 +35,7 @@ const categoryColors: Record<string, string> = {
     "bg-gradient-to-r from-blue-900/40 to-sky-900/40 text-sky-300 border border-sky-800", // sharp, analytical
   Riddle:
     "bg-gradient-to-r from-emerald-900/40 to-teal-900/40 text-emerald-300 border border-emerald-800", // playful, mysterious
-  Math:
-    "bg-gradient-to-r from-violet-900/40 to-purple-900/40 text-violet-300 border border-violet-800", // intelligent, deep
+  Math: "bg-gradient-to-r from-violet-900/40 to-purple-900/40 text-violet-300 border border-violet-800", // intelligent, deep
   Lateral:
     "bg-gradient-to-r from-rose-900/40 to-red-900/40 text-rose-300 border border-rose-800", // creative, bold
 };
@@ -49,7 +49,7 @@ export default function BrainTeasersPage() {
   const itemsPerPage = 10;
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
-
+  const { playSend } = useSound();
   const [currentFilter, setCurrentFilter] = useState("All");
   const [totalFiltered, setTotalFiltered] = useState(0);
 
@@ -64,6 +64,7 @@ export default function BrainTeasersPage() {
     if (currentPage !== 1) {
       localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(currentPage));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, currentFilter]);
 
   useEffect(() => {
@@ -177,12 +178,9 @@ export default function BrainTeasersPage() {
         {currentPage * 10 > teasersRef.current.length && (
           <Button
             onClick={() => {
+              playSend();
               setCurrentPage(1);
-                    localStorage.setItem(
-                      TEASERS_CURRENTPAGE,
-                      JSON.stringify(2)
-                    ); 
-
+              localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(2));
             }}
             variant="default"
           >
@@ -190,7 +188,7 @@ export default function BrainTeasersPage() {
           </Button>
         )}
         <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {currentPage*itemsPerPage} of {totalFiltered} items
+          Showing {currentPage * itemsPerPage} of {totalFiltered} items
         </div>
 
         {/* Top Paginate */}
@@ -261,7 +259,10 @@ export default function BrainTeasersPage() {
                   <div className="flex items-center justify-between w-full mb-2 mt-1">
                     <div>
                       <button
-                        onClick={() => copyToClipboard(teaser, setCopied)}
+                        onClick={() => {
+                          playSend();
+                          copyToClipboard(teaser, setCopied);
+                        }}
                         className={`p-2 rounded-full transition-all duration-300 ${
                           copied === teaser.id
                             ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -276,7 +277,10 @@ export default function BrainTeasersPage() {
                         )}
                       </button>
                       <button
-                        onClick={() => shareQuote(teaser, setCopied)}
+                        onClick={() => {
+                          playSend();
+                          shareQuote(teaser, setCopied);
+                        }}
                         className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                         title="Share teaser"
                       >
@@ -286,7 +290,10 @@ export default function BrainTeasersPage() {
                     {/* Like button */}
                     <div>
                       <button
-                        onClick={() => toggleFavorites(teaser.id)}
+                        onClick={() => {
+                          playSend();
+                          toggleFavorites(teaser.id);
+                        }}
                         className={`p-2 rounded-full transition-all duration-300 ${
                           favorite.has(teaser.id)
                             ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
@@ -307,7 +314,10 @@ export default function BrainTeasersPage() {
                     </div>
                   </div>
                   <button
-                    onClick={() => toggleReveal(teaser.id)}
+                    onClick={() => {
+                      playSend();
+                      toggleReveal(teaser.id);
+                    }}
                     className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 ease-in-out ${
                       isRevealed
                         ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg"
