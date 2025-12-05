@@ -18,14 +18,13 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
 import { Badge } from "@/components/ui/badge";
+import useSound from "@/hooks/useSound";
 
 const difficultyColors: Record<string, string> = {
-  Easy:
-    "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800", // calm, rewarding
+  Easy: "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800", // calm, rewarding
   Medium:
     "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800", // alert, balanced challenge
-  Hard:
-    "bg-gradient-to-r from-indigo-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // bold, intense, premium
+  Hard: "bg-gradient-to-r from-indigo-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // bold, intense, premium
 };
 
 const FAVOURITE_TWISTERS = "favourite-twisters";
@@ -39,7 +38,7 @@ const TongueTwisters = () => {
   const itemsPerPage = 10;
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [copied, setCopied] = useState<number | null>(null);
-
+  const { playSend } = useSound();
   const [currentFilter, setCurrentFilter] = useState("All");
   const [totalFiltered, setTotalFiltered] = useState(0);
 
@@ -64,7 +63,6 @@ const TongueTwisters = () => {
     const end = start + itemsPerPage;
     const currentItems = filteredTwisters.slice(start, end);
     setDisplayedTwisters(currentItems);
-
   };
 
   // fetch current page info from storage
@@ -135,6 +133,7 @@ const TongueTwisters = () => {
         JSON.stringify(currentPage)
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, currentFilter]);
 
   useEffect(() => {
@@ -162,7 +161,7 @@ const TongueTwisters = () => {
           genres={genres}
         />
         <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {currentPage *itemsPerPage} of {totalFiltered} items
+          Showing {currentPage * itemsPerPage} of {totalFiltered} items
         </div>
 
         {/* Top Paginate */}
@@ -192,7 +191,10 @@ const TongueTwisters = () => {
               key={twister.id}
               className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
               style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => setSelectedTwister(twister.id)}
+              onClick={() => {
+                playSend();
+                setSelectedTwister(twister.id);
+              }}
             >
               <div className="flex items-start justify-between mb-4">
                 <span
@@ -224,7 +226,11 @@ const TongueTwisters = () => {
               <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <button
-                    onClick={() => copyToClipboard(twister, setCopied)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      playSend();
+                      copyToClipboard(twister, setCopied);
+                    }}
                     className={`p-2 rounded-full transition-all duration-300 ${
                       copied === twister.id
                         ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -240,7 +246,8 @@ const TongueTwisters = () => {
                   </button>
                   <button
                     onClick={(e) => {
-                      e.stopPropagation()
+                      e.stopPropagation();
+                      playSend();
                       shareQuote(twister, setCopied);
                     }}
                     className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
@@ -252,6 +259,7 @@ const TongueTwisters = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
+                    playSend();
                     toggleFavorites(twister.id);
                   }}
                   className={`p-2 rounded-full transition-all duration-300 ${
@@ -320,7 +328,10 @@ const TongueTwisters = () => {
       {selectedTwisterData && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedTwister(null)}
+          onClick={() => {
+            playSend();
+            setSelectedTwister(null);
+          }}
         >
           <div
             className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
@@ -336,7 +347,10 @@ const TongueTwisters = () => {
                   {selectedTwisterData.difficulty}
                 </span>
                 <button
-                  onClick={() => setSelectedTwister(null)}
+                  onClick={() => {
+                    playSend();
+                    setSelectedTwister(null);
+                  }}
                   className="p-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 rounded-md transition-colors text-gray-500 hover:text-indigo-700 dark:hover:text-indigo-300"
                 >
                   <X size={20} />
