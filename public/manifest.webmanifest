@@ -4,18 +4,39 @@
   "description": "A fun app with quizzes, facts, stories, and brain teasers",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffffff",
+  "background_color": "#ffffff",  // Fixed: removed extra 'ff'
   "theme_color": "#4f46e5",
+  "scope": "/",
+  "orientation": "portrait",
+  "categories": ["education", "entertainment", "games"],
+  
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "/images/logo-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/logo-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  // For iOS
+  "apple-touch-icon": "/images/apple-touch-icon.png",
+  
+  // Shortcuts (optional but nice to have)
+  "shortcuts": [
+    {
+      "name": "Start Quiz",
+      "url": "/quiz"
+    },
+    {
+      "name": "Browse Stories",
+      "url": "/stories"
     }
   ]
 }

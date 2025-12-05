@@ -1,10 +1,12 @@
-const CACHE_VERSION = "brillia-offline-v2";
-
+const CACHE_VERSION = "brillia-offline-v3"; // Increment version
 const ASSETS = [
+  // Core app shell
   "/",
   "/index.html",
   "/manifest.webmanifest",
+  "/vite.svg",
 
+  // App routes (SPA pages)
   "/brain-teasers",
   "/mini-stories",
   "/quiz-quest",
@@ -16,104 +18,255 @@ const ASSETS = [
   "/about",
   "/help",
 
+  // Images
   "/images/logo.png",
   "/images/logo.ico",
   "/images/apple.jpeg",
   "/images/icon.png",
 
+  // Audio files
   "/sounds/correct.mp3",
   "/sounds/error.mp3",
   "/sounds/finish.mp3",
   "/sounds/send.mp3",
   "/sounds/success.mp3",
   "/sounds/wrong.mp3",
-
-  "/vite.svg",
 ];
 
-// INSTALL
+// Precache critical assets on install
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_VERSION).then(async (cache) => {
-      await cache.addAll(ASSETS);
+    (async () => {
+      const cache = await caches.open(CACHE_VERSION);
+      
+      try {
+        // Try to add all assets
+        await cache.addAll(ASSETS);
+      } catch (error) {
+        console.warn("Some assets failed to cache:", error);
+      }
 
+      // Clone index.html for all SPA routes
       const html = await cache.match("/index.html");
-      const routes = [
-        "/brain-teasers",
-        "/mini-stories",
-        "/quiz-quest",
-        "/wisdom-nuggets",
-        "/tongue-twisters",
-        "/amazing-facts",
-        "/contact-developer",
-        "/settings",
-        "/about",
-        "/help",
-      ];
-
       if (html) {
-        for (const r of routes) {
-          await cache.put(r, html.clone());
+        const routes = [
+          "/brain-teasers",
+          "/mini-stories",
+          "/quiz-quest",
+          "/wisdom-nuggets",
+          "/tongue-twisters",
+          "/amazing-facts",
+          "/contact-developer",
+          "/settings",
+          "/about",
+          "/help",
+        ];
+
+        for (const route of routes) {
+          // Check if route already exists before adding
+          const existing = await cache.match(route);
+          if (!existing) {
+            await cache.put(route, html.clone());
+          }
         }
       }
 
-      return self.skipWaiting();
-    })
+      // Skip waiting to activate immediately
+      self.skipWaiting();
+      console.log(`Service Worker ${CACHE_VERSION} installed`);
+    })()
   );
 });
 
-// ACTIVATE
+// Clean up old caches on activate
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(keys.map((key) => key !== CACHE_VERSION && caches.delete(key)))
-      )
-      .then(() => self.clients.claim())
+    (async () => {
+      const cacheNames = await caches.keys();
+      
+      // Delete all old caches
+      await Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_VERSION) {
+            console.log(`Deleting old cache: ${cacheName}`);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+
+      // Claim all clients immediately
+      await self.clients.claim();
+      console.log(`Service Worker ${CACHE_VERSION} activated`);
+    })()
   );
 });
 
-// FETCH — bulletproof version
+// Enhanced fetch handler with different strategies
 self.addEventListener("fetch", (event) => {
-  const req = event.request;
+  const { request } = event;
+  const url = new URL(request.url);
 
-  // Only GET is cacheable
-  if (req.method !== "GET") {
+  // Skip non-GET requests and browser extensions
+  if (request.method !== "GET" || 
+      url.protocol === "chrome-extension:") {
     return;
   }
 
-  // SPA fallback
-  if (req.mode === "navigate") {
-    event.respondWith(
-      caches.match("/index.html").then((cached) => cached || fetch(req))
-    );
+  // Strategy 1: Navigation requests (SPA routes)
+  if (request.mode === "navigate") {
+    event.respondWith(handleNavigationRequest(request));
     return;
   }
 
-  event.respondWith(
-    caches.match(req).then(async (cached) => {
-      if (cached) return cached;
+  // Strategy 2: Static assets (images, sounds, CSS, JS)
+  if (isStaticAsset(request)) {
+    event.respondWith(handleStaticAsset(request));
+    return;
+  }
 
-      try {
-        const network = await fetch(req);
-
-        // Can't cache opaque, error, or non-cloneable responses
-        if (!network || !network.ok || network.type === "opaque") {
-          return network;
-        }
-
-        // Safe clone
-        const clone = network.clone();
-
-        // Store safely
-        const cache = await caches.open(CACHE_VERSION);
-        cache.put(req, clone);
-
-        return network;
-      } catch {
-        return cached;
-      }
-    })
-  );
+  // Strategy 3: Default - Cache falling back to network
+  event.respondWith(handleDefaultRequest(request));
 });
+
+// Navigation request handler
+async function handleNavigationRequest(request) {
+  try {
+    // Try cache first for SPA routes
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    // Try network for navigation
+    const networkResponse = await fetch(request);
+    
+    // Cache successful responses
+    if (networkResponse.ok) {
+      const cache = await caches.open(CACHE_VERSION);
+      cache.put(request, networkResponse.clone());
+    }
+    
+    return networkResponse;
+    
+  } catch (error) {
+    // Fallback to index.html for SPA
+    const fallback = await caches.match("/index.html");
+    if (fallback) {
+      return fallback;
+    }
+    
+    // Ultimate fallback
+    return new Response("You are offline. Please check your connection.", {
+      status: 503,
+      headers: { "Content-Type": "text/html; charset=utf-8" }
+    });
+  }
+}
+
+// Static asset handler (Cache First)
+async function handleStaticAsset(request) {
+  const cache = await caches.open(CACHE_VERSION);
+  const cachedResponse = await cache.match(request);
+  
+  // Return cached version if available
+  if (cachedResponse) {
+    // Update cache in background
+    updateCacheInBackground(request);
+    return cachedResponse;
+  }
+  
+  // Fetch from network
+  try {
+    const networkResponse = await fetch(request);
+    
+    // Cache if successful
+    if (networkResponse.ok) {
+      cache.put(request, networkResponse.clone());
+    }
+    
+    return networkResponse;
+  } catch (error) {
+    // If we have no cached version and network fails
+    return new Response("", { status: 408 });
+  }
+}
+
+// Default request handler (Network First)
+async function handleDefaultRequest(request) {
+  try {
+    // Try network first
+    const networkResponse = await fetch(request);
+    
+    // Cache successful responses
+    if (networkResponse.ok) {
+      const cache = await caches.open(CACHE_VERSION);
+      cache.put(request, networkResponse.clone());
+    }
+    
+    return networkResponse;
+  } catch (error) {
+    // Fallback to cache
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    
+    // No cache available
+    return new Response("Network error", { status: 408 });
+  }
+}
+
+// Background cache update
+async function updateCacheInBackground(request) {
+  try {
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(CACHE_VERSION);
+      cache.put(request, networkResponse);
+    }
+  } catch (error) {
+    // Silent fail - background update shouldn't affect UX
+  }
+}
+
+// Helper to identify static assets
+function isStaticAsset(request) {
+  const url = request.url;
+  return (
+    url.includes("/images/") ||
+    url.includes("/sounds/") ||
+    url.includes(".css") ||
+    url.includes(".js") ||
+    url.includes(".svg") ||
+    url.includes(".ico") ||
+    url.includes(".woff") ||
+    url.includes(".woff2") ||
+    url.includes(".ttf")
+  );
+}
+
+// Periodic cache cleanup (optional)
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "cleanup-cache") {
+    event.waitUntil(cleanupOldCacheEntries());
+  }
+});
+
+async function cleanupOldCacheEntries() {
+  const cache = await caches.open(CACHE_VERSION);
+  const requests = await cache.keys();
+  const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  
+  for (const request of requests) {
+    const response = await cache.match(request);
+    if (response) {
+      const dateHeader = response.headers.get("date");
+      if (dateHeader) {
+        const cachedDate = new Date(dateHeader).getTime();
+        if (cachedDate < oneWeekAgo) {
+          cache.delete(request);
+        }
+      }
+    }
+  }
+}
