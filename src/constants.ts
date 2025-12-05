@@ -35,3 +35,6 @@ export const ADMIN_PASSWORD = "14572";
 
 // TEst results
 export const TEST_RESULTS = "quiz_test_results";
+
+// Stories read
+export const STORIES_READ = "read-stories"

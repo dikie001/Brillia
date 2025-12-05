@@ -1,3 +1,4 @@
+import { saveUserDetails } from "@/utils/firebaseFunctions";
 import {
   BookOpen,
   Heart,
@@ -41,7 +42,8 @@ const LearnerModal = ({ onClose }: MainProps) => {
 
   const handleContinue = () => {
     const { name, subject, hobby } = formData;
-    if (!name || !subject || !hobby) return toast.error("Please fill in all fields");
+    if (!name || !subject || !hobby)
+      return toast.error("Please fill in all fields");
     if (name.trim().length < 3) return toast.error("Enter your real name");
     if (!isNaN(Number(name))) return toast.error("Name cannot be a number");
     if (hobby.trim().length < 4) return toast.error("Enter a valid hobby");
@@ -66,13 +68,16 @@ const LearnerModal = ({ onClose }: MainProps) => {
       localStorage.setItem(USER, JSON.stringify(formData));
       localStorage.setItem("first-time", "false");
       localStorage.setItem("soundsEnabled", "true");
+      saveUserDetails(formData);
+      
 
       setTimeout(() => {
-        toast.success("Profile created!", { id: "success" });
+        toast.success("Your profile has been created!", { id: "success" });
         onClose();
       }, 1500);
     } catch (err) {
       setLoading(false);
+      console.log(err);
       toast.error("Error saving details...");
     }
   };
@@ -85,11 +90,12 @@ const LearnerModal = ({ onClose }: MainProps) => {
   return (
     <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-in fade-in duration-300">
       <div className="bg-white dark:bg-gray-900 backdrop-blur-xl border border-white/20 dark:border-gray-800 rounded-3xl shadow-2xl w-full max-w-lg mx-auto transform transition-all duration-500 ease-out overflow-hidden">
-        
         {/* Header - Animated Transition */}
         <div
           className={`relative overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-700 p-6 text-white transition-all duration-500 ease-in-out ${
-            step === 2 ? "h-32 flex flex-col justify-center items-center text-center" : ""
+            step === 2
+              ? "h-32 flex flex-col justify-center items-center text-center"
+              : ""
           }`}
         >
           {/* Background decoration */}
@@ -99,9 +105,14 @@ const LearnerModal = ({ onClose }: MainProps) => {
             <div className="relative z-10 animate-in slide-in-from-top-4 fade-in duration-500">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-white/20 rounded-xl backdrop-blur-sm shadow-inner">
-                  <Sparkles size={24} className="text-yellow-300 animate-pulse" />
+                  <Sparkles
+                    size={24}
+                    className="text-yellow-300 animate-pulse"
+                  />
                 </div>
-                <h2 className="text-2xl font-bold tracking-tight">Welcome to Brillia</h2>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  Welcome to Brillia
+                </h2>
               </div>
               <p className="text-indigo-100 text-sm ml-1 font-medium opacity-90">
                 Let's customize your learning journey
@@ -119,12 +130,12 @@ const LearnerModal = ({ onClose }: MainProps) => {
 
         {/* Content Body */}
         <div className="p-6 sm:p-8">
-          <form onSubmit={step === 2 ? handleSubmit : (e) => e.preventDefault()}>
-            
+          <form
+            onSubmit={step === 2 ? handleSubmit : (e) => e.preventDefault()}
+          >
             {/* STEP 1: Staggered Entrance Animations */}
             {step === 1 && (
               <div className="space-y-5">
-                
                 {/* Name - Delay 0ms */}
                 <div className="animate-in slide-in-from-bottom-4 fade-in duration-500 fill-mode-backwards">
                   <label className={labelBaseClasses}>
@@ -151,7 +162,9 @@ const LearnerModal = ({ onClose }: MainProps) => {
                   <div className="relative">
                     <select
                       value={formData.subject}
-                      onChange={(e) => handleInputChange("subject", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("subject", e.target.value)
+                      }
                       className={`${inputBaseClasses} appearance-none cursor-pointer pr-10`}
                     >
                       <option value="">Select a subject...</option>
@@ -210,7 +223,10 @@ const LearnerModal = ({ onClose }: MainProps) => {
                     className="group w-full py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <span>Continue</span>
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight
+                      size={18}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </button>
                 </div>
               </div>

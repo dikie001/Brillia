@@ -1,25 +1,19 @@
 import { useTheme } from "@/hooks/useHook";
 import {
-  BarChart3,
   BookOpen,
   Calendar,
   CheckCircle,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  ClipboardCheck,
   Clock,
-  Crown,
-  Hash,
-  Lightbulb,
   Play,
   RotateCcw,
   Sparkles,
-  Star,
   Target,
   TrendingUp,
   Trophy,
-  XCircle,
+  XCircle
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
@@ -28,6 +22,7 @@ import Navbar from "@/components/app/Navbar";
 import { STORAGE_KEYS } from "@/constants";
 import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import useSound from "../hooks/useSound";
 import logo from "/images/logo.png";
@@ -68,7 +63,7 @@ interface QuizProgress {
   isActive: boolean;
 }
 
-type GameState = "home" | "quiz" | "results" | "allResults";
+type GameState = "home" | "quiz" | "results"  ;
 
 interface QuizAppState {
   currentTest: number;
@@ -107,6 +102,7 @@ const QuizApp: React.FC = () => {
     hobby: "",
     subject: "",
   });
+  const navigate = useNavigate()
   const [openResetModal, setOpenResetModal] = useState(false);
   const { theme } = useTheme();
   useEffect(() => {
@@ -607,7 +603,7 @@ const QuizApp: React.FC = () => {
                 <button
                   onClick={() => {
                     playSend();
-                    setGameState("allResults");
+                    navigate("/results")
                   }}
                   className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
                 >
@@ -633,7 +629,7 @@ const QuizApp: React.FC = () => {
   }
 
   // Quiz Screen: Handles the active quiz session with questions, options, and feedback
-if (state.gameState === "quiz") {
+  if (state.gameState === "quiz") {
     const currentQuestions = getCurrentTestQuestions();
     const currentQ = currentQuestions[state.currentQuestion];
 
@@ -723,42 +719,6 @@ if (state.gameState === "quiz") {
               {currentQ.question}
             </h3>
 
-            {/* Feedback - MOVED TO TOP */}
-            {state.showFeedback && (
-              <div className="mb-6 p-4 bg-white/60 dark:bg-gray-700/60 rounded-2xl border border-indigo-500 dark:border-indigo-600 shadow-md transition-all duration-300">
-                <div className="flex items-start gap-3">
-                  {state.selectedAnswer === currentQ.correctAnswer ? (
-                    <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                  ) : (
-                    <XCircle className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
-                  )}
-                  <div className="flex-1">
-                    <p
-                      className={`font-bold text-lg mb-1 ${
-                        state.selectedAnswer === currentQ.correctAnswer
-                          ? "text-green-600 dark:text-green-400"
-                          : "text-red-500 dark:text-red-400"
-                      }`}
-                    >
-                      {state.selectedAnswer === currentQ.correctAnswer
-                        ? "Correct!"
-                        : "Incorrect"}
-                    </p>
-                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
-                      {currentQ.explanation}
-                    </p>
-                    {state.selectedAnswer !== currentQ.correctAnswer && (
-                      <p className="text-sm text-green-700 dark:text-green-300 font-medium bg-green-100 dark:bg-green-900/30 p-2 rounded-lg inline-block border border-green-200 dark:border-green-800">
-                        Correct answer:{" "}
-                        <strong>{currentQ.correctAnswer}</strong> –{" "}
-                        {currentQ.options[currentQ.correctAnswer]}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
             {/* Options */}
             <div className="grid gap-3">
               {(
@@ -819,7 +779,7 @@ if (state.gameState === "quiz") {
             {state.showFeedback && (
               <button
                 onClick={handleNext}
-                className="w-full mt-8 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
+                className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-bold py-4 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 flex items-center justify-center gap-2"
               >
                 {state.currentQuestion < currentQuestions.length - 1
                   ? "Next Question"
@@ -829,23 +789,71 @@ if (state.gameState === "quiz") {
             )}
           </div>
         </div>
+        {/* Feedback */}
+        {state.showFeedback && (
+          <div className="fixed top-6 left-4  right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-3xl z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+            <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl p-5 rounded-2xl border border-indigo-200 dark:border-indigo-700 shadow-2xl shadow-indigo-500/20 dark:shadow-black/50 ring-1 ring-black/5">
+              <div className="flex items-start gap-4">
+                {state.selectedAnswer === currentQ.correctAnswer ? (
+                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-full flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                ) : (
+                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-full flex-shrink-0">
+                    <XCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                  </div>
+                )}
+
+                <div className="flex-1">
+                  <h4
+                    className={`font-bold text-lg mb-1 ${
+                      state.selectedAnswer === currentQ.correctAnswer
+                        ? "text-green-700 dark:text-green-400"
+                        : "text-red-600 dark:text-red-400"
+                    }`}
+                  >
+                    {state.selectedAnswer === currentQ.correctAnswer
+                      ? "Correct!"
+                      : "Incorrect"}
+                  </h4>
+
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
+                    {currentQ.explanation}
+                  </p>
+
+                  {state.selectedAnswer !== currentQ.correctAnswer && (
+                    <div className="mt-3 text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700/50 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 inline-block">
+                      Correct answer:{" "}
+                      <span className="text-green-600 dark:text-green-400 font-bold">
+                        {currentQ.correctAnswer}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
   // Single Test Results Screen: Displays the outcome of the just completed test
-if (state.gameState === "results") {
+  if (state.gameState === "results") {
     const latestResult = state.testResults[state.testResults.length - 1];
-    
+
     // Logic for styling based on score
     // const isPassing = latestResult.percentage >= 60;
     const isExcellent = latestResult.percentage >= 80;
-    
-    const themeColor = 
-      latestResult.percentage >= 90 ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200" :
-      latestResult.percentage >= 70 ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 border-blue-200" :
-      latestResult.percentage >= 50 ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200" :
-      "text-red-600 bg-red-50 dark:bg-red-900/20 border-red-200";
+
+    const themeColor =
+      latestResult.percentage >= 90
+        ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200"
+        : latestResult.percentage >= 70
+        ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 border-blue-200"
+        : latestResult.percentage >= 50
+        ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200"
+        : "text-red-600 bg-red-50 dark:bg-red-900/20 border-red-200";
 
     const accentColor = themeColor.split(" ")[0]; // Extract text color for icons
 
@@ -855,10 +863,14 @@ if (state.gameState === "results") {
 
         <div className="flex-1 flex items-center  mt-16 justify-center p-4 sm:p-6 animate-fade-in-up">
           <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden">
-            
             {/* Header Section */}
             <div className="pt-4 pb-6 px-8 text-center">
-              <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${themeColor.split(" ").slice(1).join(" ")}`}>
+              <div
+                className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${themeColor
+                  .split(" ")
+                  .slice(1)
+                  .join(" ")}`}
+              >
                 {isExcellent ? (
                   <Trophy className={`w-8 h-8 ${accentColor}`} />
                 ) : (
@@ -876,14 +888,19 @@ if (state.gameState === "results") {
             {/* Score Display */}
             <div className="px-8 pb-8 text-center border-b border-gray-100 dark:border-gray-800">
               <div className="relative inline-flex flex-col items-center">
-                <span className={`text-6xl font-black tracking-tighter ${accentColor}`}>
+                <span
+                  className={`text-6xl font-black tracking-tighter ${accentColor}`}
+                >
                   {latestResult.percentage}%
                 </span>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mt-2 ${themeColor}`}>
+                <span
+                  className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mt-2 ${themeColor}`}
+                >
                   {getPerformanceMessage(latestResult.percentage)}
                 </span>
                 <p className="mt-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-                  {latestResult.score} out of {latestResult.totalQuestions} Correct
+                  {latestResult.score} out of {latestResult.totalQuestions}{" "}
+                  Correct
                 </p>
               </div>
             </div>
@@ -892,21 +909,34 @@ if (state.gameState === "results") {
             <div className="grid grid-cols-3 divide-x divide-gray-100 dark:divide-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
               <div className="p-4 flex flex-col items-center text-center">
                 <BookOpen className="w-4 h-4 text-gray-400 mb-1" />
-                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Subject</span>
-                <span className="text-sm font-semibold truncate w-full" title={latestResult.subject}>
-                  {latestResult.subject.length > 10 ? latestResult.subject.substring(0, 10) + '..' : latestResult.subject}
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">
+                  Subject
+                </span>
+                <span
+                  className="text-sm font-semibold truncate w-full"
+                  title={latestResult.subject}
+                >
+                  {latestResult.subject.length > 10
+                    ? latestResult.subject.substring(0, 10) + ".."
+                    : latestResult.subject}
                 </span>
               </div>
               <div className="p-4 flex flex-col items-center text-center">
                 <Clock className="w-4 h-4 text-gray-400 mb-1" />
-                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Time</span>
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">
+                  Time
+                </span>
                 <span className="text-sm font-semibold">
-                  {latestResult.timeTaken ? formatTime(latestResult.timeTaken) : "--:--"}
+                  {latestResult.timeTaken
+                    ? formatTime(latestResult.timeTaken)
+                    : "--:--"}
                 </span>
               </div>
               <div className="p-4 flex flex-col items-center text-center">
                 <Calendar className="w-4 h-4 text-gray-400 mb-1" />
-                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Date</span>
+                <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">
+                  Date
+                </span>
                 <span className="text-sm font-semibold whitespace-nowrap">
                   {latestResult.date}
                 </span>
@@ -946,7 +976,7 @@ if (state.gameState === "results") {
                   <button
                     onClick={() => {
                       playSend();
-                      setGameState("allResults");
+                      navigate("/results")
                     }}
                     className="w-full flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium h-10 rounded-xl transition-colors"
                   >
@@ -955,7 +985,6 @@ if (state.gameState === "results") {
                 )}
               </div>
             </div>
-            
           </div>
         </div>
         <Footer />
@@ -963,294 +992,7 @@ if (state.gameState === "results") {
     );
   }
 
-  // All Results Screen: Displays the outcome of the completed test with score, message, and navigation options
-  if (state.gameState === "allResults") {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 p-4 sm:p-6 transition-all duration-500">
-        <Navbar currentPage="Quiz Results" />
-        <div className="max-w-6xl mx-auto pt-16">
-          {/* Header with enhanced styling */}
-          <div className="flex items-center justify-between mb-12">
-            <button
-              onClick={() => {
-                playSend();
-                setGameState("home");
-              }}
-              className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors font-semibold"
-            >
-              <ChevronLeft className="w-5 h-5 mr-2" />
-              Home
-            </button>
-            <div className="text-center">
-              <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                Quiz Results
-              </h1>
-              <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto"></div>
-            </div>
-            <div className="w-20"></div>
-          </div>
 
-          {/* Enhanced empty state */}
-          {state.testResults.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="relative bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-indigo-200/30 dark:border-indigo-700/30 max-w-md mx-auto">
-                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                  <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl shadow-xl">
-                    <BookOpen className="w-12 h-12 text-white" />
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                    No Results Yet
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                    Your quiz journey starts here! Complete your first test to
-                    unlock detailed insights and track your progress.
-                  </p>
-                  <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-semibold shadow-lg animate-pulse">
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Ready to Begin?
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* Enhanced results grid */}
-              <div className="space-y-6 mb-8 grid grid-cols-2 lg:grid-cols-3 gap-4">
-                {state.testResults
-                  .slice()
-                  .reverse()
-                  .map((result, index) => (
-                    <div
-                      key={index}
-                      className="group flex relative  bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:border-indigo-300/50 dark:hover:border-indigo-600/50"
-                    >
-                      {/* Gradient overlay on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                      <div className="relative p-4">
-                        <div className="flex items-center justify-between flex-col lg:flex-row gap-6">
-                          <div className="flex-1 text-center lg:text-left">
-                            {/* Test header with badge */}
-                            <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                              <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-full">
-                                <Hash className="w-4 h-4 text-indigo-600 dark:text-indigo-400 mr-1" />
-                                <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
-                                  Test {result.testNumber}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Subject with enhanced styling */}
-                            <h3 className="md:text-lg lg:text-xl font-bold text-gray-900 dark:text-white mb-4">
-                              {result.subject.substring(0, 40)}...
-                            </h3>
-
-                            {/* Enhanced metadata */}
-                            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 text-gray-600 dark:text-gray-400">
-                              <div className="flex items-center gap-2 bg-gray-100/50 dark:bg-gray-700/30 px-3 py-1.5 rounded-lg">
-                                <Calendar className="w-4 h-4 text-indigo-500" />
-                                <span className="text-xs md:text-sm font-medium">
-                                  {result.date}
-                                </span>
-                              </div>
-                              {result.timeTaken && (
-                                <div className="flex items-center gap-2 bg-gray-100/50 dark:bg-gray-700/30 px-3 py-1.5 rounded-lg">
-                                  <Clock className="w-4 h-4 text-green-500" />
-                                  <span className="text-xs md:text-sm font-medium">
-                                    {formatTime(result.timeTaken)}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          {result.percentage >= 90 && (
-                            <div className="flex absolute -top-4  -right-2 p-1.5 justify-center shadow items-center bg-gradient-to-r from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/30 rounded-full">
-                              <Crown
-                                className=" text-yellow-600 dark:text-yellow-400 "
-                                size={20}
-                              />
-                            </div>
-                          )}
-                          {/* Enhanced score display */}
-                          <div className="text-center">
-                            <div
-                              className={`text-4xl sm:text-5xl font-black mb-2 ${
-                                result.percentage >= 90
-                                  ? "bg-gradient-to-r from-green-400 to-emerald-500"
-                                  : result.percentage >= 80
-                                  ? "bg-gradient-to-r from-blue-400 to-indigo-500"
-                                  : result.percentage >= 70
-                                  ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                                  : " bg-red-500"
-                              } bg-clip-text text-transparent`}
-                            >
-                              {result.percentage}%
-                            </div>
-                            <div
-                              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                                result.percentage >= 90
-                                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
-                                  : result.percentage >= 80
-                                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-                                  : result.percentage >= 70
-                                  ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
-                                  : "bg-red-100 text-red-700 dark:bg-red-600/40 dark:text-red-300"
-                              }`}
-                            >
-                              {result.percentage >= 90
-                                ? "🏆 Outstanding"
-                                : result.percentage >= 80
-                                ? "⭐ Excellent"
-                                : result.percentage >= 70
-                                ? "👍 Good"
-                                : "📚 Needs Work"}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
-              {/* Enhanced overall stats */}
-              <div className="bg-white/80 dark:bg-gray-800/80 rounded-3xl border border-white/50 dark:border-gray-700/50 shadow-2xl overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600/50 to-indigo-700/50 p-6 sm:p-8 border-b border-indigo-200/30 dark:border-indigo-700/30">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl">
-                      <TrendingUp className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-black text-gray-900 dark:text-white">
-                      Performance Analytics
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-400 text-lg">
-                    Your learning journey at a glance ✨
-                  </p>
-                </div>
-
-                <div className="p-6 sm:p-8">
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    {/* Enhanced stat cards */}
-                    <div className="group relative overflow-hidden bg-gradient-to-br from-indigo-50 to-indigo-100/80 dark:from-indigo-900/40 dark:to-indigo-800/20 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-indigo-200/50 dark:border-indigo-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative text-center">
-                        <div className="inline-flex items-center justify-center w-14 h-14 bg-indigo-500/15 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <BarChart3 className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
-                        </div>
-                        <div className="text-3xl font-black text-indigo-700 dark:text-indigo-400 mb-1">
-                          {Math.round(
-                            state.testResults.reduce(
-                              (acc, r) => acc + r.percentage,
-                              0
-                            ) / state.testResults.length
-                          )}
-                          %
-                        </div>
-                        <p className="text-sm font-bold text-indigo-600 dark:text-indigo-300 uppercase tracking-wide">
-                          Average Score
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="group relative overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/80 dark:from-emerald-900/40 dark:to-emerald-800/20 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-emerald-200/50 dark:border-emerald-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative text-center">
-                        <div className="inline-flex items-center justify-center w-14 h-14 bg-emerald-500/15 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Trophy className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />
-                        </div>
-                        <div className="text-3xl font-black text-emerald-700 dark:text-emerald-400 mb-1">
-                          {Math.max(
-                            ...state.testResults.map((r) => r.percentage)
-                          )}
-                          %
-                        </div>
-                        <p className="text-sm font-bold text-emerald-600 dark:text-emerald-300 uppercase tracking-wide">
-                          Best Score
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="group relative overflow-hidden bg-gradient-to-br from-amber-50 to-amber-100/80 dark:from-amber-900/40 dark:to-amber-800/20 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-amber-200/50 dark:border-amber-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative text-center">
-                        <div className="inline-flex items-center justify-center w-14 h-14 bg-amber-500/15 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <ClipboardCheck className="w-7 h-7 text-amber-600 dark:text-amber-400" />
-                        </div>
-                        <div className="text-3xl font-black text-amber-700 dark:text-amber-400 mb-1">
-                          {state.testResults.length}
-                        </div>
-                        <p className="text-sm font-bold text-amber-600 dark:text-amber-300 uppercase tracking-wide">
-                          Tests Completed
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="group relative overflow-hidden bg-gradient-to-br from-violet-50 to-violet-100/80 dark:from-violet-900/40 dark:to-violet-800/20 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-violet-200/50 dark:border-violet-700/30">
-                      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative text-center">
-                        <div className="inline-flex items-center justify-center w-14 h-14 bg-violet-500/15 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Star className="w-7 h-7 text-violet-600 dark:text-violet-400" />
-                        </div>
-                        <div className="text-3xl font-black text-violet-700 dark:text-violet-400 mb-1">
-                          {
-                            state.testResults.filter((r) => r.percentage >= 80)
-                              .length
-                          }
-                        </div>
-                        <p className="text-sm font-bold text-violet-600 dark:text-violet-300 uppercase tracking-wide">
-                          Excellent Scores
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Progress insights */}
-                  <div className="mt-8 p-6 bg-gradient-to-r from-gray-50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-700/30 rounded-2xl border border-gray-200/50 dark:border-gray-600/30">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Lightbulb className="w-5 h-5 text-yellow-500" />
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-white">
-                        Quick Insights
-                      </h4>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-gray-700 dark:text-gray-300">
-                          {Math.round(
-                            (state.testResults.filter((r) => r.percentage >= 80)
-                              .length /
-                              state.testResults.length) *
-                              100
-                          )}
-                          % of tests scored 80%+
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                        <span className="text-gray-700 dark:text-gray-300">
-                          Consistent performance across{" "}
-                          {
-                            new Set(state.testResults.map((r) => r.subject))
-                              .size
-                          }{" "}
-                          subjects
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* Footer */}
-          <Footer />
-        </div>
-      </div>
-    );
-  }
 
   // Fallback return
   return null;
