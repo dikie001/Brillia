@@ -1,32 +1,29 @@
-import React, { useState } from "react";
+import Navbar from "@/components/app/Navbar";
 import {
-  Users,
-  BookOpen,
-  Search,
-  MoreVertical,
-  Shield,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Filter,
-  Eye,
-  X,
-  Mail,
-  Calendar,
-  Trophy,
-  Activity as ActivityIcon,
-  FileText
+    Activity as ActivityIcon,
+    BookOpen,
+    Calendar,
+    Clock,
+    Eye,
+    Filter,
+    Mail,
+    Search,
+    Shield,
+    Trophy,
+    Users,
+    X
 } from "lucide-react";
+import { useState } from "react";
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  LineChart,
-  Line,
+    Area,
+    AreaChart,
+    CartesianGrid,
+    Line,
+    LineChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
 } from "recharts";
 
 // --- MOCK DATA ---
@@ -216,7 +213,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      
+      <Navbar/>
       <UserDetailModal user={selectedUser} onClose={() => setSelectedUser(null)} />
 
       <div className="max-w-7xl mx-auto">
