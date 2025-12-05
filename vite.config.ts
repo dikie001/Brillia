@@ -180,13 +180,7 @@ export default defineConfig({
           },
         ],
 
-        // For iOS support
-        appleWebApp: {
-          capable: true,
-          statusBarStyle: "black-translucent",
-          title: "Brillia",
-        },
-
+ 
         // Categories for app stores
         categories: ["education", "entertainment", "games"],
 
