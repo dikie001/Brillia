@@ -1,19 +1,24 @@
 export interface Story {
-  id: number ;
-  title: string ;
-  content:string;
+  id: number;
+  title: string;
+  content: string;
   genre:
     | "Fantasy"
+    | "dikie.dev"
     | "Adventure"
     | "Mystery"
-    | "Environmental"
+    | "Drama"
     | "Sci-Fi"
-    | "Historical Fantasy"
+    | "Horror"
     | "Paranormal"
     | "Thriller"
     | "Time Travel"
-    | "Historical"| "dikie.dev"
-    | "Magical Realism";
+    | "Documentary"
+    | "Historical"
+    | "Action"
+    | "Comedy"
+    | "Slice of Life";
+
   author: string;
 }
 

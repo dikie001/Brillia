@@ -27,22 +27,16 @@ const genreColors: Record<string, string> = {
     "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
   Mystery:
     "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
-  Environmental:
-    "bg-gradient-to-r from-emerald-200/40 to-teal-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-teal-900/40 dark:text-emerald-300",
   "Sci-Fi":
     "bg-gradient-to-r from-cyan-200/40 to-indigo-200/40 text-cyan-900 dark:border border-cyan-800 dark:from-cyan-900/40 dark:to-indigo-900/40 dark:text-cyan-300",
-  "Historical Fantasy":
-    "bg-gradient-to-r from-orange-200/40 to-amber-200/40 text-orange-900 dark:border border-orange-800 dark:from-orange-900/40 dark:to-amber-900/40 dark:text-orange-300",
+
   Paranormal:
     "bg-gradient-to-r from-rose-200/40 to-red-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-red-900/40 dark:text-rose-300",
   Thriller:
     "bg-gradient-to-r from-slate-200/40 to-zinc-200/40 text-slate-900 dark:border border-slate-800 dark:from-slate-900/40 dark:to-zinc-900/40 dark:text-slate-300",
-  "Time Travel":
-    "bg-gradient-to-r from-indigo-200/40 to-cyan-200/40 text-indigo-900 dark:border border-indigo-800 dark:from-indigo-900/40 dark:to-cyan-900/40 dark:text-indigo-300",
+
   Historical:
     "bg-gradient-to-r from-stone-200/40 to-amber-200/40 text-stone-900 dark:border border-stone-800 dark:from-stone-900/40 dark:to-amber-900/40 dark:text-stone-300",
-  "Magical Realism":
-    "bg-gradient-to-r from-pink-200/40 to-purple-200/40 text-pink-900 dark:border border-pink-800 dark:from-pink-900/40 dark:to-purple-900/40 dark:text-pink-300",
   "dikie.dev":
     "bg-gradient-to-r from-cyan-100/40 to-cyan-400/40 text-emerald-900 dark:border border-emerald-800 dark:from-cyan-800/40 dark:to-cyan-900/40 dark:text-emerald-300",
 };
@@ -94,12 +88,15 @@ export default function MiniStories() {
   }, [FetchData]);
 
   // Handle pagination calculation
-  const PaginationPage = useCallback((filtered: Story[]) => {
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = filtered.slice(start, end);
-    setStories(currentItems);
-  }, [currentPage, itemsPerPage]);
+  const PaginationPage = useCallback(
+    (filtered: Story[]) => {
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const currentItems = filtered.slice(start, end);
+      setStories(currentItems);
+    },
+    [currentPage, itemsPerPage]
+  );
 
   // Sync pagination when stories or page changes
   useEffect(() => {
@@ -135,7 +132,7 @@ export default function MiniStories() {
     } else {
       filtered = AllStories.filter((story) => story.genre === currentFilter);
     }
-    
+
     // Reset to page 1 on filter change
     setCurrentPage(1);
     setFilteredStories(filtered);
@@ -247,7 +244,8 @@ export default function MiniStories() {
             const isFavorite = favorite.has(story.id);
             const isCopied = copied === story.id;
             // Fallback genre color
-            const genreColorClass = genreColors[story.genre] || genreColors["Fantasy"];
+            const genreColorClass =
+              genreColors[story.genre] || genreColors["Fantasy"];
 
             return (
               <div
@@ -277,7 +275,7 @@ export default function MiniStories() {
                 </div>
 
                 <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2 shadow-lg w-8 h-8 rounded-full">
-                  {story.id === 1000 ? 'dev': story.id}
+                  {story.id === 1000 || story.id === 1001 ? "dev" : story.id}
                 </div>
 
                 <h2 className="text-2xl font-bold mb-3 text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
@@ -365,7 +363,8 @@ export default function MiniStories() {
       {selectedStoryData &&
         (() => {
           const isFavorite = favorite.has(selectedStoryData.id);
-          const genreColorClass = genreColors[selectedStoryData.genre] || genreColors["Fantasy"];
+          const genreColorClass =
+            genreColors[selectedStoryData.genre] || genreColors["Fantasy"];
 
           return (
             <div

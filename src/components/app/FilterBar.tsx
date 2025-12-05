@@ -12,10 +12,9 @@ const defaultGenres = [
   "Slice of Life",
   "Sci-Fi",
   "Horror",
-  "Romance",
   "Thriller",
   "Historical",
-  "Documentary",
+  // "Documentary",
   "Action",
 ];
 
