@@ -27,6 +27,9 @@ export const APP_URL = "https://brillia-six.vercel.app";
 // Version number
 export const APP_VERSION = "1.2.9";
 
+// Last Updated
+export const LAST_UPDATED = ""
+
 // Admin password
 export const ADMIN_PASSWORD = "14572";
 

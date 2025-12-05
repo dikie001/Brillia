@@ -164,7 +164,7 @@ const About = () => {
                     Last Updated
                   </span>
                   <span className="text-sm text-gray-600 dark:text-gray-300">
-                    5<sup>Th</sup> October 2024
+                    5<sup>Th</sup> December 2025
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300">

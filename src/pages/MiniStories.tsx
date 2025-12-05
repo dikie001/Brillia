@@ -4,6 +4,7 @@ import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
 import { STORIES_CURRENTPAGE } from "@/constants";
+import useSound from "@/hooks/useSound";
 import AllStories from "@/jsons/miniStories";
 import type { Story } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -56,6 +57,7 @@ export default function MiniStories() {
   const storiesRef = useRef<Story[]>([]);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
+  const { playSend } = useSound();
   // const navigate = useNavigate();
 
   // Define FetchData via useCallback to avoid dependency issues
@@ -253,6 +255,7 @@ export default function MiniStories() {
                 className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 lg:p-6 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={() => {
+                  playSend();
                   setSelectedStory(story.id);
                   saveReadStories(story.id);
                 }}
@@ -297,7 +300,10 @@ export default function MiniStories() {
                     {/* Copy and share */}
                     <div className="gap-2 flex">
                       <button
-                        onClick={() => copyToClipboard(story, setCopied)}
+                        onClick={() => {
+                          playSend();
+                          copyToClipboard(story, setCopied);
+                        }}
                         className={`p-2 rounded-full transition-all duration-300 ${
                           isCopied
                             ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -312,7 +318,10 @@ export default function MiniStories() {
                         )}
                       </button>
                       <button
-                        onClick={() => shareQuote(story, setCopied)}
+                        onClick={() => {
+                          playSend();
+                          shareQuote(story, setCopied);
+                        }}
                         className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                         title="Share quote"
                       >
@@ -323,6 +332,7 @@ export default function MiniStories() {
                     <div>
                       <button
                         onClick={(e) => {
+                          playSend();
                           e.stopPropagation();
                           toggleFavorites(story.id);
                         }}
@@ -383,7 +393,10 @@ export default function MiniStories() {
                       {selectedStoryData.genre}
                     </span>
                     <button
-                      onClick={() => setSelectedStory(null)}
+                      onClick={() => {
+                        playSend();
+                        setSelectedStory(null);
+                      }}
                       className="p-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 rounded-md transition-colors text-gray-500 hover:text-indigo-700 dark:hover:text-indigo-300"
                     >
                       <X size={20} />
@@ -406,12 +419,13 @@ export default function MiniStories() {
                 </div>
 
                 <div className="px-8 py-6 flex justify-between border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 rounded-b-3xl">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm hidden md:block text-gray-500 dark:text-gray-400">
                     Press ESC to close
                   </span>
                   {/* Fav button */}
                   <button
                     onClick={() => {
+                      playSend();
                       toggleFavorites(selectedStoryData.id);
                     }}
                     className="flex cursor-pointer items-center gap-2 rounded-3xl shadow-lg px-5 py-2.5 text-sm font-medium text-white 

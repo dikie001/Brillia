@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/pagination";
 import type { Teaser } from "../../pages/BrainTeasers";
 import type { Story } from "@/types";
+import useSound from "@/hooks/useSound";
 
 interface MainProps {
   currentPage: number;
@@ -18,6 +19,7 @@ interface MainProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
+  const {playSend}=useSound()
   return (
     <div>
       <Pagination>
@@ -27,6 +29,7 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
               href={`#${currentPage}`}
               onClick={(e) => {
                 e.preventDefault();
+                playSend()
                 if (currentPage !== 1) setCurrentPage((p) => p - 1);
               }}
             />
@@ -37,6 +40,7 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
               href={`#${currentPage}`}
               onClick={(e) => {
                 e.preventDefault();
+                playSend()
                 setCurrentPage((p) => p - 1);
               }}
             >
@@ -55,6 +59,7 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
               href={`#${currentPage}`}
               onClick={(e) => {
                 e.preventDefault();
+                playSend()
                 const totalPages = Math.ceil((totalItems || 0) / 10);
                 if (currentPage < totalPages) {
                   setCurrentPage((p) => p + 1);
@@ -70,6 +75,7 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
               href={`#${currentPage + 2}`}
               onClick={(e) => {
                 e.preventDefault();
+                playSend()
                 setCurrentPage((p) => p + 2);
               }}
             >
@@ -85,6 +91,7 @@ const Paginate = ({ currentPage, setCurrentPage, totalItems }: MainProps) => {
               href={`#${currentPage}`}
               onClick={(e) => {
                 e.preventDefault();
+                playSend()
                 setCurrentPage((p) => p + 1);
               }}
             />

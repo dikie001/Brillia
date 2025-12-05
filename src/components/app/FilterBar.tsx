@@ -1,3 +1,4 @@
+import useSound from "@/hooks/useSound";
 import { Check, ChevronDown, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -32,6 +33,7 @@ export default function FilterBar({
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const {playSend}=useSound()
 
   // Filter genres based on search
   const filteredGenres = genres.filter((genre) =>
@@ -111,7 +113,10 @@ export default function FilterBar({
                     return (
                       <button
                         key={genre}
-                        onClick={() => handleGenreSelect(genre)}
+                        onClick={() => {
+                          playSend()
+                          handleGenreSelect(genre);
+                        }}
                         className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
                           active
                             ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium"
