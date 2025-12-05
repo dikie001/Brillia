@@ -50,12 +50,12 @@ const Results = () => {
     // 1. Fetch Data from LocalStorage
     const rawResults = localStorage.getItem(TEST_RESULTS);
     // const rawUserInfo = localStorage.getItem("user-info");
-    const rawStories = localStorage.getItem(STORIES_READ); // Assuming you store a count or list here
+    const rawStories = localStorage.getItem(STORIES_READ); 
 
     // 2. Parse Data
     const results: TestResult[] = rawResults ? JSON.parse(rawResults) : [];
-    const storiesCount = rawStories ? parseInt(rawStories.length) : 0;
-    // ^ Or if stories-read is an array: JSON.parse(rawStories).length
+    const storiesCount = rawStories ? JSON.parse(rawStories).length : 0;
+
 
     // 3. Calculate Stats
     const totalTests = results.length;
@@ -210,7 +210,7 @@ const Results = () => {
                     barSize={50}
                     animationDuration={1500}
                   >
-                    {graphData.map((entry, index) => (
+                    {graphData.map((entry:any, index) => (
                       <Cell
                         key={`cell-${index}`}
                         // Change entry.percentage to entry.score
