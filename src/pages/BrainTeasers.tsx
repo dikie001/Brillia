@@ -188,9 +188,9 @@ export default function BrainTeasersPage() {
             Reset
           </Button>
         )}
-        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div>
+        </div> */}
 
         {/* Top Paginate */}
         {teasers.length !== 0 && teasers.length === 10 && (

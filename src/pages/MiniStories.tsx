@@ -206,9 +206,9 @@ export default function MiniStories() {
           />
         </div>
 
-        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Showing {stories.length} of {filteredStories.length} items
-        </div>
+        </div> */}
 
         {filteredStories.length >= itemsPerPage && (
           <Paginate

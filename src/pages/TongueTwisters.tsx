@@ -161,9 +161,9 @@ const TongueTwisters = () => {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
-        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div>
+        </div> */}
 
         {/* Top Paginate */}
         {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (

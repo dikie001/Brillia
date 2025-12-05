@@ -177,7 +177,7 @@ export default function FactFrenzy() {
                     playSend();
                     setShowFactOfDay(false);
                   }}
-                  className="text-white/80 hover:text-white text-2xl"
+                  className="text-white/80 cursor-pointer hover:text-white text-2xl"
                 >
                   <X size={20} />
                 </button>
@@ -217,9 +217,10 @@ export default function FactFrenzy() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
-        <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        
+        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div>
+        </div> */}
 
         {/* Top Paginate */}
         {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
@@ -239,7 +240,7 @@ export default function FactFrenzy() {
             return (
               <div
                 key={fact.id}
-                className="group relative bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 cursor-pointer"
+                className="group relative bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 "
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -282,9 +283,9 @@ export default function FactFrenzy() {
                         playSend();
                         copyToClipboard(fact, setCopied);
                       }}
-                      className={`p-2 rounded-full transition-all duration-300 ${
+                      className={`p-2 rounded-full cursor-pointer transition-all duration-300 ${
                         copied === fact.id
-                          ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
+                          ? "bg-indigo-100  text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
                           : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                       }`}
                       title={copied === fact.id ? "Copied!" : "Copy fact"}
@@ -301,7 +302,7 @@ export default function FactFrenzy() {
                         playSend();
                         shareQuote(fact, setCopied);
                       }}
-                      className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+                      className="p-2 rounded-full cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                       title="Share fact"
                     >
                       <Share2 className="w-5 h-5" />
@@ -316,7 +317,7 @@ export default function FactFrenzy() {
                         playSend();
                         toggleFavorites(fact.id);
                       }}
-                      className={`p-2 rounded-full transition-all ${
+                      className={`p-2 rounded-full transition-all cursor-pointer ${
                         favorite.has(fact.id)
                           ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
                           : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"

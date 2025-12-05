@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
 
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {/* Header Section */}
-        <div className="text-center mb-10 space-y-4 animate-in fade-in duration-700">
+        <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
           {totalProgress > 0 && (
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-lg shadow-indigo-500/30 text-sm font-semibold mb-4">
               <TrendingUp className="w-4 h-4" />
