@@ -1,5 +1,5 @@
 import { useTheme } from "@/hooks/useHook";
-import { Menu, Moon, Sun } from "lucide-react";
+import { Menu, Moon, Sun, BarChart2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
@@ -121,13 +121,27 @@ const Navbar = ({ currentPage }: MainProp) => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            
+            {/* Results Button - New Addition */}
+            <button
+              onClick={() => {
+                playSend();
+                navigate("/results");
+              }}
+              className="relative p-2.5 rounded-xl transition-all duration-300 group bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50 dark:hover:from-cyan-900/30 dark:hover:to-blue-900/30"
+              aria-label="View Results"
+            >
+              <BarChart2 className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300" />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            </button>
+
             {/* PWA Install */}
             <PWAInstall />
 
             {/* Theme Toggle - Enhanced Design */}
             <button
               onClick={() => {
-                playSend()
+                playSend();
                 toggleTheme();
               }}
               className={`relative w-16 h-8 rounded-full transition-all duration-300 shadow-inner ${
