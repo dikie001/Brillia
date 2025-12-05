@@ -25,12 +25,10 @@ const categoryColors: Record<string, string> = {
     "bg-gradient-to-r from-sky-900/40 to-indigo-900/40 text-sky-300 border border-sky-800",
   Wisdom:
     "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800",
-  Life:
-    "bg-gradient-to-r from-zinc-900/40 to-stone-900/40 text-zinc-300 border border-zinc-800",
+  Life: "bg-gradient-to-r from-zinc-900/40 to-stone-900/40 text-zinc-300 border border-zinc-800",
   Success:
     "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800",
-  Love:
-    "bg-gradient-to-r from-rose-900/40 to-pink-900/40 text-rose-300 border border-rose-800",
+  Love: "bg-gradient-to-r from-rose-900/40 to-pink-900/40 text-rose-300 border border-rose-800",
   Courage:
     "bg-gradient-to-r from-red-900/40 to-orange-900/40 text-orange-300 border border-red-800",
   Imagination:
@@ -42,7 +40,6 @@ const categoryColors: Record<string, string> = {
   Perseverance:
     "bg-gradient-to-r from-blue-900/40 to-cyan-900/40 text-cyan-300 border border-blue-800",
 };
-
 
 const FAVOURITE_QUOTES = "favorite-quote";
 
@@ -60,17 +57,17 @@ export default function WisdomNuggets() {
   const [totalFiltered, setTotalFiltered] = useState(0);
 
   const genres = [
-  "Motivation",
-  "Wisdom",
-  "Life",
-  "Success",
-  "Love",
-  "Courage",
-  "Imagination",
-  "Knowledge",
-  "Happiness",
-  "Perseverance"
-]
+    "Motivation",
+    "Wisdom",
+    "Life",
+    "Success",
+    "Love",
+    "Courage",
+    "Imagination",
+    "Knowledge",
+    "Happiness",
+    "Perseverance",
+  ];
 
   const updateDisplayedQuotes = () => {
     let filteredQuotes = quotes;
@@ -87,7 +84,6 @@ export default function WisdomNuggets() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     setDisplayedQuotes(filteredQuotes.slice(start, end));
-
   };
 
   useEffect(() => {
@@ -151,7 +147,7 @@ export default function WisdomNuggets() {
       <div className="relative z-10 max-w-7xl mx-auto pt-18">
         {/* Featured Quote */}
         {showFeaturedQuote && (
-          <div >
+          <div>
             <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-3xl shadow-2xl text-white relative overflow-hidden">
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="relative z-10">
@@ -179,7 +175,10 @@ export default function WisdomNuggets() {
                 <X
                   className="absolute -top-1 -right-1 cursor-pointer"
                   size={20}
-                  onClick={() => { playSend(); setShowFeaturedQuote(false); }}
+                  onClick={() => {
+                    playSend();
+                    setShowFeaturedQuote(false);
+                  }}
                 />
               </div>
             </div>
@@ -253,9 +252,7 @@ export default function WisdomNuggets() {
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-3">
                     {quote.tags.map((tag) => (
-                      <Badge variant="outline"
-                        key={tag}
-                      >
+                      <Badge variant="outline" key={tag}>
                         #{tag}
                       </Badge>
                     ))}
@@ -270,7 +267,10 @@ export default function WisdomNuggets() {
                     {/* copy ans share */}
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => { playSend(); copyToClipboard(quote, setCopied); }}
+                        onClick={() => {
+                          playSend();
+                          copyToClipboard(quote, setCopied);
+                        }}
                         className={`p-2 rounded-full transition-all duration-300 ${
                           isCopied
                             ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -285,7 +285,10 @@ export default function WisdomNuggets() {
                         )}
                       </button>
                       <button
-                        onClick={() => shareQuote(quote, setCopied)}
+                        onClick={() => {
+                          playSend();
+                          shareQuote(quote, setCopied);
+                        }}
                         className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                         title="Share quote"
                       >
@@ -293,7 +296,10 @@ export default function WisdomNuggets() {
                       </button>
                     </div>
                     <button
-                      onClick={() => { playSend(); toggleFavorites(quote.id); }}
+                      onClick={() => {
+                        playSend();
+                        toggleFavorites(quote.id);
+                      }}
                       className={`p-2 rounded-full transition-all duration-300 ${
                         isFavorite
                           ? "text-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
