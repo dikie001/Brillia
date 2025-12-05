@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "@/components/app/Navbar";
 import { STORIES_READ, TEST_RESULTS } from "@/constants";
 import { BookOpen, FileCheck, Loader2, TrendingUp, Trophy } from "lucide-react";
@@ -16,9 +17,10 @@ import {
 
 // --- TYPES ---
 interface TestResult {
-  score: number;
+  percentage: number;
   totalQuestions: number;
   date?: string;
+  score:number;
 }
 
 interface UserStats {
@@ -42,7 +44,7 @@ const Results = () => {
     storiesRead: 0,
     averageScore: 0,
   });
-  const [graphData, setGraphData] = useState<any[]>([]);
+  const [graphData, setGraphData] = useState<unknown[]>([]);
 
   useEffect(() => {
     // 1. Fetch Data from LocalStorage

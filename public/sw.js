@@ -38,7 +38,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_VERSION);
-      
+
       try {
         // Try to add all assets
         await cache.addAll(ASSETS);
@@ -56,6 +56,7 @@ self.addEventListener("install", (event) => {
           "/wisdom-nuggets",
           "/tongue-twisters",
           "/amazing-facts",
+          "/results",
           "/contact-developer",
           "/settings",
           "/about",
@@ -83,7 +84,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
       const cacheNames = await caches.keys();
-      
+
       // Delete all old caches
       await Promise.all(
         cacheNames.map((cacheName) => {
@@ -107,8 +108,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   // Skip non-GET requests and browser extensions
-  if (request.method !== "GET" || 
-      url.protocol === "chrome-extension:") {
+  if (request.method !== "GET" || url.protocol === "chrome-extension:") {
     return;
   }
 
@@ -139,26 +139,25 @@ async function handleNavigationRequest(request) {
 
     // Try network for navigation
     const networkResponse = await fetch(request);
-    
+
     // Cache successful responses
     if (networkResponse.ok) {
       const cache = await caches.open(CACHE_VERSION);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
-    
   } catch (error) {
     // Fallback to index.html for SPA
     const fallback = await caches.match("/index.html");
     if (fallback) {
       return fallback;
     }
-    
+
     // Ultimate fallback
     return new Response("You are offline. Please check your connection.", {
       status: 503,
-      headers: { "Content-Type": "text/html; charset=utf-8" }
+      headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   }
 }
@@ -167,23 +166,23 @@ async function handleNavigationRequest(request) {
 async function handleStaticAsset(request) {
   const cache = await caches.open(CACHE_VERSION);
   const cachedResponse = await cache.match(request);
-  
+
   // Return cached version if available
   if (cachedResponse) {
     // Update cache in background
     updateCacheInBackground(request);
     return cachedResponse;
   }
-  
+
   // Fetch from network
   try {
     const networkResponse = await fetch(request);
-    
+
     // Cache if successful
     if (networkResponse.ok) {
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     // If we have no cached version and network fails
@@ -196,13 +195,13 @@ async function handleDefaultRequest(request) {
   try {
     // Try network first
     const networkResponse = await fetch(request);
-    
+
     // Cache successful responses
     if (networkResponse.ok) {
       const cache = await caches.open(CACHE_VERSION);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     // Fallback to cache
@@ -210,7 +209,7 @@ async function handleDefaultRequest(request) {
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // No cache available
     return new Response("Network error", { status: 408 });
   }
@@ -256,7 +255,7 @@ async function cleanupOldCacheEntries() {
   const cache = await caches.open(CACHE_VERSION);
   const requests = await cache.keys();
   const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  
+
   for (const request of requests) {
     const response = await cache.match(request);
     if (response) {
