@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";

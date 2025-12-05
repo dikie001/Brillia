@@ -69,6 +69,7 @@ export default function BrainTeasersPage() {
 
   useEffect(() => {
     FetchInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Navigate to the next page in pagination

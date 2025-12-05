@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
@@ -14,30 +15,22 @@ import {
   Share2,
   Star,
   TrendingUp,
-  X
+  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
+import useSound from "@/hooks/useSound";
 
 const categoryColors = {
-  Science:
-    "bg-sky-900/40 text-sky-300 border border-sky-800", // calm, futuristic glow
-  Nature:
-    "bg-emerald-900/40 text-emerald-300 border border-emerald-800", // earthy, balanced
-  History:
-    "bg-amber-900/40 text-amber-300 border border-amber-800", // warm, vintage tone
-  Space:
-    "bg-violet-900/40 text-violet-300 border border-violet-800", // cosmic depth
-  Animals:
-    "bg-orange-900/40 text-orange-300 border border-orange-800", // vibrant, organic
-  Technology:
-    "bg-slate-900/40 text-slate-300 border border-slate-800", // sleek, neutral
-  Culture:
-    "bg-rose-900/40 text-rose-300 border border-rose-800", // expressive warmth
+  Science: "bg-sky-900/40 text-sky-300 border border-sky-800", // calm, futuristic glow
+  Nature: "bg-emerald-900/40 text-emerald-300 border border-emerald-800", // earthy, balanced
+  History: "bg-amber-900/40 text-amber-300 border border-amber-800", // warm, vintage tone
+  Space: "bg-violet-900/40 text-violet-300 border border-violet-800", // cosmic depth
+  Animals: "bg-orange-900/40 text-orange-300 border border-orange-800", // vibrant, organic
+  Technology: "bg-slate-900/40 text-slate-300 border border-slate-800", // sleek, neutral
+  Culture: "bg-rose-900/40 text-rose-300 border border-rose-800", // expressive warmth
 };
-
-
 
 const FAVOURITE_FACTS = "favourite-facts";
 
@@ -51,7 +44,7 @@ export default function FactFrenzy() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [copied, setCopied] = useState<number | null>(null);
-
+  const { playSend } = useSound();
   const [currentFilter, setCurrentFilter] = useState("All");
   const [totalFiltered, setTotalFiltered] = useState(0);
 
@@ -85,7 +78,6 @@ export default function FactFrenzy() {
     const currentItems = filteredFacts.slice(start, end);
     console.log(currentItems);
     setDisplayedFacts(currentItems);
-
   };
 
   // fetch current page info from storage
@@ -169,11 +161,11 @@ export default function FactFrenzy() {
 
         {/* Loading */}
         {loading && (
-            <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-              <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-              <p className="font-medium">Loading facts...</p>
-            </div>
-          )}
+          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
+            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
+            <p className="font-medium">Loading facts...</p>
+          </div>
+        )}
 
         {showFactOfDay && (
           <div className="mb-6  relative">
@@ -181,7 +173,10 @@ export default function FactFrenzy() {
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute top-4 right-4">
                 <button
-                  onClick={() => setShowFactOfDay(false)}
+                  onClick={() => {
+                    playSend();
+                    setShowFactOfDay(false);
+                  }}
                   className="text-white/80 hover:text-white text-2xl"
                 >
                   <X size={20} />
@@ -235,8 +230,10 @@ export default function FactFrenzy() {
           />
         )}
 
-{/* NO favorites */}
-{currentFilter === "Favorites" && displayedFacts.length === 0 && <NoFavorites/>}
+        {/* NO favorites */}
+        {currentFilter === "Favorites" && displayedFacts.length === 0 && (
+          <NoFavorites />
+        )}
         <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
           {displayedFacts.map((fact, index) => {
             return (
@@ -280,7 +277,11 @@ export default function FactFrenzy() {
                   {/* Share and copy btn */}
                   <div className="gap-2 flex mt-1">
                     <button
-                      onClick={() => copyToClipboard(fact, setCopied)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSend();
+                        copyToClipboard(fact, setCopied);
+                      }}
                       className={`p-2 rounded-full transition-all duration-300 ${
                         copied === fact.id
                           ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
@@ -295,7 +296,11 @@ export default function FactFrenzy() {
                       )}
                     </button>
                     <button
-                      onClick={() => shareQuote(fact, setCopied)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSend();
+                        shareQuote(fact, setCopied);
+                      }}
                       className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
                       title="Share fact"
                     >
@@ -308,6 +313,7 @@ export default function FactFrenzy() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
+                        playSend();
                         toggleFavorites(fact.id);
                       }}
                       className={`p-2 rounded-full transition-all ${
@@ -347,7 +353,7 @@ export default function FactFrenzy() {
             setCurrentPage={setCurrentPage}
           />
         )}
-{/* 
+        {/* 
         <div className="mt-6 text-center">
           <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
             Learning Never Stops
@@ -380,7 +386,7 @@ export default function FactFrenzy() {
           </div>
         </div> */}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -123,6 +123,7 @@ const TongueTwisters = () => {
 
   useEffect(() => {
     FetchInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
