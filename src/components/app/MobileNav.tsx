@@ -14,6 +14,7 @@ import {
   X,
   ChevronDown,
   type LucideIcon,
+  Laptop2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, type Location } from "react-router-dom";
@@ -228,12 +229,24 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
         {/* Enhanced Footer */}
         <footer className="border-t border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md px-6 py-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-medium text-gray-600 dark:text-gray-400">
-              © {new Date().getFullYear()} dikie.dev
-            </span>
-            <span className="px-2.5 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 text-indigo-700 dark:text-indigo-400 rounded-lg font-mono font-medium border border-indigo-200 dark:border-gray-700">
+           <div className=" font-xs  flex sm:flex-row gap-2 justify-center items-center text-center">
+             <p className="text-gray-400 text-sm">
+               Brillia - 
+               <span className="text-green-500 dark:text-green-400 underline font-medium">
+                 <a
+                   href="https://dikie.vercel.app"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   dikie.dev
+                 </a>
+               </span>
+             </p>
+             <Laptop2 className="text-green-500 dark:text-green-400 w-4 h-4 sm:w-5 sm:h-5" />
+           </div>
+            <div className="px-2.5 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 text-indigo-700 dark:text-indigo-400 rounded-lg font-mono font-medium border border-indigo-200 dark:border-gray-700">
               v{APP_VERSION}
-            </span>
+            </div>
           </div>
         </footer>
       </div>
