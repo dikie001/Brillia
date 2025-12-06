@@ -131,56 +131,19 @@ export default defineConfig({
 
         icons: [
           {
-            src: "/images/logo.png",
-            sizes: "72x72",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
-            sizes: "96x96",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
-            sizes: "128x128",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
-            sizes: "144x144",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
-            sizes: "152x152",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
+            src: "/images/logo-192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable",
           },
+
           {
-            src: "/images/logo.png",
-            sizes: "384x384",
-            type: "image/png",
-            purpose: "any",
-          },
-          {
-            src: "/images/logo.png",
+            src: "/images/logo-512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable",
           },
         ],
 
- 
         // Categories for app stores
         categories: ["education", "entertainment", "games"],
 
@@ -203,7 +166,11 @@ export default defineConfig({
       },
 
       // For custom offline page
-      includeAssets: ["/images/logo.png", "/sounds/*.mp3"],
+      includeAssets: [
+        "/images/logo.png",
+        "/images/logo-512.png",
+        "/sounds/*.mp3",
+      ],
 
       // Strategy for service worker
       strategies: "generateSW", // Use generateSW for automatic generation
