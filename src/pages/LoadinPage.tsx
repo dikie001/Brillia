@@ -2,8 +2,7 @@ import React from "react";
 import { useTheme } from "@/hooks/useHook";
 
 const LoadingPage: React.FC = () => {
-  const theme = useTheme();
-  console.log(theme);
+  useTheme();
 
   return (
     <div className="flex min-h-screen w-screen items-center justify-center bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950 transition-colors duration-500">

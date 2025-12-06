@@ -71,8 +71,14 @@ const EditUserInfoModal: React.FC<EditUserInfoModalProps> = ({
   const isFormValid = formData.name && formData.subject && formData.hobby;
 
   return (
-    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white/95 dark:bg-gray-900 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md mx-auto transform transition-all duration-500 ease-out">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 cursor-pointer bg-black/50 dark:bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white/95 dark:bg-gray-900 cursor-default  backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-3xl shadow-2xl w-full max-w-md mx-auto transform transition-all duration-500 ease-out"
+      >
         {/* Header */}
         <div className="relative bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-t-3xl p-6 text-white">
           <div className="flex items-center gap-3 mb-2">
@@ -139,10 +145,7 @@ const EditUserInfoModal: React.FC<EditUserInfoModalProps> = ({
             {/* Hobby Field */}
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                <Heart
-                  size={16}
-                  className="text-pink-600 dark:text-pink-400"
-                />
+                <Heart size={16} className="text-pink-600 dark:text-pink-400" />
                 What's your favorite hobby?
               </label>
               <input

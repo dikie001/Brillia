@@ -1,3 +1,4 @@
+import { trackDailyLogin } from "@/lib/trackDailyLogin";
 import { saveUserDetails } from "@/utils/firebaseFunctions";
 import {
   BookOpen,
@@ -74,6 +75,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
       localStorage.setItem("first-time", "false");
       localStorage.setItem("soundsEnabled", "true");
       saveUserDetails(formData);
+      trackDailyLogin(formData.id)
 
       setTimeout(() => {
         toast.success("Your profile has been created!", { id: "success" });

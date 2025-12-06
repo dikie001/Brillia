@@ -14,7 +14,8 @@ import {
   Sparkles,
   TrendingUp,
   Trophy,
-  Wand
+  Wand,
+  WholeWord
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -90,6 +91,14 @@ const HomePage: React.FC = () => {
       bgGradient:
         "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
       to: "amazing-facts",
+    },
+       {
+      name: "Vocabulary",
+      icon: <WholeWord />,
+      description: "Build your vocabulary",
+      color: "from-gray-900 to-orange-900 shadow-lg",
+   
+      to: "vocabulary",
     },
   ];
 

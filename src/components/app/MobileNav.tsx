@@ -1,4 +1,5 @@
 import { APP_VERSION } from "@/constants";
+import useSound from "@/hooks/useSound";
 import {
   Book,
   Home,
@@ -64,6 +65,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const [activitiesOpen, setActivitiesOpen] = useState(true);
   const [supportOpen, setSupportOpen] = useState(false);
   const [count, setCount] = useState(0);
+  const { playSend } = useSound();
 
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
@@ -79,7 +81,10 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
     <>
       {/* Enhanced Backdrop */}
       <div
-        onClick={onClose}
+        onClick={() => {
+          playSend();
+          onClose();
+        }}
         className="fixed inset-0 h-screen bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200"
       />
 
@@ -88,8 +93,10 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
         {/* Beautiful Header */}
         <div className="relative p-6 pb-8">
           <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 hover:rotate-90 group"
+     onClick={() => {
+          playSend();
+          onClose();
+        }}            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 hover:rotate-90 group"
             aria-label="Close menu"
           >
             <X className="w-5 h-5 text-gray-700 dark:text-gray-200 transition-transform" />
@@ -103,6 +110,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 onClick={() => {
                   setCount(count + 1);
                   if (count >= 2) {
+                    playSend()
                     navigate("/admin-auth");
                   }
                 }}
@@ -143,6 +151,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 <button
                   key={label}
                   onClick={() => {
+                    playSend()
                     navigate(to);
                     onClose();
                   }}
@@ -209,6 +218,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 <button
                   key={label}
                   onClick={() => {
+                    playSend()
                     navigate(to);
                     onClose();
                   }}
@@ -301,6 +311,7 @@ function MenuGroup({
   location,
 }: GroupProps) {
   const activeGroup = isGroupActive(items);
+  const {playSend}=useSound()
 
   return (
     <div className="space-y-1.5">
@@ -337,6 +348,7 @@ function MenuGroup({
               <button
                 key={label}
                 onClick={() => {
+                  playSend()
                   navigate(to);
                   onClose();
                 }}

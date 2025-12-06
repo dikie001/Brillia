@@ -3,18 +3,18 @@ import success from "/sounds/success.mp3";
 import error from "/sounds/error.mp3";
 import finish from "/sounds/finish.mp3";
 import send from "/sounds/send.mp3";
-import correct from '/sounds/correct.mp3'
-import wrong from '/sounds/wrong.mp3'
 
 const useSound = () => {
-  const soundMap = useMemo(() => ({
-    success: { src: success, volume: 0.8 },
-    error: { src: error, volume: 1 },
-    finish: { src: finish, volume: 1 },
-    send: { src: send, volume: 0.4 },
-    correct: { src: correct, volume: 1 },
-    wrong: { src: wrong, volume: 1 },
-  }), []);
+  const soundMap = useMemo(
+    () => ({
+      success: { src: success, volume: 1 },
+      error: { src: error, volume: 1 },
+      finish: { src: finish, volume: 1 },
+      send: { src: send, volume: 1 },
+
+    }),
+    []
+  );
 
   const audioRefs = useRef<Record<string, HTMLAudioElement>>({});
 
@@ -29,7 +29,7 @@ const useSound = () => {
   }, [soundMap]);
 
   const playSound = (key: keyof typeof soundMap) => {
-    const soundsEnabled = localStorage.getItem('soundsEnabled') !== 'false'; // Default to true if not set
+    const soundsEnabled = localStorage.getItem("soundsEnabled") !== "false"; // Default to true if not set
     if (!soundsEnabled) return;
 
     const audio = audioRefs.current[key];
@@ -49,8 +49,7 @@ const useSound = () => {
     playError: () => playSound("error"),
     playFinish: () => playSound("finish"),
     playSend: () => playSound("send"),
-    playWrong: ()=>playSound("wrong"),
-    playCorrect:()=>playSound("correct")
+
   };
 };
 
