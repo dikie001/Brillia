@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
 
       <Navbar />
 
-      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+      <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-28  pb-12">
         {/* Header Section */}
         <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
           {totalProgress > 0 && (
