@@ -75,7 +75,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
       localStorage.setItem("first-time", "false");
       localStorage.setItem("soundsEnabled", "true");
       saveUserDetails(formData);
-      trackDailyLogin(formData.id)
+      trackDailyLogin(formData.id);
 
       setTimeout(() => {
         toast.success("Your profile has been created!", { id: "success" });
@@ -226,7 +226,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
                   <button
                     type="button"
                     onClick={handleContinue}
-                    className="group w-full py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="group w-full py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow hover:shadow-black/80 hover:-translate-y-0.5 transition-all cursor-pointer duration-300 flex items-center justify-center gap-2"
                   >
                     <span>Continue</span>
                     <ArrowRight
@@ -240,7 +240,7 @@ const LearnerModal = ({ onClose }: MainProps) => {
 
             {/* STEP 2: Age - Animated Entrance */}
             {step === 2 && (
-              <div className="space-y-8 py-4 animate-in slide-in-from-right-8 fade-in duration-500">
+              <div className="space-y-8 py-4 animate-in slide-in-from-right-8 fade-in duration-800">
                 <div className="text-center space-y-4">
                   <label className="block text-xl font-medium text-gray-700 dark:text-gray-200">
                     How old are you?
@@ -249,11 +249,10 @@ const LearnerModal = ({ onClose }: MainProps) => {
                     <input
                       type="tel"
                       maxLength={3}
-                      autoFocus
                       value={formData.age}
                       onChange={(e) => handleInputChange("age", e.target.value)}
                       placeholder="10"
-                      className="w-full h-20 text-center text-4xl font-bold rounded-2xl border-2 border-indigo-100 dark:border-gray-700 bg-indigo-50 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all placeholder:text-gray-300 group-hover:border-indigo-200"
+                      className="w-full h-20 text-center text-4xl font-bold rounded-2xl border-2 border-indigo-100 dark:border-gray-700 bg-indigo-50 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all  group-hover:border-indigo-200"
                     />
                     <div className="absolute -right-8 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
                       yrs
@@ -265,14 +264,14 @@ const LearnerModal = ({ onClose }: MainProps) => {
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    className="p-3.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
                   >
                     <ArrowLeft size={20} />
                   </button>
                   <button
                     type="submit"
                     disabled={loading || !formData.age}
-                    className="flex-1 py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 py-3.5 px-6 rounded-xl font-bold text-sm uppercase tracking-wide bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow hover:shadow-black/80 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <div className="flex justify-center items-center gap-2">
