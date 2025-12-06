@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const LoaderPage = () => {
   const [loadingText, setLoadingText] = useState("INITIALIZING_CORE");
