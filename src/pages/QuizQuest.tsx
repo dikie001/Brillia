@@ -13,13 +13,13 @@ import {
   Target,
   TrendingUp,
   Trophy,
-  XCircle
+  XCircle,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
-import { STORAGE_KEYS } from "@/constants";
+import { FIREBASE_TEST_RESULTS, STORAGE_KEYS } from "@/constants";
 import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +63,7 @@ interface QuizProgress {
   isActive: boolean;
 }
 
-type GameState = "home" | "quiz" | "results"  ;
+type GameState = "home" | "quiz" | "results";
 
 interface QuizAppState {
   currentTest: number;
@@ -102,7 +102,7 @@ const QuizApp: React.FC = () => {
     hobby: "",
     subject: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [openResetModal, setOpenResetModal] = useState(false);
   const { theme } = useTheme();
   useEffect(() => {
@@ -197,6 +197,17 @@ const QuizApp: React.FC = () => {
   const saveResults = (results: TestResult[]): void => {
     try {
       localStorage.setItem(STORAGE_KEYS.TEST_RESULTS, JSON.stringify(results));
+
+      const firebaseData = localStorage.getItem(FIREBASE_TEST_RESULTS);
+      if (!firebaseData) {
+        localStorage.setItem(FIREBASE_TEST_RESULTS, JSON.stringify(results));
+        console.log(results);
+      }
+
+      const parsedData = firebaseData ? JSON.parse(firebaseData) : [];
+      const updatedData = parsedData.push(results);
+      localStorage.setItem(FIREBASE_TEST_RESULTS, JSON.stringify(updatedData));
+      console.log(updatedData);
     } catch (error) {
       console.error("Error saving results:", error);
     }
@@ -603,7 +614,7 @@ const QuizApp: React.FC = () => {
                 <button
                   onClick={() => {
                     playSend();
-                    navigate("/results")
+                    navigate("/results");
                   }}
                   className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
                 >
@@ -976,7 +987,7 @@ const QuizApp: React.FC = () => {
                   <button
                     onClick={() => {
                       playSend();
-                      navigate("/results")
+                      navigate("/results");
                     }}
                     className="w-full flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium h-10 rounded-xl transition-colors"
                   >
@@ -991,8 +1002,6 @@ const QuizApp: React.FC = () => {
       </div>
     );
   }
-
-
 
   // Fallback return
   return null;

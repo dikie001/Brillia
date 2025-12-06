@@ -1,12 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { Toaster } from "sonner";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import LoadingPage from "./pages/LoadinPage";
 import About from "./pages/About";
 import Help from "./pages/Help";
 import Results from "./pages/Results";
 import AdminDashboard from "./pages/AdminDashboard";
+import { trackDailyLogin } from "./lib/trackDailyLogin";
+import { USER_INFO } from "./constants";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -19,6 +21,19 @@ const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
 const ContactDeveloper = lazy(() => import("./pages/ContactDeveloper"));
 
 const App = () => {
+
+  // Track daily logins
+  useEffect(() => {
+    const userData = localStorage.getItem(USER_INFO);
+    if (!userData) return;
+
+    const parsedData = userData ? JSON.parse(userData) : [];
+    try {
+      trackDailyLogin(parsedData.id);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
   return (
     <Router>
       <Toaster richColors position="top-center" />

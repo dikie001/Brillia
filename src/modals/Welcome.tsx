@@ -11,12 +11,15 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { v4 as uuid } from "uuid";
 
 export interface LearnerInfo {
+  id: string;
   name: string;
   age: string;
   subject: string;
   hobby: string;
+  loginCount: number;
 }
 
 interface MainProps {
@@ -29,10 +32,12 @@ const LearnerModal = ({ onClose }: MainProps) => {
   const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<LearnerInfo>({
+    id: uuid(),
     name: "",
     age: "",
     subject: "",
     hobby: "",
+    loginCount: 1,
   });
 
   const handleInputChange = (field: keyof LearnerInfo, value: string) => {
@@ -69,7 +74,6 @@ const LearnerModal = ({ onClose }: MainProps) => {
       localStorage.setItem("first-time", "false");
       localStorage.setItem("soundsEnabled", "true");
       saveUserDetails(formData);
-      
 
       setTimeout(() => {
         toast.success("Your profile has been created!", { id: "success" });
