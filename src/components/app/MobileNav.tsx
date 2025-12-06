@@ -85,18 +85,19 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           playSend();
           onClose();
         }}
-        className="fixed inset-0 h-screen bg-black/40 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+        className="fixed inset-0 h-screen bg-black/40 cursor-pointer backdrop-blur-sm z-40 animate-in fade-in duration-200"
       />
 
       {/* Modern Sidebar */}
-      <div className="fixed top-0 right-0 w-80 sm:w-96 h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white dark:from-gray-900 dark:to-gray-950 shadow-2xl z-50 animate-in slide-in-from-right duration-300">
+      <div className="fixed top-0 right-0 w-80 cursor-default sm:w-96 h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white dark:from-gray-900 dark:to-gray-950 shadow-2xl z-50 animate-in slide-in-from-right duration-300">
         {/* Beautiful Header */}
         <div className="relative p-6 pb-8">
           <button
-     onClick={() => {
-          playSend();
-          onClose();
-        }}            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 hover:rotate-90 group"
+            onClick={() => {
+              playSend();
+              onClose();
+            }}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-200 hover:rotate-90 group"
             aria-label="Close menu"
           >
             <X className="w-5 h-5 text-gray-700 dark:text-gray-200 transition-transform" />
@@ -106,11 +107,11 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           <div className="bg-gradient-to-br from-indigo-500 via-purple-900 to-black/80 rounded-2xl p-5 shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center gap-3">
               <div
-                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/30 cursor-pointer hover:scale-105 transition-transform"
+                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/30  hover:scale-105 transition-transform"
                 onClick={() => {
                   setCount(count + 1);
                   if (count >= 2) {
-                    playSend()
+                    playSend();
                     navigate("/admin-auth");
                   }
                 }}
@@ -151,11 +152,11 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 <button
                   key={label}
                   onClick={() => {
-                    playSend()
+                    playSend();
                     navigate(to);
                     onClose();
                   }}
-                  className={`group flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`group flex items-center gap-3 cursor-pointer w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
                       ? "bg-gradient-to-r from-indigo-900 to-purple-900 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
                       : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:scale-[1.01] hover:shadow-md"
@@ -218,11 +219,11 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 <button
                   key={label}
                   onClick={() => {
-                    playSend()
+                    playSend();
                     navigate(to);
                     onClose();
                   }}
-                  className={`group flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`group flex items-center gap-3 w-full px-4 py-3 cursor-pointer rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
                       ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30"
                       : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:shadow-md"
@@ -311,13 +312,13 @@ function MenuGroup({
   location,
 }: GroupProps) {
   const activeGroup = isGroupActive(items);
-  const {playSend}=useSound()
+  const { playSend } = useSound();
 
   return (
     <div className="space-y-1.5">
       <button
         onClick={toggle}
-        className={`group flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+        className={`group flex items-center justify-between w-full cursor-pointer px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
           activeGroup
             ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-800"
             : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80"
@@ -348,11 +349,11 @@ function MenuGroup({
               <button
                 key={label}
                 onClick={() => {
-                  playSend()
+                  playSend();
                   navigate(to);
                   onClose();
                 }}
-                className={`group flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
+                className={`group flex items-center gap-3 cursor-pointer w-full px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
                   active
                     ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium shadow-md shadow-indigo-500/20 scale-[1.02]"
                     : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-indigo-400 hover:translate-x-1"

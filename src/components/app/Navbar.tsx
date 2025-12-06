@@ -120,13 +120,13 @@ const Navbar = ({ currentPage }: MainProp) => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            {/* Results Button - New Addition */}
+            {/* Results Button  */}
             <button
               onClick={() => {
                 playSend();
                 navigate("/results");
               }}
-              className="relative p-2.5 rounded-xl transition-all duration-300 group bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50 dark:hover:from-cyan-900/30 dark:hover:to-blue-900/30"
+              className="relative p-2.5 rounded-xl cursor-pointer transition-all duration-300 group bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-br hover:from-cyan-50 hover:to-blue-50 dark:hover:from-cyan-900/30 dark:hover:to-blue-900/30"
               aria-label="View Results"
             >
               <BarChart2 className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 group-hover:scale-110 transition-all duration-300" />
@@ -136,13 +136,13 @@ const Navbar = ({ currentPage }: MainProp) => {
             {/* PWA Install */}
             <PWAInstall />
 
-            {/* Theme Toggle - Enhanced Design */}
+            {/* Theme Toggle  */}
             <button
               onClick={() => {
                 playSend();
                 toggleTheme();
               }}
-              className={`relative w-16 h-8 rounded-full transition-all duration-300 shadow-inner ${
+              className={`relative w-16 h-8 rounded-full cursor-pointer transition-all duration-300 shadow-inner ${
                 theme === "light"
                   ? "bg-gradient-to-r from-amber-200 to-orange-200"
                   : "bg-gradient-to-r from-indigo-900 to-purple-900"
@@ -179,8 +179,11 @@ const Navbar = ({ currentPage }: MainProp) => {
 
             {/* Menu Button - Enhanced */}
             <button
-              onClick={() => setOpenMenu(!openMenu)}
-              className={`relative p-2.5 rounded-xl transition-all duration-300 group ${
+              onClick={() => {
+                playSend()
+                setOpenMenu(!openMenu);
+              }}
+              className={`relative p-2.5 cursor-pointer rounded-xl transition-all duration-300 group ${
                 openMenu
                   ? "bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/30"
                   : "bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-br hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/30 dark:hover:to-purple-900/30"

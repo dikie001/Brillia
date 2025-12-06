@@ -559,7 +559,7 @@ const QuizApp: React.FC = () => {
             ].map((stat, i) => (
               <div
                 key={i}
-                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
+                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-3xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1  hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
               >
                 <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
                   {stat.icon}
@@ -586,7 +586,7 @@ const QuizApp: React.FC = () => {
                   playSend();
                   startTest(state.currentTest);
                 }}
-                className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
+                className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 to-indigo-700 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
               >
                 <div className="relative flex items-center justify-between rounded-[14px] bg-indigo-600/10 px-6 py-5 sm:px-8 sm:py-6 transition-colors group-hover:bg-indigo-600/0">
                   <div className="flex flex-col text-left">

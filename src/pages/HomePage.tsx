@@ -135,7 +135,7 @@ const HomePage: React.FC = () => {
         {/* Header Section */}
         <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
           {totalProgress > 0 && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-lg shadow-indigo-500/30 text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl shadow-md text-sm font-semibold mb-4">
               <TrendingUp className="w-4 h-4" />
               <span>{totalProgress} Activities Completed!</span>
             </div>
