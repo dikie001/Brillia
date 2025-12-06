@@ -147,15 +147,6 @@ export default defineConfig({
         // Categories for app stores
         categories: ["education", "entertainment", "games"],
 
-        // Screenshots for app stores (optional)
-        screenshots: [
-          {
-            src: "/screenshots/screenshot1.png",
-            sizes: "1280x720",
-            type: "image/png",
-            form_factor: "wide",
-          },
-        ],
       },
 
       // Development options

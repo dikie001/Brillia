@@ -1,7 +1,7 @@
 
 const Animation = () => {
   return (
-    <div className="left-1/2 -translate-x-1/2 absolute top-44    flex items-center justify-center">
+    <div className="left-1/2 -translate-x-1/2 absolute top-44 z-50  flex items-center justify-center">
       <style>
         {`
           .loader {
