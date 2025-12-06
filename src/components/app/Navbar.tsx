@@ -20,7 +20,6 @@ const greetings = [
   "Eyo",
 ];
 
-
 interface User {
   name: string;
   hobby: string;
@@ -47,14 +46,12 @@ const Navbar = ({ currentPage }: MainProp) => {
     Randomize();
 
     const newNavname =
-      location === "/"
-        ? `${greetings[randomIndex]} ${
-            userDetails?.name?.split(" ")[0] || ""
-          }`
+      location === "/" && userDetails?.name
+        ? `${greetings[randomIndex]} ${userDetails?.name?.split(" ")[0] || ""}`
         : currentPage || "Brillia";
 
     setNavName(newNavname);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, location]);
 
   useEffect(() => {
@@ -123,7 +120,6 @@ const Navbar = ({ currentPage }: MainProp) => {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            
             {/* Results Button - New Addition */}
             <button
               onClick={() => {
