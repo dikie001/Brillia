@@ -6,10 +6,11 @@ import LoadingPage from "./pages/LoadinPage";
 import About from "./pages/About";
 import Help from "./pages/Help";
 import Results from "./pages/Results";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboard from "./pages/ADMIN/AdminDashboard";
 import { trackDailyLogin } from "./lib/trackDailyLogin";
 import { USER_INFO } from "./constants";
 import { syncQuizResultsToFirebase } from "./lib/syncQuizResultsToFirebase";
+import AdminAuth from "./pages/ADMIN/Auth";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/admin-auth" element={<AdminAuth />} />
         </Routes>
       </Suspense>
     </Router>

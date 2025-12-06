@@ -103,7 +103,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 onClick={() => {
                   setCount(count + 1);
                   if (count >= 2) {
-                    navigate("/admin-dashboard");
+                    navigate("/admin-auth");
                   }
                 }}
               >
