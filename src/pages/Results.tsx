@@ -4,15 +4,15 @@ import { STORIES_READ, TEST_RESULTS } from "@/constants";
 import { BookOpen, FileCheck, Loader2, TrendingUp, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Cell,
-    ReferenceLine,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
 
 // --- TYPES ---
@@ -20,7 +20,7 @@ interface TestResult {
   percentage: number;
   totalQuestions: number;
   date?: string;
-  score:number;
+  score: number;
 }
 
 interface UserStats {
@@ -50,12 +50,11 @@ const Results = () => {
     // 1. Fetch Data from LocalStorage
     const rawResults = localStorage.getItem(TEST_RESULTS);
     // const rawUserInfo = localStorage.getItem("user-info");
-    const rawStories = localStorage.getItem(STORIES_READ); 
+    const rawStories = localStorage.getItem(STORIES_READ);
 
     // 2. Parse Data
     const results: TestResult[] = rawResults ? JSON.parse(rawResults) : [];
     const storiesCount = rawStories ? JSON.parse(rawStories).length : 0;
-
 
     // 3. Calculate Stats
     const totalTests = results.length;
@@ -162,72 +161,77 @@ const Results = () => {
             </div>
           </div>
 
-          <div className="h-[400px] w-full">
-            {graphData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={graphData}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    strokeOpacity={0.1}
-                  />
-                  <XAxis
-                    dataKey="name"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "#6b7280", fontSize: 12 }}
-                    dy={10}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "#6b7280", fontSize: 12 }}
-                    domain={[0, 100]}
-                  />
-                  <Tooltip
-                    content={<CustomTooltip />}
-                    cursor={{ fill: "transparent" }}
-                  />
-                  <ReferenceLine
-                    y={50}
-                    stroke="#ef4444"
-                    strokeDasharray="3 3"
-                    strokeOpacity={0.5}
-                    label={{
-                      value: "Pass Line",
-                      position: "insideTopRight",
-                      fill: "#ef4444",
-                      fontSize: 10,
-                    }}
-                  />
-
-                  <Bar
-                    dataKey="score"
-                    radius={[8, 8, 8, 8]}
-                    barSize={50}
-                    animationDuration={1500}
+          {/* SCROLL WRAPPER START */}
+          <div className="w-full overflow-x-auto pb-4">
+            <div
+              className="h-[400px]"
+              // Dynamic width: If > 6 items, use 60px per item. Else, fit to screen (100%).
+              style={{
+                width:
+                  graphData.length > 6 ? `${graphData.length * 60}px` : "100%",
+                minWidth: "100%",
+              }}
+            >
+              {graphData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={graphData as any}
+                    margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
                   >
-                    {graphData.map((entry:any, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        // Change entry.percentage to entry.score
-                        fill={getColorForScore(entry.score)}
-                        className="hover:opacity-80 transition-opacity cursor-pointer"
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex flex-col items-center justify-center text-gray-400">
-                <FileCheck className="w-12 h-12 mb-2 opacity-20" />
-                <p>No tests taken yet. Start learning to see results!</p>
-              </div>
-            )}
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      vertical={false}
+                      strokeOpacity={0.1}
+                    />
+                    <XAxis
+                      dataKey="name"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: "#6b7280", fontSize: 12 }}
+                      dy={10}
+                      interval={0} // Forces all labels to show
+                    />
+                    <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: "#6b7280", fontSize: 12 }}
+                      domain={[0, 100]}
+                    />
+                    <Tooltip
+                      content={<CustomTooltip />}
+                      cursor={{ fill: "transparent" }}
+                    />
+                    <ReferenceLine
+                      y={50}
+                      stroke="#ef4444"
+                      strokeDasharray="3 3"
+                      strokeOpacity={0.5}
+                    />
+                    <Bar
+                      dataKey="score"
+                      radius={[8, 8, 8, 8]}
+                      barSize={40} // Fixed bar size looks better when scrolling
+                      animationDuration={1500}
+                    >
+                      {graphData.map((entry: any, index: number) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={getColorForScore(entry.score)}
+                          className="hover:opacity-80 transition-opacity cursor-pointer"
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-gray-400">
+                  <FileCheck className="w-12 h-12 mb-2 opacity-20" />
+                  <p>No tests taken yet.</p>
+                </div>
+              )}
+            </div>
           </div>
+          {/* SCROLL WRAPPER END */}
         </div>
       </div>
     </div>
