@@ -1,29 +1,28 @@
 import { auth, db } from "@/firebase/config.firebase";
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
-  collection,
-  doc,
-  getDocs,
-  limit,
-  query,
-  setDoc,
+    collection,
+    doc,
+    getDocs,
+    limit,
+    query,
+    setDoc,
 } from "firebase/firestore";
 import {
-  AlertCircle,
-  ArrowRight,
-  CheckCircle2,
-  Loader2,
-  Lock,
-  Mail,
-  ShieldCheck,
-  User,
+    AlertCircle,
+    ArrowRight,
+    CheckCircle2,
+    Loader2,
+    Lock,
+    Mail,
+    ShieldCheck,
+    User,
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 
 const AdminAuth = () => {
   const [isLogin, setIsLogin] = useState(true);
