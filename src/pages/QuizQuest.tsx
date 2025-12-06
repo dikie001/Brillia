@@ -15,7 +15,7 @@ import {
   Trophy,
   XCircle,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
@@ -51,7 +51,6 @@ interface TestResult {
   date: string;
   subject: string;
   timeTaken?: number;
-  difficulty?: string;
 }
 
 interface QuizProgress {
@@ -108,6 +107,7 @@ const QuizApp: React.FC = () => {
   useEffect(() => {
     console.log(theme);
   }, []);
+  const quizResultsRef = useRef<TestResult | null>(null);
 
   const QUESTIONS_PER_TEST = 20;
 
@@ -205,7 +205,8 @@ const QuizApp: React.FC = () => {
       }
 
       const parsedData = firebaseData ? JSON.parse(firebaseData) : [];
-      const updatedData = parsedData.push(results);
+      const updatedData = [...parsedData, quizResultsRef.current];
+      console.log(quizResultsRef.current);
       localStorage.setItem(FIREBASE_TEST_RESULTS, JSON.stringify(updatedData));
       console.log(updatedData);
     } catch (error) {
@@ -348,10 +349,9 @@ const QuizApp: React.FC = () => {
       date: new Date().toLocaleDateString(),
       subject: getCurrentTestSubjects(),
       timeTaken,
-      // difficulty: getCurrentTestDifficulty(),
     };
-
     const updatedResults = [...state.testResults, testResult];
+    quizResultsRef.current = testResult
     const nextTestIndex = state.currentTest + 1;
 
     setState((prev) => ({

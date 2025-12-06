@@ -9,6 +9,7 @@ import Results from "./pages/Results";
 import AdminDashboard from "./pages/AdminDashboard";
 import { trackDailyLogin } from "./lib/trackDailyLogin";
 import { USER_INFO } from "./constants";
+import { syncQuizResultsToFirebase } from "./lib/syncQuizResultsToFirebase";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -21,7 +22,6 @@ const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
 const ContactDeveloper = lazy(() => import("./pages/ContactDeveloper"));
 
 const App = () => {
-
   // Track daily logins
   useEffect(() => {
     const userData = localStorage.getItem(USER_INFO);
@@ -30,6 +30,7 @@ const App = () => {
     const parsedData = userData ? JSON.parse(userData) : [];
     try {
       trackDailyLogin(parsedData.id);
+      syncQuizResultsToFirebase(parsedData.id);
     } catch (err) {
       console.error(err);
     }
