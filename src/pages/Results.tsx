@@ -133,7 +133,7 @@ const Results = () => {
 
         {/* --- MAIN GRAPH: MARKS PER TEST --- */}
         <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 sm:p-8 shadow-xl shadow-indigo-100/50 dark:shadow-none border border-gray-100 dark:border-gray-800">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
                 <TrendingUp className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
