@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "@/components/app/Navbar";
 import { STORIES_READ, TEST_RESULTS } from "@/constants";
-import { BookOpen, FileCheck, Loader2, TrendingUp, Trophy } from "lucide-react";
+import { FileCheck, Loader2, TrendingUp, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Bar,
@@ -110,19 +110,19 @@ const Results = () => {
         </div>
 
         {/* --- STATS ROW --- */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-2 gap-4 md:gap-6n mb-8">
           <StatCard
             title="Tests Completed"
             value={stats.testsDone}
             icon={FileCheck}
             color="indigo"
           />
-          <StatCard
+          {/* <StatCard
             title="Stories Read"
             value={stats.storiesRead}
             icon={BookOpen}
             color="pink"
-          />
+          /> */}
           <StatCard
             title="Average Score"
             value={`${stats.averageScore}%`}
