@@ -9,12 +9,11 @@ import {
   Clock,
   Eye,
   Filter,
-  Loader2,
   Search,
   Target,
   Trophy,
   Users,
-  X,
+  X
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
@@ -26,6 +25,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import LoaderPage from "./Loader";
 
 // --- TYPES BASED ON YOUR DATA ---
 
@@ -52,24 +52,7 @@ interface UserData {
   quizHistory: QuizResult[];
 }
 
-// --- HELPER: Format Time Ago ---
-// const timeAgo = (dateString: string) => {
-//   if (!dateString) return "N/A";
-//   const date = new Date(dateString);
-//   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
 
-//   let interval = seconds / 31536000;
-//   if (interval > 1) return Math.floor(interval) + " years ago";
-//   interval = seconds / 2592000;
-//   if (interval > 1) return Math.floor(interval) + " months ago";
-//   interval = seconds / 86400;
-//   if (interval > 1) return Math.floor(interval) + " days ago";
-//   interval = seconds / 3600;
-//   if (interval > 1) return Math.floor(interval) + " hours ago";
-//   interval = seconds / 60;
-//   if (interval > 1) return Math.floor(interval) + " min ago";
-//   return "Just now";
-// };
 
 // --- MODAL COMPONENT ---
 const UserDetailModal = ({
@@ -378,9 +361,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
-      </div>
+<LoaderPage/>
     );
   }
 

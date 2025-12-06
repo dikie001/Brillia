@@ -60,7 +60,6 @@ const AdminAuth = () => {
 
         setLoadingStatus("Redirecting to dashboard...");
         setSuccess("Login successful!");
-        toast.success("Welcome admin dikie")
         navigate("/admin-dashboard")
       } else {
         // SIGN-UP FLOW
