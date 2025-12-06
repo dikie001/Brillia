@@ -4,7 +4,7 @@
   "description": "A fun app with quizzes, facts, stories, and brain teasers",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",  // Fixed: removed extra 'ff'
+  "background_color": "#ffffff", 
   "theme_color": "#4f46e5",
   "scope": "/",
   "orientation": "portrait",
@@ -12,23 +12,19 @@
   
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "/images/logo-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
     },
     {
-      "src": "/images/logo.png",
+      "src": "/images/logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
     }
   ],
   
-  // For iOS
-  "apple-touch-icon": "/images/apple-touch-icon.png",
+
   
-  // Shortcuts (optional but nice to have)
   "shortcuts": [
     {
       "name": "Start Quiz",
