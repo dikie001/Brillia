@@ -1,25 +1,26 @@
 import { auth, db } from "@/firebase/config.firebase";
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
-    collection,
-    doc,
-    getDocs,
-    limit,
-    query,
-    setDoc,
+  collection,
+  doc,
+  getDocs,
+  limit,
+  query,
+  setDoc,
 } from "firebase/firestore";
 import {
-    AlertCircle,
-    ArrowRight,
-    CheckCircle2,
-    Loader2,
-    Lock,
-    Mail,
-    ShieldCheck,
-    User,
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  ChevronLeft,
+  Loader2,
+  Lock,
+  Mail,
+  ShieldCheck,
+  User,
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +46,7 @@ const AdminAuth = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoadingStatus("Initializing..."); 
+    setLoadingStatus("Initializing...");
     setError(null);
     setSuccess(null);
 
@@ -59,7 +60,7 @@ const AdminAuth = () => {
 
         setLoadingStatus("Redirecting to dashboard...");
         setSuccess("Login successful!");
-        navigate("/admin-dashboard")
+        navigate("/admin-dashboard");
       } else {
         // SIGN-UP FLOW
         setLoadingStatus("Checking system eligibility...");
@@ -116,6 +117,12 @@ const AdminAuth = () => {
       <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
         {/* Header */}
         <div className="relative h-32 bg-gradient-to-r from-indigo-600 to-indigo-700 flex items-center justify-center">
+          <div
+            onClick={() => window.history.back()}
+            className="absolute left-6 top-6 bg-black/10 z-50 dark:bg-white/10 p-2 rounded-full shadow hover:bg-black/20 dark:hover:white/20 cursor-pointer"
+          >
+            <ChevronLeft className="text-white" size={30} />
+          </div>
           <div className="absolute inset-0 bg-black/10" />
           <div className="relative z-10 flex flex-col items-center text-white">
             <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl mb-2 shadow-lg border border-white/20">
