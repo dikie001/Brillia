@@ -28,11 +28,11 @@
   "shortcuts": [
     {
       "name": "Start Quiz",
-      "url": "/quiz"
+      "url": "/quiz-quest"
     },
     {
       "name": "Browse Stories",
-      "url": "/stories"
+      "url": "/mini-stories"
     }
   ]
 }
