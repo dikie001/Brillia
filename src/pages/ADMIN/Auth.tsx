@@ -45,7 +45,7 @@ const AdminAuth = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoadingStatus("Initializing..."); // Start loading
+    setLoadingStatus("Initializing..."); 
     setError(null);
     setSuccess(null);
 
