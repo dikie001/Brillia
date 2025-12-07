@@ -13,6 +13,9 @@ import { syncQuizResultsToFirebase } from "./lib/syncQuizResultsToFirebase";
 import AdminAuth from "./pages/ADMIN/Auth";
 import AdminMessages from "./pages/ADMIN/Messages";
 import UsersPage from "./pages/ADMIN/Users";
+import AdminSettings from "./pages/ADMIN/Settings";
+import AdminReports from "./pages/ADMIN/Reports";
+import AdminNotifications from "./pages/ADMIN/Notifications";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -60,6 +63,9 @@ const App = () => {
           <Route path="/admin-auth" element={<AdminAuth />} />
           <Route path="/admin/messages" element={<AdminMessages />} />
           <Route path="/admin/users" element={<UsersPage />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
+          <Route path="/admin/reports" element={<AdminReports />} />
+          <Route path="/admin/notifications" element={<AdminNotifications />} />
         </Routes>
       </Suspense>
     </Router>
