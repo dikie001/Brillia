@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Navbar from "@/components/app/Navbar";
 import { db } from "@/firebase/config.firebase";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import {
@@ -7,21 +6,21 @@ import {
   ArrowRight,
   BookOpen,
   Calendar,
+  ChevronLeft, // Added
+  ChevronRight,
   Clock,
   Download,
   Eye,
   Filter,
   MessageSquare,
+  RefreshCw,
   Search,
   Settings,
   Target,
   Trophy,
   Users,
-  Zap,
   X,
-  RefreshCw,
-  ChevronLeft, // Added
-  ChevronRight, // Added
+  Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +34,7 @@ import {
   YAxis,
 } from "recharts";
 import LoaderPage from "./Loader";
+import AdminNavbar from "./layout/Navbar";
 
 // --- TYPES ---
 interface QuizResult {
@@ -483,7 +483,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
-      <Navbar />
+      <AdminNavbar />
       <UserDetailModal
         user={selectedUser!}
         onClose={() => setSelectedUser(null)}

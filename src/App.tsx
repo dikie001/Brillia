@@ -12,6 +12,7 @@ import { USER_INFO } from "./constants";
 import { syncQuizResultsToFirebase } from "./lib/syncQuizResultsToFirebase";
 import AdminAuth from "./pages/ADMIN/Auth";
 import AdminMessages from "./pages/ADMIN/Messages";
+import UsersPage from "./pages/ADMIN/Users";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -54,10 +55,11 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
           <Route path="/admin-auth" element={<AdminAuth />} />
           <Route path="/admin/messages" element={<AdminMessages />} />
+          <Route path="/admin/users" element={<UsersPage />} />
         </Routes>
       </Suspense>
     </Router>

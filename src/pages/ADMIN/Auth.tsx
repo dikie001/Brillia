@@ -60,7 +60,7 @@ const AdminAuth = () => {
 
         setLoadingStatus("Redirecting to dashboard...");
         setSuccess("Login successful!");
-        navigate("/admin-dashboard");
+        navigate("/admin/dashboard");
       } else {
         // SIGN-UP FLOW
         setLoadingStatus("Checking system eligibility...");
