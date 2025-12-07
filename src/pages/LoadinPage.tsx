@@ -11,8 +11,8 @@ const LoadingPage: React.FC = () => {
         {`
           .pencil {
             display: block;
-            width: 10em;
-            height: 10em;
+            width: 7em;
+            height: 7em;
           }
 
           .pencil__body1,
