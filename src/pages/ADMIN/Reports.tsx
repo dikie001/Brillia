@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/firebase/config.firebase";
 import { collection, getDocs } from "firebase/firestore";
 import {
@@ -60,10 +59,8 @@ interface DashboardMetrics {
 }
 
 // --- MOCK DATA GENERATOR (For charts empty states/padding) ---
-// In a real scenario, you'd aggregate this strictly from Firebase. 
-// I have implemented the Firebase fetch logic, but added fallbacks for visual demo.
 
-const COLORS = ["#10b981", "#ef4444", "#f59e0b", "#6366f1"];
+
 
 const AdminReports = () => {
   const [dateRange, setDateRange] = useState<"7d" | "30d" | "all">("7d");

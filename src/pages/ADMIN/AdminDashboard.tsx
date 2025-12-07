@@ -558,7 +558,7 @@ const AdminDashboard = () => {
                 <span className="text-xs font-semibold">Messages</span>
               </button>
 
-{/* Export data */}
+              {/* Export data */}
               <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 transition-colors gap-2 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-500/30">
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Download className="w-5 h-5" />
@@ -566,15 +566,21 @@ const AdminDashboard = () => {
                 <span className="text-xs font-semibold">Export Data</span>
               </button>
 
-{/* Settings */}
-              <button onClick={()=>navigate("/admin/settings")} className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-colors gap-2 group border border-transparent hover:border-pink-100 dark:hover:border-pink-500/30">
+              {/* Settings */}
+              <button
+                onClick={() => navigate("/admin/settings")}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-colors gap-2 group border border-transparent hover:border-pink-100 dark:hover:border-pink-500/30"
+              >
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Settings className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-semibold">Settings</span>
               </button>
 
-              <button onClick={()=>navigate("/admin/users")} className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors gap-2 group border border-transparent hover:border-blue-100 dark:hover:border-blue-500/30">
+              <button
+                onClick={() => navigate("/admin/users")}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors gap-2 group border border-transparent hover:border-blue-100 dark:hover:border-blue-500/30"
+              >
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Users className="w-5 h-5" />
                 </div>

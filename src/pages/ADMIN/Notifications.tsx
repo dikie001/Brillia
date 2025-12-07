@@ -1,23 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from "@/firebase/config.firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, updateDoc, where, writeBatch } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import {
-  Bell,
-  BellRing,
-  Check,
-  CheckCheck,
-  ChevronRight,
-  Filter,
-  Inbox,
-  Info,
-  Megaphone,
-  MoreVertical,
-  Plus,
-  Search,
-  Send,
-  Trash2,
-  UserPlus,
-  X
+    Bell,
+    BellRing,
+    Check,
+    CheckCheck,
+    Filter,
+    Inbox,
+    Info,
+    Megaphone,
+    Plus,
+    Search,
+    Send,
+    Trash2,
+    UserPlus,
+    X
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import LoaderPage from "./Loader";
@@ -120,7 +118,7 @@ const BroadcastModal = ({ isOpen, onClose, onSend }: { isOpen: boolean; onClose:
                 disabled={sending}
                 className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 flex items-center justify-center gap-2 disabled:opacity-70 transition-all"
             >
-                {sending ? <LoaderPage small /> : <Send className="w-4 h-4" />}
+                {sending ? <LoaderPage /> : <Send className="w-4 h-4" />}
                 {sending ? "Broadcasting..." : "Send Broadcast"}
             </button>
           </div>
@@ -200,7 +198,7 @@ const AdminNotifications = () => {
     } catch (e) { console.error(e) }
   };
 
-  const handleSendBroadcast = async (title: string, message: string, type: NotificationType) => {
+  const handleSendBroadcast = async (title: string, message: string) => {
     try {
         // 1. Add to Admin's "Sent" list
         const newNotif = {
@@ -217,7 +215,7 @@ const AdminNotifications = () => {
         // await addDoc(collection(db, "notifications"), { ...newNotif, target: 'all_users' });
 
         // Update Local State
-        setNotifications(prev => [{ id: Math.random().toString(), read: true, ...newNotif } as any, ...prev]);
+        setNotifications(prev => [{ id: Math.random().toString(), ...newNotif } as any, ...prev]);
         
         alert("Broadcast sent successfully!");
     } catch (error) {
