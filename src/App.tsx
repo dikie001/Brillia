@@ -3,8 +3,8 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import { lazy, Suspense, useEffect } from "react";
 import LoadingPage from "./pages/LoadinPage";
-import About from "./pages/About";
-import Help from "./pages/Help";
+import About from "./pages/SUPPORT/About";
+import Help from "./pages/SUPPORT/Help";
 import Results from "./pages/Results";
 import AdminDashboard from "./pages/ADMIN/AdminDashboard";
 import { trackDailyLogin } from "./lib/trackDailyLogin";
@@ -20,7 +20,7 @@ const QuizQuest = lazy(() => import("./pages/QuizQuest"));
 const SettingsPage = lazy(() => import("./pages/Settings"));
 const TongueTwisters = lazy(() => import("./pages/TongueTwisters"));
 const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
-const ContactDeveloper = lazy(() => import("./pages/ContactDeveloper"));
+const ContactDeveloper = lazy(() => import("./pages/SUPPORT/ContactDeveloper"));
 
 const App = () => {
   // Track daily logins

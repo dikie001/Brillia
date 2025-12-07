@@ -4,6 +4,7 @@ import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import { Button } from "@/components/ui/button";
 import { TEASERS_CURRENTPAGE } from "@/constants";
+import useSound from "@/hooks/useSound";
 import brainTeasers from "@/jsons/brainTeaser";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
@@ -12,13 +13,13 @@ import {
   Eye,
   EyeOff,
   Heart,
+  Info,
   LoaderCircle,
-  Share2,
+  Share2
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Paginate from "../components/app/paginations";
-import useSound from "@/hooks/useSound";
 
 export type Teaser = {
   id: number;
@@ -69,7 +70,7 @@ export default function BrainTeasersPage() {
 
   useEffect(() => {
     FetchInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Navigate to the next page in pagination
@@ -164,6 +165,13 @@ export default function BrainTeasersPage() {
     }
   }, [currentPage]);
 
+
+  // Request for new teasers
+  const handleRequestMoreTeasers=async()=>{
+    toast.info("Feature still under development")
+  }
+
+
   return (
     <div className="min-h-screen p-4 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
       <Navbar currentPage="Brain Teasers" />
@@ -176,17 +184,38 @@ export default function BrainTeasersPage() {
           setCurrentFilter={setCurrentFilter}
           genres={genres}
         />
+
+        {/* RAN OUT OF TEASERS??? */}
         {currentPage * 10 > teasersRef.current.length && (
-          <Button
-            onClick={() => {
-              playSend();
-              setCurrentPage(1);
-              localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(2));
-            }}
-            variant="default"
-          >
-            Reset
-          </Button>
+          <div className="text-center py-12">
+            <Info className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
+            <p className="text-xl text-gray-500 dark:text-gray-400">
+              You have viewed all the teasers!
+            </p>
+            <div className="mt-4 grid md:grid-cols-2 items-center justify-center gap-4 max-w-sm mx-auto ">
+              <Button
+                className=" cursor-pointer"
+                onClick={() => {
+                  playSend();
+                  setCurrentPage(1);
+                  localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(2));
+                }}
+                variant="outline"
+              >
+                Reset teasers
+              </Button>
+              <Button
+                className="bg-indigo-800 dark:bg-indigo-600 cursor-pointer text-white "
+                onClick={() => {
+                  playSend();
+                  handleRequestMoreTeasers()
+                }}
+                variant="default"
+              >
+                Request for more
+              </Button>
+            </div>
+          </div>
         )}
         {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Showing {currentPage * itemsPerPage} of {totalFiltered} items
