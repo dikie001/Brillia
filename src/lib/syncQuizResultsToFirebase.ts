@@ -1,7 +1,6 @@
 import { FIREBASE_TEST_RESULTS } from "@/constants";
 import { db } from "@/firebase/config.firebase";
-import { doc, collection, setDoc } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
+import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore"; // Import serverTimestamp
 
 export interface QuizResult {
   testNumber: number;
@@ -38,21 +37,35 @@ export const syncQuizResultsToFirebase = async (userId: string) => {
     const userRef = doc(db, "users", userId);
     const resultsRef = collection(userRef, "quizResults");
 
+    // We keep track if we successfully saved everything
+    let allSaved = true;
+
     for (const result of results) {
       try {
-        const customId = uuid();
+        // FIX 1: Use Date.now() for the ID. 
+        // This ensures they appear ordered in the Firestore Console.
+        // We add a random suffix just in case two happen at the EXACT same millisecond.
+        const timeBasedId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-        await setDoc(doc(resultsRef, customId), {
+        await setDoc(doc(resultsRef, timeBasedId), {
           ...result,
+          // FIX 2: Use serverTimestamp for accurate sorting when fetching
+          createdAt: serverTimestamp(), 
           syncedAt: new Date().toISOString(),
         });
-        localStorage.removeItem(FIREBASE_TEST_RESULTS)
+        
       } catch (err) {
         console.error("Record sync failed:", err);
-        // Continue syncing other records instead of aborting
+        allSaved = false; 
         continue;
       }
     }
+
+    // FIX 3: Only clear storage AFTER the loop finishes
+    if (allSaved) {
+      localStorage.removeItem(FIREBASE_TEST_RESULTS);
+    }
+
   } catch (err) {
     console.error("Firebase sync operation failed:", err);
   }

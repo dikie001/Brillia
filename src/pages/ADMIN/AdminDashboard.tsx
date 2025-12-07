@@ -18,7 +18,7 @@ import {
   Trophy,
   Users,
   Zap,
-  X
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +64,36 @@ interface RecentMessage {
 }
 
 // --- MODAL COMPONENT ---
+// --- CUSTOM TOOLTIP COMPONENT ---
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-white dark:bg-gray-800 p-4 border border-gray-100 dark:border-gray-700 shadow-xl rounded-xl">
+        <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">
+          {label}
+        </p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+          {data.date}
+        </p>
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+            Score: {data.score} / {data.totalQuestions}
+          </p>
+          <p className="text-xs font-medium text-gray-600 dark:text-gray-300">
+            Percentage: {data.percentage}%
+          </p>
+          {/* <p className="text-[10px] text-gray-400 uppercase tracking-wide mt-1">
+            {data.subject}
+          </p> */}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
+// --- MAIN MODAL ---
 const UserDetailModal = ({
   user,
   onClose,
@@ -73,6 +103,17 @@ const UserDetailModal = ({
 }) => {
   if (!user) return null;
 
+  // 1. Sort data by date just in case
+  // 2. Add a display label for "Test 1", "Test 2"
+  const chartData = [...user.quizHistory]
+    .reverse()
+    // Assuming date is string "YYYY-MM-DD" or similar, otherwise standard sort
+    // .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .map((item, index) => ({
+      ...item,
+      displayLabel: `Test ${index + 1}`,
+    }));
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
       <div
@@ -80,9 +121,8 @@ const UserDetailModal = ({
         onClick={onClose}
       />
       <div className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col animate-in fade-in zoom-in-95 duration-200">
-        
         {/* Header Background */}
-        <div className="relative h-32 bg-indigo-600 shrink-0">
+        <div className="relative h-14 bg-indigo-900/10 shrink-0">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md transition-all"
@@ -95,9 +135,11 @@ const UserDetailModal = ({
           {/* User Profile Info */}
           <div className="relative flex justify-between items-end -mt-12 mb-6">
             <div className="flex items-end gap-4">
-              <div className="w-24 h-24 rounded-2xl bg-white dark:bg-gray-800 p-1 shadow-xl shrink-0">
-                <div className="w-full h-full rounded-xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 uppercase">
-                  {user.fullName.charAt(0)}
+              <div className="w-14 h-14 rounded-3xl bg-white dark:bg-gray-800 p-1 shadow-xl shrink-0">
+                <div className="w-full h-full rounded-xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-2xl font-bold text-indigo-600 dark:text-indigo-400 uppercase">
+                  {`${user.fullName.charAt(0)}${user.fullName
+                    .split(" ")[1]
+                    .charAt(0)}`}
                 </div>
               </div>
               <div className="mb-1">
@@ -167,7 +209,9 @@ const UserDetailModal = ({
                 </p>
                 <p className="text-2xl font-bold text-pink-700 dark:text-pink-300">
                   {user.quizHistory.length > 0
-                    ? Math.max(...user.quizHistory.map((q: any) => q.percentage))
+                    ? Math.max(
+                        ...user.quizHistory.map((q: any) => q.percentage)
+                      )
                     : 0}
                   %
                 </p>
@@ -191,20 +235,34 @@ const UserDetailModal = ({
                 Performance Trend
               </h3>
             </div>
-            
+
             {/* Mobile Scroll Wrapper */}
             <div className="w-full overflow-x-auto pb-2">
               <div className="h-[300px] w-full min-w-[500px]">
-                {user.quizHistory && user.quizHistory.length > 0 ? (
+                {chartData && chartData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
-                      data={user.quizHistory}
+                      data={chartData}
                       margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                     >
                       <defs>
-                        <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
-                          <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                        <linearGradient
+                          id="colorScore"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#6366f1"
+                            stopOpacity={0.4}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#6366f1"
+                            stopOpacity={0}
+                          />
                         </linearGradient>
                       </defs>
                       <CartesianGrid
@@ -214,7 +272,7 @@ const UserDetailModal = ({
                         strokeOpacity={0.5}
                       />
                       <XAxis
-                        dataKey="date"
+                        dataKey="displayLabel" // Uses "Test 1", "Test 2"
                         axisLine={false}
                         tickLine={false}
                         tick={{ fontSize: 12, fill: "#9ca3af" }}
@@ -226,17 +284,7 @@ const UserDetailModal = ({
                         tickLine={false}
                         tick={{ fontSize: 12, fill: "#9ca3af" }}
                       />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#fff",
-                          borderRadius: "12px",
-                          border: "none",
-                          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                          padding: "12px",
-                        }}
-                        itemStyle={{ color: "#4f46e5", fontWeight: 600 }}
-                        cursor={{ stroke: "#6366f1", strokeWidth: 2, strokeDasharray: "5 5" }}
-                      />
+                      <Tooltip content={<CustomTooltip />} />
                       <Area
                         type="monotone"
                         dataKey="percentage"
@@ -245,6 +293,12 @@ const UserDetailModal = ({
                         strokeWidth={4}
                         fillOpacity={1}
                         fill="url(#colorScore)"
+                        activeDot={{
+                          r: 6,
+                          strokeWidth: 2,
+                          stroke: "#fff",
+                          fill: "#6366f1",
+                        }}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -287,6 +341,7 @@ const AdminDashboard = () => {
         const userDataPromises = userSnapshot.docs.map(async (userDoc) => {
           const rawUser = userDoc.data();
           const userId = userDoc.id;
+          console.log(rawUser);
 
           const quizRef = collection(db, "users", userId, "quizResults");
           const quizSnapshot = await getDocs(quizRef);
@@ -294,7 +349,7 @@ const AdminDashboard = () => {
           const quizzes: QuizResult[] = quizSnapshot.docs.map(
             (doc) => doc.data() as QuizResult
           );
-
+          console.log(quizzes);
           let totalPercent = 0;
           if (quizzes.length > 0) {
             totalPercent = quizzes.reduce(
@@ -325,14 +380,13 @@ const AdminDashboard = () => {
         const msgRef = collection(db, "messages");
         const msgQuery = query(msgRef, orderBy("createdAt", "desc"), limit(2));
         const msgSnapshot = await getDocs(msgQuery);
-        
-        const msgs = msgSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as RecentMessage[];
-        
-        setRecentMessages(msgs);
 
+        const msgs = msgSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as RecentMessage[];
+
+        setRecentMessages(msgs);
       } catch (error) {
         console.error("Error fetching admin data:", error);
       } finally {
@@ -386,7 +440,12 @@ const AdminDashboard = () => {
     if (!timestamp) return "";
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
     // Return relative if recent, or short date
-    return new Intl.DateTimeFormat("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' }).format(date);
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
   };
 
   if (loading) {
@@ -448,7 +507,6 @@ const AdminDashboard = () => {
 
         {/* NEW SECTION: Quick Actions & Recent Messages */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          
           {/* Quick Actions */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col">
             <h3 className="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
@@ -464,28 +522,22 @@ const AdminDashboard = () => {
                 </div>
                 <span className="text-xs font-semibold">Messages</span>
               </button>
-              
-              <button 
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 transition-colors gap-2 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-500/30"
-              >
+
+              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 transition-colors gap-2 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-500/30">
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Download className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-semibold">Export Data</span>
               </button>
-              
-              <button 
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-colors gap-2 group border border-transparent hover:border-pink-100 dark:hover:border-pink-500/30"
-              >
+
+              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-colors gap-2 group border border-transparent hover:border-pink-100 dark:hover:border-pink-500/30">
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Settings className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-semibold">Settings</span>
               </button>
 
-              <button 
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors gap-2 group border border-transparent hover:border-blue-100 dark:hover:border-blue-500/30"
-              >
+              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors gap-2 group border border-transparent hover:border-blue-100 dark:hover:border-blue-500/30">
                 <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                   <Users className="w-5 h-5" />
                 </div>
@@ -498,20 +550,24 @@ const AdminDashboard = () => {
           <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-indigo-500" /> Recent Inquiries
+                <MessageSquare className="w-4 h-4 text-indigo-500" /> Recent
+                Inquiries
               </h3>
-              <button 
+              <button
                 onClick={() => navigate("/admin/messages")}
                 className="text-xs font-medium text-indigo-600 hover:text-indigo-700 flex items-center gap-1 hover:underline"
               >
                 View all <ArrowRight className="w-3 h-3" />
               </button>
             </div>
-            
+
             <div className="space-y-3">
               {recentMessages.length > 0 ? (
                 recentMessages.map((msg) => (
-                  <div key={msg.id} className="group flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+                  <div
+                    key={msg.id}
+                    className="group flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-800"
+                  >
                     <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-sm uppercase shrink-0">
                       {msg.name.charAt(0)}
                     </div>
@@ -624,7 +680,7 @@ const AdminDashboard = () => {
                         </div>
                       </td>
                       <td className="p-4 text-sm text-gray-500">
-                        { user.totalLogins}
+                        {user.totalLogins}
                       </td>
                       <td className="p-4 text-right">
                         <button
