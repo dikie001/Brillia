@@ -72,7 +72,8 @@ const ContactDeveloper = () => {
 
             {/* WhatsApp */}
             <a
-              href="https://wa.me/254716957179?text=Greetings%2C%20I%20hope%20you%20are%20doing%20well.%20I%20would%20like%20to%20connect."
+              href="https://wa.me/254716957179?text=Hello.%20I%20hope%20you%E2%80%99re%20doing%20well.%20I%E2%80%99d%20like%20to%20reach%20out%20regarding%20a%20quick%20inquiry.
+"
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-center py-6 px-4 bg-white/80 dark:bg-gray-800/50 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-indigo-600/10 dark:border-indigo-600/20 hover:-translate-y-2"
@@ -98,33 +99,40 @@ const ContactDeveloper = () => {
             </div>
             <div className="flex flex-col p-6 bg-white/80 dark:bg-gray-800/50 rounded-b-3xl shadow-xl border border-gray-200 dark:border-gray-700/50">
               <form onSubmit={handleSubmit} className="space-y-4">
+                <label
+                  htmlFor="name"
+                  className=" text-sm flex justify-start font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Full Name
+                </label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
-                  placeholder="Your Name"
+                  placeholder="What's your name?"
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full p-3.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all duration-200"
                 />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
+
+                <label
+                  htmlFor="message"
+                  className=" text-sm flex font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Message
+                </label>
                 <textarea
+                  id="message"
                   name="message"
-                  placeholder="Your Message"
+                  placeholder="How can I help you?"
                   value={formData.message}
                   onChange={handleInputChange}
                   required
                   rows={4}
-                  className="w-full p-3 rounded-lg border border-indigo-600/20 dark:border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                  className="w-full p-3.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all duration-200"
                 />
+
                 <button
                   type="submit"
                   onClick={() => {
@@ -137,6 +145,7 @@ const ContactDeveloper = () => {
                       toast.error("Fill all the input fields please");
                       setLoading(false);
                       setCount((prev) => prev + 1);
+
                       if (count >= 2) {
                         toast.info(
                           `Just take your time and fill all the fields ${
@@ -150,9 +159,7 @@ const ContactDeveloper = () => {
                         }
                         if (count >= 4) {
                           toast.success("Redirected to home page");
-                          setTimeout(() => {
-                            navigate("/");
-                          }, 500);
+                          setTimeout(() => navigate("/"), 500);
                         }
                       }
                     }
