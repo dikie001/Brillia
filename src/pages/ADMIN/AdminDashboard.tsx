@@ -106,7 +106,6 @@ const UserDetailModal = ({
   // 1. Sort data by date just in case
   // 2. Add a display label for "Test 1", "Test 2"
   const chartData = [...user.quizHistory]
-    .reverse()
     // Assuming date is string "YYYY-MM-DD" or similar, otherwise standard sort
     // .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .map((item, index) => ({

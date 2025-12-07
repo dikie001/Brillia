@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "@/components/app/Navbar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { db } from "@/firebase/config.firebase";
 import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
 import {
@@ -12,7 +13,6 @@ import {
   XCircle
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import LoaderPage from "./Loader";
 
 // --- TYPES ---
 interface UserMessage {
@@ -60,14 +60,13 @@ const AdminMessages = () => {
 
   // --- DELETE MESSAGE ---
   const handleDelete = async (id: string, e?: React.MouseEvent) => {
-    e?.stopPropagation(); // Prevent clicking the row when deleting
+    e?.stopPropagation(); 
     if (confirm("Delete this message permanently?")) {
       try {
         await deleteDoc(doc(db, "messages", id));
         const updated = messages.filter((msg) => msg.id !== id);
         setMessages(updated);
         
-        // If we deleted the selected message, select the next one or null
         if (selectedMsgId === id) {
           setSelectedMsgId(updated.length > 0 ? updated[0].id : null);
         }
@@ -105,8 +104,6 @@ const AdminMessages = () => {
 
   const selectedMessage = messages.find((m) => m.id === selectedMsgId);
 
-  if (loading) return <LoaderPage />;
-
   return (
     <div className="h-screen bg-gray-50 dark:bg-gray-950 flex flex-col overflow-hidden">
       <div className="pt-20 px-4 sm:px-6 lg:px-8 pb-4 shrink-0">
@@ -122,9 +119,11 @@ const AdminMessages = () => {
             <div className="p-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Inbox className="w-5 h-5 text-indigo-600" /> Inbox
-                <span className="text-xs font-normal text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
-                  {filteredMessages.length}
-                </span>
+                {!loading && (
+                  <span className="text-xs font-normal text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
+                    {filteredMessages.length}
+                  </span>
+                )}
               </h2>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -140,7 +139,19 @@ const AdminMessages = () => {
 
             {/* Scrollable List */}
             <div className="flex-1 overflow-y-auto p-2 space-y-2">
-              {filteredMessages.length > 0 ? (
+              {loading ? (
+                // SKELETON LIST ITEMS
+                [...Array(6)].map((_, i) => (
+                  <div key={i} className="p-4 rounded-xl border border-transparent bg-white dark:bg-gray-900/40">
+                    <div className="flex justify-between items-center mb-2">
+                      <Skeleton className="h-4 w-24 rounded-md" />
+                      <Skeleton className="h-3 w-12 rounded-md" />
+                    </div>
+                    <Skeleton className="h-3 w-full mb-1.5 rounded-md" />
+                    <Skeleton className="h-3 w-2/3 rounded-md" />
+                  </div>
+                ))
+              ) : filteredMessages.length > 0 ? (
                 filteredMessages.map((msg) => (
                   <button
                     key={msg.id}
@@ -180,7 +191,30 @@ const AdminMessages = () => {
 
           {/* --- RIGHT SIDE: PREVIEW PANEL --- */}
           <div className="hidden md:flex flex-1 flex-col bg-white dark:bg-gray-900 relative">
-            {selectedMessage ? (
+            {loading ? (
+              // SKELETON PREVIEW
+              <div className="flex flex-col h-full animate-pulse">
+                {/* Skeleton Header */}
+                <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex items-start gap-4">
+                  <Skeleton className="w-12 h-12 rounded-full" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-5 w-48 rounded-md" />
+                    <div className="flex gap-3">
+                      <Skeleton className="h-3 w-24 rounded-md" />
+                      <Skeleton className="h-3 w-24 rounded-md" />
+                    </div>
+                  </div>
+                </div>
+                {/* Skeleton Body */}
+                <div className="p-8 space-y-4 max-w-3xl">
+                  <Skeleton className="h-4 w-24 rounded-full mb-6" />
+                  <Skeleton className="h-4 w-full rounded-md" />
+                  <Skeleton className="h-4 w-full rounded-md" />
+                  <Skeleton className="h-4 w-[90%] rounded-md" />
+                  <Skeleton className="h-4 w-[95%] rounded-md" />
+                </div>
+              </div>
+            ) : selectedMessage ? (
               <>
                 {/* Preview Header */}
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-start bg-white dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-20">
@@ -226,7 +260,7 @@ const AdminMessages = () => {
                   </div>
                 </div>
                 
-                {/* Footer / Reply Area (Visual Only) */}
+                {/* Footer */}
                 <div className="p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30">
                    <div className="flex items-center gap-2 text-sm text-gray-400">
                      <Mail className="w-4 h-4"/> 

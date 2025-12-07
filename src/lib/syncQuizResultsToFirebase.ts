@@ -1,6 +1,12 @@
 import { FIREBASE_TEST_RESULTS } from "@/constants";
 import { db } from "@/firebase/config.firebase";
-import { doc, collection, setDoc, serverTimestamp } from "firebase/firestore"; // Import serverTimestamp
+import { 
+  doc, 
+  collection, 
+  setDoc, 
+  serverTimestamp, 
+  getCountFromServer 
+} from "firebase/firestore";
 
 export interface QuizResult {
   testNumber: number;
@@ -12,9 +18,6 @@ export interface QuizResult {
   timeTaken: number;
 }
 
-// ----------------------
-// GET LOCAL RESULTS
-// ----------------------
 export const getLocalQuizResults = (): QuizResult[] => {
   try {
     const raw = localStorage.getItem(FIREBASE_TEST_RESULTS);
@@ -26,9 +29,6 @@ export const getLocalQuizResults = (): QuizResult[] => {
   }
 };
 
-// ----------------------
-// SYNC RESULTS TO FIREBASE
-// ----------------------
 export const syncQuizResultsToFirebase = async (userId: string) => {
   const results = getLocalQuizResults();
   if (results.length === 0) return;
@@ -37,31 +37,33 @@ export const syncQuizResultsToFirebase = async (userId: string) => {
     const userRef = doc(db, "users", userId);
     const resultsRef = collection(userRef, "quizResults");
 
-    // We keep track if we successfully saved everything
+    // 1. Get the current number of documents
+    const snapshot = await getCountFromServer(resultsRef);
+    let currentCount = snapshot.data().count;
+
     let allSaved = true;
 
     for (const result of results) {
       try {
-        // FIX 1: Use Date.now() for the ID. 
-        // This ensures they appear ordered in the Firestore Console.
-        // We add a random suffix just in case two happen at the EXACT same millisecond.
-        const timeBasedId = `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        currentCount++; // Increment for the new doc
+        
+        // 2. Pad with zeros (001, 002, 003...)
+        const formattedId = String(currentCount).padStart(3, '0');
 
-        await setDoc(doc(resultsRef, timeBasedId), {
+        await setDoc(doc(resultsRef, formattedId), {
           ...result,
-          // FIX 2: Use serverTimestamp for accurate sorting when fetching
-          createdAt: serverTimestamp(), 
+          id: formattedId, // Useful to store the ID inside the doc too
+          createdAt: serverTimestamp(),
           syncedAt: new Date().toISOString(),
         });
         
       } catch (err) {
         console.error("Record sync failed:", err);
-        allSaved = false; 
-        continue;
+        allSaved = false;
       }
     }
 
-    // FIX 3: Only clear storage AFTER the loop finishes
+    // 3. Clear local storage only if all saved successfully
     if (allSaved) {
       localStorage.removeItem(FIREBASE_TEST_RESULTS);
     }
