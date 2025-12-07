@@ -9,6 +9,7 @@ import {
   Clock,
   Eye,
   Filter,
+  MessageSquare, // Added Icon
   Search,
   Target,
   Trophy,
@@ -16,6 +17,7 @@ import {
   X
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Added for navigation
 import {
   CartesianGrid,
   Line,
@@ -27,32 +29,28 @@ import {
 } from "recharts";
 import LoaderPage from "./Loader";
 
-// --- TYPES BASED ON YOUR DATA ---
-
+// --- TYPES ---
 interface QuizResult {
-  date: string; // "12/6/2025"
-  percentage: number; // 45
-  score: number; // 9
-  subject: string; // "Pre-Technical..."
-  testNumber: number; // 9
-  timeTaken: number; // 30
-  totalQuestions: number; // 20
+  date: string;
+  percentage: number;
+  score: number;
+  subject: string;
+  testNumber: number;
+  timeTaken: number;
+  totalQuestions: number;
 }
 
 interface UserData {
-  id: string; // "18adff..."
-  fullName: string; // "Dickens Omondi"
-  age: string; // "34"
-  favoriteSubject: string; // "pre-tech studies"
-  hobby: string; // "Swimming"
-  last: string; // "2025-12-06"
-  totalLogins: number; // 1
-  // Calculated fields we will add after fetching:
+  id: string;
+  fullName: string;
+  age: string;
+  favoriteSubject: string;
+  hobby: string;
+  last: string;
+  totalLogins: number;
   calculatedAvg: number;
   quizHistory: QuizResult[];
 }
-
-
 
 // --- MODAL COMPONENT ---
 const UserDetailModal = ({
@@ -65,187 +63,188 @@ const UserDetailModal = ({
   if (!user) return null;
 
   return (
-<div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-  <div
-    className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity"
-    onClick={onClose}
-  />
-  <div className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col animate-in fade-in zoom-in-95 duration-200">
-    
-    {/* Header Background: Changed to solid color */}
-    <div className="relative h-32 bg-indigo-600 shrink-0">
-      <button
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+      <div
+        className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md transition-all"
-      >
-        <X className="w-5 h-5" />
-      </button>
-    </div>
-
-    <div className="px-8 pb-8">
-      {/* User Profile Info */}
-      <div className="relative flex justify-between items-end -mt-12 mb-6">
-        <div className="flex items-end gap-4">
-          <div className="w-24 h-24 rounded-2xl bg-white dark:bg-gray-800 p-1 shadow-xl shrink-0">
-            <div className="w-full h-full rounded-xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 uppercase">
-              {user.fullName.charAt(0)}
-            </div>
-          </div>
-          <div className="mb-1">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {user.fullName}
-            </h2>
-            <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
-              <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800">
-                Age: {user.age}
-              </span>
-              <span>•</span>
-              <span className="text-emerald-500">Active</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        {/* Left Column: Personal Info */}
-        <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-            Student Details
-          </h3>
-          <div className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg mt-1">
-              <Target className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 block">
-                Favorite Subject
-              </span>
-              <span className="text-sm font-medium">
-                {user.favoriteSubject}
-              </span>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg mt-1">
-              <Activity className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 block">Hobby</span>
-              <span className="text-sm font-medium">{user.hobby}</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
-            <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <Calendar className="w-4 h-4" />
-            </div>
-            <span className="text-sm">Last Active: {user.last}</span>
-          </div>
-        </div>
-
-        {/* Right Column: Key Metrics */}
-        <div className="col-span-2 grid grid-cols-3 gap-4">
-          <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
-            <p className="text-xs text-indigo-500 font-bold uppercase">
-              Tests Taken
-            </p>
-            <p className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
-              {user.quizHistory.length}
-            </p>
-          </div>
-          <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-2xl border border-pink-100 dark:border-pink-800/30">
-            <p className="text-xs text-pink-500 font-bold uppercase">
-              Best Score
-            </p>
-            <p className="text-2xl font-bold text-pink-700 dark:text-pink-300">
-              {user.quizHistory.length > 0
-                ? Math.max(...user.quizHistory.map((q: any) => q.percentage))
-                : 0}
-              %
-            </p>
-          </div>
-          <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-2xl border border-amber-100 dark:border-amber-800/30">
-            <p className="text-xs text-amber-500 font-bold uppercase">
-              Avg Score
-            </p>
-            <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">
-              {user.calculatedAvg}%
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Graph Section */}
-      <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
-        <div className="flex items-center gap-2 mb-6">
-          <Trophy className="w-5 h-5 text-indigo-500" />
-          <h3 className="font-bold text-gray-800 dark:text-gray-100">
-            Performance History
-          </h3>
-        </div>
+      />
+      <div className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col animate-in fade-in zoom-in-95 duration-200">
         
-        {/* Mobile Scroll Wrapper */}
-        <div className="w-full overflow-x-auto pb-2">
-          <div className="h-[250px] w-full min-w-[500px]">
-            {user.quizHistory && user.quizHistory.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={user.quizHistory}>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    strokeOpacity={0.1}
-                  />
-                  <XAxis
-                    dataKey="date"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "#9ca3af" }}
-                    dy={10}
-                  />
-                  <YAxis
-                    domain={[0, 100]}
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "#9ca3af" }}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      borderRadius: "12px",
-                      border: "none",
-                      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-                    }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="percentage"
-                    name="Score (%)"
-                    stroke="#6366f1"
-                    strokeWidth={3}
-                    dot={{
-                      r: 4,
-                      fill: "#6366f1",
-                      strokeWidth: 2,
-                      stroke: "#fff",
-                    }}
-                    activeDot={{ r: 6 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex items-center justify-center text-gray-400">
-                No tests taken yet.
+        {/* Header Background */}
+        <div className="relative h-32 bg-indigo-600 shrink-0">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md transition-all"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="px-8 pb-8">
+          {/* User Profile Info */}
+          <div className="relative flex justify-between items-end -mt-12 mb-6">
+            <div className="flex items-end gap-4">
+              <div className="w-24 h-24 rounded-2xl bg-white dark:bg-gray-800 p-1 shadow-xl shrink-0">
+                <div className="w-full h-full rounded-xl bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-3xl font-bold text-indigo-600 dark:text-indigo-400 uppercase">
+                  {user.fullName.charAt(0)}
+                </div>
               </div>
-            )}
+              <div className="mb-1">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {user.fullName}
+                </h2>
+                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
+                  <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800">
+                    Age: {user.age}
+                  </span>
+                  <span>•</span>
+                  <span className="text-emerald-500">Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Left Column: Personal Info */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                Student Details
+              </h3>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg mt-1">
+                  <Target className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-xs text-gray-400 block">
+                    Favorite Subject
+                  </span>
+                  <span className="text-sm font-medium">
+                    {user.favoriteSubject}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg mt-1">
+                  <Activity className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-xs text-gray-400 block">Hobby</span>
+                  <span className="text-sm font-medium">{user.hobby}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
+                <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <span className="text-sm">Last Active: {user.last}</span>
+              </div>
+            </div>
+
+            {/* Right Column: Key Metrics */}
+            <div className="col-span-2 grid grid-cols-3 gap-4">
+              <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+                <p className="text-xs text-indigo-500 font-bold uppercase">
+                  Tests Taken
+                </p>
+                <p className="text-2xl font-bold text-indigo-700 dark:text-indigo-300">
+                  {user.quizHistory.length}
+                </p>
+              </div>
+              <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-2xl border border-pink-100 dark:border-pink-800/30">
+                <p className="text-xs text-pink-500 font-bold uppercase">
+                  Best Score
+                </p>
+                <p className="text-2xl font-bold text-pink-700 dark:text-pink-300">
+                  {user.quizHistory.length > 0
+                    ? Math.max(...user.quizHistory.map((q: any) => q.percentage))
+                    : 0}
+                  %
+                </p>
+              </div>
+              <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-2xl border border-amber-100 dark:border-amber-800/30">
+                <p className="text-xs text-amber-500 font-bold uppercase">
+                  Avg Score
+                </p>
+                <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">
+                  {user.calculatedAvg}%
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Graph Section */}
+          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+            <div className="flex items-center gap-2 mb-6">
+              <Trophy className="w-5 h-5 text-indigo-500" />
+              <h3 className="font-bold text-gray-800 dark:text-gray-100">
+                Performance History
+              </h3>
+            </div>
+            
+            {/* Mobile Scroll Wrapper */}
+            <div className="w-full overflow-x-auto pb-2">
+              <div className="h-[250px] w-full min-w-[500px]">
+                {user.quizHistory && user.quizHistory.length > 0 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={user.quizHistory}>
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        vertical={false}
+                        strokeOpacity={0.1}
+                      />
+                      <XAxis
+                        dataKey="date"
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 12, fill: "#9ca3af" }}
+                        dy={10}
+                      />
+                      <YAxis
+                        domain={[0, 100]}
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 12, fill: "#9ca3af" }}
+                      />
+                      <Tooltip
+                        contentStyle={{
+                          borderRadius: "12px",
+                          border: "none",
+                          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                        }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="percentage"
+                        name="Score (%)"
+                        stroke="#6366f1"
+                        strokeWidth={3}
+                        dot={{
+                          r: 4,
+                          fill: "#6366f1",
+                          strokeWidth: 2,
+                          stroke: "#fff",
+                        }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full flex items-center justify-center text-gray-400">
+                    No tests taken yet.
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
   );
 };
 
 // --- MAIN DASHBOARD ---
 const AdminDashboard = () => {
+  const navigate = useNavigate(); // Navigation hook
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
@@ -261,17 +260,14 @@ const AdminDashboard = () => {
 
         // 1. Fetch Users Collection
         const usersRef = collection(db, "users");
-        // Sort by 'last' active date descending
         const q = query(usersRef);
         const userSnapshot = await getDocs(q);
 
         // 2. Map through users and fetch their Quiz Results Sub-collection
         const userDataPromises = userSnapshot.docs.map(async (userDoc) => {
           const rawUser = userDoc.data();
-          const userId = userDoc.id; // Or rawUser.id since it's in the data too
+          const userId = userDoc.id;
 
-          // Fetch Sub-collection: "quizResults"
-          // <--- CHANGE "quizResults" BELOW IF YOUR COLLECTION IS NAMED DIFFERENTLY
           const quizRef = collection(db, "users", userId, "quizResults");
           const quizSnapshot = await getDocs(quizRef);
 
@@ -304,9 +300,7 @@ const AdminDashboard = () => {
           } as UserData;
         });
 
-        // Wait for all sub-collections to load
         const fullData = await Promise.all(userDataPromises);
-
         setUsers(fullData);
       } catch (error) {
         console.error("Error fetching admin data:", error);
@@ -325,7 +319,6 @@ const AdminDashboard = () => {
 
   // Stats Logic
   const totalUsers = users.length;
-  // Sum of all tests taken by all users
   const totalTestsTaken = users.reduce(
     (acc, user) => acc + user.quizHistory.length,
     0
@@ -361,7 +354,7 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-<LoaderPage/>
+     <LoaderPage/>
     );
   }
 
@@ -374,7 +367,7 @@ const AdminDashboard = () => {
       />
 
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        {/* Header with MESSAGES BUTTON added */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -384,6 +377,16 @@ const AdminDashboard = () => {
               Manage students and monitor performance.
             </p>
           </div>
+
+          <button
+            onClick={() => navigate("/admin/messages")}
+            className="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm"
+          >
+            <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+               <MessageSquare className="w-4 h-4" />
+            </div>
+            <span className="font-semibold text-sm">View Messages</span>
+          </button>
         </div>
 
         {/* Stats Grid */}

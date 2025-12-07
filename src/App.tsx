@@ -11,6 +11,7 @@ import { trackDailyLogin } from "./lib/trackDailyLogin";
 import { USER_INFO } from "./constants";
 import { syncQuizResultsToFirebase } from "./lib/syncQuizResultsToFirebase";
 import AdminAuth from "./pages/ADMIN/Auth";
+import AdminMessages from "./pages/ADMIN/Messages";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
           <Route path="/admin-auth" element={<AdminAuth />} />
+          <Route path="/admin-messages" element={<AdminMessages />} />
         </Routes>
       </Suspense>
     </Router>

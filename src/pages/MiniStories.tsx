@@ -31,10 +31,12 @@ const genreColors: Record<string, string> = {
     "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
   "Sci-Fi":
     "bg-gradient-to-r from-cyan-200/40 to-indigo-200/40 text-cyan-900 dark:border border-cyan-800 dark:from-cyan-900/40 dark:to-indigo-900/40 dark:text-cyan-300",
+
   Paranormal:
     "bg-gradient-to-r from-rose-200/40 to-red-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-red-900/40 dark:text-rose-300",
   Thriller:
     "bg-gradient-to-r from-slate-200/40 to-zinc-200/40 text-slate-900 dark:border border-slate-800 dark:from-slate-900/40 dark:to-zinc-900/40 dark:text-slate-300",
+
   Historical:
     "bg-gradient-to-r from-stone-200/40 to-amber-200/40 text-stone-900 dark:border border-stone-800 dark:from-stone-900/40 dark:to-amber-900/40 dark:text-stone-300",
   "dikie.dev":
@@ -52,33 +54,28 @@ export default function MiniStories() {
   const [currentFilter, setCurrentFilter] = useState("All");
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [read, setRead] = useState<Set<number>>(new Set());
-
-  // FIX 1: Lazy initialization for currentPage
-  const [currentPage, setCurrentPage] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem(STORIES_CURRENTPAGE);
-      return saved ? Number(saved) : 1;
-    }
-    return 1;
-  });
-
+  const [currentPage, setCurrentPage] = useState(1);  
   const itemsPerPage = 10;
   const storiesRef = useRef<Story[]>([]);
-  // FIX 2: Ref to track initial mount
-  const isFirstMount = useRef(true);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
   const { playSend } = useSound();
 
-  // FIX 3: Simplified persistence effect
   useEffect(() => {
-    localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
-  }, [currentPage]);
+    if (currentPage !== 1) {
+      localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
+    }
+  }, [currentPage, currentFilter]);
 
+  // Define FetchData via useCallback to avoid dependency issues
   const FetchData = useCallback(() => {
     setLoading(true);
     storiesRef.current = AllStories;
     setFilteredStories(AllStories);
+
+    // Optional: Restore last page if needed
+    // const lastPage = localStorage.getItem(STORIES_CURRENTPAGE);
+    // if (lastPage) setCurrentPage(Number(lastPage));
 
     const storedFavorites = localStorage.getItem(FAVOURITE_STORIES);
     const favoriteStories: Set<number> = storedFavorites
@@ -94,11 +91,27 @@ export default function MiniStories() {
     setLoading(false);
   }, []);
 
+      // FEtch current page number
+  const fetchCurrentPageNumber = () => {
+    const currentPageNumber = localStorage.getItem(STORIES_CURRENTPAGE);
+    console.log(currentPageNumber)
+    if (!currentPageNumber) {
+      setCurrentPage(1);
+    } else {
+      const currentNumber = Number(currentPageNumber);
+      setCurrentPage(currentNumber);
+    }
+  };
+
   useEffect(() => {
     FetchData();
-    // Removed redundant fetchCurrentPageNumber call
+    setCurrentFilter("All");
+    fetchCurrentPageNumber()
   }, [FetchData]);
 
+
+
+  // Handle pagination calculation
   const PaginationPage = useCallback(
     (filtered: Story[]) => {
       const start = (currentPage - 1) * itemsPerPage;
@@ -112,7 +125,12 @@ export default function MiniStories() {
   // Sync pagination when stories or page changes
   useEffect(() => {
     PaginationPage(filteredStories);
+    if (currentPage !== 1) {
+      localStorage.setItem(STORIES_CURRENTPAGE, JSON.stringify(currentPage));
+    }
   }, [currentPage, filteredStories, PaginationPage]);
+
+
 
   // Keyboard navigation
   useEffect(() => {
@@ -125,6 +143,7 @@ export default function MiniStories() {
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [selectedStory]);
 
+  // Get selected story data (search in AllStories to find it even if paginated)
   const selectedStoryData = selectedStory
     ? AllStories.find((s) => s.id === selectedStory)
     : null;
@@ -140,16 +159,12 @@ export default function MiniStories() {
       filtered = AllStories.filter((story) => story.genre === currentFilter);
     }
 
+    // Reset to page 1 on filter change
+    setCurrentPage(1);
     setFilteredStories(filtered);
-
-    // FIX 4: Only reset page to 1 if it's NOT the first mount
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-    } else {
-      setCurrentPage(1);
-    }
   }, [currentFilter, favorite]);
 
+  // Toggle favs
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
@@ -180,6 +195,7 @@ export default function MiniStories() {
     });
   };
 
+  // Save the read stories
   const saveReadStories = (id: number) => {
     setRead((prev) => {
       const newReadStory = new Set(prev);
@@ -199,6 +215,7 @@ export default function MiniStories() {
       <Navbar currentPage="Mini Stories" />
       <Toaster richColors position="top-center" />
       <div className="relative z-10 max-w-7xl mx-auto pt-12">
+        {/* Loading */}
         {loading && (
           <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full">
             <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
@@ -213,6 +230,7 @@ export default function MiniStories() {
           />
         </div>
 
+        {/* RAN OUT OF STORIES??? */}
         {stories.length === 0 && (
           <div className="text-center py-12">
             <Info className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
@@ -225,6 +243,7 @@ export default function MiniStories() {
                 onClick={() => {
                   playSend();
                   setCurrentPage(1);
+                  // localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(2));
                 }}
                 variant="outline"
               >
@@ -234,6 +253,7 @@ export default function MiniStories() {
                 className="bg-indigo-800 dark:bg-indigo-600 cursor-pointer text-white "
                 onClick={() => {
                   playSend();
+                  // handleRequestMoreTeasers()
                 }}
                 variant="default"
               >
@@ -252,9 +272,33 @@ export default function MiniStories() {
           />
         )}
         <div className="grid mb-6 gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* {stories.length === 0 &&  !=="favorites" && (
+            <div className="flex flex-col items-center justify-center text-center py-4 space-y-4 col-span-full">
+              <p className="text-xl font-semibold">
+                {currentFilter !== "All" && "No matches found"}
+              </p>
+              <p className="text-muted-foreground">
+                {currentFilter === "All"
+                  ? "You’ve read all available stories. New ones will drop soon."
+                  : `We couldn't find any stories in the "${currentFilter}" category.`}
+              </p>
+              
+              {currentFilter === "All" && (
+                <Button
+                  variant="default"
+                  className="cursor-pointer"
+                  onClick={() => navigate("/contact-developer")}
+                >
+                  Contact Developer
+                </Button>
+              )}
+            </div>
+          )} */}
+
           {stories.slice(0, 10).map((story, index) => {
             const isFavorite = favorite.has(story.id);
             const isCopied = copied === story.id;
+            // Fallback genre color
             const genreColorClass =
               genreColors[story.genre] || genreColors["Fantasy"];
 
@@ -275,6 +319,7 @@ export default function MiniStories() {
                   >
                     {story.genre}
                   </span>
+                  {/* Read story */}
                   <div
                     className={`flex text-indigo-400 gap-2 justify-end text-sm ${
                       read.has(story.id) ? "" : "hidden"
@@ -305,6 +350,7 @@ export default function MiniStories() {
                   className="flex justify-between border-t mt-2.5"
                 >
                   <div className="flex items-center w-full justify-between mt-1">
+                    {/* Copy and share */}
                     <div className="gap-2 flex">
                       <button
                         onClick={() => {
@@ -335,6 +381,7 @@ export default function MiniStories() {
                         <Share2 className="w-5 h-5" />
                       </button>
                     </div>
+                    {/* Like button */}
                     <div>
                       <button
                         onClick={(e) => {
@@ -428,6 +475,7 @@ export default function MiniStories() {
                   <span className="text-sm hidden md:block text-gray-500 dark:text-gray-400">
                     Press ESC to close
                   </span>
+                  {/* Fav button */}
                   <button
                     onClick={() => {
                       playSend();
