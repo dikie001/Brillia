@@ -339,7 +339,7 @@ const AdminReports = () => {
                                 paddingAngle={5}
                                 dataKey="value"
                             >
-                                {metrics.passFailData.map((entry, index) => (
+                                {metrics.passFailData.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#ef4444'} />
                                 ))}
                             </Pie>
