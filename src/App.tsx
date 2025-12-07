@@ -16,6 +16,7 @@ import UsersPage from "./pages/ADMIN/Users";
 import AdminSettings from "./pages/ADMIN/Settings";
 import AdminReports from "./pages/ADMIN/Reports";
 import AdminNotifications from "./pages/ADMIN/Notifications";
+import VocabularyPage from "./pages/Vocabulary";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/tongue-twisters" element={<TongueTwisters />} />
           <Route path="/amazing-facts" element={<FactFrenzy />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/vocabulary" element={<VocabularyPage />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />
