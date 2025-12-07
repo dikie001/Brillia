@@ -1,27 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "@/components/app/Navbar";
 import { db } from "@/firebase/config.firebase";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import {
   Activity,
+  ArrowRight,
   BookOpen,
   Calendar,
   Clock,
+  Download,
   Eye,
   Filter,
-  MessageSquare, // Added Icon
+  MessageSquare,
   Search,
+  Settings,
   Target,
   Trophy,
   Users,
+  Zap,
   X
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Added for navigation
+import { useNavigate } from "react-router-dom";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -50,6 +54,13 @@ interface UserData {
   totalLogins: number;
   calculatedAvg: number;
   quizHistory: QuizResult[];
+}
+
+interface RecentMessage {
+  id: string;
+  name: string;
+  message: string;
+  createdAt: any;
 }
 
 // --- MODAL COMPONENT ---
@@ -177,20 +188,30 @@ const UserDetailModal = ({
             <div className="flex items-center gap-2 mb-6">
               <Trophy className="w-5 h-5 text-indigo-500" />
               <h3 className="font-bold text-gray-800 dark:text-gray-100">
-                Performance History
+                Performance Trend
               </h3>
             </div>
             
             {/* Mobile Scroll Wrapper */}
             <div className="w-full overflow-x-auto pb-2">
-              <div className="h-[250px] w-full min-w-[500px]">
+              <div className="h-[300px] w-full min-w-[500px]">
                 {user.quizHistory && user.quizHistory.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={user.quizHistory}>
+                    <AreaChart
+                      data={user.quizHistory}
+                      margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                    >
+                      <defs>
+                        <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                          <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
                       <CartesianGrid
                         strokeDasharray="3 3"
                         vertical={false}
-                        strokeOpacity={0.1}
+                        stroke="#e5e7eb"
+                        strokeOpacity={0.5}
                       />
                       <XAxis
                         dataKey="date"
@@ -207,26 +228,25 @@ const UserDetailModal = ({
                       />
                       <Tooltip
                         contentStyle={{
+                          backgroundColor: "#fff",
                           borderRadius: "12px",
                           border: "none",
-                          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                          padding: "12px",
                         }}
+                        itemStyle={{ color: "#4f46e5", fontWeight: 600 }}
+                        cursor={{ stroke: "#6366f1", strokeWidth: 2, strokeDasharray: "5 5" }}
                       />
-                      <Line
+                      <Area
                         type="monotone"
                         dataKey="percentage"
                         name="Score (%)"
                         stroke="#6366f1"
-                        strokeWidth={3}
-                        dot={{
-                          r: 4,
-                          fill: "#6366f1",
-                          strokeWidth: 2,
-                          stroke: "#fff",
-                        }}
-                        activeDot={{ r: 6 }}
+                        strokeWidth={4}
+                        fillOpacity={1}
+                        fill="url(#colorScore)"
                       />
-                    </LineChart>
+                    </AreaChart>
                   </ResponsiveContainer>
                 ) : (
                   <div className="h-full flex items-center justify-center text-gray-400">
@@ -244,26 +264,26 @@ const UserDetailModal = ({
 
 // --- MAIN DASHBOARD ---
 const AdminDashboard = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
   // Data States
   const [users, setUsers] = useState<UserData[]>([]);
+  const [recentMessages, setRecentMessages] = useState<RecentMessage[]>([]);
   const [loading, setLoading] = useState(true);
 
   // --- FETCH DATA ---
   useEffect(() => {
-    const fetchUsersAndScores = async () => {
+    const fetchAllData = async () => {
       try {
         setLoading(true);
 
-        // 1. Fetch Users Collection
+        // 1. Fetch Users
         const usersRef = collection(db, "users");
         const q = query(usersRef);
         const userSnapshot = await getDocs(q);
 
-        // 2. Map through users and fetch their Quiz Results Sub-collection
         const userDataPromises = userSnapshot.docs.map(async (userDoc) => {
           const rawUser = userDoc.data();
           const userId = userDoc.id;
@@ -275,7 +295,6 @@ const AdminDashboard = () => {
             (doc) => doc.data() as QuizResult
           );
 
-          // Calculate Average
           let totalPercent = 0;
           if (quizzes.length > 0) {
             totalPercent = quizzes.reduce(
@@ -286,7 +305,6 @@ const AdminDashboard = () => {
           const avg =
             quizzes.length > 0 ? Math.round(totalPercent / quizzes.length) : 0;
 
-          // Return combined data
           return {
             id: rawUser.id || userId,
             fullName: rawUser.fullName || "Unknown User",
@@ -300,8 +318,21 @@ const AdminDashboard = () => {
           } as UserData;
         });
 
-        const fullData = await Promise.all(userDataPromises);
-        setUsers(fullData);
+        const fullUsersData = await Promise.all(userDataPromises);
+        setUsers(fullUsersData);
+
+        // 2. Fetch Latest 2 Messages
+        const msgRef = collection(db, "messages");
+        const msgQuery = query(msgRef, orderBy("createdAt", "desc"), limit(2));
+        const msgSnapshot = await getDocs(msgQuery);
+        
+        const msgs = msgSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as RecentMessage[];
+        
+        setRecentMessages(msgs);
+
       } catch (error) {
         console.error("Error fetching admin data:", error);
       } finally {
@@ -309,15 +340,13 @@ const AdminDashboard = () => {
       }
     };
 
-    fetchUsersAndScores();
+    fetchAllData();
   }, []);
 
-  // Filter Logic
   const filteredUsers = users.filter((user) =>
     user.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Stats Logic
   const totalUsers = users.length;
   const totalTestsTaken = users.reduce(
     (acc, user) => acc + user.quizHistory.length,
@@ -352,10 +381,16 @@ const AdminDashboard = () => {
     },
   ];
 
+  // Helper for message time
+  const formatTime = (timestamp: any) => {
+    if (!timestamp) return "";
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    // Return relative if recent, or short date
+    return new Intl.DateTimeFormat("en-US", { month: 'short', day: 'numeric', hour: '2-digit', minute:'2-digit' }).format(date);
+  };
+
   if (loading) {
-    return (
-     <LoaderPage/>
-    );
+    return <LoaderPage />;
   }
 
   return (
@@ -367,7 +402,7 @@ const AdminDashboard = () => {
       />
 
       <div className="max-w-7xl mx-auto">
-        {/* Header with MESSAGES BUTTON added */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -377,16 +412,6 @@ const AdminDashboard = () => {
               Manage students and monitor performance.
             </p>
           </div>
-
-          <button
-            onClick={() => navigate("/admin/messages")}
-            className="group flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm"
-          >
-            <div className="p-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
-               <MessageSquare className="w-4 h-4" />
-            </div>
-            <span className="font-semibold text-sm">View Messages</span>
-          </button>
         </div>
 
         {/* Stats Grid */}
@@ -419,6 +444,99 @@ const AdminDashboard = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* NEW SECTION: Quick Actions & Recent Messages */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          
+          {/* Quick Actions */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col">
+            <h3 className="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-500" /> Quick Actions
+            </h3>
+            <div className="grid grid-cols-2 gap-3 flex-1">
+              <button
+                onClick={() => navigate("/admin/messages")}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 transition-colors gap-2 group border border-transparent hover:border-indigo-100 dark:hover:border-indigo-500/30"
+              >
+                <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-semibold">Messages</span>
+              </button>
+              
+              <button 
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 transition-colors gap-2 group border border-transparent hover:border-emerald-100 dark:hover:border-emerald-500/30"
+              >
+                <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                  <Download className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-semibold">Export Data</span>
+              </button>
+              
+              <button 
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 transition-colors gap-2 group border border-transparent hover:border-pink-100 dark:hover:border-pink-500/30"
+              >
+                <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                  <Settings className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-semibold">Settings</span>
+              </button>
+
+              <button 
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors gap-2 group border border-transparent hover:border-blue-100 dark:hover:border-blue-500/30"
+              >
+                <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-semibold">Manage</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Recent Inquiries */}
+          <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-gray-800 dark:text-white flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-indigo-500" /> Recent Inquiries
+              </h3>
+              <button 
+                onClick={() => navigate("/admin/messages")}
+                className="text-xs font-medium text-indigo-600 hover:text-indigo-700 flex items-center gap-1 hover:underline"
+              >
+                View all <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              {recentMessages.length > 0 ? (
+                recentMessages.map((msg) => (
+                  <div key={msg.id} className="group flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-800">
+                    <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-sm uppercase shrink-0">
+                      {msg.name.charAt(0)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start">
+                        <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                          {msg.name}
+                        </h4>
+                        <span className="text-[10px] text-gray-400 whitespace-nowrap ml-2">
+                          {formatTime(msg.createdAt)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">
+                        {msg.message}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center py-8 text-gray-400 text-sm">
+                  No recent messages found.
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* User Table Container */}

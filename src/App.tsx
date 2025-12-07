@@ -57,7 +57,7 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
           <Route path="/admin-auth" element={<AdminAuth />} />
-          <Route path="/admin-messages" element={<AdminMessages />} />
+          <Route path="/admin/messages" element={<AdminMessages />} />
         </Routes>
       </Suspense>
     </Router>
