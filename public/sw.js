@@ -59,6 +59,7 @@ self.addEventListener("install", (event) => {
           "/results",
           "/contact-developer",
           "/settings",
+          "/communication",
           "/vocabulary",
           "/about",
           "/help",

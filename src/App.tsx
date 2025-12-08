@@ -18,6 +18,7 @@ import AdminReports from "./pages/ADMIN/Reports";
 import AdminNotifications from "./pages/ADMIN/Notifications";
 import VocabularyPage from "./pages/Vocabulary";
 import { useUpdateListener } from "./hooks/useUpdateListener";
+import PracticeCommunication from "./pages/PracticeCommunication";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -30,7 +31,7 @@ const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
 const ContactDeveloper = lazy(() => import("./pages/SUPPORT/ContactDeveloper"));
 
 const App = () => {
-  //Initialize the listener 
+  //Initialize the listener
   useUpdateListener();
 
   // Track daily logins
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="/tongue-twisters" element={<TongueTwisters />} />
           <Route path="/amazing-facts" element={<FactFrenzy />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/communication" element={<PracticeCommunication />} />
           <Route path="/vocabulary" element={<VocabularyPage />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
