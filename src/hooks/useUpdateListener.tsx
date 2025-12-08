@@ -1,45 +1,71 @@
+import { PartyPopper, Sparkles } from "lucide-react";
 import { useEffect } from "react";
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 
 export function useUpdateListener() {
   useEffect(() => {
+    // 1. Check if we just finished an update (Post-Update Feedback)
+    const wasUpdated = localStorage.getItem("app-was-updated");
+    
+    if (wasUpdated) {
+      // Small delay to ensure the UI is mounted before showing the toast
+      setTimeout(() => {
+        toast("App Updated Successfully!", {
+          description: "You are now using the latest version with new features.",
+          icon: <PartyPopper className="w-5 h-5 text-green-500" />,
+          duration: 5000,
+        });
+        localStorage.removeItem("app-was-updated");
+      }, 500);
+    }
+
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
 
-    const triggerUpdateToast = (registration: ServiceWorkerRegistration) => {
+    // 2. Define the Update Prompt Toast
+    const showUpdateToast = (registration: ServiceWorkerRegistration) => {
       toast("Update Available", {
-        description: "A new version of the app is ready.",
+        description: "A newer, faster version of the app is ready.",
+        icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
+        duration: Infinity, // Keep it visible until action taken
         action: {
-          label: "Refresh",
+          label: "Update Now",
           onClick: () => {
-            // Tell the new SW to take over
-            registration.waiting?.postMessage({ type: "SKIP_WAITING" });
-            // Reload the page
+            // Set flag so we know to show success message after reload
+            localStorage.setItem("app-was-updated", "true");
+
+            // Tell new SW to activate
+            if (registration.waiting) {
+              registration.waiting.postMessage({ type: "SKIP_WAITING" });
+            }
+            
+            // Reload immediately to apply changes
             window.location.reload();
           },
         },
-        duration: Infinity, // Important: Don't auto-dismiss
+        cancel: {
+          label: "Later",
+          onClick: () => { /* User dismissed it */ }
+        }
       });
-
-      console.log("PWA updated successfully!")
     };
 
+    // 3. Register Listeners
     navigator.serviceWorker.ready.then((registration) => {
-      // 1. Check if an update is already waiting (e.g. from a previous background check)
+      // Check if waiting state exists on load
       if (registration.waiting) {
-        triggerUpdateToast(registration);
+        showUpdateToast(registration);
       }
 
-      // 2. Listen for new updates while the app is running
+      // Listen for new updates arriving while using the app
       registration.addEventListener("updatefound", () => {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener("statechange", () => {
-            // If the new worker is installed and there is an existing controller, it's an update
             if (
               newWorker.state === "installed" &&
               navigator.serviceWorker.controller
             ) {
-              triggerUpdateToast(registration);
+              showUpdateToast(registration);
             }
           });
         }
