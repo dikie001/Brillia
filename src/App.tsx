@@ -17,6 +17,7 @@ import AdminSettings from "./pages/ADMIN/Settings";
 import AdminReports from "./pages/ADMIN/Reports";
 import AdminNotifications from "./pages/ADMIN/Notifications";
 import VocabularyPage from "./pages/Vocabulary";
+import { useUpdateListener } from "./hooks/useUpdateListener";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -29,6 +30,9 @@ const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
 const ContactDeveloper = lazy(() => import("./pages/SUPPORT/ContactDeveloper"));
 
 const App = () => {
+  //Initialize the listener 
+  useUpdateListener();
+
   // Track daily logins
   useEffect(() => {
     const userData = localStorage.getItem(USER_INFO);
