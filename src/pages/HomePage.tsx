@@ -11,7 +11,6 @@ import {
   Play,
   Puzzle,
   Quote,
-  Sparkles,
   TrendingUp,
   Trophy,
   Wand,
@@ -276,18 +275,7 @@ const HomePage: React.FC = () => {
           })}
         </div>
 
-        {/* Motivational Section */}
-        <div
-          className="mt-16 text-center animate-in fade-in duration-1000"
-          style={{ animationDelay: "600ms" }}
-        >
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-200/30 dark:border-gray-700/30">
-            <Sparkles className="w-4 h-4 text-indigo-500" />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
-              Keep pushing your limits!
-            </span>
-          </div>
-        </div>
+ 
       </main>
 
       <Footer />
