@@ -20,9 +20,4 @@ if ('serviceWorker' in navigator) {
 
 }
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      window.location.reload();
-      console.log("updated!")
-    });
-  }
+

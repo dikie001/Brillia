@@ -10,24 +10,32 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "auto", // Auto inject service worker registration
+      // 1. CHANGE THIS TO 'prompt'
+      // This gives your UI control over when to activate the new version
+      registerType: "prompt", 
+      
+      injectRegister: "auto",
 
-      // Workbox configuration for offline caching
+      // 2. Enable this to test updates in development
+      devOptions: {
+        enabled: true, 
+        type: "module",
+        navigateFallback: "index.html",
+      },
+
       workbox: {
         globPatterns: [
           "**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,mp3,wav,ogg,json}",
         ],
         globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
 
-        // Clean up old caches automatically
+        // 3. These settings are crucial for "Immediate" updates
         cleanupOutdatedCaches: true,
         skipWaiting: true,
         clientsClaim: true,
 
-        // Runtime caching strategies for different resource types
+        // Your runtime caching rules look good, keeping them as is:
         runtimeCaching: [
-          // For HTML pages - Network First (freshest content)
           {
             urlPattern: /\.html$/i,
             handler: "NetworkFirst",
@@ -35,13 +43,11 @@ export default defineConfig({
               cacheName: "pages-cache",
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxAgeSeconds: 60 * 60 * 24,
               },
-              networkTimeoutSeconds: 10, // Fallback to cache if network takes >10s
+              networkTimeoutSeconds: 10,
             },
           },
-
-          // For images - Cache First (fast loading)
           {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
             handler: "CacheFirst",
@@ -49,15 +55,13 @@ export default defineConfig({
               cacheName: "images-cache",
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 30,
               },
               cacheableResponse: {
                 statuses: [0, 200],
               },
             },
           },
-
-          // For audio files - Cache First
           {
             urlPattern: /\.(?:mp3|wav|ogg|m4a)$/i,
             handler: "CacheFirst",
@@ -65,12 +69,10 @@ export default defineConfig({
               cacheName: "audio-cache",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                maxAgeSeconds: 60 * 60 * 24 * 30,
               },
             },
           },
-
-          // For CSS and JS - StaleWhileRevalidate (cached but check for updates)
           {
             urlPattern: /\.(?:js|css)$/i,
             handler: "StaleWhileRevalidate",
@@ -78,12 +80,10 @@ export default defineConfig({
               cacheName: "static-resources",
               expiration: {
                 maxEntries: 60,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+                maxAgeSeconds: 60 * 60 * 24 * 7,
               },
             },
           },
-
-          // For external resources
           {
             urlPattern: /^https:\/\/.*/i,
             handler: "NetworkFirst",
@@ -91,13 +91,11 @@ export default defineConfig({
               cacheName: "external-cache",
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+                maxAgeSeconds: 60 * 60 * 24 * 7,
               },
               networkTimeoutSeconds: 5,
             },
           },
-
-          // Fallback for all other requests
           {
             urlPattern: /.*/i,
             handler: "NetworkFirst",
@@ -105,18 +103,15 @@ export default defineConfig({
               cacheName: "fallback-cache",
               expiration: {
                 maxEntries: 30,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxAgeSeconds: 60 * 60 * 24,
               },
             },
           },
         ],
-
-        // Navigate fallback for SPA routing
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api/, /^\/admin/, /\.(?:json|xml)$/],
       },
 
-      // Manifest configuration
       manifest: {
         name: "Brillia",
         short_name: "Brillia",
@@ -128,7 +123,6 @@ export default defineConfig({
         theme_color: "#4f46e5",
         orientation: "portrait",
         scope: "/",
-
         icons: [
           {
             src: "/images/logo-192.png",
@@ -136,34 +130,20 @@ export default defineConfig({
             type: "image/png",
             purpose: "any maskable",
           },
-
           {
             src: "/images/logo-512.png",
             sizes: "512x512",
             type: "image/png",
           },
         ],
-
-        // Categories for app stores
         categories: ["education", "entertainment", "games"],
-
       },
 
-      // Development options
-      devOptions: {
-        enabled: false, // Disable in dev to avoid SW conflicts
-        type: "module",
-        navigateFallback: "index.html",
-      },
-
-      // For custom offline page
       includeAssets: [
         "/images/logo.png",
         "/sounds/*.mp3",
       ],
-
-      // Strategy for service worker
-      strategies: "generateSW", // Use generateSW for automatic generation
+      strategies: "generateSW", 
     }),
   ],
   resolve: {
