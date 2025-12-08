@@ -3,6 +3,7 @@ import Navbar from "@/components/app/Navbar";
 import { TEST_RESULTS } from "@/constants";
 import useSound from "@/hooks/useSound";
 import LearnerModal from "@/modals/Welcome";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Book,
@@ -25,6 +26,32 @@ const READ_STORIES = "read-stories";
 type Complete = {
   stories: number;
   quiz: number;
+};
+
+// --- Animation Variants ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // Staggers the cards appearing
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0, scale: 0.9 },
+  show: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 260,
+      damping: 20,
+    },
+  },
 };
 
 const HomePage: React.FC = () => {
@@ -91,12 +118,11 @@ const HomePage: React.FC = () => {
         "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
       to: "amazing-facts",
     },
-       {
+    {
       name: "Vocabulary",
       icon: <WholeWord />,
       description: "Build your vocabulary",
       color: "from-gray-900 to-orange-900 shadow-lg",
-   
       to: "vocabulary",
     },
   ];
@@ -125,14 +151,18 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 flex flex-col relative overflow-hidden transition-colors duration-500">
-    
-    <Animation/>
+      <Animation />
 
       <Navbar />
 
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24  pb-12">
         {/* Header Section */}
-        <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4"
+        >
           {totalProgress > 0 && (
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl shadow-md text-sm font-semibold mb-4">
               <TrendingUp className="w-4 h-4" />
@@ -145,11 +175,18 @@ const HomePage: React.FC = () => {
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             Daily challenges to sharpen your mind.
           </p>
-        </div>
+        </motion.div>
 
         {/* --- FEATURED HERO BANNER: QUIZ QUEST --- */}
-        <div className="mb-6  flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <button
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-6 flex justify-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => HandleCategoryClick(quizSection.to)}
             className="group relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
           >
@@ -163,21 +200,21 @@ const HomePage: React.FC = () => {
               className={`absolute inset-0 bg-gradient-to-br ${quizSection.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
             />
 
-            {/* Banner Layout: Flex Column on Mobile, Row on Desktop */}
+            {/* Banner Layout */}
             <div className="relative p-4 md:p-8 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
-              
               {/* Left: Icon & Gradient Blob */}
               <div className="relative flex-shrink-0">
                 <div
                   className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
                 />
-                <div
-                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
+                <motion.div
+                  whileHover={{ rotate: [0, -10, 10, 0] }} // Fun wiggle on hover
+                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg`}
                 >
                   {React.cloneElement(quizSection.icon, {
                     className: "w-10 h-10 text-white",
                   })}
-                </div>
+                </motion.div>
               </div>
 
               {/* Middle: Text Content */}
@@ -188,73 +225,90 @@ const HomePage: React.FC = () => {
                 <p className="text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300 max-w-md mx-auto md:mx-0">
                   {quizSection.description}
                 </p>
-                
+
                 {/* Mobile-only Stats */}
                 {completed.quiz > 0 && (
                   <div className="md:hidden pt-2 flex justify-center">
-                     <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-3 py-1 rounded-full">
-                       {completed.quiz} Tests Done
-                     </span>
+                    <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-3 py-1 rounded-full">
+                      {completed.quiz} Tests Done
+                    </span>
                   </div>
                 )}
               </div>
 
               {/* Right: Action / Stats */}
               <div className="flex-shrink-0 flex items-center gap-4">
-                 {/* Desktop Stats */}
-                 {completed.quiz > 0 && (
+                {/* Desktop Stats */}
+                {completed.quiz > 0 && (
                   <div className="hidden md:block text-right">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{completed.quiz}</p>
-                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">Completed</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {completed.quiz}
+                    </p>
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      Completed
+                    </p>
                   </div>
-                 )}
+                )}
 
-                 {/* Play Button visual */}
-                 <div className={`
+                {/* Play Button visual */}
+                <div
+                  className={`
                     hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300
-                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
-                 `}>
-                    <span>Start</span>
-                    <Play className="w-4 h-4 fill-current" />
-                 </div>
+                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100
+                  `}
+                >
+                  <span>Start</span>
+                  <Play className="w-4 h-4 fill-current" />
+                </div>
 
-                 {/* Simple Arrow for Mobile */}
-                 <div className="md:hidden p-3 rounded-full bg-gray-100 dark:bg-gray-700/50 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20 transition-colors">
-                    <ArrowRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
-                 </div>
+                {/* Simple Arrow for Mobile */}
+                <div className="md:hidden p-3 rounded-full bg-gray-100 dark:bg-gray-700/50 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20 transition-colors">
+                  <ArrowRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
+                </div>
               </div>
-
             </div>
-          </button>
-        </div>
-        {/* --- END FEATURED HERO BANNER --- */}
+          </motion.button>
+        </motion.div>
 
-        {/* Grid for other items */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {otherSections.map((section, index) => {
+        {/* --- Grid for other items with Staggered Animation --- */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          {otherSections.map((section) => {
             const hasCompleted = section.name === "Mini Stories";
             const completionCount = completed.stories;
 
             return (
-              <button
+              <motion.button
                 key={section.name}
-                onClick={() => HandleCategoryClick(section.to)}
-                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: "slideUp 0.6s ease-out forwards",
-                  opacity: 0,
+                variants={itemVariants}
+                whileHover={{
+                  scale: 1.05,
+                  y: -5,
+                  transition: { type: "spring", stiffness: 300 },
                 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => HandleCategoryClick(section.to)}
+                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
               >
                 <div
                   className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${section.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}
                 />
-                
+
                 <div className="mb-4 relative">
-                   <div className={`absolute inset-0 bg-gradient-to-r ${section.color} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300`}/>
-                   <div className={`relative p-3 rounded-xl bg-gradient-to-r ${section.color} shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                      {React.cloneElement(section.icon, { className: "w-6 h-6 text-white" })}
-                   </div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${section.color} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300`}
+                  />
+                  <div
+                    className={`relative p-3 rounded-xl bg-gradient-to-r ${section.color} shadow-md group-hover:rotate-6 transition-transform duration-300`}
+                  >
+                    {React.cloneElement(section.icon, {
+                      className: "w-6 h-6 text-white",
+                    })}
+                  </div>
                 </div>
 
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
@@ -270,12 +324,10 @@ const HomePage: React.FC = () => {
                     <span>{completionCount} Read</span>
                   </div>
                 )}
-              </button>
+              </motion.button>
             );
           })}
-        </div>
-
- 
+        </motion.div>
       </main>
 
       <Footer />
@@ -287,13 +339,6 @@ const HomePage: React.FC = () => {
           }}
         />
       )}
-      
-      <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 };
