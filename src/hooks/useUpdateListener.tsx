@@ -19,6 +19,8 @@ export function useUpdateListener() {
         },
         duration: Infinity, // Important: Don't auto-dismiss
       });
+
+      console.log("PWA updated successfully!")
     };
 
     navigator.serviceWorker.ready.then((registration) => {
