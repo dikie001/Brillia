@@ -16,9 +16,16 @@ import {
   ChevronDown,
   type LucideIcon,
   Laptop2,
+  RefreshCcw,
+  Download,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, type Location } from "react-router-dom";
+
+// --- Types ---
 
 type MobileMenuProps = {
   open: boolean;
@@ -36,6 +43,10 @@ interface MenuItem {
   icon: LucideIcon;
   to: string;
 }
+
+type UpdateStatus = "idle" | "checking" | "available" | "latest" | "error";
+
+// --- Constants ---
 
 const mainItems: MenuItem[] = [{ label: "Home", icon: Home, to: "/" }];
 
@@ -58,6 +69,8 @@ const settingsItems: MenuItem[] = [
   { label: "Settings", icon: Settings, to: "/settings" },
 ];
 
+// --- Main Component ---
+
 export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -67,13 +80,66 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
   const [count, setCount] = useState(0);
   const { playSend } = useSound();
 
+  // Update Logic States
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [updateStatus, setUpdateStatus] = useState<UpdateStatus>("idle");
+  const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
+
   useEffect(() => {
     const userDetails = localStorage.getItem("user-info");
     if (userDetails) setUser(JSON.parse(userDetails));
+
+    // Initialize Service Worker check
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((reg) => {
+        setRegistration(reg);
+      });
+    }
   }, []);
 
   const isGroupActive = (items: MenuItem[]) =>
     items.some((item) => location.pathname === item.to);
+
+  const checkForUpdates = useCallback(async () => {
+    playSend();
+    setShowUpdateModal(true);
+    setUpdateStatus("checking");
+
+    if (!registration) {
+      // Fallback for dev mode or no SW
+      setTimeout(() => setUpdateStatus("latest"), 1500);
+      return;
+    }
+
+    try {
+      await registration.update();
+      // If a waiting worker exists, we have an update
+      if (registration.waiting) {
+        setUpdateStatus("available");
+      } else {
+        // Listen for new worker installing
+        if (registration.installing) {
+            const worker = registration.installing;
+            worker.onstatechange = () => {
+                if (worker.state === 'installed') {
+                    setUpdateStatus("available");
+                }
+            }
+        } else {
+             setUpdateStatus("latest");
+        }
+      }
+    } catch (error) {
+      console.error("Update check failed", error);
+      setUpdateStatus("error");
+    }
+  }, [registration, playSend]);
+
+  const applyUpdate = () => {
+    if (!registration || !registration.waiting) return;
+    registration.waiting.postMessage({ type: "SKIP_WAITING" });
+    window.location.reload();
+  };
 
   if (!open) return null;
 
@@ -210,8 +276,7 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
           <div className="relative py-3">
             <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent" />
           </div>
-
-          {/* Settings */}
+{/* Settings */}
           <div className="space-y-1.5">
             {settingsItems.map(({ label, icon: Icon, to }) => {
               const active = location.pathname === to;
@@ -240,6 +305,18 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
                 </button>
               );
             })}
+
+            {/* Check for Update Button */}
+            <button
+              onClick={() => {
+                checkForUpdates();
+                // onClose(); // Optional: Keep menu open to see modal, or close it.
+              }}
+              className="group flex items-center gap-3 w-full px-4 py-3 cursor-pointer rounded-xl text-sm font-medium transition-all duration-200 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/80 hover:shadow-md"
+            >
+              <RefreshCcw className="w-5 h-5 text-indigo-500 dark:text-indigo-400 transition-transform duration-700 group-hover:rotate-180" />
+              <span className="tracking-wide">Check for Update</span>
+            </button>
           </div>
         </nav>
 
@@ -261,12 +338,32 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
               </p>
               <Laptop2 className="text-green-500 dark:text-green-400 w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div className="px-2.5 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 text-indigo-700 dark:text-indigo-400 rounded-lg font-mono font-medium border border-indigo-200 dark:border-gray-700">
-              v{APP_VERSION}
+            
+            <div className="flex items-center gap-2">
+                {/* Update Trigger Button */}
+                <button 
+                    onClick={checkForUpdates}
+                    className="p-1.5 rounded-lg text-indigo-500 hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors"
+                    title="Check for updates"
+                >
+                    <RefreshCcw className="w-4 h-4" />
+                </button>
+                <div className="px-2.5 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 text-indigo-700 dark:text-indigo-400 rounded-lg font-mono font-medium border border-indigo-200 dark:border-gray-700">
+                    v{APP_VERSION}
+                </div>
             </div>
           </div>
         </footer>
       </div>
+
+      {/* Update Modal */}
+      {showUpdateModal && (
+        <UpdateModal 
+            status={updateStatus} 
+            onClose={() => setShowUpdateModal(false)} 
+            onUpdate={applyUpdate}
+        />
+      )}
 
       {/* Custom Scrollbar Styles */}
       <style>{`
@@ -286,6 +383,90 @@ export default function MobileNav({ open, onClose }: MobileMenuProps) {
       `}</style>
     </>
   );
+}
+
+// --- Sub Components ---
+
+function UpdateModal({ 
+    status, 
+    onClose, 
+    onUpdate 
+}: { 
+    status: UpdateStatus; 
+    onClose: () => void; 
+    onUpdate: () => void;
+}) {
+    return (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div 
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
+                onClick={onClose}
+            />
+            
+            {/* Modal Content */}
+            <div className="relative w-full max-w-sm bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 p-6 animate-in zoom-in-95 duration-200">
+                <div className="flex flex-col items-center text-center space-y-4">
+                    
+                    {/* Icon based on status */}
+                    <div className={`p-4 rounded-full ${
+                        status === 'available' ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400' :
+                        status === 'error' ? 'bg-red-100 text-red-600 dark:bg-red-900/30' :
+                        'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300'
+                    }`}>
+                        {status === 'checking' && <Loader2 className="w-8 h-8 animate-spin" />}
+                        {status === 'available' && <Download className="w-8 h-8" />}
+                        {status === 'latest' && <CheckCircle2 className="w-8 h-8" />}
+                        {status === 'error' && <AlertCircle className="w-8 h-8" />}
+                        {status === 'idle' && <RefreshCcw className="w-8 h-8" />}
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="space-y-1">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            {status === 'checking' && "Checking for updates..."}
+                            {status === 'available' && "Update Available"}
+                            {status === 'latest' && "You're up to date"}
+                            {status === 'error' && "Update Check Failed"}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {status === 'checking' && "Please wait while we check version info."}
+                            {status === 'available' && "A new version of the app is ready."}
+                            {status === 'latest' && `Version ${APP_VERSION} is the latest available.`}
+                            {status === 'error' && "Could not connect to update server."}
+                        </p>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-3 w-full pt-2">
+                        {status === 'available' ? (
+                            <>
+                                <button 
+                                    onClick={onClose}
+                                    className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                                >
+                                    Later
+                                </button>
+                                <button 
+                                    onClick={onUpdate}
+                                    className="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 rounded-lg transition-colors shadow-sm"
+                                >
+                                    Update Now
+                                </button>
+                            </>
+                        ) : (
+                            <button 
+                                onClick={onClose}
+                                className="w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            >
+                                Close
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 type GroupProps = {

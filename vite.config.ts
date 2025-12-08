@@ -159,7 +159,6 @@ export default defineConfig({
       // For custom offline page
       includeAssets: [
         "/images/logo.png",
-        "/images/logo-512.png",
         "/sounds/*.mp3",
       ],
 
