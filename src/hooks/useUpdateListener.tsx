@@ -1,49 +1,50 @@
 import { PartyPopper, Sparkles } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 
 export function useUpdateListener() {
-  // Use a ref to prevent adding listeners multiple times in strict mode
-  const isMounted = useRef(false);
-
   useEffect(() => {
-    if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
+    // 1. Safety Checks:
+    // Don't run on server, if no SW support, or if in Development (prevents infinite loops locally)
+    if (
+      typeof window === "undefined" ||
+      !("serviceWorker" in navigator) ||
+      process.env.NODE_ENV === "development"
+    ) {
+      return;
+    }
 
-    // prevent double-firing in dev mode
-    if (isMounted.current) return;
-    isMounted.current = true;
-
-    // --- 1. Post-Update Feedback ---
+    // --- 2. Post-Update Feedback (Success Toast) ---
     const wasUpdated = localStorage.getItem("app-was-updated");
     if (wasUpdated) {
+      // Clear flag IMMEDIATELY to prevent loop if user refreshes fast
+      localStorage.removeItem("app-was-updated");
+      
       setTimeout(() => {
         toast("App Updated Successfully!", {
           description: "You are now using the latest version.",
           icon: <PartyPopper className="w-5 h-5 text-green-500" />,
           duration: 5000,
-          id: "update-success", // Unique ID prevents duplicates
+          id: "update-success",
         });
-        localStorage.removeItem("app-was-updated");
-      }, 1000); // Increased delay slightly to let app settle
+      }, 1000);
     }
 
-    // --- 2. RELOAD LOGIC (The Fix for the Loop) ---
-    // We listen for the 'controllerchange' event. This fires ONLY when
-    // the new Service Worker has successfully taken control.
+    // --- 3. Reload Logic (The Handler) ---
     let refreshing = false;
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
+    const handleControllerChange = () => {
       if (!refreshing) {
         refreshing = true;
         window.location.reload();
       }
-    });
+    };
 
-    // --- 3. Toast Trigger Function ---
+    navigator.serviceWorker.addEventListener("controllerchange", handleControllerChange);
+
+    // --- 4. Update Toast Trigger ---
     const showUpdateToast = (registration: ServiceWorkerRegistration) => {
-      // We give this toast a static ID ("sw-update"). 
-      // If this function is called 100 times, Sonner will only show 1 toast.
       toast("Update Available", {
-        id: "sw-update", 
+        id: "sw-update", // Static ID prevents duplicates
         description: "A newer version is ready.",
         icon: <Sparkles className="w-5 h-5 text-indigo-500" />,
         duration: Infinity,
@@ -51,9 +52,7 @@ export function useUpdateListener() {
           label: "Update",
           onClick: () => {
             localStorage.setItem("app-was-updated", "true");
-            
-            // JUST tell the SW to skip waiting.
-            // DO NOT reload here. The 'controllerchange' listener above handles it.
+            // Tell SW to skip waiting; listener above will handle reload
             if (registration.waiting) {
               registration.waiting.postMessage({ type: "SKIP_WAITING" });
             }
@@ -66,14 +65,14 @@ export function useUpdateListener() {
       });
     };
 
-    // --- 4. Registration & Listening ---
+    // --- 5. Registration & Listening ---
     navigator.serviceWorker.ready.then((registration) => {
-      // A. If waiting on load
+      // Check if waiting immediately
       if (registration.waiting) {
         showUpdateToast(registration);
       }
 
-      // B. If update found while using app
+      // Listen for new updates
       registration.addEventListener("updatefound", () => {
         const newWorker = registration.installing;
         if (newWorker) {
@@ -88,5 +87,10 @@ export function useUpdateListener() {
         }
       });
     });
+
+    // --- 6. Cleanup (Crucial to stop "constant" firing) ---
+    return () => {
+      navigator.serviceWorker.removeEventListener("controllerchange", handleControllerChange);
+    };
   }, []);
 }
