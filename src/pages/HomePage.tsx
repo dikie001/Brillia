@@ -3,7 +3,6 @@ import Navbar from "@/components/app/Navbar";
 import { TEST_RESULTS } from "@/constants";
 import useSound from "@/hooks/useSound";
 import LearnerModal from "@/modals/Welcome";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Book,
@@ -15,7 +14,7 @@ import {
   TrendingUp,
   Trophy,
   Wand,
-  WholeWord
+  WholeWord,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,32 +25,6 @@ const READ_STORIES = "read-stories";
 type Complete = {
   stories: number;
   quiz: number;
-};
-
-// --- Animation Variants ---
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Staggers the cards appearing
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0, scale: 0.9 },
-  show: {
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 20,
-    },
-  },
 };
 
 const HomePage: React.FC = () => {
@@ -123,6 +96,7 @@ const HomePage: React.FC = () => {
       icon: <WholeWord />,
       description: "Build your vocabulary",
       color: "from-gray-900 to-orange-900 shadow-lg",
+
       to: "vocabulary",
     },
   ];
@@ -157,12 +131,7 @@ const HomePage: React.FC = () => {
 
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24  pb-12">
         {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4"
-        >
+        <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
           {totalProgress > 0 && (
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-700 to-indigo-800 text-white rounded-3xl shadow-md text-sm font-semibold mb-4">
               <TrendingUp className="w-4 h-4" />
@@ -175,18 +144,11 @@ const HomePage: React.FC = () => {
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             Daily challenges to sharpen your mind.
           </p>
-        </motion.div>
+        </div>
 
         {/* --- FEATURED HERO BANNER: QUIZ QUEST --- */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-6 flex justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 10 } }}
-            whileTap={{ scale: 0.98 }}
+        <div className="mb-6  flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <button
             onClick={() => HandleCategoryClick(quizSection.to)}
             className="group relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
           >
@@ -200,21 +162,20 @@ const HomePage: React.FC = () => {
               className={`absolute inset-0 bg-gradient-to-br ${quizSection.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
             />
 
-            {/* Banner Layout */}
+            {/* Banner Layout: Flex Column on Mobile, Row on Desktop */}
             <div className="relative p-4 md:p-8 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
               {/* Left: Icon & Gradient Blob */}
               <div className="relative flex-shrink-0">
                 <div
                   className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
                 />
-                <motion.div
-                  whileHover={{ rotate: [0, -10, 10, 0] }} // Fun wiggle on hover
-                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg`}
+                <div
+                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
                 >
                   {React.cloneElement(quizSection.icon, {
                     className: "w-10 h-10 text-white",
                   })}
-                </motion.div>
+                </div>
               </div>
 
               {/* Middle: Text Content */}
@@ -254,8 +215,8 @@ const HomePage: React.FC = () => {
                 <div
                   className={`
                     hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300
-                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100
-                  `}
+                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
+                 `}
                 >
                   <span>Start</span>
                   <Play className="w-4 h-4 fill-current" />
@@ -267,32 +228,26 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
             </div>
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
+        {/* --- END FEATURED HERO BANNER --- */}
 
-        {/* --- Grid for other items with Staggered Animation --- */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-          {otherSections.map((section) => {
+        {/* Grid for other items */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {otherSections.map((section, index) => {
             const hasCompleted = section.name === "Mini Stories";
             const completionCount = completed.stories;
 
             return (
-              <motion.button
+              <button
                 key={section.name}
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.05,
-                  y: -5,
-                  transition: { type: "spring", stiffness: 300 },
-                }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => HandleCategoryClick(section.to)}
-                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
+                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animation: "slideUp 0.6s ease-out forwards",
+                  opacity: 0,
+                }}
               >
                 <div
                   className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${section.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}
@@ -303,7 +258,7 @@ const HomePage: React.FC = () => {
                     className={`absolute inset-0 bg-gradient-to-r ${section.color} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300`}
                   />
                   <div
-                    className={`relative p-3 rounded-xl bg-gradient-to-r ${section.color} shadow-md group-hover:rotate-6 transition-transform duration-300`}
+                    className={`relative p-3 rounded-xl bg-gradient-to-r ${section.color} shadow-md group-hover:scale-110 transition-transform duration-300`}
                   >
                     {React.cloneElement(section.icon, {
                       className: "w-6 h-6 text-white",
@@ -324,10 +279,10 @@ const HomePage: React.FC = () => {
                     <span>{completionCount} Read</span>
                   </div>
                 )}
-              </motion.button>
+              </button>
             );
           })}
-        </motion.div>
+        </div>
       </main>
 
       <Footer />
@@ -339,6 +294,13 @@ const HomePage: React.FC = () => {
           }}
         />
       )}
+
+      <style>{`
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 };
