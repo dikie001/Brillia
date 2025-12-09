@@ -128,7 +128,6 @@ export default defineConfig({
             src: "/images/logo.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable",
           },
           {
             src: "/images/logo.png",

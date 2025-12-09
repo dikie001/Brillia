@@ -19,7 +19,6 @@ import {
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 
-// Updated Type
 type VocabularyWord = {
   id: number;
   word: string;
@@ -34,11 +33,10 @@ export default function WordPower() {
   const [displayedWords, setDisplayedWords] = useState<VocabularyWord[]>([]);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 12; // Increased to 12 since cards are smaller
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const { playSend } = useSound();
 
-  // Calculate total pages
   const totalItems = showFavoritesOnly ? favorite.size : vocabularyData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const isLastPage =
@@ -48,11 +46,9 @@ export default function WordPower() {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.8;
-      // Optional: Try to set a specific English voice if available
       const voices = window.speechSynthesis.getVoices();
       const englishVoice = voices.find((voice) => voice.lang.includes("en"));
       if (englishVoice) utterance.voice = englishVoice;
-
       window.speechSynthesis.speak(utterance);
     } else {
       toast.error("Text-to-speech not supported in this browser.");
@@ -71,7 +67,6 @@ export default function WordPower() {
     setDisplayedWords(filtered.slice(start, end));
   };
 
-  // Reset function
   const handleReset = () => {
     playSend();
     setCurrentPage(1);
@@ -155,11 +150,11 @@ export default function WordPower() {
           </Button>
         </div>
 
-        {/* Vocabulary Grid */}
+        {/* Vocabulary Grid - UPDATED: tighter gap, 4 columns on XL */}
         {showFavoritesOnly && displayedWords.length === 0 ? (
           <NoFavorites />
         ) : (
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 mb-10">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-10">
             {displayedWords.map((item, index) => {
               const isFavorite = favorite.has(item.id);
 
@@ -168,58 +163,49 @@ export default function WordPower() {
                   key={item.id}
                   className="group relative flex flex-col h-full
                              bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
-                             rounded-3xl p-6 
+                             rounded-2xl p-4 
                              border border-white/40 dark:border-white/5
                              hover:border-indigo-300 dark:hover:border-indigo-500/50
                              shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
-                             transition-all duration-300 ease-out hover:-translate-y-1.5"
+                             transition-all duration-300 ease-out hover:-translate-y-1"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Content */}
                   <div className="flex-grow">
-                    <div className="flex items-baseline justify-between mb-3 border-b border-gray-100 dark:border-gray-700/50 pb-3">
-                      <h2 className="text-2xl font-black text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {/* Header: Compact */}
+                    <div className="flex items-start justify-between mb-2">
+                      <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-tight">
                         {item.word}
                       </h2>
-                      <span className="text-sm text-gray-400 font-mono bg-gray-50 dark:bg-gray-900/50 px-2 py-0.5 rounded-md">
+                      <span className="text-xs text-gray-400 font-mono bg-gray-50 dark:bg-gray-900/50 px-1.5 py-0.5 rounded ml-2 whitespace-nowrap">
                         {item.phonetic}
                       </span>
                     </div>
 
-                    <div className="mb-5">
-                      <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1 block">
-                        Definition
-                      </span>
-                      <p className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                    {/* Definition: No label, smaller text */}
+                    <div className="mb-3">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-snug">
                         {item.definition}
                       </p>
                     </div>
 
-                    <div className="bg-indigo-50/50 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 mb-4 relative overflow-hidden group/example">
-                      {/* Decorative Quote Icon */}
-                      <div className="absolute top-2 left-2 text-indigo-200 dark:text-indigo-800/50 transform -scale-x-100 opacity-50 group-hover/example:opacity-100 transition-opacity">
-                        <span className="text-4xl leading-none font-serif">
-                          "
-                        </span>
-                      </div>
-                      <p className="text-sm italic text-gray-600 dark:text-gray-400 relative z-10 pl-2">
-                        {item.example}
+                    {/* Example: Compact Box */}
+                    <div className="bg-indigo-50/50 dark:bg-indigo-900/20 p-2.5 rounded-lg border border-indigo-100 dark:border-indigo-800/30 mb-3">
+                      <p className="text-xs italic text-gray-500 dark:text-gray-400 leading-relaxed">
+                        "{item.example}"
                       </p>
                     </div>
                   </div>
 
-                  {/* Actions Footer */}
-                  <div className="flex items-center justify-between pt-2 mt-auto">
+                  {/* Actions Footer: Compact */}
+                  <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 dark:border-gray-700/50">
                     <button
-                      onClick={() => {
-                        // playSend(); // Optional: might clash with TTS
-                        speakWord(item.word);
-                      }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all text-sm font-semibold"
-                      title="Listen to pronunciation"
+                      onClick={() => speakWord(item.word)}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-gray-500 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-400 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-300 transition-all text-xs font-medium"
+                      title="Listen"
                     >
-                      <Volume2 className="w-4 h-4" />
-                      <span className="text-xs">Pronounce</span>
+                      <Volume2 className="w-3.5 h-3.5" />
+                      Listen
                     </button>
 
                     <button
@@ -227,19 +213,14 @@ export default function WordPower() {
                         playSend();
                         toggleFavorites(item.id);
                       }}
-                      className={`p-2.5 rounded-full transition-all duration-300 ${
+                      className={`p-1.5 rounded-lg transition-all duration-200 ${
                         isFavorite
-                          ? "text-rose-500 bg-rose-50 dark:bg-rose-900/20 shadow-inner"
+                          ? "text-rose-500 bg-rose-50 dark:bg-rose-900/20"
                           : "text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20"
                       }`}
-                      title={
-                        isFavorite
-                          ? "Remove from favorites"
-                          : "Add to favorites"
-                      }
                     >
                       <Heart
-                        className={`w-5 h-5 transition-transform active:scale-75 ${
+                        className={`w-4 h-4 transition-transform active:scale-75 ${
                           isFavorite ? "fill-current" : ""
                         }`}
                       />
