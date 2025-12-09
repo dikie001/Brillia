@@ -3,7 +3,6 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
-import { Badge } from "@/components/ui/badge";
 import { WISDOM_CURRENTPAGE } from "@/constants";
 import useSound from "@/hooks/useSound";
 import { quotes } from "@/jsons/coolQuotes";
@@ -26,23 +25,23 @@ import Paginate from "../../components/app/paginations";
 
 const categoryColors: Record<string, string> = {
   Motivation:
-    "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
+    "bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300 border-sky-200 dark:border-sky-800",
   Wisdom:
-    "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
-  Life: "bg-gradient-to-r from-zinc-200/40 to-stone-200/40 text-zinc-900 dark:border border-zinc-800 dark:from-zinc-900/40 dark:to-stone-900/40 dark:text-zinc-300",
+    "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+  Life: "bg-zinc-100 text-zinc-700 dark:bg-zinc-500/10 dark:text-zinc-300 border-zinc-200 dark:border-zinc-800",
   Success:
-    "bg-gradient-to-r from-emerald-200/40 to-green-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-green-900/40 dark:text-emerald-300",
-  Love: "bg-gradient-to-r from-rose-200/40 to-pink-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-pink-900/40 dark:text-rose-300",
+    "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+  Love: "bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300 border-rose-200 dark:border-rose-800",
   Courage:
-    "bg-gradient-to-r from-orange-200/40 to-red-200/40 text-orange-900 dark:border border-orange-800 dark:from-orange-900/40 dark:to-red-900/40 dark:text-orange-300",
+    "bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300 border-orange-200 dark:border-orange-800",
   Imagination:
-    "bg-gradient-to-r from-violet-200/40 to-fuchsia-200/40 text-violet-900 dark:border border-violet-800 dark:from-violet-900/40 dark:to-fuchsia-900/40 dark:text-fuchsia-300",
+    "bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300 border-violet-200 dark:border-violet-800",
   Knowledge:
-    "bg-gradient-to-r from-teal-200/40 to-cyan-200/40 text-teal-900 dark:border border-teal-800 dark:from-teal-900/40 dark:to-cyan-900/40 dark:text-teal-300",
+    "bg-teal-100 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300 border-teal-200 dark:border-teal-800",
   Happiness:
-    "bg-gradient-to-r from-lime-200/40 to-green-200/40 text-lime-900 dark:border border-lime-800 dark:from-lime-900/40 dark:to-green-900/40 dark:text-lime-300",
+    "bg-lime-100 text-lime-700 dark:bg-lime-500/10 dark:text-lime-300 border-lime-200 dark:border-lime-800",
   Perseverance:
-    "bg-gradient-to-r from-blue-200/40 to-indigo-200/40 text-blue-900 dark:border border-blue-800 dark:from-blue-900/40 dark:to-indigo-900/40 dark:text-blue-300",
+    "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-300 border-blue-200 dark:border-blue-800",
 };
 
 const FAVOURITE_QUOTES = "favorite-quote";
@@ -54,7 +53,7 @@ export default function WisdomNuggets() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 12; // Optimized for 2, 3, and 4 column grids
   const [showFeaturedQuote, setShowFeaturedQuote] = useState(false);
 
   const [currentFilter, setCurrentFilter] = useState("All");
@@ -134,7 +133,7 @@ export default function WisdomNuggets() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentQuoteIndex((prev) => (prev + 1) % quotes.length);
-    }, 8000); // Slowed down slightly for readability
+    }, 8000);
     return () => clearInterval(interval);
   }, []);
 
@@ -158,7 +157,6 @@ export default function WisdomNuggets() {
         {showFeaturedQuote && (
           <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-500">
             <div className="relative bg-gradient-to-br from-indigo-600 to-violet-700 dark:from-indigo-900 dark:to-violet-950 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-indigo-500/20 text-white overflow-hidden border border-white/10">
-              {/* Decorative Background Elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
@@ -180,7 +178,6 @@ export default function WisdomNuggets() {
                       — {featuredQuote.author}
                     </cite>
 
-                    {/* Progress Dots */}
                     <div className="flex gap-2">
                       {[...Array(5)].map((_, i) => (
                         <div
@@ -197,7 +194,6 @@ export default function WisdomNuggets() {
                 </div>
               </div>
 
-              {/* Close Button */}
               <button
                 className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200"
                 onClick={() => {
@@ -230,11 +226,11 @@ export default function WisdomNuggets() {
           </div>
         )}
 
-        {/* Quotes Grid */}
+        {/* Quotes Grid - Updated Layout */}
         {currentFilter === "Favorites" && displayedQuotes.length === 0 ? (
           <NoFavorites />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
             {displayedQuotes.map((quote, index) => {
               const isFavorite = favorite.has(quote.id);
               const isCopied = copied === quote.id;
@@ -246,106 +242,108 @@ export default function WisdomNuggets() {
                   key={quote.id}
                   className="group relative flex flex-col justify-between 
                              bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
-                             rounded-3xl p-5 
+                             rounded-2xl p-4 
                              border border-white/40 dark:border-white/5
                              hover:border-indigo-300 dark:hover:border-indigo-500/50
                              shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
-                             transition-all duration-300 ease-out hover:-translate-y-1.5"
+                             transition-all duration-300 ease-out hover:-translate-y-1"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Header */}
-                  <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-between items-center mb-3">
                     <span
-                      className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-sm ${categoryStyle}`}
+                      className={`px-2 py-0.5 border rounded-md text-[10px] font-bold uppercase tracking-wide ${categoryStyle}`}
                     >
                       {quote.category}
                     </span>
 
-                    {/* Popularity Star */}
-                    <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg border border-yellow-100 dark:border-yellow-900/50">
-                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-                      <span className="text-[10px] font-bold text-yellow-700 dark:text-yellow-500">
-                        {quote.popularity}
-                      </span>
+                    <div className="flex items-center gap-1 text-xs font-semibold text-yellow-600 dark:text-yellow-500">
+                      <Star className="w-3 h-3 fill-current" />
+                      <span>{quote.popularity}</span>
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="mb-4 flex-grow">
-                    <QuoteIcon className="w-6 h-6 text-indigo-200 dark:text-indigo-800 mb-2" />
-                    <blockquote className="text-lg font-bold leading-relaxed text-gray-800 dark:text-gray-100 mb-3">
+                    <QuoteIcon className="w-4 h-4 text-indigo-200 dark:text-indigo-800 mb-1" />
+                    <p className="font-serif text-lg font-medium leading-snug text-gray-800 dark:text-gray-100">
                       "{quote.content}"
-                    </blockquote>
-                    <div className="w-8 h-1 bg-indigo-100 dark:bg-gray-700 rounded-full mb-3" />
-                    <cite className="text-sm font-semibold text-gray-500 dark:text-gray-400 not-italic block">
+                    </p>
+                    <p className="mt-2 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
                       — {quote.author}
-                    </cite>
+                    </p>
                   </div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {quote.tags.map((tag) => (
-                      <Badge
-                        variant="secondary"
-                        key={tag}
-                        className="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-[10px] px-2 h-5 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
-                      >
-                        #{tag}
-                      </Badge>
-                    ))}
-                  </div>
+                  {/* Tags & Footer */}
+                  <div className="mt-auto">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {quote.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-[10px] px-1.5 py-0.5 rounded hover:text-indigo-600 transition-colors cursor-default"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
 
-                  {/* Footer / Actions */}
-                  <div className="pt-3 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-gray-300 dark:text-gray-600">
-                      #{quote.id}
-                    </span>
+                    {/* Actions */}
+                    <div className="pt-2 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600">
+                        #{quote.id}
+                      </span>
 
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => {
-                          playSend();
-                          copyToClipboard(quote, setCopied);
-                        }}
-                        className={`p-2 rounded-full transition-all duration-300 ${
-                          isCopied
-                            ? "bg-emerald-100 text-emerald-600"
-                            : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
-                        }`}
-                        title="Copy"
-                      >
-                        {isCopied ? (
-                          <CheckCircle className="w-4 h-4" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          playSend();
-                          shareQuote(quote, setCopied);
-                        }}
-                        className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
-                        title="Share"
-                      >
-                        <Share2 className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          playSend();
-                          toggleFavorites(quote.id);
-                        }}
-                        className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
-                        title="Favorite"
-                      >
-                        <Heart
-                          className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
-                            isFavorite ? "fill-rose-500 text-rose-500" : ""
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => {
+                            playSend();
+                            copyToClipboard(quote, setCopied);
+                          }}
+                          className={`p-1.5 rounded-lg transition-all duration-200 ${
+                            isCopied
+                              ? "bg-emerald-100 text-emerald-600"
+                              : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
                           }`}
-                        />
-                      </button>
+                          title="Copy"
+                        >
+                          {isCopied ? (
+                            <CheckCircle className="w-3.5 h-3.5" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            playSend();
+                            shareQuote(quote, setCopied);
+                          }}
+                          className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                          title="Share"
+                        >
+                          <Share2 className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            playSend();
+                            toggleFavorites(quote.id);
+                          }}
+                          className={`p-1.5 rounded-lg transition-colors ${
+                            isFavorite
+                              ? "bg-rose-50 dark:bg-rose-900/20 text-rose-500"
+                              : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-rose-500"
+                          }`}
+                          title="Favorite"
+                        >
+                          <Heart
+                            className={`w-3.5 h-3.5 ${
+                              isFavorite ? "fill-current" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -360,7 +358,7 @@ export default function WisdomNuggets() {
             <div className="flex justify-center pb-8">
               <Paginate
                 currentPage={currentPage}
-                totalItems={quotes.length}
+                totalItems={currentFilter === "All" ? quotes.length : displayedQuotes.length + ((currentPage - 1) * itemsPerPage)} // Adjusted total calculation slightly for filter accuracy visual
                 setCurrentPage={setCurrentPage}
               />
             </div>
