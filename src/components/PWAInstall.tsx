@@ -1,12 +1,54 @@
-import { 
-  Smartphone, 
-  Wifi, 
-  Zap, 
-  Layout, 
-  Download, 
-  CheckCircle2 
+import {
+  CheckCircle2,
+  Download,
+  Layout,
+  Loader2,
+  Smartphone,
+  Wifi,
+  X,
+  Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+
+// Add shimmer keyframes to your global CSS or Tailwind config
+/* @keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+*/
+
+interface Perk {
+  icon: JSX.Element;
+  title: string;
+  desc: string;
+}
+
+const perks: Perk[] = [
+  {
+    icon: <Wifi className="w-5 h-5 text-sky-500" />,
+    title: "Offline Access",
+    desc: "Works without internet",
+  },
+  {
+    icon: <Zap className="w-5 h-5 text-amber-500" />,
+    title: "Instant Load",
+    desc: "Opens in milliseconds",
+  },
+  {
+    icon: <Layout className="w-5 h-5 text-fuchsia-500" />,
+    title: "Full Screen",
+    desc: "No browser distractions",
+  },
+  {
+    icon: <Smartphone className="w-5 h-5 text-emerald-500" />,
+    title: "Home Screen",
+    desc: "One-tap access",
+  },
+];
 
 export default function PWAInstallModal() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -16,15 +58,13 @@ export default function PWAInstallModal() {
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
-      // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
       setDeferredPrompt(e);
       setIsInstallable(true);
 
-      // Check if user has already dismissed it recently
       const hasSeenModal = sessionStorage.getItem("pwa-modal-dismissed");
       if (!hasSeenModal) {
-        // slight delay to allow app to render first, then interrupt
+        // slight delay to allow app to render
         setTimeout(() => setIsOpen(true), 1500);
       }
     };
@@ -40,7 +80,10 @@ export default function PWAInstallModal() {
     window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
@@ -50,7 +93,7 @@ export default function PWAInstallModal() {
     setIsInstalling(true);
 
     try {
-      await deferredPrompt.prompt();
+      deferredPrompt.prompt();
       const choiceResult = await deferredPrompt.userChoice;
 
       if (choiceResult.outcome === "accepted") {
@@ -60,8 +103,10 @@ export default function PWAInstallModal() {
     } catch (error) {
       console.error("Installation error:", error);
     } finally {
+      // NOTE: appinstalled event usually handles state cleanup if successful
+      // This is a fallback/cleanup for failure/dismissal during prompt
+      // The prompt consumes the deferredPrompt, so we set it to null regardless
       setDeferredPrompt(null);
-      setIsInstallable(false);
       setIsInstalling(false);
     }
   };
@@ -73,67 +118,49 @@ export default function PWAInstallModal() {
 
   if (!isInstallable || !isOpen) return null;
 
-  const perks = [
-    {
-      icon: <Wifi className="w-5 h-5 text-blue-500" />,
-      title: "Offline Access",
-      desc: "Works without internet"
-    },
-    {
-      icon: <Zap className="w-5 h-5 text-yellow-500" />,
-      title: "Instant Load",
-      desc: "Opens in milliseconds"
-    },
-    {
-      icon: <Layout className="w-5 h-5 text-purple-500" />,
-      title: "Full Screen",
-      desc: "No browser distractions"
-    },
-    {
-      icon: <Smartphone className="w-5 h-5 text-green-500" />,
-      title: "Home Screen",
-      desc: "One-tap access"
-    }
-  ];
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop with Blur - Cannot be clicked to dismiss (forcing interaction) */}
-      <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
-      />
+      {/* Backdrop with Blur */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in duration-300" />
 
       {/* Main Modal Card */}
-      <div className="relative w-full max-w-sm bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 animate-in zoom-in-95 duration-300 slide-in-from-bottom-10">
-        
-        {/* Decorative Top Banner */}
-        <div className="h-32 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg mb-2 ring-4 ring-white/10">
+      <div className="relative w-full max-w-sm bg-white dark:bg-gray-950 rounded-2xl shadow-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 animate-in zoom-in-95 duration-300 slide-in-from-bottom-10">
+        {/* Close Button */}
+        <button
+          onClick={handleDismiss}
+          className="absolute top-4 right-4 z-20 p-1 rounded-full text-white/80 hover:text-white transition-colors bg-white/10 hover:bg-white/20"
+          aria-label="Dismiss installation prompt"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Decorative Top Banner (Improved BG) */}
+        <div className="h-36 bg-gradient-to-br from-indigo-700 to-indigo-800 flex items-center justify-center relative overflow-hidden">
+
+
+          <div className="relative z-10 flex flex-col items-center pt-2">
+            <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-2xl mb-3 ring-4 ring-white/10">
               <Download className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-white font-bold text-xl tracking-tight">Install Brillia</h2>
+            <h2 className="text-white font-extrabold text-2xl tracking-tight drop-shadow-md">
+              Install Brillia
+            </h2>
+            <p className="text-sm text-white/80 mt-1">
+              For the best experience
+            </p>
           </div>
         </div>
 
         {/* Content Body */}
         <div className="p-6 space-y-6">
-          <div className="text-center space-y-2">
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-lg">
-              Get the full experience
-            </h3>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              Install the app to unlock better performance and exclusive features.
-            </p>
-          </div>
+         
 
-          {/* Perks Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Perks Grid (Subtle BG change) */}
+          <div className="grid grid-cols-2 gap-4 mt-2 ">
             {perks.map((perk, i) => (
-              <div 
-                key={i} 
-                className="flex flex-col items-center text-center p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800"
+              <div
+                key={i}
+                className="flex flex-col items-center text-center p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/80 transition-shadow hover:shadow-md"
               >
                 <div className="mb-2 p-2 bg-white dark:bg-zinc-800 rounded-full shadow-sm">
                   {perk.icon}
@@ -141,7 +168,7 @@ export default function PWAInstallModal() {
                 <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-200 block">
                   {perk.title}
                 </span>
-                <span className="text-[10px] text-zinc-500 leading-tight">
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 leading-tight">
                   {perk.desc}
                 </span>
               </div>
@@ -153,19 +180,20 @@ export default function PWAInstallModal() {
             <button
               onClick={handleInstallClick}
               disabled={isInstalling}
-              className="w-full relative group overflow-hidden bg-zinc-900 dark:bg-indigo-600 text-white rounded-xl py-3.5 font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full relative group overflow-hidden bg-indigo-600 text-white rounded-xl py-3.5 font-bold shadow-lg shadow-indigo-500/30 hover:shadow-xl transition-all duration-300 active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed text-base"
             >
-              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+
               <span className="flex items-center justify-center gap-2 relative z-10">
                 {isInstalling ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <Loader2 className="w-5 h-5 animate-spin" />
                     Installing...
                   </>
                 ) : (
                   <>
                     Install App Now
-                    <CheckCircle2 className="w-4 h-4" />
                   </>
                 )}
               </span>
@@ -173,7 +201,7 @@ export default function PWAInstallModal() {
 
             <button
               onClick={handleDismiss}
-              className="w-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 text-sm font-medium py-2 transition-colors"
+              className="w-full text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 text-sm font-medium py-2 transition-colors"
             >
               Maybe later
             </button>
