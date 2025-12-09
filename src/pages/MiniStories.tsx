@@ -391,9 +391,7 @@ export default function MiniStories() {
                 {selectedStoryData.title}
               </h2>
               <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-400 flex items-center justify-center text-white font-bold text-sm shadow-md">
-                    {selectedStoryData.author.charAt(0)}
-                </div>
+             
                 <p className="text-gray-500 dark:text-gray-400 font-bold text-sm">
                     By{" "}
                     <span className="text-indigo-600 dark:text-indigo-300">

@@ -15,6 +15,7 @@ const ASSETS = [
   "/amazing-facts",
   "/contact-developer",
   "/settings",
+  "/communication",
   "/about",
   "/help",
 
@@ -25,12 +26,10 @@ const ASSETS = [
   "/images/icon.png",
 
   // Audio files
-  "/sounds/correct.mp3",
   "/sounds/error.mp3",
   "/sounds/finish.mp3",
   "/sounds/send.mp3",
   "/sounds/success.mp3",
-  "/sounds/wrong.mp3",
 ];
 
 // Precache critical assets on install
