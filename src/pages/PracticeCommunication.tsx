@@ -261,12 +261,11 @@ export default function DevTopics() {
   };
 
   // --- UPDATED LAYOUT LOGIC ---
-  // On mobile: Flex column (stacked). On desktop: Grid.
+  // Key fix: increased gap-4 to gap-6 for mobile separation
   const containerLayout = showHistory 
-    ? "flex flex-col lg:grid lg:grid-cols-12 gap-4 lg:gap-6 h-full min-h-0" 
+    ? "flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-6 h-full min-h-0" 
     : "flex flex-col items-center justify-center h-full min-h-0 max-w-5xl mx-auto w-full";
 
-  // On mobile: flex-1 ensures it shares space with logs. On desktop: col-span-8.
   const topicSectionClasses = showHistory 
     ? "flex-1 lg:col-span-8 flex flex-col gap-4 min-h-0" 
     : "w-full flex flex-col gap-4 justify-center h-full min-h-0";
@@ -338,7 +337,8 @@ export default function DevTopics() {
               <CyberButton onClick={resetProtocol} icon={<RotateCcw className="w-5 h-5" />} label="RESET" subLabel="WIPE" variant="danger" />
             </div>
 
-            <div className="shrink-0 mt-2">
+            {/* Terminal */}
+            <div className="shrink-0 mt-3 mb-1">
                <MiniTerminal onCommand={handleTerminalCommand} />
             </div>
             
