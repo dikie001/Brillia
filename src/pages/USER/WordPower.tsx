@@ -6,7 +6,7 @@ import Paginate from "@/components/app/paginations";
 import { Button } from "@/components/ui/button";
 import { VOCAB_CURRENTPAGE } from "@/constants";
 import useSound from "@/hooks/useSound";
-import { vocabulary as vocabularyData } from "../jsons/vocabulary";
+import { vocabulary as vocabularyData } from "../../jsons/vocabulary";
 import { cn } from "@/lib/utils";
 import {
   CheckCircle,
@@ -30,7 +30,7 @@ type VocabularyWord = {
 
 const FAVORITE_WORDS = "favorite-words";
 
-export default function VocabularyPage() {
+export default function WordPower() {
   const [displayedWords, setDisplayedWords] = useState<VocabularyWord[]>([]);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);

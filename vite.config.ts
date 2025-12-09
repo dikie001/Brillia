@@ -12,13 +12,13 @@ export default defineConfig({
     VitePWA({
       // 1. CHANGE THIS TO 'prompt'
       // This gives your UI control over when to activate the new version
-      registerType: "prompt", 
-      
+      registerType: "prompt",
+
       injectRegister: "auto",
 
       // 2. Enable this to test updates in development
       devOptions: {
-        enabled: true, 
+        enabled: true,
         type: "module",
         navigateFallback: "index.html",
       },
@@ -116,7 +116,7 @@ export default defineConfig({
         name: "Brillia",
         short_name: "Brillia",
         description:
-          "A fun app with quizzes, facts, stories, and brain teasers",
+          "A fun app with quizzes, facts, stories, and Quick Challenges",
         start_url: "/",
         display: "standalone",
         background_color: "#ffffff",
@@ -139,11 +139,8 @@ export default defineConfig({
         categories: ["education", "entertainment", "games"],
       },
 
-      includeAssets: [
-        "/images/logo.png",
-        "/sounds/*.mp3",
-      ],
-      strategies: "generateSW", 
+      includeAssets: ["/images/logo.png", "/sounds/*.mp3"],
+      strategies: "generateSW",
     }),
   ],
   resolve: {

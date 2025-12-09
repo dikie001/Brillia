@@ -7,12 +7,12 @@ import { APP_VERSION } from "@/constants";
 
 const About = () => {
   const features = [
-    "Brain Teasers - Challenge your mind with puzzles and riddles",
-    "Mini Stories - Enjoy short, inspiring tales",
-    "Quiz Quest - Test your knowledge with fun quizzes",
-    "Wisdom Nuggets - Daily doses of wisdom and motivation",
-    "Tongue Twisters - Improve your pronunciation skills",
-    "Amazing Facts - Discover fascinating facts about the world",
+    "Quick Challenges - Challenge your mind with puzzles and riddles",
+    "Flash Stories - Enjoy short, inspiring tales",
+    "Quick Quiz - Test your knowledge with fun quizzes",
+    "Life Gems - Daily doses of wisdom and motivation",
+    "Clear Speech - Improve your pronunciation skills",
+    "Fun Facts - Discover fascinating facts about the world",
     "Offline Support - Works completely offline once installed",
     "PWA Ready - Install as a native app on your device",
   ];
@@ -35,7 +35,7 @@ const About = () => {
             </h1>
             <p className=" text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Your daily companion for inspiration, learning, and fun. Discover
-              amazing facts, challenge your mind, and grow every day.
+              Fun Facts, challenge your mind, and grow every day.
             </p>
           </div>
 

@@ -47,12 +47,12 @@ interface MenuItem {
 const mainItems: MenuItem[] = [{ label: "Home", icon: Home, to: "/" }];
 
 const activitiesItems: MenuItem[] = [
-  { label: "Brain Teasers", icon: Puzzle, to: "/quick-challenges" },
-  { label: "Mini Stories", icon: Book, to: "/flash-stories" },
-  { label: "Quiz Quest", icon: Sparkles, to: "/quick-quiz" },
-  { label: "Wisdom Nuggets", icon: Quote, to: "/life-gems" },
-  { label: "Tongue Twisters", icon: Wand, to: "/clear-speech" },
-  { label: "Amazing Facts", icon: Newspaper, to: "/fun-facts" },
+  { label: "Quick Challenges", icon: Puzzle, to: "/quick-challenges" },
+  { label: "Flash Stories", icon: Book, to: "/flash-stories" },
+  { label: "Quick Quiz", icon: Sparkles, to: "/quick-quiz" },
+  { label: "Life Gems", icon: Quote, to: "/life-gems" },
+  { label: "Clear Speech", icon: Wand, to: "/clear-speech" },
+  { label: "Fun Facts", icon: Newspaper, to: "/fun-facts" },
 ];
 
 const supportItems: MenuItem[] = [

@@ -1,6 +1,6 @@
-import type { QuizType } from "@/pages/QuizQuest";
+import type { QuizType } from "@/pages/USER/QuickQuiz";
 
-const quizzes:QuizType[] = [
+const quizzes: QuizType[] = [
   {
     id: 1,
     subject: "Mathematics",
@@ -13962,7 +13962,7 @@ const quizzes:QuizType[] = [
     },
     correctAnswer: "C",
     explanation:
-      "In tennis scoring, 'love' represents a score of zero points. The origins of the term are uncertain, but it is a fundamental part of the game's vocabulary.",
+      "In tennis scoring, 'love' represents a score of zero points. The origins of the term are uncertain, but it is a fundamental part of the game's Word Power.",
   },
   {
     id: 307,
@@ -17472,7 +17472,7 @@ const quizzes:QuizType[] = [
     },
     correctAnswer: "B",
     explanation:
-      "In literature, 'voice' refers to the rhetorical mixture of vocabulary, tone, point of view, and syntax that makes phrases, sentences, and paragraphs flow in a particular manner.",
+      "In literature, 'voice' refers to the rhetorical mixture of Word Power, tone, point of view, and syntax that makes phrases, sentences, and paragraphs flow in a particular manner.",
   },
   {
     id: 215,
@@ -23768,4 +23768,4 @@ const quizzes:QuizType[] = [
   },
 ];
 
-export default quizzes
+export default quizzes;

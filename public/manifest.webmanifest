@@ -1,7 +1,7 @@
 {
   "name": "Brillia",
   "short_name": "Brillia",
-  "description": "A fun app with quizzes, facts, stories, and brain teasers",
+  "description": "A fun app with quizzes, facts, stories, and Quick Challenges",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

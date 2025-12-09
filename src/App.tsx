@@ -2,10 +2,10 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { Toaster } from "sonner";
 import { lazy, Suspense, useEffect } from "react";
-import LoadingPage from "./pages/LoadinPage";
+import LoadingPage from "./pages/USER/LoadinPage";
 import About from "./pages/SUPPORT/About";
 import Help from "./pages/SUPPORT/Help";
-import Results from "./pages/Results";
+import Results from "./pages/USER/Results";
 import AdminDashboard from "./pages/ADMIN/AdminDashboard";
 import { trackDailyLogin } from "./lib/trackDailyLogin";
 import { USER_INFO } from "./constants";
@@ -16,18 +16,18 @@ import UsersPage from "./pages/ADMIN/Users";
 import AdminSettings from "./pages/ADMIN/Settings";
 import AdminReports from "./pages/ADMIN/Reports";
 import AdminNotifications from "./pages/ADMIN/Notifications";
-import PracticeCommunication from "./pages/PracticeCommunication";
+import PracticeCommunication from "./pages/DEV/PracticeCommunication";
 import { useUpdateListener } from "./hooks/useUpdateListener";
-import VocabularyPage from "./pages/Vocabulary";
-const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
-const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
-const HomePage = lazy(() => import("./pages/HomePage"));
-const MiniStories = lazy(() => import("./pages/MiniStories"));
+import WordPower from "./pages/USER/WordPower";
+const FactFrenzy = lazy(() => import("./pages/USER/FunFacts"));
+const BrainTeasers = lazy(() => import("./pages/USER/QuickChallenges"));
+const HomePage = lazy(() => import("./pages/USER/HomePage"));
+const MiniStories = lazy(() => import("./pages/USER/FlashStories"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const QuizQuest = lazy(() => import("./pages/QuizQuest"));
-const SettingsPage = lazy(() => import("./pages/Settings"));
-const TongueTwisters = lazy(() => import("./pages/TongueTwisters"));
-const WisdomNuggets = lazy(() => import("./pages/WisdomNuggets"));
+const QuizQuest = lazy(() => import("./pages/USER/QuickQuiz"));
+const SettingsPage = lazy(() => import("./pages/USER/Settings"));
+const TongueTwisters = lazy(() => import("./pages/USER/ClearSpeech"));
+const WisdomNuggets = lazy(() => import("./pages/USER/LifeGems"));
 const ContactDeveloper = lazy(() => import("./pages/SUPPORT/ContactDeveloper"));
 
 const App = () => {
@@ -61,7 +61,7 @@ const App = () => {
           <Route path="/fun-facts" element={<FactFrenzy />} />
           <Route path="/results" element={<Results />} />
           <Route path="/communication" element={<PracticeCommunication />} />
-          <Route path="/word-power" element={<VocabularyPage />} />
+          <Route path="/word-power" element={<WordPower />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />

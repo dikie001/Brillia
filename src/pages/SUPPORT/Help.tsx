@@ -1,7 +1,13 @@
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, Download, HelpCircle, MessageSquare, WifiOff } from "lucide-react";
+import {
+  ChevronDown,
+  Download,
+  HelpCircle,
+  MessageSquare,
+  WifiOff,
+} from "lucide-react";
 import { useState } from "react";
 import InstallationModal from "@/modals/InstallationModal";
 import OfflineModal from "@/modals/OfflineModal";
@@ -12,62 +18,72 @@ const Help = () => {
   const [showOfflineModal, setShowOfflineModal] = useState(false);
 
   const toggleItem = (index: number) => {
-    setOpenItems(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
+    setOpenItems((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
   const faqs = [
     {
       question: "What is Brillia?",
-      answer: "Brillia is a Progressive Web App designed to inspire and educate you daily. It offers brain teasers, mini stories, quizzes, wisdom nuggets, tongue twisters, amazing facts, and more to help you learn and have fun."
+      answer:
+        "Brillia is a Progressive Web App designed to inspire and educate you daily. It offers Quick Challenges, Flash Stories, quizzes, Life Gems, Clear Speech, Fun Facts, and more to help you learn and have fun.",
     },
     {
       question: "How do I install Brillia on my device?",
-      answer: "Brillia is a PWA that can be installed like a native app. Look for the install button in your browser (usually a plus icon or 'Install' option) or use the PWA Install component in the app's navigation bar."
+      answer:
+        "Brillia is a PWA that can be installed like a native app. Look for the install button in your browser (usually a plus icon or 'Install' option) or use the PWA Install component in the app's navigation bar.",
     },
     {
       question: "Does Brillia work offline?",
-      answer: "Yes! Once installed, Brillia works completely offline. All content and features are cached locally on your device, so you can use the app without an internet connection."
+      answer:
+        "Yes! Once installed, Brillia works completely offline. All content and features are cached locally on your device, so you can use the app without an internet connection.",
     },
     {
       question: "How do I save my favorite content?",
-      answer: "Most sections have a heart or favorite icon. Click it to save content to your favorites. You can view your saved items in the respective sections or in your personal collection."
+      answer:
+        "Most sections have a heart or favorite icon. Click it to save content to your favorites. You can view your saved items in the respective sections or in your personal collection.",
     },
     {
-      question: "How do brain teasers work?",
-      answer: "Brain teasers include puzzles, riddles, and logic problems. Click on any teaser to reveal the answer. You can save your favorites and track your progress."
+      question: "How do Quick Challenges work?",
+      answer:
+        "Quick Challenges include puzzles, riddles, and logic problems. Click on any teaser to reveal the answer. You can save your favorites and track your progress.",
     },
     {
-      question: "What are wisdom nuggets?",
-      answer: "Wisdom nuggets are short, inspiring quotes and pieces of wisdom. They're designed to motivate and encourage you throughout your day."
+      question: "What are Life Gems?",
+      answer:
+        "Life Gems are short, inspiring quotes and pieces of wisdom. They're designed to motivate and encourage you throughout your day.",
     },
     {
       question: "How do I reset my progress?",
-      answer: "Go to Settings and look for the 'Reset Progress' option. This will clear your saved favorites and progress data. Use this if you want to start fresh."
+      answer:
+        "Go to Settings and look for the 'Reset Progress' option. This will clear your saved favorites and progress data. Use this if you want to start fresh.",
     },
     {
       question: "Can I customize the app's appearance?",
-      answer: "Yes! Brillia supports dark and light themes. Use the theme toggle button in the navigation bar to switch between themes."
+      answer:
+        "Yes! Brillia supports dark and light themes. Use the theme toggle button in the navigation bar to switch between themes.",
     },
     {
       question: "How do I contact the developer?",
-      answer: "Use the 'Contact Developer' page to send feedback, report issues, or suggest new features. Your input helps improve the app!"
+      answer:
+        "Use the 'Contact Developer' page to send feedback, report issues, or suggest new features. Your input helps improve the app!",
     },
     {
       question: "Is my data stored locally?",
-      answer: "Yes, all your preferences, favorites, and progress are stored locally on your device. No personal data is sent to external servers."
+      answer:
+        "Yes, all your preferences, favorites, and progress are stored locally on your device. No personal data is sent to external servers.",
     },
     {
       question: "How often is new content added?",
-      answer: "Content is regularly updated. Check back often for new brain teasers, stories, facts, and wisdom nuggets to keep your daily inspiration fresh."
+      answer:
+        "Content is regularly updated. Check back often for new Quick Challenges, stories, facts, and Life Gems to keep your daily inspiration fresh.",
     },
     {
       question: "What browsers support Brillia?",
-      answer: "Brillia works best in modern browsers that support Progressive Web Apps, including Chrome, Firefox, Safari, and Edge. For the best experience, use the latest version of your browser."
-    }
+      answer:
+        "Brillia works best in modern browsers that support Progressive Web Apps, including Chrome, Firefox, Safari, and Edge. For the best experience, use the latest version of your browser.",
+    },
   ];
 
   return (
@@ -87,7 +103,8 @@ const Help = () => {
               Help & FAQ
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Find answers to common questions and learn how to make the most of Brillia.
+              Find answers to common questions and learn how to make the most of
+              Brillia.
             </p>
           </div>
 
@@ -134,7 +151,10 @@ const Help = () => {
             </CardHeader>
             <CardContent className="space-y-2">
               {faqs.map((faq, index) => (
-                <div key={index} className="border  border-gray-200 dark:border-gray-700 rounded-2xl">
+                <div
+                  key={index}
+                  className="border  border-gray-200 dark:border-gray-700 rounded-2xl"
+                >
                   <button
                     onClick={() => toggleItem(index)}
                     className="w-full  flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 rounded-2xl transition-colors"
@@ -142,7 +162,7 @@ const Help = () => {
                     <span className="font-medium">{faq.question}</span>
                     <ChevronDown
                       className={`w-5 h-5 transition-transform ${
-                        openItems.includes(index) ? 'rotate-180' : ''
+                        openItems.includes(index) ? "rotate-180" : ""
                       }`}
                     />
                   </button>
@@ -168,7 +188,7 @@ const Help = () => {
                 Can't find what you're looking for? I'm here to help!
               </p>
               <button
-                onClick={() => window.location.href = '/contact-developer'}
+                onClick={() => (window.location.href = "/contact-developer")}
                 className="bg-gradient-to-r from-indigo-600 to-indigo-800 cursor-pointer text-white px-6 py-2 rounded-xl hover:bg-indigo-600 transition-colors"
               >
                 Contact Developer

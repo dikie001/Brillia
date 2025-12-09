@@ -7,7 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.13-38B2AC.svg)](https://tailwindcss.com/)
 [![PWA](https://img.shields.io/badge/PWA-Ready-green.svg)](https://web.dev/progressive-web-apps/)
 
-> Your daily companion for inspiration, learning, and fun. Discover amazing facts, challenge your mind, and grow every day.
+> Your daily companion for inspiration, learning, and fun. Discover Fun Facts, challenge your mind, and grow every day.
 
 [🌐 Live Demo](https://brillia-six.vercel.app) | [📱 Install PWA](https://brillia-six.vercel.app) | [📧 Contact Developer](mailto:dickensomondi@gmail.com)
 
@@ -15,25 +15,32 @@
 
 Brillia is a Progressive Web App (PWA) packed with engaging content to boost your knowledge and creativity:
 
-### 🧠 Brain Teasers
+### 🧠 Quick Challenges
+
 Challenge your logical thinking with puzzles and riddles that sharpen your problem-solving skills.
 
-### 📖 Mini Stories
+### 📖 Flash Stories
+
 Enjoy short, inspiring tales that deliver powerful messages and spark imagination.
 
-### 🏆 Quiz Quest
+### 🏆 Quick Quiz
+
 Test your general knowledge with fun, interactive quizzes across various topics.
 
-### 💡 Wisdom Nuggets
+### 💡 Life Gems
+
 Receive daily doses of wisdom, motivation, and insightful quotes to inspire your day.
 
-### 🗣️ Tongue Twisters
+### 🗣️ Clear Speech
+
 Improve your pronunciation and fluency with challenging phrases designed to enhance speech skills.
 
-### 🌍 Amazing Facts
+### 🌍 Fun Facts
+
 Discover fascinating, mind-blowing facts about the world, science, history, and more.
 
 ### 🔧 Additional Features
+
 - **Offline Support**: Works completely offline once installed - no internet required!
 - **PWA Ready**: Install as a native app on your desktop or mobile device
 - **Dark Mode**: Toggle between light and dark themes for comfortable reading
@@ -44,23 +51,27 @@ Discover fascinating, mind-blowing facts about the world, science, history, and 
 ## 🆕 Recent Updates
 
 ### v1.1.8
-- **Content Count Display**: Added item count indicators on all content pages (Mini Stories, Brain Teasers, Tongue Twisters, Wisdom Nuggets, Amazing Facts) showing "Showing X of Y items" for better user experience and navigation awareness.
+
+- **Content Count Display**: Added item count indicators on all content pages (Flash Stories, Quick Challenges, Clear Speech, Life Gems, Fun Facts) showing "Showing X of Y items" for better user experience and navigation awareness.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js (version 18 or higher)
 - npm or pnpm package manager
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/dikie001/Brillia
    cd Brillia
    ```
 
 2. **Install dependencies**
+
    ```bash
    # Using npm
    npm install
@@ -70,6 +81,7 @@ Discover fascinating, mind-blowing facts about the world, science, history, and 
    ```
 
 3. **Start development server**
+
    ```bash
    # Using npm
    npm run dev
@@ -98,24 +110,28 @@ The built files will be in the `dist` directory, ready for deployment.
 Brillia is built with modern web technologies for optimal performance and user experience:
 
 ### Frontend Framework
+
 - **React 19** - Latest React with concurrent features
 - **TypeScript** - Type-safe JavaScript for better development experience
 - **Vite** - Fast build tool and development server
 
 ### Styling & UI
+
 - **Tailwind CSS 4** - Utility-first CSS framework
 - **ShadCN/UI** - Beautiful, accessible component library
 - **Lucide React** - Beautiful icon library
 
 ### State Management & Data
-- **Local Storage** - Client-side data persistence
--**Session Storage** - Temporary client-side data storage that’s cleared when the browser tab or session ends.
+
+- **Local Storage** - Client-side data persistence -**Session Storage** - Temporary client-side data storage that’s cleared when the browser tab or session ends.
 
 ### Development Tools
+
 - **ESLint** - Code linting and formatting
 - **TypeScript ESLint** - TypeScript-specific linting rules
 
 ### PWA Features
+
 - **Service Worker** - Offline functionality and caching
 - **Web App Manifest** - Native app-like experience
 - **PWA Install Prompt** - Easy installation on supported devices
@@ -125,13 +141,16 @@ Brillia is built with modern web technologies for optimal performance and user e
 Brillia is designed as a PWA, offering a native app-like experience in your browser:
 
 ### Installation
+
 1. Visit [brillia-six.vercel.app](https://brillia-six.vercel.app) in a supported browser (Chrome, Edge, Safari)
 2. Look for the install prompt or click the install button in the app
 3. Follow the browser's installation instructions
 4. Brillia will appear as a native app on your device
 
 ### Offline Usage
+
 Once installed, Brillia works completely offline:
+
 - All content is cached locally
 - No internet connection required after initial load
 - Progress and preferences are saved locally
@@ -139,21 +158,27 @@ Once installed, Brillia works completely offline:
 ## 🎯 Usage
 
 ### Navigation
+
 Use the navigation bar to explore different sections:
+
 - **Home**: Overview of all available features
 - **About**: Learn more about the app and developer
 - **Settings**: Customize your experience (theme, sound, etc.)
 - **Help**: Installation guides and troubleshooting
 
 ### Content Sections
+
 Each section offers unique interactive experiences:
+
 - Browse through paginated content
 - Use filters to find specific items
 - Track your progress and achievements
 - Share interesting finds with friends
 
 ### Settings
+
 Customize Brillia to your preferences:
+
 - Toggle dark/light mode
 - Enable/disable sound effects
 - Adjust font sizes for better readability
@@ -180,6 +205,7 @@ We welcome contributions! Here's how you can help improve Brillia:
 7. **Open a Pull Request**
 
 ### Development Guidelines
+
 - Follow TypeScript best practices
 - Maintain consistent code style with ESLint
 - Test on multiple devices and browsers
@@ -193,6 +219,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Developer
 
 **Dickens Omondi**
+
 - Website: [dikie.vercel.app](https://dikie.vercel.app)
 - Email: dickensomondi@gmail.com
 <!-- - LinkedIn:  -->

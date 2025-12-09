@@ -6,19 +6,19 @@ export const STORAGE_KEYS = {
 
 export const FONT_SIZES = ["small", "medium", "large"] as const;
 
-// Brain TEasers current page
+// Quick Challenges current page
 export const TEASERS_CURRENTPAGE = "brain-teaser-currentPage";
 
-// Mini Stories current page
+// Flash Stories current page
 export const STORIES_CURRENTPAGE = "mini-stories-currentPage";
 
-// Wisdom Nuggets current page
+// Life Gems current page
 export const WISDOM_CURRENTPAGE = "wisdom-nuggets-currentPage";
 
-// Amazing Facts current page
+// Fun Facts current page
 export const FACTS_CURRENTPAGE = "amazing-facts-currentPage";
 
-// Tongue Twisters current page
+// Clear Speech current page
 export const TONGUETWISTERS_CURRENTPAGE = "tongue-twisters-currentPage";
 
 // App URL
@@ -28,7 +28,7 @@ export const APP_URL = "https://brillia-six.vercel.app";
 export const APP_VERSION = "1.2.9";
 
 // Last Updated
-export const LAST_UPDATED = ""
+export const LAST_UPDATED = "";
 
 // Admin password
 export const ADMIN_PASSWORD = "14572";
@@ -37,14 +37,12 @@ export const ADMIN_PASSWORD = "14572";
 export const TEST_RESULTS = "quiz_test_results";
 
 // Test results for upload
-export const FIREBASE_TEST_RESULTS = "firebase_test_results"
+export const FIREBASE_TEST_RESULTS = "firebase_test_results";
 
 // Stories read
-export const STORIES_READ = "read-stories"
+export const STORIES_READ = "read-stories";
 
-export const VOCAB_CURRENTPAGE = "vocabulary_current_page"
+export const VOCAB_CURRENTPAGE = "Word_Power_current_page";
 
 // User info
-export const USER_INFO = "user-info"
-
-
+export const USER_INFO = "user-info";

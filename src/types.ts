@@ -44,7 +44,7 @@ export type Quote = {
 
 export type Quotes = Quote[];
 
-// Amazing facts
+// Fun Facts
 export type Fact = {
   id: number;
   fact: string;
@@ -72,7 +72,7 @@ export interface Settings {
   fontSize: "small" | "medium" | "large";
 }
 
-// Tongue Twisterss
+// Clear Speechs
 export type Twister = {
   id: number;
   text: string;

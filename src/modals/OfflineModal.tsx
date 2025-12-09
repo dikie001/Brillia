@@ -39,9 +39,12 @@ const OfflineModal: React.FC<OfflineModalProps> = ({ onClose }) => {
                 <Database className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">Cached Content</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                  Cached Content
+                </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Once installed, all brain teasers, stories, facts, and wisdom nuggets are stored locally on your device for instant access.
+                  Once installed, all Quick Challenges, stories, facts, and Life
+                  Gems are stored locally on your device for instant access.
                 </p>
               </div>
             </div>
@@ -51,21 +54,30 @@ const OfflineModal: React.FC<OfflineModalProps> = ({ onClose }) => {
                 <WifiOff className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">No Internet Required</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                  No Internet Required
+                </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Use Brillia completely offline. Browse content, save favorites, and track progress without needing a data connection.
+                  Use Brillia completely offline. Browse content, save
+                  favorites, and track progress without needing a data
+                  connection.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">!</span>
+                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                  !
+                </span>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">Sync When Online</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                  Sync When Online
+                </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Your favorites and progress are saved locally. When you reconnect, any new content will be available automatically.
+                  Your favorites and progress are saved locally. When you
+                  reconnect, any new content will be available automatically.
                 </p>
               </div>
             </div>
@@ -74,10 +86,13 @@ const OfflineModal: React.FC<OfflineModalProps> = ({ onClose }) => {
           <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <WifiOff className="w-5 h-5 text-green-600 dark:text-green-400" />
-              <h4 className="font-semibold text-green-900 dark:text-green-100">Always Available</h4>
+              <h4 className="font-semibold text-green-900 dark:text-green-100">
+                Always Available
+              </h4>
             </div>
             <p className="text-sm text-green-700 dark:text-green-300">
-              Brillia is designed to work seamlessly whether you're online or offline, ensuring you can learn and have fun anytime, anywhere.
+              Brillia is designed to work seamlessly whether you're online or
+              offline, ensuring you can learn and have fun anytime, anywhere.
             </p>
           </div>
 

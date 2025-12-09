@@ -1165,7 +1165,7 @@ export const twisters: Twister[] = [
   },
   {
     id: 167,
-    text: "These thousand tricky tongue twisters trip thrillingly off the tongue.",
+    text: "These thousand tricky Clear Speech trip thrillingly off the tongue.",
     difficulty: "Hard",
     category: "Tongue Twister",
     tags: ["th", "s", "t", "r"],

@@ -151,7 +151,7 @@ export default function FactFrenzy() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
-      <Navbar currentPage="Amazing Facts" />
+      <Navbar currentPage="Fun Facts" />
       <Toaster richColors position="top-center" />
 
       <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
@@ -250,7 +250,9 @@ export default function FactFrenzy() {
                 <div className="mb-4">
                   <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium">
                     <TrendingUp className="w-3.5 h-3.5" />
-                    <span className="truncate max-w-[200px]">{fact.source}</span>
+                    <span className="truncate max-w-[200px]">
+                      {fact.source}
+                    </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {fact.tags.slice(0, 3).map((tag) => (
@@ -321,15 +323,16 @@ export default function FactFrenzy() {
         </div>
 
         {/* Bottom Paginate */}
-        {displayedFacts.length !== 0 && displayedFacts.length === itemsPerPage && (
-          <div className="flex justify-center pb-8">
-            <Paginate
-              currentPage={currentPage}
-              totalItems={totalFiltered}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
-        )}
+        {displayedFacts.length !== 0 &&
+          displayedFacts.length === itemsPerPage && (
+            <div className="flex justify-center pb-8">
+              <Paginate
+                currentPage={currentPage}
+                totalItems={totalFiltered}
+                setCurrentPage={setCurrentPage}
+              />
+            </div>
+          )}
       </main>
       <Footer />
     </div>

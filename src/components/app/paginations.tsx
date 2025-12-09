@@ -10,7 +10,7 @@ import {
 import useSound from "@/hooks/useSound";
 import { cn } from "@/lib/utils";
 import type { Story } from "@/types";
-import type { Teaser } from "../../pages/BrainTeasers";
+import type { Teaser } from "../../pages/USER/QuickChallenges";
 
 interface MainProps {
   currentPage: number;

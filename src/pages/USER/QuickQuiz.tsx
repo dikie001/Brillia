@@ -24,7 +24,7 @@ import quizData from "@/jsons/quizData";
 import ResetModal from "@/modals/Delete";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import useSound from "../hooks/useSound";
+import useSound from "../../hooks/useSound";
 import logo from "/images/logo.png";
 
 type Options = {
@@ -351,7 +351,7 @@ const QuizApp: React.FC = () => {
       timeTaken,
     };
     const updatedResults = [...state.testResults, testResult];
-    quizResultsRef.current = testResult
+    quizResultsRef.current = testResult;
     const nextTestIndex = state.currentTest + 1;
 
     setState((prev) => ({
@@ -465,7 +465,7 @@ const QuizApp: React.FC = () => {
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Please ensure your RandomQuiz.json file is properly imported and
-              contains valid quiz questions.
+              contains valid Quick Quizions.
             </p>
             <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-left text-sm text-gray-600 dark:text-gray-400">
               <p className="mb-2 font-medium">Expected format:</p>
@@ -485,7 +485,7 @@ const QuizApp: React.FC = () => {
   if (state.gameState === "home") {
     return (
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative transition-colors duration-300">
-        <Navbar currentPage="Quiz Quest" />
+        <Navbar currentPage="Quick Quiz" />
 
         {openResetModal && (
           <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
@@ -647,7 +647,7 @@ const QuizApp: React.FC = () => {
     if (!currentQ) {
       return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent flex items-center justify-center transition-colors duration-300">
-          <Navbar currentPage="Quiz Quest" />
+          <Navbar currentPage="Quick Quiz" />
           <div className="text-center pt-16">
             <p className="text-gray-900 dark:text-white text-xl font-semibold mb-4">
               No questions available for this test.
@@ -669,7 +669,7 @@ const QuizApp: React.FC = () => {
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 transition-colors duration-300">
-        <Navbar currentPage="Quiz Quest" />
+        <Navbar currentPage="Quick Quiz" />
         <div className="max-w-4xl mx-auto pt-16 ">
           {/* Header */}
           <div className="flex items-center justify-between mb-6 mt-1">

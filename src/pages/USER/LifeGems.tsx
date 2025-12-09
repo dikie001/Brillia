@@ -22,19 +22,17 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
-import Paginate from "../components/app/paginations";
+import Paginate from "../../components/app/paginations";
 
 const categoryColors: Record<string, string> = {
   Motivation:
     "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
   Wisdom:
     "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
-  Life:
-    "bg-gradient-to-r from-zinc-200/40 to-stone-200/40 text-zinc-900 dark:border border-zinc-800 dark:from-zinc-900/40 dark:to-stone-900/40 dark:text-zinc-300",
+  Life: "bg-gradient-to-r from-zinc-200/40 to-stone-200/40 text-zinc-900 dark:border border-zinc-800 dark:from-zinc-900/40 dark:to-stone-900/40 dark:text-zinc-300",
   Success:
     "bg-gradient-to-r from-emerald-200/40 to-green-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-green-900/40 dark:text-emerald-300",
-  Love:
-    "bg-gradient-to-r from-rose-200/40 to-pink-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-pink-900/40 dark:text-rose-300",
+  Love: "bg-gradient-to-r from-rose-200/40 to-pink-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-pink-900/40 dark:text-rose-300",
   Courage:
     "bg-gradient-to-r from-orange-200/40 to-red-200/40 text-orange-900 dark:border border-orange-800 dark:from-orange-900/40 dark:to-red-900/40 dark:text-orange-300",
   Imagination:
@@ -152,17 +150,14 @@ export default function WisdomNuggets() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
-      
-      <Navbar currentPage="Wisdom Nuggets" />
+      <Navbar currentPage="Life Gems" />
       <Toaster richColors position="top-center" />
 
       <div className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
-        
         {/* Featured Quote - Hero Style */}
         {showFeaturedQuote && (
           <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-500">
             <div className="relative bg-gradient-to-br from-indigo-600 to-violet-700 dark:from-indigo-900 dark:to-violet-950 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-indigo-500/20 text-white overflow-hidden border border-white/10">
-              
               {/* Decorative Background Elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
@@ -173,18 +168,18 @@ export default function WisdomNuggets() {
                     <Sparkles className="w-3 h-3 text-yellow-300" />
                     Daily Inspiration
                   </div>
-                  
+
                   <QuoteIcon className="w-12 h-12 mb-6 text-white/20 mx-auto md:mx-0" />
-                  
+
                   <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-6 font-serif tracking-tight">
                     "{featuredQuote.content}"
                   </blockquote>
-                  
+
                   <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
                     <cite className="text-lg font-medium text-indigo-100 not-italic">
                       — {featuredQuote.author}
                     </cite>
-                    
+
                     {/* Progress Dots */}
                     <div className="flex gap-2">
                       {[...Array(5)].map((_, i) => (
@@ -227,10 +222,12 @@ export default function WisdomNuggets() {
 
         {/* Empty State */}
         {currentFilter !== "Favorites" && displayedQuotes.length === 0 && (
-           <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in zoom-in">
-              <Info className="w-16 h-16 text-indigo-300 mb-4" />
-              <p className="text-xl font-bold text-gray-500">No quotes found in this category.</p>
-           </div>
+          <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in zoom-in">
+            <Info className="w-16 h-16 text-indigo-300 mb-4" />
+            <p className="text-xl font-bold text-gray-500">
+              No quotes found in this category.
+            </p>
+          </div>
         )}
 
         {/* Quotes Grid */}
@@ -241,7 +238,8 @@ export default function WisdomNuggets() {
             {displayedQuotes.map((quote, index) => {
               const isFavorite = favorite.has(quote.id);
               const isCopied = copied === quote.id;
-              const categoryStyle = categoryColors[quote.category] || categoryColors["Wisdom"];
+              const categoryStyle =
+                categoryColors[quote.category] || categoryColors["Wisdom"];
 
               return (
                 <div
@@ -262,7 +260,7 @@ export default function WisdomNuggets() {
                     >
                       {quote.category}
                     </span>
-                    
+
                     {/* Popularity Star */}
                     <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg border border-yellow-100 dark:border-yellow-900/50">
                       <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
@@ -287,9 +285,9 @@ export default function WisdomNuggets() {
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {quote.tags.map((tag) => (
-                      <Badge 
-                        variant="secondary" 
-                        key={tag} 
+                      <Badge
+                        variant="secondary"
+                        key={tag}
                         className="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-[10px] px-2 h-5 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                       >
                         #{tag}
@@ -300,50 +298,54 @@ export default function WisdomNuggets() {
                   {/* Footer / Actions */}
                   <div className="pt-3 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
                     <span className="text-[10px] font-bold text-gray-300 dark:text-gray-600">
-                        #{quote.id}
+                      #{quote.id}
                     </span>
 
                     <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => {
-                            playSend();
-                            copyToClipboard(quote, setCopied);
-                          }}
-                          className={`p-2 rounded-full transition-all duration-300 ${
-                            isCopied
-                              ? "bg-emerald-100 text-emerald-600"
-                              : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                      <button
+                        onClick={() => {
+                          playSend();
+                          copyToClipboard(quote, setCopied);
+                        }}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                          isCopied
+                            ? "bg-emerald-100 text-emerald-600"
+                            : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                        }`}
+                        title="Copy"
+                      >
+                        {isCopied ? (
+                          <CheckCircle className="w-4 h-4" />
+                        ) : (
+                          <Copy className="w-4 h-4" />
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          playSend();
+                          shareQuote(quote, setCopied);
+                        }}
+                        className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
+                        title="Share"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          playSend();
+                          toggleFavorites(quote.id);
+                        }}
+                        className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
+                        title="Favorite"
+                      >
+                        <Heart
+                          className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
+                            isFavorite ? "fill-rose-500 text-rose-500" : ""
                           }`}
-                          title="Copy"
-                        >
-                          {isCopied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            playSend();
-                            shareQuote(quote, setCopied);
-                          }}
-                          className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
-                          title="Share"
-                        >
-                          <Share2 className="w-4 h-4" />
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            playSend();
-                            toggleFavorites(quote.id);
-                          }}
-                          className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
-                          title="Favorite"
-                        >
-                          <Heart
-                            className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
-                              isFavorite ? "fill-rose-500 text-rose-500" : ""
-                            }`}
-                          />
-                        </button>
+                        />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -353,16 +355,16 @@ export default function WisdomNuggets() {
         )}
 
         {/* Bottom Paginate */}
-        {displayedQuotes.length !== 0 && displayedQuotes.length === itemsPerPage && (
-          <div className="flex justify-center pb-8">
-            <Paginate
+        {displayedQuotes.length !== 0 &&
+          displayedQuotes.length === itemsPerPage && (
+            <div className="flex justify-center pb-8">
+              <Paginate
                 currentPage={currentPage}
                 totalItems={quotes.length}
                 setCurrentPage={setCurrentPage}
-            />
-          </div>
-        )}
-
+              />
+            </div>
+          )}
       </div>
       <Footer />
     </div>

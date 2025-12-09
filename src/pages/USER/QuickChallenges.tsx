@@ -8,9 +8,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader, 
+  DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"; 
+} from "@/components/ui/dialog";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import useSound from "@/hooks/useSound";
 import brainTeasers from "@/jsons/brainTeaser";
@@ -23,7 +23,7 @@ import {
   Info,
   LoaderCircle,
   Maximize2,
-  Share2
+  Share2,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -171,7 +171,7 @@ export default function BrainTeasersPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
-      <Navbar currentPage="Brain Teasers" />
+      <Navbar currentPage="Quick Challenges" />
       <Toaster richColors position="top-center" />
 
       <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
