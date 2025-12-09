@@ -3,7 +3,10 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
+import Paginate from "@/components/app/paginations";
+import { Badge } from "@/components/ui/badge";
 import { FACTS_CURRENTPAGE } from "@/constants";
+import useSound from "@/hooks/useSound";
 import { facts } from "@/jsons/amazingFacts";
 import type { Fact } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -11,25 +14,30 @@ import {
   CheckCircle,
   Copy,
   Heart,
+  Info,
   LoaderCircle,
   Share2,
-  Star,
   TrendingUp,
-  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import Paginate from "../components/app/paginations";
-import useSound from "@/hooks/useSound";
+import { toast, Toaster } from "sonner";
 
-const categoryColors = {
-  Science: "bg-sky-900/40 text-sky-300 border border-sky-800", // calm, futuristic glow
-  Nature: "bg-emerald-900/40 text-emerald-300 border border-emerald-800", // earthy, balanced
-  History: "bg-amber-900/40 text-amber-300 border border-amber-800", // warm, vintage tone
-  Space: "bg-violet-900/40 text-violet-300 border border-violet-800", // cosmic depth
-  Animals: "bg-orange-900/40 text-orange-300 border border-orange-800", // vibrant, organic
-  Technology: "bg-slate-900/40 text-slate-300 border border-slate-800", // sleek, neutral
-  Culture: "bg-rose-900/40 text-rose-300 border border-rose-800", // expressive warmth
+// 🎨 THEME COLORS (Consistent Indigo/Glassy Style)
+const categoryColors: Record<string, string> = {
+  Science:
+    "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
+  Nature:
+    "bg-gradient-to-r from-emerald-200/40 to-green-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-green-900/40 dark:text-emerald-300",
+  History:
+    "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
+  Space:
+    "bg-gradient-to-r from-violet-200/40 to-fuchsia-200/40 text-violet-900 dark:border border-violet-800 dark:from-violet-900/40 dark:to-fuchsia-900/40 dark:text-fuchsia-300",
+  Animals:
+    "bg-gradient-to-r from-orange-200/40 to-red-200/40 text-orange-900 dark:border border-orange-800 dark:from-orange-900/40 dark:to-red-900/40 dark:text-orange-300",
+  Technology:
+    "bg-gradient-to-r from-slate-200/40 to-zinc-200/40 text-slate-900 dark:border border-slate-800 dark:from-slate-900/40 dark:to-zinc-900/40 dark:text-slate-300",
+  Culture:
+    "bg-gradient-to-r from-rose-200/40 to-pink-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-pink-900/40 dark:text-rose-300",
 };
 
 const FAVOURITE_FACTS = "favourite-facts";
@@ -37,8 +45,6 @@ const FAVOURITE_FACTS = "favourite-facts";
 export default function FactFrenzy() {
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [displayedFacts, setDisplayedFacts] = useState<Fact[]>([]);
-  const [currentFactIndex, setCurrentFactIndex] = useState(0);
-  const [showFactOfDay, setShowFactOfDay] = useState(true);
   const factsRef = useRef<Fact[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,7 +82,6 @@ export default function FactFrenzy() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = filteredFacts.slice(start, end);
-    console.log(currentItems);
     setDisplayedFacts(currentItems);
   };
 
@@ -144,202 +149,171 @@ export default function FactFrenzy() {
     });
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFactIndex((prev) => (prev + 1) % facts.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const factOfDay = facts[currentFactIndex];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="relative mt-18 z-10 max-w-7xl mx-auto">
-        <Navbar currentPage="Amazing Facts" />
-        <header className="text-center mb-6"></header>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
+      <Navbar currentPage="Amazing Facts" />
+      <Toaster richColors position="top-center" />
 
+      <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
         {/* Loading */}
         {loading && (
-          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-            <p className="font-medium">Loading facts...</p>
-          </div>
-        )}
-
-        {showFactOfDay && (
-          <div className="mb-6  relative">
-            <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-6 rounded-3xl shadow-2xl text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
-              <div className="absolute top-4 right-4">
-                <button
-                  onClick={() => {
-                    playSend();
-                    setShowFactOfDay(false);
-                  }}
-                  className="text-white/80 cursor-pointer hover:text-white text-2xl"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <Star className="w-8 h-8 text-yellow-300" />
-                  <h2 className="text-2xl font-bold">Fact of the Moment</h2>
-                </div>
-                <p className="text-lg leading-relaxed mb-6">{factOfDay.fact}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs opacity-80">
-                      Source: {factOfDay.source}
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    {[...Array(Math.min(5, facts.length))].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                          i === currentFactIndex % 5
-                            ? "bg-white scale-125"
-                            : "bg-white/40"
-                        }`}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="fixed inset-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+            <LoaderCircle className="w-12 h-12 animate-spin text-indigo-500 mb-4" />
+            <p className="font-medium text-lg text-indigo-900 dark:text-indigo-200 animate-pulse">
+              Loading facts...
+            </p>
           </div>
         )}
 
         <FilterBar
           currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
+          setCurrentFilter={(filter) => {
+            setCurrentFilter(filter);
+            setCurrentPage(1);
+          }}
           genres={genres}
         />
-        
-        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div> */}
 
-        {/* Top Paginate */}
-        {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
+        {/* Empty State / Ran Out */}
+        {(currentPage - 1) * itemsPerPage >= totalFiltered &&
+          !loading &&
+          totalFiltered > 0 && (
+            <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in zoom-in">
+              <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-md p-8 rounded-[2rem] mb-6 rotate-3 shadow-xl">
+                <Info className="w-16 h-16 text-indigo-400" />
+              </div>
+              <h2 className="text-3xl font-black text-indigo-900 dark:text-indigo-100 tracking-tight mb-2">
+                All Done!
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+                You have read all the facts on this page.
+              </p>
+              <button
+                onClick={() => {
+                  playSend();
+                  setCurrentPage(1);
+                }}
+                className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-transform active:scale-95 shadow-lg shadow-indigo-500/25"
+              >
+                Start Over
+              </button>
+            </div>
+          )}
 
         {/* NO favorites */}
         {currentFilter === "Favorites" && displayedFacts.length === 0 && (
           <NoFavorites />
         )}
-        <div className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10">
           {displayedFacts.map((fact, index) => {
+            const isFavorite = favorite.has(fact.id);
+            const isCopied = copied === fact.id;
+            const categoryStyle =
+              categoryColors[fact.category] || categoryColors.Science;
+
             return (
               <div
                 key={fact.id}
-                className="group relative bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-xl p-5 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/30 "
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative flex flex-col justify-between 
+                           bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
+                           rounded-3xl p-5 
+                           border border-white/40 dark:border-white/5
+                           hover:border-indigo-300 dark:hover:border-indigo-500/50
+                           shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
+                           transition-all duration-300 ease-out hover:-translate-y-1.5"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        categoryColors[fact.category]
-                      }`}
-                    >
-                      {fact.category}
+                {/* Header */}
+                <div className="flex justify-between items-start mb-4">
+                  <span
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-sm ${categoryStyle}`}
+                  >
+                    {fact.category}
+                  </span>
+                  <div className="flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/20 px-2 py-1 rounded-lg border border-indigo-100 dark:border-indigo-800/50">
+                    <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">
+                      #{fact.id}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-2.5">
-                  {fact.fact}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {fact.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full text-xs font-medium"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
+                {/* Content */}
+                <div className="flex-grow mb-4">
+                  <p className="text-gray-800 dark:text-gray-100 font-bold text-lg leading-relaxed">
+                    {fact.fact}
+                  </p>
                 </div>
 
-                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
-                  {fact.id}
-                </div>
-
-                <div className="flex items-center justify-between w-full border-t mt-4 mb-4">
-                  {/* Share and copy btn */}
-                  <div className="gap-2 flex mt-1">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playSend();
-                        copyToClipboard(fact, setCopied);
-                      }}
-                      className={`p-2 rounded-full cursor-pointer transition-all duration-300 ${
-                        copied === fact.id
-                          ? "bg-indigo-100  text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
-                          : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                      }`}
-                      title={copied === fact.id ? "Copied!" : "Copy fact"}
-                    >
-                      {copied === fact.id ? (
-                        <CheckCircle className="w-5 h-5" />
-                      ) : (
-                        <Copy className="w-5 h-5" />
-                      )}
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playSend();
-                        shareQuote(fact, setCopied);
-                      }}
-                      className="p-2 rounded-full cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
-                      title="Share fact"
-                    >
-                      <Share2 className="w-5 h-5" />
-                    </button>
+                {/* Source & Tags */}
+                <div className="mb-4">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium">
+                    <TrendingUp className="w-3.5 h-3.5" />
+                    <span className="truncate max-w-[200px]">{fact.source}</span>
                   </div>
-
-                  {/* Like button */}
-                  <div className="mt-1">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playSend();
-                        toggleFavorites(fact.id);
-                      }}
-                      className={`p-2 rounded-full transition-all cursor-pointer ${
-                        favorite.has(fact.id)
-                          ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                          : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                      }`}
-                      title={
-                        favorite.has(fact.id)
-                          ? "Remove from favorites"
-                          : "Add to favorites"
-                      }
-                    >
-                      <Heart
-                        className={`w-5 h-5 ${
-                          favorite.has(fact.id) ? "fill-current" : ""
-                        }`}
-                      />
-                    </button>
+                  <div className="flex flex-wrap gap-1.5">
+                    {fact.tags.slice(0, 3).map((tag) => (
+                      <Badge
+                        variant="secondary"
+                        key={tag}
+                        className="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-[10px] px-2 h-5 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                      >
+                        #{tag}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
 
-                <div className="mt-2 absolute bottom-4 left-4 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                  <TrendingUp className="w-3 h-3" />
-                  Source: {fact.source}
+                {/* Footer / Actions */}
+                <div className="pt-3 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-end gap-1">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playSend();
+                      copyToClipboard(fact, setCopied);
+                    }}
+                    className={`p-2 rounded-full transition-all duration-300 ${
+                      isCopied
+                        ? "bg-emerald-100 text-emerald-600"
+                        : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                    }`}
+                    title="Copy"
+                  >
+                    {isCopied ? (
+                      <CheckCircle className="w-4 h-4" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playSend();
+                      shareQuote(fact, setCopied);
+                    }}
+                    className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
+                    title="Share"
+                  >
+                    <Share2 className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playSend();
+                      toggleFavorites(fact.id);
+                    }}
+                    className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
+                    title="Favorite"
+                  >
+                    <Heart
+                      className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
+                        isFavorite ? "fill-rose-500 text-rose-500" : ""
+                      }`}
+                    />
+                  </button>
                 </div>
               </div>
             );
@@ -347,46 +321,16 @@ export default function FactFrenzy() {
         </div>
 
         {/* Bottom Paginate */}
-        {displayedFacts.length !== 0 && displayedFacts.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
-        {/* 
-        <div className="mt-6 text-center">
-          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
-            Learning Never Stops
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <Brain className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Mind Expanding</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Every fact opens new neural pathways and expands your
-                understanding of the world.
-              </p>
-            </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <CheckCircle className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Verified Sources</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                All facts are carefully researched and sourced from reputable
-                institutions.
-              </p>
-            </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <Star className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Fun Learning</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Knowledge should be exciting! Each fact is rated for its fun
-                factor.
-              </p>
-            </div>
+        {displayedFacts.length !== 0 && displayedFacts.length === itemsPerPage && (
+          <div className="flex justify-center pb-8">
+            <Paginate
+              currentPage={currentPage}
+              totalItems={totalFiltered}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
-        </div> */}
-      </div>
+        )}
+      </main>
       <Footer />
     </div>
   );
