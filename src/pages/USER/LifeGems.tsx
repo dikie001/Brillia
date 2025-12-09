@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 import Paginate from "../../components/app/paginations";
 
+// Simplified, cleaner color palette
 const categoryColors: Record<string, string> = {
   Motivation:
     "bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300 border-sky-200 dark:border-sky-800",
@@ -53,9 +54,8 @@ export default function WisdomNuggets() {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // Optimized for 2, 3, and 4 column grids
+  const itemsPerPage = 12; 
   const [showFeaturedQuote, setShowFeaturedQuote] = useState(false);
-
   const [currentFilter, setCurrentFilter] = useState("All");
 
   const genres = [
@@ -156,25 +156,25 @@ export default function WisdomNuggets() {
         {/* Featured Quote - Hero Style */}
         {showFeaturedQuote && (
           <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-500">
-            <div className="relative bg-gradient-to-br from-indigo-600 to-violet-700 dark:from-indigo-900 dark:to-violet-950 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-indigo-500/20 text-white overflow-hidden border border-white/10">
+            <div className="relative bg-gradient-to-br from-indigo-600 to-violet-700 dark:from-indigo-900 dark:to-violet-950 rounded-[2rem] p-8 shadow-2xl shadow-indigo-500/20 text-white overflow-hidden border border-white/10">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-              <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center md:items-start justify-between">
+              <div className="relative z-10 flex flex-col md:flex-row gap-6 items-center md:items-start justify-between">
                 <div className="flex-1 text-center md:text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider mb-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider mb-4">
                     <Sparkles className="w-3 h-3 text-yellow-300" />
                     Daily Inspiration
                   </div>
 
-                  <QuoteIcon className="w-12 h-12 mb-6 text-white/20 mx-auto md:mx-0" />
+                  <QuoteIcon className="w-10 h-10 mb-4 text-white/20 mx-auto md:mx-0" />
 
-                  <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-6 font-serif tracking-tight">
+                  <blockquote className="text-xl md:text-2xl font-bold leading-tight mb-6 font-serif tracking-tight">
                     "{featuredQuote.content}"
                   </blockquote>
 
-                  <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-                    <cite className="text-lg font-medium text-indigo-100 not-italic">
+                  <div className="flex flex-col md:flex-row items-center gap-4">
+                    <cite className="text-base font-medium text-indigo-100 not-italic">
                       — {featuredQuote.author}
                     </cite>
 
@@ -184,7 +184,7 @@ export default function WisdomNuggets() {
                           key={i}
                           className={`h-1.5 rounded-full transition-all duration-500 ${
                             i === currentQuoteIndex % 5
-                              ? "w-8 bg-white"
+                              ? "w-6 bg-white"
                               : "w-1.5 bg-white/30"
                           }`}
                         />
@@ -195,13 +195,13 @@ export default function WisdomNuggets() {
               </div>
 
               <button
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200"
+                className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200"
                 onClick={() => {
                   playSend();
                   setShowFeaturedQuote(false);
                 }}
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function WisdomNuggets() {
           </div>
         )}
 
-        {/* Quotes Grid - Updated Layout */}
+        {/* Quotes Grid - Compact & Clean */}
         {currentFilter === "Favorites" && displayedQuotes.length === 0 ? (
           <NoFavorites />
         ) : (
@@ -263,7 +263,7 @@ export default function WisdomNuggets() {
                     </div>
                   </div>
 
-                  {/* Content */}
+                  {/* Content - Serif Font for Wisdom */}
                   <div className="mb-4 flex-grow">
                     <QuoteIcon className="w-4 h-4 text-indigo-200 dark:text-indigo-800 mb-1" />
                     <p className="font-serif text-lg font-medium leading-snug text-gray-800 dark:text-gray-100">
@@ -274,9 +274,9 @@ export default function WisdomNuggets() {
                     </p>
                   </div>
 
-                  {/* Tags & Footer */}
+                  {/* Footer Area */}
                   <div className="mt-auto">
-                    {/* Tags */}
+                    {/* Tags - Limited to 3 */}
                     <div className="flex flex-wrap gap-1 mb-3">
                       {quote.tags.slice(0, 3).map((tag) => (
                         <span
@@ -288,7 +288,7 @@ export default function WisdomNuggets() {
                       ))}
                     </div>
 
-                    {/* Actions */}
+                    {/* Actions Line */}
                     <div className="pt-2 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
                       <span className="text-[10px] font-mono text-gray-300 dark:text-gray-600">
                         #{quote.id}
@@ -358,7 +358,7 @@ export default function WisdomNuggets() {
             <div className="flex justify-center pb-8">
               <Paginate
                 currentPage={currentPage}
-                totalItems={currentFilter === "All" ? quotes.length : displayedQuotes.length + ((currentPage - 1) * itemsPerPage)} // Adjusted total calculation slightly for filter accuracy visual
+                totalItems={currentFilter === "All" ? quotes.length : displayedQuotes.length + ((currentPage - 1) * itemsPerPage)}
                 setCurrentPage={setCurrentPage}
               />
             </div>

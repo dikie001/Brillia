@@ -1,11 +1,10 @@
 import { useTheme } from "@/hooks/useHook";
-import { Menu, Moon, Sun, BarChart2 } from "lucide-react";
+import useSound from "@/hooks/useSound";
+import { BarChart2, Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
-import PWAInstall from "../PWAInstall";
 import logo from "/images/logo.png";
-import useSound from "@/hooks/useSound";
 
 const greetings = [
   "Hey",
@@ -133,9 +132,7 @@ const Navbar = ({ currentPage }: MainProp) => {
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
             </button>
 
-            {/* PWA Install */}
-            <PWAInstall />
-
+            
             {/* Theme Toggle  */}
             <button
               onClick={() => {

@@ -19,6 +19,7 @@ import AdminNotifications from "./pages/ADMIN/Notifications";
 import PracticeCommunication from "./pages/DEV/PracticeCommunication";
 import { useUpdateListener } from "./hooks/useUpdateListener";
 import WordPower from "./pages/USER/WordPower";
+import PWAInstallModal from "./components/PWAInstall";
 const FactFrenzy = lazy(() => import("./pages/USER/FunFacts"));
 const BrainTeasers = lazy(() => import("./pages/USER/QuickChallenges"));
 const HomePage = lazy(() => import("./pages/USER/HomePage"));
@@ -49,6 +50,7 @@ const App = () => {
   }, []);
   return (
     <Router>
+      <PWAInstallModal />
       <Toaster richColors position="top-center" />
       <Suspense fallback={<LoadingPage />}>
         <Routes>
