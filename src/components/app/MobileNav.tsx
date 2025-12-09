@@ -330,7 +330,7 @@ export default function MobileNav({
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 h-screen bg-indigo-950/40 cursor-pointer backdrop-blur-[2px] z-40 animate-in fade-in duration-200"
+        className="fixed inset-0 h-screen bg-indigo-950/40 cursor-pointer backdrop-blur-sm z-40 animate-in fade-in duration-200"
       />
 
       {/* Sidebar */}
