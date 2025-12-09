@@ -1,22 +1,23 @@
+import Footer from "@/components/app/Footer";
+import { topics as TOPICS } from "@/jsons/topics";
 import {
+  Activity,
   AlertTriangle,
+  Battery,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   Copy,
   Cpu,
   History,
-  RotateCcw,
-  Activity,
-  Wifi,
-  Battery,
   Lock,
+  RotateCcw,
   Terminal,
-  ChevronUp,
-  ChevronDown,
+  Wifi,
 } from "lucide-react";
-import React, { useEffect, useState, useRef } from "react";
-import { topics as TOPICS } from "@/jsons/topics";
-import Footer from "@/components/app/Footer";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // --- CUSTOM CYBER NAVBAR ---
 const CyberNavbar = () => (
@@ -232,6 +233,7 @@ export default function DevTopics() {
   const currentTopic = TOPICS[index];
   const progress = Math.round(((index + 1) / TOPICS.length) * 100);
   const topicHistory = TOPICS.slice(0, index + 1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, index.toString());
@@ -273,7 +275,7 @@ export default function DevTopics() {
     setShowResetConfirm(false);
   };
 
-  const handleTerminalCommand = (cmd: string): string => {
+  const handleTerminalCommand = (cmd: string) => {
     switch (cmd) {
       case "help":
         return "next, prev, logs, reset, copy, whoami, clear";
@@ -296,6 +298,22 @@ export default function DevTopics() {
         return "USER: DIKIE [Admin Access Granted]";
       case "date":
         return new Date().toLocaleString();
+      case "hello":
+        return "Hello sir dickens";
+      case "back":
+        navigate("/");
+        return "Redirecting to the user dash";
+
+      case "admin":
+        navigate("/admin-auth");
+        return "Redirecting to the admin dash";
+      case "home":
+        navigate("/");
+        return "Heading to the home page now";
+      case "sudo":
+        return "sudo commands are not allowed my G, you might erase your entire system!";
+      case "hi":
+        return "Hello there my G!";
       default:
         return `Error: Unknown command '${cmd}'.`;
     }
@@ -482,67 +500,73 @@ export default function DevTopics() {
 
       {/* --- RESET MODAL --- */}
       {showResetConfirm && (
-   <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
-  {/* Modal Container */}
-  <div 
-    className="w-full max-w-md bg-black border border-red-600 shadow-[0_0_40px_rgba(220,38,38,0.2)] relative overflow-hidden animate-in zoom-in-95 duration-200"
-    style={{
-      clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)"
-    }}
-  >
-    {/* Decorative red flash bar */}
-    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-50" />
-    
-    {/* Header */}
-    <div className="bg-red-950/20 px-6 py-4 border-b border-red-600/30 flex items-center gap-4">
-      <div className="p-2 border border-red-500/50 bg-red-900/10 shadow-[0_0_10px_rgba(220,38,38,0.2)]">
-        <AlertTriangle className="w-6 h-6 text-red-500 animate-pulse" />
-      </div>
-      <div>
-        <h3 className="font-mono text-lg font-black text-red-500 uppercase tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.5)]">
-          CRITICAL_ALERT
-        </h3>
-        <p className="text-[10px] text-red-400/60 font-mono tracking-wider">
-          ERR_CODE: INDEX_RESET_PROTOCOL
-        </p>
-      </div>
-    </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
+          {/* Modal Container */}
+          <div
+            className="w-full max-w-md bg-black border border-red-600 shadow-[0_0_40px_rgba(220,38,38,0.2)] relative overflow-hidden animate-in zoom-in-95 duration-200"
+            style={{
+              clipPath:
+                "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
+            }}
+          >
+            {/* Decorative red flash bar */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-50" />
 
-    {/* Body */}
-    <div className="p-8 space-y-4 relative">
-      {/* Subtle Scanline Background */}
-      <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent,transparent_2px,rgba(220,38,38,0.05)_3px)] pointer-events-none" />
-      
-      <p className="relative z-10 text-sm text-red-100/80 font-mono leading-relaxed border-l-2 border-red-600 pl-4">
-        <span className="text-red-500 font-bold block mb-2 tracking-widest">&gt; WARNING:</span>
-        Initiating hard reset sequence. This will wipe the current topic index and revert to factory settings [0].
-        <br /><br />
-        <span className="text-red-500/50 text-xs uppercase blink">
-          // Data loss is irreversible.
-        </span>
-      </p>
-    </div>
+            {/* Header */}
+            <div className="bg-red-950/20 px-6 py-4 border-b border-red-600/30 flex items-center gap-4">
+              <div className="p-2 border border-red-500/50 bg-red-900/10 shadow-[0_0_10px_rgba(220,38,38,0.2)]">
+                <AlertTriangle className="w-6 h-6 text-red-500 animate-pulse" />
+              </div>
+              <div>
+                <h3 className="font-mono text-lg font-black text-red-500 uppercase tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.5)]">
+                  CRITICAL_ALERT
+                </h3>
+                <p className="text-[10px] text-red-400/60 font-mono tracking-wider">
+                  ERR_CODE: INDEX_RESET_PROTOCOL
+                </p>
+              </div>
+            </div>
 
-    {/* Footer */}
-    <div className="px-6 py-5 bg-black border-t border-red-600/30 flex justify-end gap-4">
-      <button
-        onClick={() => setShowResetConfirm(false)}
-        className="px-6 py-2 text-xs font-mono font-bold uppercase tracking-wider text-red-500 border border-red-600/30 hover:bg-red-600/10 hover:border-red-500 hover:shadow-[0_0_15px_rgba(220,38,38,0.3)] transition-all duration-300"
-      >
-        [ ABORT ]
-      </button>
-      <button
-        onClick={confirmReset}
-        className="group relative px-6 py-2 bg-red-600 text-black text-xs font-mono font-black uppercase tracking-wider overflow-hidden hover:bg-red-500 transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]"
-      >
-        <span className="relative z-10 flex items-center gap-2">
-          EXECUTE_WIPE <Activity className="w-3 h-3 group-hover:rotate-180 transition-transform" />
-        </span>
-        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-100" />
-      </button>
-    </div>
-  </div>
-</div>
+            {/* Body */}
+            <div className="p-8 space-y-4 relative">
+              {/* Subtle Scanline Background */}
+              <div className="absolute inset-0 bg-[repeating-linear-gradient(transparent,transparent_2px,rgba(220,38,38,0.05)_3px)] pointer-events-none" />
+
+              <p className="relative z-10 text-sm text-red-100/80 font-mono leading-relaxed border-l-2 border-red-600 pl-4">
+                <span className="text-red-500 font-bold block mb-2 tracking-widest">
+                  &gt; WARNING:
+                </span>
+                Initiating hard reset sequence. This will wipe the current topic
+                index and revert to factory settings [0].
+                <br />
+                <br />
+                <span className="text-red-500/50 text-xs uppercase blink">
+                  // Data loss is irreversible.
+                </span>
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-5 bg-black border-t border-red-600/30 flex justify-end gap-4">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="px-6 py-2 text-xs font-mono font-bold uppercase tracking-wider text-red-500 border border-red-600/30 hover:bg-red-600/10 hover:border-red-500 hover:shadow-[0_0_15px_rgba(220,38,38,0.3)] transition-all duration-300"
+              >
+                [ ABORT ]
+              </button>
+              <button
+                onClick={confirmReset}
+                className="group relative px-6 py-2 bg-red-600 text-black text-xs font-mono font-black uppercase tracking-wider overflow-hidden hover:bg-red-500 transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  EXECUTE_WIPE{" "}
+                  <Activity className="w-3 h-3 group-hover:rotate-180 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-100" />
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       <style>{`
