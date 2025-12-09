@@ -2,6 +2,7 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
+import Paginate from "@/components/app/paginations"; // Ensuring correct import path based on your snippet
 import { Button } from "@/components/ui/button";
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import useSound from "@/hooks/useSound";
@@ -15,11 +16,10 @@ import {
   Heart,
   Info,
   LoaderCircle,
-  Share2
+  Share2,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import Paginate from "../components/app/paginations";
+import { toast, Toaster } from "sonner";
 
 export type Teaser = {
   id: number;
@@ -31,14 +31,16 @@ export type Teaser = {
 
 const FAVOURITE_TEASERS = "favourite-teasers";
 
+// 🎨 ADAPTED THEME COLORS TO MATCH MINI STORIES STYLE
 const categoryColors: Record<string, string> = {
   Logic:
-    "bg-gradient-to-r from-blue-900/40 to-sky-900/40 text-sky-300 border border-sky-800", // sharp, analytical
+    "bg-gradient-to-r from-sky-200/40 to-blue-200/40 text-sky-900 dark:border border-sky-800 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300",
   Riddle:
-    "bg-gradient-to-r from-emerald-900/40 to-teal-900/40 text-emerald-300 border border-emerald-800", // playful, mysterious
-  Math: "bg-gradient-to-r from-violet-900/40 to-purple-900/40 text-violet-300 border border-violet-800", // intelligent, deep
+    "bg-gradient-to-r from-emerald-200/40 to-teal-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-teal-900/40 dark:text-emerald-300",
+  Math:
+    "bg-gradient-to-r from-violet-200/40 to-fuchsia-200/40 text-violet-900 dark:border border-violet-800 dark:from-violet-900/40 dark:to-fuchsia-900/40 dark:text-fuchsia-300",
   Lateral:
-    "bg-gradient-to-r from-rose-900/40 to-red-900/40 text-rose-300 border border-rose-800", // creative, bold
+    "bg-gradient-to-r from-rose-200/40 to-red-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-red-900/40 dark:text-rose-300",
 };
 
 export default function BrainTeasersPage() {
@@ -73,7 +75,6 @@ export default function BrainTeasersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Navigate to the next page in pagination
   const PaginationPage = () => {
     let filteredTeasers = teasersRef.current;
     if (currentFilter === "Favorites") {
@@ -95,7 +96,6 @@ export default function BrainTeasersPage() {
     setTeasers(currentItems);
   };
 
-  // fetch current page info from storage
   const FetchInfo = () => {
     setLoading(true);
     teasersRef.current = brainTeasers;
@@ -109,7 +109,6 @@ export default function BrainTeasersPage() {
       PaginationPage();
     }
 
-    // Load favorites from localStorage
     const storedFavorites = localStorage.getItem(FAVOURITE_TEASERS);
     const favoriteTeasers: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
@@ -128,16 +127,15 @@ export default function BrainTeasersPage() {
     setRevealed(newRevealed);
   };
 
-  // Toggle favorites
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
-        toast.success("Teaser removed from favorites");
+        toast.success("Removed from favorites");
       } else {
         newFavorite.add(id);
-        toast.success("Teaser added to favorites");
+        toast.success("Added to favorites");
       }
 
       const existingData = localStorage.getItem(FAVOURITE_TEASERS);
@@ -159,238 +157,216 @@ export default function BrainTeasersPage() {
     });
   };
 
-  useEffect(() => {
-    if (currentPage !== 1) {
-      localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(currentPage));
-    }
-  }, [currentPage]);
-
-
-  // Request for new teasers
-  const handleRequestMoreTeasers=async()=>{
-    toast.info("Feature still under development")
-  }
-
+  const handleRequestMoreTeasers = async () => {
+    toast.info("Feature still under development");
+  };
 
   return (
-    <div className="min-h-screen p-4 bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-500">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
+      
       <Navbar currentPage="Brain Teasers" />
+      <Toaster richColors position="top-center" />
 
-      <div className="relative z-10 max-w-7xl mx-auto pt-14">
-        {/* Header */}
+      <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
+        {/* Loading State */}
+        {loading && (
+          <div className="fixed inset-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+            <LoaderCircle className="w-12 h-12 animate-spin text-indigo-500 mb-4" />
+            <p className="font-medium text-lg text-indigo-900 dark:text-indigo-200 animate-pulse">
+              Summoning teasers...
+            </p>
+          </div>
+        )}
 
         <FilterBar
           currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
+          setCurrentFilter={(filter) => {
+            setCurrentFilter(filter);
+            setCurrentPage(1);
+          }}
           genres={genres}
         />
 
-        {/* RAN OUT OF TEASERS??? */}
-        {currentPage * 10 > teasersRef.current.length && (
-          <div className="text-center py-12">
-            <Info className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
-            <p className="text-xl text-gray-500 dark:text-gray-400">
-              You have viewed all the teasers!
-            </p>
-            <div className="mt-4 grid md:grid-cols-2 items-center justify-center gap-4 max-w-sm mx-auto ">
-              <Button
-                className=" cursor-pointer"
-                onClick={() => {
-                  playSend();
-                  setCurrentPage(1);
-                  localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(2));
-                }}
-                variant="outline"
-              >
-                Reset teasers
-              </Button>
-              <Button
-                className="bg-indigo-800 dark:bg-indigo-600 cursor-pointer text-white "
-                onClick={() => {
-                  playSend();
-                  handleRequestMoreTeasers()
-                }}
-                variant="default"
-              >
-                Request for more
-              </Button>
-            </div>
-          </div>
-        )}
-        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div> */}
-
-        {/* Top Paginate */}
-        {teasers.length !== 0 && teasers.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            teasers={teasers}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
+        {/* Empty State / Ran Out */}
+        {(currentPage - 1) * itemsPerPage >= totalFiltered && !loading && totalFiltered > 0 && (
+           <div className="flex flex-col items-center justify-center py-24 animate-in fade-in zoom-in duration-500 text-center">
+             <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-md p-8 rounded-[2rem] mb-6 rotate-3 shadow-xl">
+               <Info className="w-16 h-16 text-indigo-400" />
+             </div>
+             <h2 className="text-3xl font-black text-indigo-900 dark:text-indigo-100 tracking-tight mb-2">
+               All Caught Up!
+             </h2>
+             <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8">
+               You have viewed all the teasers! Check back later for more puzzles.
+             </p>
+             <div className="flex gap-4 justify-center">
+               <Button
+                 onClick={() => {
+                   playSend();
+                   setCurrentPage(1);
+                   localStorage.setItem(TEASERS_CURRENTPAGE, JSON.stringify(1));
+                 }}
+                 variant="outline"
+                 className="rounded-full border-indigo-200 hover:bg-indigo-50 dark:border-indigo-800 dark:hover:bg-indigo-900/50 h-12 px-6"
+               >
+                 Start Over
+               </Button>
+               <Button
+                 className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full h-12 px-6 shadow-lg shadow-indigo-500/25 transition-transform active:scale-95"
+                 onClick={() => {
+                   playSend();
+                   handleRequestMoreTeasers();
+                 }}
+               >
+                 Request More
+               </Button>
+             </div>
+           </div>
         )}
 
-        {/* Loading */}
-        {loading && (
-          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-            <p className="font-medium">Loading teasers...</p>
-          </div>
-        )}
-
-        {/* No favorites */}
-        {currentFilter === "Favorites" && teasers.length === 0 && (
-          <NoFavorites />
-        )}
-
-        {/* Grid of teasers */}
-        <div className="grid gap-4 mb-6  sm:grid-cols-2 lg:grid-cols-3">
-          {teasers.map((teaser) => {
+        {/* Grid of Teasers */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10">
+          {teasers.map((teaser, index) => {
             const isRevealed = revealed.has(teaser.id);
+            const isCopied = copied === teaser.id;
+            const isFavorite = favorite.has(teaser.id);
+            const categoryStyle = categoryColors[teaser.category] || categoryColors["Logic"];
 
             return (
               <div
                 key={teaser.id}
-                className="teaser-card group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg p-4 flex flex-col justify-between border border-white/20 dark:border-gray-700/20"
+                className="group relative flex flex-col justify-between 
+                           bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
+                           rounded-3xl p-5 
+                           border border-white/40 dark:border-white/5
+                           hover:border-indigo-300 dark:hover:border-indigo-500/50
+                           shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
+                           transition-all duration-300 ease-out hover:-translate-y-1.5"
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div>
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          categoryColors[
-                            teaser.category as keyof typeof categoryColors
-                          ]
-                        }`}
-                      >
-                        {teaser.category}
-                      </span>
-                    </div>
-                  </div>
-
-                  <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100">
-                    Puzzle #{teaser.id}
-                  </h2>
-
-                  <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 p-4 rounded-2xl mb-1">
-                    <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                      {teaser.question}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
-                  {teaser.id}
-                </div>
-
-                <div className="mt-2  border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center justify-between w-full mb-2 mt-1">
-                    <div>
-                      <button
-                        onClick={() => {
-                          playSend();
-                          copyToClipboard(teaser, setCopied);
-                        }}
-                        className={`p-2 rounded-full transition-all duration-300 ${
-                          copied === teaser.id
-                            ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
-                            : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        }`}
-                        title={copied === teaser.id ? "Copied!" : "Copy teaser"}
-                      >
-                        {copied === teaser.id ? (
-                          <CheckCircle className="w-5 h-5" />
-                        ) : (
-                          <Copy className="w-5 h-5" />
-                        )}
-                      </button>
-                      <button
-                        onClick={() => {
-                          playSend();
-                          shareQuote(teaser, setCopied);
-                        }}
-                        className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
-                        title="Share teaser"
-                      >
-                        <Share2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                    {/* Like button */}
-                    <div>
-                      <button
-                        onClick={() => {
-                          playSend();
-                          toggleFavorites(teaser.id);
-                        }}
-                        className={`p-2 rounded-full transition-all duration-300 ${
-                          favorite.has(teaser.id)
-                            ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                            : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                        }`}
-                        title={
-                          favorite.has(teaser.id)
-                            ? "Remove from favorites"
-                            : "Add to favorites"
-                        }
-                      >
-                        <Heart
-                          className={`w-5 h-5 ${
-                            favorite.has(teaser.id) ? "fill-current" : ""
-                          }`}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => {
-                      playSend();
-                      toggleReveal(teaser.id);
-                    }}
-                    className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-semibold hover:scale-105 transition-all duration-300 ease-in-out ${
-                      isRevealed
-                        ? "bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg"
-                        : "bg-gradient-to-r from-indigo-700 to-indigo-600 text-white shadow-lg"
-                    }`}
+                {/* Header Tags */}
+                <div className="flex justify-between items-start mb-4">
+                  <span
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-sm ${categoryStyle}`}
                   >
-                    {isRevealed ? (
-                      <>
-                        <EyeOff className="w-4 h-4" /> Hide Solution
-                      </>
-                    ) : (
-                      <>
-                        <Eye className="w-4 h-4" /> Reveal Solution
-                      </>
-                    )}
-                  </button>
+                    {teaser.category}
+                  </span>
+                  <span className="text-[10px] font-bold text-indigo-400 dark:text-indigo-500/50 bg-indigo-50 dark:bg-indigo-950 px-2 py-1 rounded-lg border border-indigo-100 dark:border-indigo-900">
+                    #{teaser.id}
+                  </span>
+                </div>
 
-                  {isRevealed && (
-                    <div className="mt-4 p-4 bg-gradient-to-r from-indigo-50 to-indigo-100 dark:from-indigo-900/30 dark:to-indigo-800/30 rounded-2xl border-l-4 border-indigo-400">
-                      <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-200 font-medium">
-                        <span className="text-indigo-600 dark:text-indigo-400 font-bold">
-                          Solution:{" "}
-                        </span>
-                        {teaser.answer}
-                      </p>
-                    </div>
-                  )}
+                {/* Content */}
+                <div className="flex-grow mb-4">
+                  <p className="text-gray-800 dark:text-gray-100 font-bold text-lg leading-snug">
+                    {teaser.question}
+                  </p>
+                </div>
+
+                {/* Reveal Section */}
+                <div className="mt-auto">
+                   {!isRevealed ? (
+                      <button
+                        onClick={() => {
+                          playSend();
+                          toggleReveal(teaser.id);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-indigo-500/20"
+                      >
+                        <Eye className="w-4 h-4" /> Reveal Answer
+                      </button>
+                    ) : (
+                      <div className="relative animate-in fade-in zoom-in-95 duration-300">
+                        <div className="bg-indigo-50/80 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+                          <p className="text-sm text-gray-700 dark:text-gray-300 font-medium leading-relaxed pr-6">
+                            <span className="text-indigo-600 dark:text-indigo-400 font-black block text-xs uppercase tracking-wide mb-1">
+                              Solution
+                            </span>
+                            {teaser.answer}
+                          </p>
+                          {/* Revert Button */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleReveal(teaser.id);
+                            }}
+                            className="absolute top-2 right-2 p-1.5 rounded-full text-gray-400 hover:text-indigo-600 hover:bg-white dark:hover:bg-indigo-950 transition-colors"
+                            title="Hide solution"
+                          >
+                            <EyeOff className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                </div>
+
+                {/* Footer / Actions */}
+                <div className="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-end gap-2">
+                    <button
+                        onClick={() => {
+                            playSend();
+                            copyToClipboard(teaser, setCopied);
+                        }}
+                        className={`p-2 rounded-full transition-all duration-300 ${
+                            isCopied
+                            ? "bg-emerald-100 text-emerald-600"
+                            : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                        }`}
+                        title="Copy"
+                    >
+                        {isCopied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </button>
+                    
+                    <button
+                      onClick={() => {
+                        playSend();
+                        shareQuote(teaser, setCopied);
+                      }}
+                      className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
+                      title="Share"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        playSend();
+                        toggleFavorites(teaser.id);
+                      }}
+                      className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
+                      title="Favorite"
+                    >
+                      <Heart
+                        className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
+                          isFavorite ? "fill-rose-500 text-rose-500" : ""
+                        }`}
+                      />
+                    </button>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Bottom Paginate */}
-        {teasers.length !== 0 && teasers.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            teasers={teasers}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
+        {/* Pagination */}
+        {teasers.length !== 0 && teasers.length === itemsPerPage && (
+          <div className="flex justify-center pb-8">
+            <Paginate
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              teasers={teasers}
+              totalItems={totalFiltered}
+            />
+          </div>
         )}
-      </div>
+        
+        {/* No Favorites State */}
+        {currentFilter === "Favorites" && teasers.length === 0 && (
+            <NoFavorites />
+        )}
+
+      </main>
+
       <Footer />
     </div>
   );
