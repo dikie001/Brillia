@@ -5,16 +5,16 @@ import useSound from "@/hooks/useSound";
 import LearnerModal from "@/modals/Welcome";
 import {
   ArrowRight,
-  Book,
-  Newspaper,
-  Pen,
+  BookOpen,
+  CircleHelp,
+  FileText,
+  Lightbulb,
+  Mic,
   Play,
-  Puzzle,
-  Quote,
+  Sparkles,
   TrendingUp,
   Trophy,
-  Wand,
-  WholeWord,
+  Zap
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,72 +34,73 @@ const HomePage: React.FC = () => {
   const [completed, setCompleted] = useState<Complete>({ stories: 0, quiz: 0 });
 
   // 1. Separate Quiz Quest specific data
-  const quizSection = {
-    name: "Quiz Quest",
-    icon: <Pen />,
-    description: "Test your general knowledge with our ultimate challenge.",
-    color: "from-cyan-500 to-blue-600",
-    bgGradient:
-      "from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
-    to: "quiz-quest",
-  };
+const quizSection = {
+  name: "Quick Quiz",
+  icon: <CircleHelp />,
+  description: "Test yourself with fast, fun questions.",
+  color: "from-cyan-500 to-blue-600",
+  bgGradient:
+    "from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
+  to: "quick-quiz",
+};
+
 
   // 2. Other Sections
-  const otherSections = [
-    {
-      name: "Brain Teasers",
-      icon: <Puzzle />,
-      description: "Challenge your logical thinking",
-      color: "from-purple-500 to-indigo-600",
-      bgGradient:
-        "from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20",
-      to: "/brain-teasers",
-    },
-    {
-      name: "Mini Stories",
-      icon: <Book />,
-      description: "Discover powerful narratives",
-      color: "from-emerald-500 to-teal-600",
-      bgGradient:
-        "from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20",
-      to: "/mini-stories",
-    },
-    {
-      name: "Wisdom Nuggets",
-      icon: <Quote />,
-      description: "Daily inspiration and insights",
-      color: "from-amber-500 to-orange-600",
-      bgGradient:
-        "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
-      to: "wisdom-nuggets",
-    },
-    {
-      name: "Tongue Twisters",
-      icon: <Wand />,
-      description: "Master pronunciation and fluency",
-      color: "from-pink-500 to-rose-600",
-      bgGradient:
-        "from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20",
-      to: "tongue-twisters",
-    },
-    {
-      name: "Amazing Facts",
-      icon: <Newspaper />,
-      description: "Cool random facts",
-      color: "from-violet-500 to-purple-600",
-      bgGradient:
-        "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
-      to: "amazing-facts",
-    },
-    {
-      name: "Vocabulary",
-      icon: <WholeWord />,
-      description: "Build your vocabulary",
-      color: "from-gray-900 to-orange-900 shadow-lg",
+const otherSections = [
+  {
+    name: "Quick Challenges",
+    icon: <Zap />,
+    description: "Fast logic hits to sharpen your mind",
+    color: "from-purple-500 to-indigo-600",
+    bgGradient:
+      "from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20",
+    to: "/quick-challenges",
+  },
+  {
+    name: "Flash Stories",
+    icon: <FileText />,
+    description: "Short, powerful stories to spark ideas",
+    color: "from-emerald-500 to-teal-600",
+    bgGradient:
+      "from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20",
+    to: "/flash-stories",
+  },
+  {
+    name: "Life Gems",
+    icon: <Sparkles />,
+    description: "Quick life tips to level up your mindset",
+    color: "from-amber-500 to-orange-600",
+    bgGradient:
+      "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
+    to: "/life-gems",
+  },
+  {
+    name: "Clear Speech",
+    icon: <Mic />,
+    description: "Improve fluency and pronunciation",
+    color: "from-pink-500 to-rose-600",
+    bgGradient:
+      "from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20",
+    to: "/clear-speech",
+  },
+  {
+    name: "Fun Facts",
+    icon: <Lightbulb />,
+    description: "Cool and surprising facts",
+    color: "from-violet-500 to-purple-600",
+    bgGradient:
+      "from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20",
+    to: "/fun-facts",
+  },
+  {
+    name: "Word Power",
+    icon: <BookOpen />,
+    description: "Level up your language skills",
+    color: "from-gray-900 to-orange-900 shadow-lg",
+    to: "/word-power",
+  },
+];
 
-      to: "vocabulary",
-    },
-  ];
 
   const HandleCategoryClick = (destination: string) => {
     playSend();
@@ -146,90 +147,94 @@ const HomePage: React.FC = () => {
           </p>
         </div>
 
-        {/* --- FEATURED HERO BANNER: QUIZ QUEST --- */}
-        <div className="mb-6  flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <button
-            onClick={() => HandleCategoryClick(quizSection.to)}
-            className="group relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
-          >
-            {/* Top gradient bar */}
-            <div
-              className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${quizSection.color} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`}
-            />
+      {/* --- FEATURED HERO BANNER --- */}
+      <div className="mb-4 md:mb-6  flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <button
+          onClick={() => HandleCategoryClick(quizSection.to)}
+          className="group cursor-pointer relative w-full max-w-4xl mx-auto overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-500 backdrop-blur-sm"
+        >
+          {/* Top gradient bar */}
+          <div
+            className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${quizSection.color} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`}
+          />
 
-            {/* Background gradient on hover */}
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${quizSection.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-            />
+          {/* Background gradient on hover */}
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${quizSection.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+          />
 
-            {/* Banner Layout: Flex Column on Mobile, Row on Desktop */}
-            <div className="relative p-4 md:p-8 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
+          {/* Banner Layout: Row on Mobile and Desktop */}
+          <div className="relative py-10 md:py-10 p-4 md:p-6 flex items-center justify-between gap-4 md:gap-8 text-left">
+            
+            {/* Content Group: Icon + Text */}
+            <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
               {/* Left: Icon & Gradient Blob */}
               <div className="relative flex-shrink-0">
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-r ${quizSection.color} rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}
                 />
                 <div
-                  className={`relative p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
+                  className={`relative p-3 md:p-4 rounded-2xl bg-gradient-to-r ${quizSection.color} shadow-lg group-hover:scale-110 transition-transform duration-500`}
                 >
                   {React.cloneElement(quizSection.icon, {
-                    className: "w-10 h-10 text-white",
+                    className: "w-6 h-6 md:w-9 md:h-9 text-white",
                   })}
                 </div>
               </div>
 
               {/* Middle: Text Content */}
-              <div className="flex-1 text-center md:text-left space-y-2">
-                <h3 className="text-3xl font-extrabold text-gray-900 dark:text-white group-hover:bg-gradient-to-r group-hover:from-cyan-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent transition-colors duration-300">
-                  {quizSection.name}
-                </h3>
-                <p className="text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300 max-w-md mx-auto md:mx-0">
+              <div className="flex-col flex gap-1 overflow-hidden">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl md:text-3xl font-extrabold text-gray-900 dark:text-white truncate group-hover:bg-gradient-to-r group-hover:from-cyan-600 group-hover:to-blue-600 group-hover:bg-clip-text group-hover:text-transparent transition-colors duration-300">
+                    {quizSection.name}
+                  </h3>
+                  {/* Mobile-only Tiny Stat */}
+                  {completed.quiz > 0 && (
+                    <span className="md:hidden flex-shrink-0 text-[10px] font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-2 py-0.5 rounded-full">
+                      {completed.quiz} Done
+                    </span>
+                  )}
+                </div>
+                
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300 line-clamp-1 md:line-clamp-2">
                   {quizSection.description}
                 </p>
-
-                {/* Mobile-only Stats */}
-                {completed.quiz > 0 && (
-                  <div className="md:hidden pt-2 flex justify-center">
-                    <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-3 py-1 rounded-full">
-                      {completed.quiz} Tests Done
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Right: Action / Stats */}
-              <div className="flex-shrink-0 flex items-center gap-4">
-                {/* Desktop Stats */}
-                {completed.quiz > 0 && (
-                  <div className="hidden md:block text-right">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                      {completed.quiz}
-                    </p>
-                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                      Completed
-                    </p>
-                  </div>
-                )}
-
-                {/* Play Button visual */}
-                <div
-                  className={`
-                    hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300
-                    bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
-                 `}
-                >
-                  <span>Start</span>
-                  <Play className="w-4 h-4 fill-current" />
-                </div>
-
-                {/* Simple Arrow for Mobile */}
-                <div className="md:hidden p-3 rounded-full bg-gray-100 dark:bg-gray-700/50 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20 transition-colors">
-                  <ArrowRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
-                </div>
               </div>
             </div>
-          </button>
-        </div>
+
+            {/* Right: Action / Stats */}
+            <div className="flex-shrink-0 flex items-center gap-4">
+              {/* Desktop Stats */}
+              {completed.quiz > 0 && (
+                <div className="hidden md:block text-right">
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {completed.quiz}
+                  </p>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    Completed
+                  </p>
+                </div>
+              )}
+
+              {/* Desktop Play Button visual */}
+              <div
+                className={`
+                  hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300
+                  bg-gradient-to-r ${quizSection.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
+                `}
+              >
+                <span>Start</span>
+                <Play className="w-4 h-4 fill-current" />
+              </div>
+
+              {/* Simple Arrow for Mobile */}
+              <div className="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-700/50 group-hover:bg-cyan-50 dark:group-hover:bg-cyan-900/20 transition-colors">
+                <ArrowRight className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-cyan-600 dark:group-hover:text-cyan-400" />
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
         {/* --- END FEATURED HERO BANNER --- */}
 
         {/* Grid for other items */}
@@ -242,7 +247,7 @@ const HomePage: React.FC = () => {
               <button
                 key={section.name}
                 onClick={() => HandleCategoryClick(section.to)}
-                className="group relative p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
+                className="group cursor-pointer relative p-4 md:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: "slideUp 0.6s ease-out forwards",

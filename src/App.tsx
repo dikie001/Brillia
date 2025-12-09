@@ -16,9 +16,9 @@ import UsersPage from "./pages/ADMIN/Users";
 import AdminSettings from "./pages/ADMIN/Settings";
 import AdminReports from "./pages/ADMIN/Reports";
 import AdminNotifications from "./pages/ADMIN/Notifications";
-import VocabularyPage from "./pages/Vocabulary";
-import { useUpdateListener } from "./hooks/useUpdateListener";
 import PracticeCommunication from "./pages/PracticeCommunication";
+import { useUpdateListener } from "./hooks/useUpdateListener";
+import VocabularyPage from "./pages/Vocabulary";
 const FactFrenzy = lazy(() => import("./pages/AmazingFacts"));
 const BrainTeasers = lazy(() => import("./pages/BrainTeasers"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -53,15 +53,15 @@ const App = () => {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/brain-teasers" element={<BrainTeasers />} />{" "}
-          <Route path="/mini-stories" element={<MiniStories />} />{" "}
-          <Route path="/quiz-quest" element={<QuizQuest />} />{" "}
-          <Route path="/wisdom-nuggets" element={<WisdomNuggets />} />{" "}
-          <Route path="/tongue-twisters" element={<TongueTwisters />} />
-          <Route path="/amazing-facts" element={<FactFrenzy />} />
+          <Route path="/quick-challenges" element={<BrainTeasers />} />{" "}
+          <Route path="/flash-stories" element={<MiniStories />} />{" "}
+          <Route path="/quick-quiz" element={<QuizQuest />} />{" "}
+          <Route path="/life-gems" element={<WisdomNuggets />} />{" "}
+          <Route path="/clear-speech" element={<TongueTwisters />} />
+          <Route path="/fun-facts" element={<FactFrenzy />} />
           <Route path="/results" element={<Results />} />
           <Route path="/communication" element={<PracticeCommunication />} />
-          <Route path="/vocabulary" element={<VocabularyPage />} />
+          <Route path="/word-power" element={<VocabularyPage />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/settings" element={<SettingsPage />} />

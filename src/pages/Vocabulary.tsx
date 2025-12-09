@@ -52,10 +52,10 @@ export default function VocabularyPage() {
       const voices = window.speechSynthesis.getVoices();
       const englishVoice = voices.find((voice) => voice.lang.includes("en"));
       if (englishVoice) utterance.voice = englishVoice;
-      
+
       window.speechSynthesis.speak(utterance);
     } else {
-        toast.error("Text-to-speech not supported in this browser.");
+      toast.error("Text-to-speech not supported in this browser.");
     }
   };
 
@@ -123,34 +123,36 @@ export default function VocabularyPage() {
       <Toaster richColors position="top-center" />
 
       <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
-        
         {/* Header / Filter Toggle */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
-             <div className="flex items-center gap-2 bg-white/50 dark:bg-gray-800/50 px-4 py-2 rounded-full border border-white/20 dark:border-white/10 backdrop-blur-sm">
-                <BookOpen className="w-4 h-4 text-indigo-500" />
-                <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
-                    {vocabularyData.length} Words Available
-                </span>
-             </div>
+          <div className="flex items-center gap-2 bg-white/50 dark:bg-gray-800/50 px-4 py-2 rounded-full border border-white/20 dark:border-white/10 backdrop-blur-sm">
+            <BookOpen className="w-4 h-4 text-indigo-500" />
+            <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+              {vocabularyData.length} Words Available
+            </span>
+          </div>
 
-            <Button
-                variant="outline"
-                onClick={() => {
-                playSend();
-                setShowFavoritesOnly(!showFavoritesOnly);
-                setCurrentPage(1);
-                }}
-                className={cn(
-                "rounded-full px-6 h-10 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 transition-all duration-300",
-                showFavoritesOnly &&
-                    "bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-900"
-                )}
-            >
-                <Heart
-                className={cn("w-4 h-4 mr-2", showFavoritesOnly && "fill-current")}
-                />
-                {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
-            </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              playSend();
+              setShowFavoritesOnly(!showFavoritesOnly);
+              setCurrentPage(1);
+            }}
+            className={cn(
+              "rounded-full px-6 h-10 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 transition-all duration-300",
+              showFavoritesOnly &&
+                "bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-900"
+            )}
+          >
+            <Heart
+              className={cn(
+                "w-4 h-4 mr-2",
+                showFavoritesOnly && "fill-current"
+              )}
+            />
+            {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
+          </Button>
         </div>
 
         {/* Vocabulary Grid */}
@@ -185,35 +187,39 @@ export default function VocabularyPage() {
                     </div>
 
                     <div className="mb-5">
-                        <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1 block">Definition</span>
-                        <p className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                      <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1 block">
+                        Definition
+                      </span>
+                      <p className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
                         {item.definition}
-                        </p>
+                      </p>
                     </div>
 
                     <div className="bg-indigo-50/50 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 mb-4 relative overflow-hidden group/example">
-                        {/* Decorative Quote Icon */}
-                        <div className="absolute top-2 left-2 text-indigo-200 dark:text-indigo-800/50 transform -scale-x-100 opacity-50 group-hover/example:opacity-100 transition-opacity">
-                            <span className="text-4xl leading-none font-serif">"</span>
-                        </div>
-                         <p className="text-sm italic text-gray-600 dark:text-gray-400 relative z-10 pl-2">
-                            {item.example}
-                         </p>
+                      {/* Decorative Quote Icon */}
+                      <div className="absolute top-2 left-2 text-indigo-200 dark:text-indigo-800/50 transform -scale-x-100 opacity-50 group-hover/example:opacity-100 transition-opacity">
+                        <span className="text-4xl leading-none font-serif">
+                          "
+                        </span>
+                      </div>
+                      <p className="text-sm italic text-gray-600 dark:text-gray-400 relative z-10 pl-2">
+                        {item.example}
+                      </p>
                     </div>
                   </div>
 
                   {/* Actions Footer */}
                   <div className="flex items-center justify-between pt-2 mt-auto">
                     <button
-                        onClick={() => {
-                            // playSend(); // Optional: might clash with TTS
-                            speakWord(item.word);
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all text-sm font-semibold"
-                        title="Listen to pronunciation"
+                      onClick={() => {
+                        // playSend(); // Optional: might clash with TTS
+                        speakWord(item.word);
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all text-sm font-semibold"
+                      title="Listen to pronunciation"
                     >
-                        <Volume2 className="w-4 h-4" />
-                        <span className="text-xs">Pronounce</span>
+                      <Volume2 className="w-4 h-4" />
+                      <span className="text-xs">Pronounce</span>
                     </button>
 
                     <button
@@ -226,7 +232,11 @@ export default function VocabularyPage() {
                           ? "text-rose-500 bg-rose-50 dark:bg-rose-900/20 shadow-inner"
                           : "text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20"
                       }`}
-                      title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                      title={
+                        isFavorite
+                          ? "Remove from favorites"
+                          : "Add to favorites"
+                      }
                     >
                       <Heart
                         className={`w-5 h-5 transition-transform active:scale-75 ${
@@ -252,8 +262,11 @@ export default function VocabularyPage() {
                 You've reached the end!
               </h3>
               <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
-                You've browsed through all <span className="font-bold text-indigo-600 dark:text-indigo-400">{vocabularyData.length}</span> words. 
-                Great job keeping your vocabulary sharp!
+                You've browsed through all{" "}
+                <span className="font-bold text-indigo-600 dark:text-indigo-400">
+                  {vocabularyData.length}
+                </span>{" "}
+                words. Great job keeping your vocabulary sharp!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button
@@ -276,11 +289,11 @@ export default function VocabularyPage() {
         ) : (
           displayedWords.length > 0 && (
             <div className="flex justify-center pb-8">
-                <Paginate
-                    currentPage={currentPage}
-                    totalItems={totalItems}
-                    setCurrentPage={setCurrentPage}
-                />
+              <Paginate
+                currentPage={currentPage}
+                totalItems={totalItems}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           )
         )}

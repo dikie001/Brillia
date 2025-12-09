@@ -96,6 +96,15 @@ export default function MiniStories() {
     fetchCurrentPageNumber();
   }, [FetchData, fetchCurrentPageNumber]);
 
+  // Lock scroll
+  useEffect(() => {
+    if (selectedStory) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [selectedStory]);
+
   // Handle Filtering
   useEffect(() => {
     let filtered: Story[] = [];
@@ -114,6 +123,7 @@ export default function MiniStories() {
     ) {
       setCurrentPage(1);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFilter, favorite]);
 
   // Handle Pagination
@@ -175,7 +185,6 @@ export default function MiniStories() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
-      
       <Navbar currentPage="Mini Stories" />
       <Toaster richColors position="top-center" />
 
@@ -189,15 +198,13 @@ export default function MiniStories() {
           </div>
         )}
 
- 
-            <FilterBar
-              setCurrentFilter={(filter) => {
-                setCurrentFilter(filter);
-                setCurrentPage(1);
-              }}
-              currentFilter={currentFilter}
-            />
-        
+        <FilterBar
+          setCurrentFilter={(filter) => {
+            setCurrentFilter(filter);
+            setCurrentPage(1);
+          }}
+          currentFilter={currentFilter}
+        />
 
         {/* Empty State */}
         {stories.length === 0 && !loading && (
@@ -206,9 +213,7 @@ export default function MiniStories() {
               <Info className="w-16 h-16 text-indigo-400" />
             </div>
             <h2 className="text-3xl font-black text-indigo-900 dark:text-indigo-100 tracking-tight mb-2">
-              {currentFilter === "All"
-                ? "All Caught Up!"
-                : "No matches found"}
+              {currentFilter === "All" ? "All Caught Up!" : "No matches found"}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8">
               {currentFilter === "All"
@@ -246,7 +251,8 @@ export default function MiniStories() {
             const isRead = read.has(story.id);
             const isCopied = copied === story.id;
             // Original Color Logic
-            const genreStyle = genreColors[story.genre] || genreColors["Fantasy"];
+            const genreStyle =
+              genreColors[story.genre] || genreColors["Fantasy"];
 
             return (
               <div
@@ -295,21 +301,28 @@ export default function MiniStories() {
                     @{story.author}
                   </span>
 
-                  <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="flex items-center gap-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <button
-                        onClick={() => {
-                            playSend();
-                            copyToClipboard(story, setCopied);
-                        }}
-                        className={`p-2 rounded-full transition-all duration-300 ${
-                            isCopied
-                              ? "bg-green-100 text-green-600"
-                              : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
-                          }`}
+                      onClick={() => {
+                        playSend();
+                        copyToClipboard(story, setCopied);
+                      }}
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        isCopied
+                          ? "bg-green-100 text-green-600"
+                          : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                      }`}
                     >
-                         {isCopied ? <CheckCircle className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                      {isCopied ? (
+                        <CheckCircle className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
                     </button>
-                    
+
                     <button
                       onClick={() => {
                         playSend();
@@ -323,7 +336,7 @@ export default function MiniStories() {
                         }`}
                       />
                     </button>
-                    
+
                     <div className="hidden sm:block p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                       <Maximize2 className="w-4 h-4" />
                     </div>
@@ -350,25 +363,22 @@ export default function MiniStories() {
       {/* ✨ IMMERSIVE MODAL (Structure from Vibrant, Colors from Indigo) */}
       {selectedStoryData && (
         <div
-          className="fixed inset-0 z-[60] flex items-end md:items-center justify-center bg-indigo-900/40 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-[60] flex  items-end md:items-center justify-center bg-indigo-900/40 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setSelectedStory(null)}
         >
           <div
-            className="w-full md:w-[700px] max-h-[92vh] md:max-h-[85vh] 
+            className="w-full md:w-[700px] max-h-[95vh] md:max-h-[85vh] 
                        bg-white dark:bg-gray-800 
-                       rounded-t-[2.5rem] md:rounded-[2.5rem] 
+                       rounded-t-3xl  md:rounded-3xl
                        shadow-2xl shadow-indigo-900/20
                        flex flex-col animate-in slide-in-from-bottom-24 duration-300 
                        border-t border-x border-white/40 dark:border-white/10 md:border-b ring-1 ring-black/5 relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Cute Decorative Header Background */}
-            <div className="absolute top-0 left-0 w-full h-32 bg-[radial-gradient(#e0e7ff_1px,transparent_1px)] dark:bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:16px_16px] opacity-60 pointer-events-none" />
-
             {/* Modal Header */}
-            <div className="relative p-6 md:p-10 pb-2 shrink-0 z-10">
+            <div className="relative px-4 shrink-0 z-10">
               {/* Mobile Drag Pill */}
-              <div className="md:hidden w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full mx-auto mb-6" />
+              <div className="md:hidden w-12 h-1.5 bg-gray-200 dark:bg-gray-600 rounded-full mx-auto mb-3" />
 
               <button
                 onClick={() => setSelectedStory(null)}
@@ -377,7 +387,7 @@ export default function MiniStories() {
                 <X size={20} />
               </button>
 
-              <div className="flex items-center gap-2 mb-5">
+              <div className="flex items-center gap-2 mb-2 md:mt-4">
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-black tracking-wide shadow-sm ${
                     genreColors[selectedStoryData.genre] || genreColors.Fantasy
@@ -387,25 +397,25 @@ export default function MiniStories() {
                 </span>
               </div>
 
-              <h2 className="text-3xl md:text-5xl font-black text-gray-800 dark:text-gray-100 leading-[0.95] tracking-tighter mb-4">
+              <h2 className="text-2xl md:text-4xl font-black text-gray-800 dark:text-gray-100 leading-[0.95] tracking-tighter mb-4">
                 {selectedStoryData.title}
               </h2>
               <div className="flex items-center gap-3">
-             
                 <p className="text-gray-500 dark:text-gray-400 font-bold text-sm">
-                    By{" "}
-                    <span className="text-indigo-600 dark:text-indigo-300">
+                  By{" "}
+                  <span className="text-indigo-600 dark:text-indigo-300">
                     @{selectedStoryData.author}
-                    </span>
+                  </span>
                 </p>
               </div>
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-10 pt-4 custom-scrollbar relative z-10">
+            <div className="flex-1 overflow-y-auto p-2 md:p-4  pt-4 custom-scrollbar relative z-10">
               <div className="prose dark:prose-invert prose-lg md:prose-xl max-w-none leading-relaxed text-gray-700 dark:text-gray-300 font-medium">
-                 {/* HUGE FIRST LETTER AS REQUESTED */}
-                 <p className="text-gray-700 dark:text-gray-300 leading-loose text-lg whitespace-pre-line 
+                {/* HUGE FIRST LETTER AS REQUESTED */}
+                <p
+                  className="text-gray-700 dark:text-gray-300 leading-loose text-lg whitespace-pre-line 
                     first-letter:text-6xl md:first-letter:text-7xl 
                     first-letter:font-black 
                     first-letter:text-indigo-500 
@@ -413,11 +423,12 @@ export default function MiniStories() {
                     first-letter:float-left 
                     first-letter:mr-3 
                     first-letter:mt-[-4px]
-                    first-letter:leading-[0.8]">
+                    first-letter:leading-[0.8]"
+                >
                   {selectedStoryData.content}
                 </p>
-                 <div className="flex justify-center mt-8 opacity-40">
-                    <Sparkles className="text-indigo-400 w-6 h-6" />
+                <div className="flex justify-center mt-8 opacity-40">
+                  <Sparkles className="text-indigo-400 w-6 h-6" />
                 </div>
               </div>
             </div>

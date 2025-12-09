@@ -7,15 +7,16 @@ const ASSETS = [
   "/vite.svg",
 
   // App routes (SPA pages)
-  "/brain-teasers",
-  "/mini-stories",
-  "/quiz-quest",
-  "/wisdom-nuggets",
-  "/tongue-twisters",
-  "/amazing-facts",
+  "/quick-challenges",
+  "/flash-stories",
+  "/quick-quiz",
+  "/life-gems",
+  "/clear-speech",
+  "/fun-facts",
   "/contact-developer",
   "/settings",
   "/communication",
+  "/word-power",
   "/about",
   "/help",
 
@@ -49,17 +50,17 @@ self.addEventListener("install", (event) => {
       const html = await cache.match("/index.html");
       if (html) {
         const routes = [
-          "/brain-teasers",
-          "/mini-stories",
-          "/quiz-quest",
-          "/wisdom-nuggets",
-          "/tongue-twisters",
-          "/amazing-facts",
+          "/quick-challenges",
+          "/flash-stories",
+          "/quick-quiz",
+          "/life-gems",
+          "/clear-speech",
+          "/fun-facts",
           "/results",
           "/contact-developer",
           "/settings",
           "/communication",
-          "/vocabulary",
+          "/word-power",
           "/about",
           "/help",
         ];
