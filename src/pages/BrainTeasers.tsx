@@ -282,7 +282,7 @@ export default function BrainTeasersPage() {
                   {isLong && (
                     <button
                       onClick={() => setSelectedTeaser(teaser)}
-                      className="mt-2 text-xs font-bold text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 flex items-center gap-1"
+                      className="mt-2 text-xs font-bold text-indigo-500 hover:text-indigo-600 cursor-pointer hover:underline dark:text-indigo-400 flex items-center gap-1"
                     >
                       Read More <Maximize2 className="w-3 h-3" />
                     </button>

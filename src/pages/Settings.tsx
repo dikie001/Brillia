@@ -15,8 +15,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,11 +26,8 @@ import { useTheme } from "@/hooks/useHook";
 import useSound from "@/hooks/useSound";
 import {
   Bell,
-  Check,
-  ChevronRight,
   Edit2,
   Lock,
-  LogOut,
   Moon,
   RotateCcw,
   ShieldAlert,
@@ -39,10 +35,9 @@ import {
   Sparkles,
   Sun,
   Trash2,
-  User,
-  Volume2,
+  Volume2
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 
