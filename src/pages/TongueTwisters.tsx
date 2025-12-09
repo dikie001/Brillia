@@ -2,7 +2,10 @@ import FilterBar from "@/components/app/FilterBar";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
+import Paginate from "@/components/app/paginations";
+import { Badge } from "@/components/ui/badge";
 import { TONGUETWISTERS_CURRENTPAGE } from "@/constants";
+import useSound from "@/hooks/useSound";
 import { twisters } from "@/jsons/tongueTwisters";
 import type { Twister } from "@/types";
 import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
@@ -10,27 +13,25 @@ import {
   CheckCircle,
   Copy,
   Heart,
+  Info,
   LoaderCircle,
+  Mic,
   Share2,
-  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import Paginate from "../components/app/paginations";
-import { Badge } from "@/components/ui/badge";
-import useSound from "@/hooks/useSound";
+import { toast, Toaster } from "sonner";
 
+// 🎨 THEME COLORS
 const difficultyColors: Record<string, string> = {
-  Easy: "bg-gradient-to-r from-emerald-900/40 to-green-900/40 text-emerald-300 border border-emerald-800", // calm, rewarding
+  Easy: "bg-gradient-to-r from-emerald-200/40 to-green-200/40 text-emerald-900 dark:border border-emerald-800 dark:from-emerald-900/40 dark:to-green-900/40 dark:text-emerald-300",
   Medium:
-    "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 text-amber-300 border border-amber-800", // alert, balanced challenge
-  Hard: "bg-gradient-to-r from-indigo-900/40 to-fuchsia-900/40 text-fuchsia-300 border border-fuchsia-800", // bold, intense, premium
+    "bg-gradient-to-r from-amber-200/40 to-yellow-200/40 text-amber-900 dark:border border-amber-800 dark:from-amber-900/40 dark:to-yellow-900/40 dark:text-amber-300",
+  Hard: "bg-gradient-to-r from-rose-200/40 to-red-200/40 text-rose-900 dark:border border-rose-800 dark:from-rose-900/40 dark:to-red-900/40 dark:text-rose-300",
 };
 
 const FAVOURITE_TWISTERS = "favourite-twisters";
 
 const TongueTwisters = () => {
-  const [selectedTwister, setSelectedTwister] = useState<number | null>(null);
   const [displayedTwisters, setDisplayedTwisters] = useState<Twister[]>([]);
   const twistersRef = useRef<Twister[]>([]);
   const [loading, setLoading] = useState(false);
@@ -44,7 +45,6 @@ const TongueTwisters = () => {
 
   const genres = ["All", "Favorites", "Easy", "Medium", "Hard"];
 
-  // Navigate to the next page in pagination
   const PaginationPage = () => {
     let filteredTwisters = twistersRef.current;
     if (currentFilter === "Favorites") {
@@ -65,7 +65,6 @@ const TongueTwisters = () => {
     setDisplayedTwisters(currentItems);
   };
 
-  // fetch current page info from storage
   const FetchInfo = () => {
     setLoading(true);
     twistersRef.current = twisters.filter(
@@ -80,7 +79,6 @@ const TongueTwisters = () => {
       PaginationPage();
     }
 
-    // Load favorites from localStorage
     const storedFavorites = localStorage.getItem(FAVOURITE_TWISTERS);
     const favoriteTwisters: Set<number> = storedFavorites
       ? new Set<number>(JSON.parse(storedFavorites))
@@ -90,16 +88,15 @@ const TongueTwisters = () => {
     setLoading(false);
   };
 
-  // Toggle favorites
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
       if (newFavorite.has(id)) {
         newFavorite.delete(id);
-        toast.success("Twister removed from favorites");
+        toast.success("Removed from favorites");
       } else {
         newFavorite.add(id);
-        toast.success("Twister added to favorites");
+        toast.success("Added to favorites");
       }
 
       const existingData = localStorage.getItem(FAVOURITE_TWISTERS);
@@ -123,7 +120,7 @@ const TongueTwisters = () => {
 
   useEffect(() => {
     FetchInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -137,254 +134,188 @@ const TongueTwisters = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, currentFilter]);
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && selectedTwister !== null) {
-        setSelectedTwister(null);
-      }
-    };
-    document.addEventListener("keydown", handleKeyPress);
-    return () => document.removeEventListener("keydown", handleKeyPress);
-  }, [selectedTwister]);
-
-  const selectedTwisterData = selectedTwister
-    ? twistersRef.current.find((t) => t.id === selectedTwister)
-    : null;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 p-4">
-      <div className="relative z-10 max-w-7xl mx-auto mt-12 ">
-        <Navbar currentPage="Tongue Twisters" />
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
+      <Navbar currentPage="Tongue Twisters" />
+      <Toaster richColors position="top-center" />
 
-        <FilterBar
-          currentFilter={currentFilter}
-          setCurrentFilter={setCurrentFilter}
-          genres={genres}
-        />
-        {/* <div className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Showing {currentPage * itemsPerPage} of {totalFiltered} items
-        </div> */}
-
-        {/* Top Paginate */}
-        {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
-
+      <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
         {/* Loading */}
         {loading && (
-          <div className="flex flex-col absolute inset-0 bg-white/80 dark:bg-transparent h-screen items-center justify-center w-full  ">
-            <LoaderCircle className="w-10 h-10 animate-spin text-indigo-500" />
-            <p className="font-medium">Loading twisters...</p>
+          <div className="fixed inset-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+            <LoaderCircle className="w-12 h-12 animate-spin text-indigo-500 mb-4" />
+            <p className="font-medium text-lg text-indigo-900 dark:text-indigo-200 animate-pulse">
+              Loading twisters...
+            </p>
           </div>
         )}
 
+        <FilterBar
+          currentFilter={currentFilter}
+          setCurrentFilter={(filter) => {
+            setCurrentFilter(filter);
+            setCurrentPage(1);
+          }}
+          genres={genres}
+        />
+
+        {/* Empty State / Ran Out */}
+        {(currentPage - 1) * itemsPerPage >= totalFiltered &&
+          !loading &&
+          totalFiltered > 0 && (
+            <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in zoom-in">
+              <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-md p-8 rounded-[2rem] mb-6 rotate-3 shadow-xl">
+                <Info className="w-16 h-16 text-indigo-400" />
+              </div>
+              <h2 className="text-3xl font-black text-indigo-900 dark:text-indigo-100 tracking-tight mb-2">
+                All Twisted Out!
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+                You have viewed all the twisters on this page.
+              </p>
+              <button
+                onClick={() => {
+                  playSend();
+                  setCurrentPage(1);
+                }}
+                className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-transform active:scale-95 shadow-lg shadow-indigo-500/25"
+              >
+                Start Over
+              </button>
+            </div>
+          )}
+
+        {/* No Favorites State */}
         {currentFilter === "Favorites" && displayedTwisters.length === 0 && (
           <NoFavorites />
         )}
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
-          {displayedTwisters.map((twister, index) => (
-            <div
-              key={twister.id}
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl p-4 hover:shadow-2xl transition-all duration-300 hover:scale-103 border border-white/20 cursor-pointer"
-              style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => {
-                playSend();
-                setSelectedTwister(twister.id);
-              }}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    difficultyColors[twister.difficulty]
-                  }`}
-                >
-                  {twister.difficulty}
-                </span>
-              </div>
-              {/* Twister id numbers */}
-              <div className="text-white bg-gradient-to-r from-indigo-600 to-indigo-900 flex justify-center items-center font-medium absolute -top-4 -right-2  shadow-lg w-8 h-8 rounded-full ">
-                {twister.id}
-              </div>
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-10">
+          {displayedTwisters.map((twister, index) => {
+            const isFavorite = favorite.has(twister.id);
+            const isCopied = copied === twister.id;
+            const diffColor =
+              difficultyColors[twister.difficulty] || difficultyColors.Medium;
 
-              <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4 text-lg">
-                "{twister.text}"
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {twister.tags.map((tag) => (
-                  <Badge variant="outline" key={tag}>
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      playSend();
-                      copyToClipboard(twister, setCopied);
-                    }}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      copied === twister.id
-                        ? "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400"
-                        : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                    }`}
-                    title={copied === twister.id ? "Copied!" : "Copy twister"}
+            return (
+              <div
+                key={twister.id}
+                className="group relative flex flex-col justify-between 
+                           bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
+                           rounded-3xl p-5 
+                           border border-white/40 dark:border-white/5
+                           hover:border-indigo-300 dark:hover:border-indigo-500/50
+                           shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
+                           transition-all duration-300 ease-out hover:-translate-y-1.5"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {/* Header */}
+                <div className="flex justify-between items-start mb-4">
+                  <span
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-sm ${diffColor}`}
                   >
-                    {copied === twister.id ? (
-                      <CheckCircle className="w-5 h-5" />
-                    ) : (
-                      <Copy className="w-5 h-5" />
-                    )}
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      playSend();
-                      shareQuote(twister, setCopied);
-                    }}
-                    className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
-                    title="Share twister"
-                  >
-                    <Share2 className="w-5 h-5" />
-                  </button>
+                    {twister.difficulty}
+                  </span>
+                  <div className="flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/20 px-2 py-1 rounded-lg border border-indigo-100 dark:border-indigo-800/50">
+                    <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">
+                      #{twister.id}
+                    </span>
+                  </div>
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    playSend();
-                    toggleFavorites(twister.id);
-                  }}
-                  className={`p-2 rounded-full transition-all duration-300 ${
-                    favorite.has(twister.id)
-                      ? "text-indigo-600 bg-indigo-100 dark:bg-indigo-900/30 scale-110"
-                      : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                  }`}
-                  title={
-                    favorite.has(twister.id)
-                      ? "Remove from favorites"
-                      : "Add to favorites"
-                  }
-                >
-                  <Heart
-                    className={`w-5 h-5 ${
-                      favorite.has(twister.id) ? "fill-current" : ""
-                    }`}
-                  />
-                </button>
+
+                {/* Content */}
+                <div className="flex-grow mb-4">
+                  <p className="text-gray-800 dark:text-gray-100 font-bold text-lg leading-snug">
+                    "{twister.text}"
+                  </p>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {twister.tags.slice(0, 3).map((tag) => (
+                    <Badge
+                      variant="secondary"
+                      key={tag}
+                      className="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-[10px] px-2 h-5 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+                    >
+                      #{tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* Actions Footer */}
+                <div className="pt-3 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+                  <div className="flex items-center gap-1 text-xs text-gray-400 font-medium">
+                    <Mic className="w-3 h-3" />
+                    <span>Practice</span>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => {
+                        playSend();
+                        copyToClipboard(twister, setCopied);
+                      }}
+                      className={`p-2 rounded-full transition-all duration-300 ${
+                        isCopied
+                          ? "bg-emerald-100 text-emerald-600"
+                          : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
+                      }`}
+                      title="Copy"
+                    >
+                      {isCopied ? (
+                        <CheckCircle className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        playSend();
+                        shareQuote(twister, setCopied);
+                      }}
+                      className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
+                      title="Share"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        playSend();
+                        toggleFavorites(twister.id);
+                      }}
+                      className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
+                      title="Favorite"
+                    >
+                      <Heart
+                        className={`w-4 h-4 transition-transform group-active/btn:scale-75 ${
+                          isFavorite ? "fill-rose-500 text-rose-500" : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Bottom Paginate */}
-        {displayedTwisters.length !== 0 && displayedTwisters.length === 10 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={totalFiltered}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
-
-        {/* <div className="mt-6 text-center">
-          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
-            Why Practice Tongue Twisters?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-2 md:gap-4">
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Improve Articulation</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Enhance your speech clarity and pronunciation skills.
-              </p>
+        {displayedTwisters.length !== 0 &&
+          displayedTwisters.length === itemsPerPage && (
+            <div className="flex justify-center pb-8">
+              <Paginate
+                currentPage={currentPage}
+                totalItems={totalFiltered}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Build Confidence</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Gain confidence in public speaking and communication.
-              </p>
-            </div>
-            <div className="bg-white/70 dark:bg-gray-800/70 rounded-3xl p-5">
-              <Mic className="w-12 h-12 text-indigo-500 mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Fun Challenge</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Enjoy the playful way to sharpen your linguistic abilities.
-              </p>
-            </div>
-          </div>
-        </div> */}
-      </div>
+          )}
+      </main>
       <Footer />
-      {/* <Toaster richColors position="top-center" /> */}
-
-      {selectedTwisterData && (
-        <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => {
-            playSend();
-            setSelectedTwister(null);
-          }}
-        >
-          <div
-            className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 bg-white dark:bg-gray-800 px-8 py-6 border-b border-gray-200 dark:border-gray-700 rounded-t-3xl">
-              <div className="flex items-center justify-between">
-                <span
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium ${
-                    difficultyColors[selectedTwisterData.difficulty]
-                  }`}
-                >
-                  {selectedTwisterData.difficulty}
-                </span>
-                <button
-                  onClick={() => {
-                    playSend();
-                    setSelectedTwister(null);
-                  }}
-                  className="p-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 rounded-md transition-colors text-gray-500 hover:text-indigo-700 dark:hover:text-indigo-300"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <h1 className="text-xl md:text-2xl font-black mt-4 text-gray-800 dark:text-gray-100">
-                Tongue Twister
-              </h1>
-            </div>
-
-            <div className="px-8 py-8">
-              <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-xl md:text-2xl  whitespace-pre-line text-center font-serif italic">
-                  "{selectedTwisterData.text}"
-                </p>
-              </div>
-            </div>
-
-            <div className="px-8 py-6 flex justify-between border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-950 rounded-b-3xl">
-              <span className="text-sm max-sm:hidden text-gray-500 dark:text-gray-400">
-                Press ESC to close
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {selectedTwisterData.tags.map((tag) => (
-                  <Badge variant="outline" key={tag}>
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
