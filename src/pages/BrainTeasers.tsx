@@ -8,9 +8,9 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader, // Added this
+  DialogHeader, 
   DialogTitle,
-} from "@/components/ui/dialog"; // Fixed: Changed from @radix-ui... to @/components/ui...
+} from "@/components/ui/dialog"; 
 import { TEASERS_CURRENTPAGE } from "@/constants";
 import useSound from "@/hooks/useSound";
 import brainTeasers from "@/jsons/brainTeaser";
@@ -18,13 +18,12 @@ import { copyToClipboard, shareQuote } from "@/utils/miniFunctions";
 import {
   CheckCircle,
   Copy,
-  Eye,
   EyeOff,
   Heart,
   Info,
   LoaderCircle,
   Maximize2,
-  Share2,
+  Share2
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -224,7 +223,7 @@ export default function BrainTeasersPage() {
                   Start Over
                 </Button>
                 <Button
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full h-12 px-6 shadow-lg shadow-indigo-500/25 transition-transform active:scale-95"
+                  className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white rounded-full h-12 px-6 shadow-lg shadow-indigo-500/25 transition-transform active:scale-95"
                   onClick={() => {
                     playSend();
                     handleRequestMoreTeasers();
@@ -252,8 +251,9 @@ export default function BrainTeasersPage() {
 
             return (
               <div
+                onClick={() => setSelectedTeaser(teaser)}
                 key={teaser.id}
-                className="group relative flex flex-col justify-between 
+                className="group relative flex flex-col cursor-pointer justify-between 
                            bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
                            rounded-3xl p-5 
                            border border-white/40 dark:border-white/5
@@ -276,13 +276,13 @@ export default function BrainTeasersPage() {
 
                 {/* Content with Truncation */}
                 <div className="flex-grow mb-4">
-                  <p className="text-gray-800 dark:text-gray-100 font-bold text-lg leading-snug">
+                  <p className="text-gray-800 dark:text-gray-100 font-medium text-lg leading-snug">
                     {displayQuestion}
                   </p>
                   {isLong && (
                     <button
                       onClick={() => setSelectedTeaser(teaser)}
-                      className="mt-2 text-xs font-bold text-indigo-500 hover:text-indigo-600 cursor-pointer hover:underline dark:text-indigo-400 flex items-center gap-1"
+                      className="mt-2 text-xs  font-bold text-indigo-500 hover:text-indigo-600 cursor-pointer hover:underline dark:text-indigo-400 flex items-center gap-1"
                     >
                       Read More <Maximize2 className="w-3 h-3" />
                     </button>
@@ -293,13 +293,14 @@ export default function BrainTeasersPage() {
                 <div className="mt-auto">
                   {!isRevealed ? (
                     <button
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         playSend();
                         toggleReveal(teaser.id);
                       }}
-                      className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-indigo-500/20"
+                      className="w-full cursor-pointer flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-indigo-500/20"
                     >
-                      <Eye className="w-4 h-4" /> Reveal Answer
+                      Reveal Answer
                     </button>
                   ) : (
                     <div className="relative animate-in fade-in zoom-in-95 duration-300">
@@ -315,7 +316,7 @@ export default function BrainTeasersPage() {
                             e.stopPropagation();
                             toggleReveal(teaser.id);
                           }}
-                          className="absolute top-2 right-2 p-1.5 rounded-full text-gray-400 hover:text-indigo-600 hover:bg-white dark:hover:bg-indigo-950 transition-colors"
+                          className="absolute top-2 cursor-pointer right-2 p-1.5 rounded-full text-gray-400 hover:text-indigo-600 hover:bg-white dark:hover:bg-indigo-950 transition-colors"
                           title="Hide solution"
                         >
                           <EyeOff className="w-3.5 h-3.5" />
@@ -328,11 +329,12 @@ export default function BrainTeasersPage() {
                 {/* Footer / Actions */}
                 <div className="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-end gap-2">
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       playSend();
                       copyToClipboard(teaser, setCopied);
                     }}
-                    className={`p-2 rounded-full transition-all duration-300 ${
+                    className={`p-2 rounded-full cursor-pointer transition-all duration-300 ${
                       isCopied
                         ? "bg-emerald-100 text-emerald-600"
                         : "hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600"
@@ -347,22 +349,24 @@ export default function BrainTeasersPage() {
                   </button>
 
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       playSend();
                       shareQuote(teaser, setCopied);
                     }}
-                    className="p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
+                    className="p-2 rounded-full cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-900/30 text-gray-400 hover:text-indigo-600 transition-colors"
                     title="Share"
                   >
                     <Share2 className="w-4 h-4" />
                   </button>
 
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       playSend();
                       toggleFavorites(teaser.id);
                     }}
-                    className="group/btn p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
+                    className="group/btn cursor-pointer p-2 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 text-gray-400 hover:text-rose-500 transition-colors"
                     title="Favorite"
                   >
                     <Heart
