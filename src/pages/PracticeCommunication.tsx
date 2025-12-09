@@ -232,7 +232,6 @@ export default function DevTopics() {
     setShowResetConfirm(false);
   };
 
-  // --- TERMINAL COMMAND HANDLER ---
   const handleTerminalCommand = (cmd: string): string => {
     switch (cmd) {
       case "help":
@@ -261,18 +260,18 @@ export default function DevTopics() {
     }
   };
 
-  // --- Layout Classes ---
-  // Using min-h-0 is crucial for nested flex scrolling
+  // --- UPDATED LAYOUT LOGIC ---
+  // On mobile: Flex column (stacked). On desktop: Grid.
   const containerLayout = showHistory 
-    ? "grid grid-cols-1 lg:grid-cols-12 gap-6 h-full min-h-0" 
+    ? "flex flex-col lg:grid lg:grid-cols-12 gap-4 lg:gap-6 h-full min-h-0" 
     : "flex flex-col items-center justify-center h-full min-h-0 max-w-5xl mx-auto w-full";
 
+  // On mobile: flex-1 ensures it shares space with logs. On desktop: col-span-8.
   const topicSectionClasses = showHistory 
-    ? "lg:col-span-8 flex flex-col gap-4 h-full min-h-0" 
+    ? "flex-1 lg:col-span-8 flex flex-col gap-4 min-h-0" 
     : "w-full flex flex-col gap-4 justify-center h-full min-h-0";
 
   return (
-    // Root container must be h-screen and flex-col to manage the full viewport
     <div className="fixed inset-0 bg-[#050505] text-gray-200 font-mono flex flex-col overflow-hidden selection:bg-emerald-500/30 selection:text-emerald-200">
       
       {/* Background FX */}
@@ -283,10 +282,6 @@ export default function DevTopics() {
 
       <CyberNavbar />
 
-      {/* MAIN CONTAINER: 
-         - removed fixed height calc()
-         - added flex-1 and min-h-0 to allow it to fill remaining space between Navbar and Footer
-      */}
       <main className="relative z-10 flex-1 flex flex-col min-h-0 pt-20 pb-2 px-4 sm:px-6 lg:px-8 w-full max-w-[1920px] mx-auto">
         
         <div className={containerLayout}>
@@ -304,7 +299,7 @@ export default function DevTopics() {
               </p>
             </div>
 
-            {/* Main Card - This is the flexible element that shrinks */}
+            {/* Main Card */}
             <div
               onClick={handleNext}
               className={`
@@ -317,7 +312,6 @@ export default function DevTopics() {
                   <div className="h-full bg-emerald-400 shadow-[0_0_10px_#34d399]" style={{ width: `${progress}%` }} />
               </div>
 
-              {/* Scrollable content inside the card */}
               <div className="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col items-center justify-center custom-scrollbar">
                   <div className="mb-4 opacity-30 group-hover:opacity-50 transition-opacity duration-500 transform group-hover:scale-110 shrink-0">
                     <Cpu className="w-12 h-12 md:w-16 md:h-16 text-emerald-500 animate-pulse" />
@@ -336,7 +330,7 @@ export default function DevTopics() {
               </div>
             </div>
 
-            {/* Controls - Fixed height */}
+            {/* Controls */}
             <div className="shrink-0 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-2">
               <CyberButton onClick={handlePrev} icon={<ChevronLeft className="w-5 h-5" />} label="PREV" subLabel="BACK" variant="info" />
               <CyberButton onClick={copyToClipboard} icon={<Copy className="w-5 h-5" />} label="COPY" subLabel="CPY" variant="info" />
@@ -344,7 +338,6 @@ export default function DevTopics() {
               <CyberButton onClick={resetProtocol} icon={<RotateCcw className="w-5 h-5" />} label="RESET" subLabel="WIPE" variant="danger" />
             </div>
 
-            {/* Terminal - Fixed/Expandable height at bottom of column */}
             <div className="shrink-0 mt-2">
                <MiniTerminal onCommand={handleTerminalCommand} />
             </div>
@@ -353,7 +346,7 @@ export default function DevTopics() {
 
           {/* --- RIGHT: LOGS SECTION --- */}
           {showHistory && (
-             <div className="hidden lg:flex lg:col-span-4 flex-col h-full min-h-0 animate-in slide-in-from-right-4 duration-500">
+             <div className="flex-1 lg:flex-none lg:col-span-4 flex flex-col min-h-0 animate-in slide-in-from-right-4 duration-500">
                 <div className="flex-1 flex flex-col bg-black/80 border border-emerald-500/20 backdrop-blur-sm relative overflow-hidden h-full" 
                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px))" }}>
                    
