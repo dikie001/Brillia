@@ -220,15 +220,19 @@ async function handleDefaultRequest(request) {
 // Background cache update
 async function updateCacheInBackground(request) {
   try {
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-      const cache = await caches.open(CACHE_VERSION);
-      cache.put(request, networkResponse);
-    }
-  } catch (error) {
-    // Silent fail - background update shouldn't affect UX
+    const response = await fetch(request);
+
+    // Only store FULL responses, no partial 206
+    if (!response || response.status !== 200) return;
+
+    const cache = await caches.open(CACHE_VERSION);
+    cache.put(request, response.clone());
+  } catch (err) {
+    // silent
+    console.log(err)
   }
 }
+
 
 // Helper to identify static assets
 function isStaticAsset(request) {
