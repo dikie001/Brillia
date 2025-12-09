@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Animation from "../animation/Animation";
+import Animation from "../../components/animation/Animation";
 
 const READ_STORIES = "read-stories";
 
