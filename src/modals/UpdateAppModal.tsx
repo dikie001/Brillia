@@ -7,7 +7,12 @@ import {
   RefreshCcw,
 } from "lucide-react";
 
-export type UpdateStatus = "idle" | "checking" | "available" | "latest" | "error";
+export type UpdateStatus =
+  | "idle"
+  | "checking"
+  | "available"
+  | "latest"
+  | "error";
 
 interface UpdateModalProps {
   status: UpdateStatus;
@@ -15,12 +20,16 @@ interface UpdateModalProps {
   onUpdate: () => void;
 }
 
-export default function UpdateModal({ status, onClose, onUpdate }: UpdateModalProps) {
+export default function UpdateModal({
+  status,
+  onClose,
+  onUpdate,
+}: UpdateModalProps) {
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
+        className="absolute inset-0 bg-black/50 h-screen   animate-in fade-in duration-200"
         onClick={onClose}
       />
 
@@ -37,7 +46,9 @@ export default function UpdateModal({ status, onClose, onUpdate }: UpdateModalPr
                 : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
             }`}
           >
-            {status === "checking" && <Loader2 className="w-8 h-8 animate-spin" />}
+            {status === "checking" && (
+              <Loader2 className="w-8 h-8 animate-spin" />
+            )}
             {status === "available" && <Download className="w-8 h-8" />}
             {status === "latest" && <CheckCircle2 className="w-8 h-8" />}
             {status === "error" && <AlertCircle className="w-8 h-8" />}
@@ -53,7 +64,8 @@ export default function UpdateModal({ status, onClose, onUpdate }: UpdateModalPr
               {status === "error" && "Update Check Failed"}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {status === "checking" && "Please wait while we check version info."}
+              {status === "checking" &&
+                "Please wait while we check version info."}
               {status === "available" && "A new version of the app is ready."}
               {status === "latest" &&
                 `Version ${APP_VERSION} is the latest available.`}
