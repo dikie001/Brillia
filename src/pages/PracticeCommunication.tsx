@@ -1,43 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { 
-  Terminal, 
-  Cpu, 
-  ChevronRight, 
-  ChevronLeft, 
-  Copy, 
-  RotateCcw, 
-  Hash, 
-  Code2, 
-  ShieldCheck, 
-  Zap 
-} from "lucide-react";
-
-// !!! Ensure these exist in your project
-import Navbar from "@/components/app/Navbar"; 
 import Footer from "@/components/app/Footer";
-import Animation from "./animation/Animation"; 
-
-// --- DATA ---
-const TOPICS = [
-  "Morning routines", "Your ideal weekend", "Your favorite childhood memory", "A movie you recently watched",
-  "A problem you solved this week", "A book you want to read", "A food you love or hate", "Your dream travel destination",
-  "A skill you want to learn", "Your most productive time of day", "Your biggest pet peeve", "A friend who inspires you",
-  "A song stuck in your head", "A gadget you want to buy", "Your favorite app and why", "A habit you’re trying to build",
-  "Social media you use most", "A goal you’re chasing this month", "Your favorite holiday", "A funny mistake you made",
-  "A trend you think is overrated", "A moment you felt proud", "Your go-to relaxation method", "A hobby you want to start",
-  "A city you want to live in", "A skill you admire in others", "Your workout routine (or lack of it)", "Something you recently learned",
-  "Your relationship with money", "Your biggest distraction", "What motivates you daily", "Something that annoys you",
-  "Your favorite tech tool", "Your best memory from school", "A food you want to try", "Your dream job",
-  "A funny story from campus", "A fear you're overcoming", "Your favorite series", "Something you bought recently",
-  "A moment you felt confident", "A person you want to meet", "Your favorite quote", "A mistake you learned from",
-  "Something you want to improve", "A place you go to think", "A challenge you’re facing now", "A habit you dropped",
-  "A compliment you received", "What success means to you",
-];
+import Navbar from "@/components/app/Navbar";
+import { topics as TOPICS } from "@/jsons/topics";
+import {
+  Activity,
+  AlertTriangle,
+  CheckCircle2,
+  ChevronLeft,
+  Copy,
+  Cpu,
+  Hash,
+  History,
+  RotateCcw,
+  ShieldCheck,
+  Terminal
+} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
 const STORAGE_KEY = "dev-topic-index";
 
 export default function DevTopics() {
-  // State: Sequential Index
+  // --- State ---
   const [index, setIndex] = useState<number>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -47,13 +29,23 @@ export default function DevTopics() {
   });
 
   const [fade, setFade] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showHistory, setShowHistory] = useState(true); // Default open log
+
+  const logEndRef = useRef<HTMLDivElement>(null);
 
   // --- Logic ---
   const currentTopic = TOPICS[index];
   const progress = Math.round(((index + 1) / TOPICS.length) * 100);
+  // Get history (topics up to current index)
+  const topicHistory = TOPICS.slice(0, index + 1);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, index.toString());
+    // Auto-scroll logs to bottom on change
+    if (logEndRef.current) {
+      logEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [index]);
 
   const handleNext = (e?: React.MouseEvent) => {
@@ -62,7 +54,7 @@ export default function DevTopics() {
     setTimeout(() => {
       setIndex((prev) => (prev + 1) % TOPICS.length);
       setFade(false);
-    }, 200);
+    }, 150);
   };
 
   const handlePrev = (e?: React.MouseEvent) => {
@@ -71,7 +63,7 @@ export default function DevTopics() {
     setTimeout(() => {
       setIndex((prev) => (prev - 1 + TOPICS.length) % TOPICS.length);
       setFade(false);
-    }, 200);
+    }, 150);
   };
 
   const copyToClipboard = (e: React.MouseEvent) => {
@@ -79,181 +71,207 @@ export default function DevTopics() {
     navigator.clipboard.writeText(currentTopic);
   };
 
-  const resetProtocol = () => {
-    if(confirm("Reboot system sequence? (Reset index to 0)")) {
-      setIndex(0);
-    }
+  const resetProtocol = () => setShowResetConfirm(true);
+  
+  const confirmReset = () => {
+    setIndex(0);
+    setShowResetConfirm(false);
   };
 
-  // --- Layout Config ---
-  // We use the exact structure of your requested layout but swap the colors for "Hacker" vibes
-  const heroConfig = {
-    name: "Terminal Output",
-    icon: <Terminal />,
-    description: `Sequence: ${index + 1} / ${TOPICS.length}`,
-    color: "from-emerald-500 to-cyan-600",
-    bgGradient: "from-emerald-50 to-cyan-50 dark:from-emerald-900/20 dark:to-cyan-900/20",
+  // --- Theme Config ---
+  const theme = {
+    bg: "bg-[#050505]",
+    text: "text-emerald-500",
+    border: "border-emerald-500/30",
+    glow: "shadow-[0_0_15px_rgba(16,185,129,0.1)]",
+    cardBg: "bg-[#0a0a0a]",
   };
-
-  const gridItems = [
-    {
-      name: "Previous Node",
-      icon: <ChevronLeft />,
-      desc: "Return to last execution",
-      action: handlePrev,
-      color: "from-slate-600 to-gray-700",
-    },
-    {
-      name: "Copy Payload",
-      icon: <Copy />,
-      desc: "Copy string to clipboard",
-      action: copyToClipboard,
-      color: "from-blue-500 to-indigo-600",
-    },
-    {
-      name: "System Reboot",
-      icon: <RotateCcw />,
-      desc: "Reset index to 0",
-      action: resetProtocol,
-      color: "from-red-500 to-rose-600",
-    },
-  ];
 
   return (
-    <div className="min-h-screen text-gray-900 dark:text-white bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200 dark:from-black dark:via-gray-950 dark:to-slate-950 flex flex-col relative overflow-hidden transition-colors duration-500 font-mono">
+    <div className={`min-h-screen ${theme.bg} text-gray-200 font-mono flex flex-col relative overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-200`}>
       
-      {/* Optional Animation BG */}
-      {typeof Animation !== "undefined" && <Animation />}
-
+      {/* CRT Scanline Effect Overlay */}
+      <div className="pointer-events-none fixed inset-0 z-50 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-20" />
+      
       <Navbar />
 
       <main className="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         
-        {/* Header Section */}
-        <div className="text-center mb-6 md:mb-10 space-y-2 md:space-y-4 animate-in fade-in duration-700">
-           <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/80 dark:bg-emerald-950/50 border border-emerald-500/30 text-emerald-500 rounded-sm shadow-md text-xs font-bold mb-4 tracking-widest uppercase">
-              <Zap className="w-3 h-3" />
-              <span>System Online • v.2.0.4</span>
-            </div>
-          
-          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent tracking-tighter">
-            &lt;DevSpeak /&gt;
+        {/* Status Bar */}
+        <div className="flex justify-between items-center mb-8 border-b border-emerald-900/50 pb-2">
+           <div className="flex items-center gap-3">
+              <div className="h-2 w-2 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-xs uppercase tracking-[0.2em] text-emerald-700 font-bold">System_Online</span>
+           </div>
+           <div className="text-xs text-emerald-800 font-bold">
+             UPTIME: {(Date.now() / 1000000).toFixed(2)}s
+           </div>
+        </div>
+
+        {/* Header */}
+        <div className="text-center mb-10 space-y-4">
+          <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-green-500 to-emerald-600 tracking-tighter drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+            &lt;DEV_SPEAK /&gt;
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto font-mono text-sm">
-            Execute verbal protocols. Iterate sequentially.
+          <p className="text-emerald-500/60 text-sm tracking-widest uppercase">
+            Protocol: Verbalize // Iterate // Dominate
           </p>
         </div>
 
-        {/* --- HERO: THE TERMINAL (TOPIC DISPLAY) --- */}
-        <div className="mb-6 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
-          <div
-            onClick={handleNext}
-            className="cursor-pointer group relative w-full max-w-4xl mx-auto overflow-hidden rounded-xl bg-slate-50 dark:bg-black border border-slate-300 dark:border-emerald-500/30 shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500"
-          >
-            {/* Top gradient bar */}
-            <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${heroConfig.color} transform origin-left scale-x-100 transition-transform duration-500`} />
-            
-            {/* Progress Bar (Subtle) */}
-            <div className="absolute bottom-0 left-0 h-1 bg-emerald-500/20 w-full">
-               <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${progress}%` }} />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          {/* --- LEFT COL: Main Terminal --- */}
+          <div className="lg:col-span-8 space-y-6">
+            <div
+              onClick={handleNext}
+              className={`cursor-pointer group relative w-full overflow-hidden rounded-sm ${theme.cardBg} border ${theme.border} ${theme.glow} hover:border-emerald-500/60 transition-all duration-300`}
+            >
+              {/* Header Bar */}
+              <div className="bg-emerald-950/30 border-b border-emerald-500/20 p-2 flex items-center justify-between px-4">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
+                </div>
+                <div className="text-[10px] text-emerald-500/50 uppercase">bash --active</div>
+              </div>
+
+              {/* Progress Line */}
+              <div className="absolute bottom-0 left-0 h-[2px] w-full bg-emerald-900/50">
+                 <div className="h-full bg-emerald-500 shadow-[0_0_10px_#10b981]" style={{ width: `${progress}%` }} />
+              </div>
+
+              {/* Content */}
+              <div className="p-8 md:p-12 relative min-h-[300px] flex flex-col justify-center">
+                <div className="absolute top-4 right-4 opacity-20">
+                  <Terminal className="w-24 h-24 text-emerald-500" />
+                </div>
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-widest">
+                     <Hash className="w-3 h-3" /> 
+                     <span>Index: {index.toString().padStart(3, '0')}</span>
+                  </div>
+                  
+                  <h3 className={`text-2xl md:text-4xl font-bold text-white transition-all duration-150 ${fade ? 'opacity-0 blur-sm scale-95' : 'opacity-100 blur-0 scale-100'}`}>
+                    <span className="text-emerald-500 mr-2">&gt;</span>
+                    {currentTopic}
+                    <span className="animate-pulse inline-block w-3 h-8 ml-2 bg-emerald-500 align-middle"></span>
+                  </h3>
+                </div>
+
+                {/* Mobile Action Hint */}
+                <div className="absolute bottom-4 right-4 md:hidden text-emerald-500/40 text-[10px] animate-pulse">
+                  TAP TO ADVANCE
+                </div>
+              </div>
             </div>
 
-            {/* Content Layout */}
-            <div className="relative p-6 md:p-10 flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-10">
-              
-              {/* Left: Icon */}
-              <div className="relative flex-shrink-0">
-                <div className={`absolute inset-0 bg-gradient-to-r ${heroConfig.color} rounded-full blur-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
-                <div className={`relative p-4 rounded-lg bg-black/5 dark:bg-emerald-900/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-500`}>
-                  {heroConfig.icon}
-                </div>
-              </div>
-
-              {/* Middle: The Topic */}
-              <div className="flex-1 text-center md:text-left space-y-2 w-full">
-                <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">
-                   <Hash className="w-3 h-3" /> 
-                   <span>Index: {index}</span>
-                </div>
-                
-                <h3 className={`text-2xl md:text-4xl font-bold text-gray-900 dark:text-emerald-50 transition-opacity duration-200 ${fade ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                  {currentTopic}
-                  <span className="animate-pulse text-emerald-500">_</span>
-                </h3>
-                
-                <p className="text-xs text-emerald-600/70 dark:text-emerald-400/50 pt-2 font-mono">
-                  {heroConfig.description}
-                </p>
-              </div>
-
-              {/* Right: Next Button */}
-              <div className="flex-shrink-0 flex items-center gap-4">
-                <div className={`
-                    hidden md:flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-white transition-all duration-300
-                    bg-gradient-to-r ${heroConfig.color} shadow-lg opacity-90 group-hover:opacity-100 group-hover:translate-x-1
-                  `}>
-                  <span>EXECUTE_NEXT</span>
-                  <Code2 className="w-4 h-4" />
-                </div>
-                {/* Mobile Arrow */}
-                <div className="md:hidden p-3 rounded-full bg-gray-100 dark:bg-gray-800 group-hover:bg-emerald-50 transition-colors">
-                  <ChevronRight className="w-5 h-5 text-gray-600 dark:text-emerald-400" />
-                </div>
-              </div>
-
+            {/* Controls Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+               <button onClick={handlePrev} className="h-14 flex items-center justify-center gap-2 bg-emerald-950/20 border border-emerald-500/30 hover:bg-emerald-500/10 text-emerald-400 rounded-sm hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] transition-all">
+                  <ChevronLeft className="w-4 h-4" /> <span className="text-xs font-bold">PREV</span>
+               </button>
+               <button onClick={copyToClipboard} className="h-14 flex items-center justify-center gap-2 bg-blue-950/20 border border-blue-500/30 hover:bg-blue-500/10 text-blue-400 rounded-sm hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] transition-all">
+                  <Copy className="w-4 h-4" /> <span className="text-xs font-bold">COPY</span>
+               </button>
+               <button onClick={() => setShowHistory(!showHistory)} className="h-14 flex items-center justify-center gap-2 bg-purple-950/20 border border-purple-500/30 hover:bg-purple-500/10 text-purple-400 rounded-sm hover:shadow-[0_0_10px_rgba(168,85,247,0.2)] transition-all">
+                  <History className="w-4 h-4" /> <span className="text-xs font-bold">LOGS</span>
+               </button>
+               <button onClick={resetProtocol} className="h-14 flex items-center justify-center gap-2 bg-red-950/20 border border-red-500/30 hover:bg-red-500/10 text-red-400 rounded-sm hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] transition-all">
+                  <RotateCcw className="w-4 h-4" /> <span className="text-xs font-bold">RESET</span>
+               </button>
             </div>
           </div>
+
+          {/* --- RIGHT COL: System Log (History) --- */}
+          <div className={`lg:col-span-4 transition-all duration-500 ${showHistory ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10 lg:hidden'}`}>
+             <div className="h-full max-h-[500px] flex flex-col rounded-sm bg-black border border-emerald-500/20 relative overflow-hidden">
+                {/* Log Header */}
+                <div className="px-4 py-3 bg-emerald-950/30 border-b border-emerald-500/20 flex items-center justify-between">
+                   <span className="text-xs font-bold text-emerald-500 flex items-center gap-2">
+                     <Activity className="w-3 h-3" /> SYSTEM_LOGS
+                   </span>
+                   <span className="text-[10px] text-emerald-700">ID: {Math.floor(Math.random() * 99999)}</span>
+                </div>
+                
+                {/* Log Body */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-3 font-mono text-xs custom-scrollbar">
+                   {topicHistory.map((topic, idx) => (
+                      <div key={idx} className={`flex gap-3 items-start animate-in slide-in-from-left-2 duration-300 ${idx === index ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                         <span className="shrink-0 opacity-50">[{idx.toString().padStart(3, '0')}]</span>
+                         <span className="break-words leading-relaxed">
+                            {idx === index && <span className="mr-2 text-emerald-500 animate-pulse">&gt;</span>}
+                            {topic}
+                         </span>
+                         {idx !== index && <CheckCircle2 className="w-3 h-3 ml-auto shrink-0 opacity-40" />}
+                      </div>
+                   ))}
+                   <div ref={logEndRef} />
+                </div>
+                
+                {/* Log Footer */}
+                <div className="p-2 border-t border-emerald-500/10 bg-emerald-950/10 text-[10px] text-emerald-600 text-center">
+                   // END OF STREAM //
+                </div>
+             </div>
+          </div>
+
         </div>
-        {/* --- END HERO --- */}
 
-        {/* --- CONTROL GRID --- */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {gridItems.map((item, idx) => (
-            <button
-              key={item.name}
-              onClick={item.action}
-              className="group relative p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-black/40 border border-gray-200 dark:border-emerald-500/20 backdrop-blur-sm overflow-hidden flex flex-col items-center text-center"
-              style={{
-                animationDelay: `${idx * 100}ms`,
-                animation: "slideUp 0.6s ease-out forwards",
-                opacity: 0,
-              }}
-            >
-              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${item.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`} />
-
-              <div className="mb-4 relative">
-                 <div className={`relative p-3 rounded-md bg-gray-100 dark:bg-gray-900 group-hover:scale-110 transition-transform duration-300`}>
-                   {React.cloneElement(item.icon as React.ReactElement)}
-                 </div>
-              </div>
-
-              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                {item.name}
-              </h3>
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-500 font-mono">
-                {item.desc}
-              </p>
-            </button>
-          ))}
-        </div>
-        
-        {/* Footer info line */}
-        <div className="mt-8 flex justify-center items-center gap-2 text-[10px] text-gray-400 uppercase tracking-widest opacity-60">
-           <ShieldCheck className="w-3 h-3" />
-           <span>Secure Connection // Port 3000</span>
-           <Cpu className="w-3 h-3 ml-2" />
-           <span>Mem: {Math.round(Math.random() * 100)}%</span>
+        {/* Footer Stats */}
+        <div className="mt-12 flex justify-center items-center gap-4 text-[10px] text-emerald-900 uppercase tracking-widest">
+           <div className="flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> PORT: SECURE</div>
+           <div className="w-px h-3 bg-emerald-900" />
+           <div className="flex items-center gap-1"><Cpu className="w-3 h-3" /> MEM: {Math.floor(Math.random() * 30 + 10)}%</div>
         </div>
 
       </main>
 
       <Footer />
       
+      {/* --- RESET MODAL --- */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-md bg-black border border-red-500 shadow-[0_0_50px_rgba(220,38,38,0.2)] rounded-sm overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="bg-red-500/10 px-4 py-3 border-b border-red-500/30 flex items-center gap-3">
+              <AlertTriangle className="w-5 h-5 text-red-500 animate-pulse" />
+              <h3 className="font-mono text-sm font-bold text-red-500 uppercase tracking-wider">
+                CRITICAL ALERT
+              </h3>
+            </div>
+            <div className="p-6 space-y-4">
+              <p className="text-sm text-red-200/80 font-mono leading-relaxed">
+                <span className="text-red-500 mr-2">&gt;&gt;</span>
+                Initiating memory wipe sequence. This will erase all session progress logs.
+                <br /><br />
+                <span className="animate-pulse">CONFIRM COMMAND?</span>
+              </p>
+            </div>
+            <div className="px-6 py-4 bg-red-950/20 flex justify-end gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-red-400 hover:text-white hover:bg-red-500/20 border border-transparent hover:border-red-500/50 transition-all"
+              >
+                [ Abort ]
+              </button>
+              <button
+                onClick={confirmReset}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-black text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-red-600/20 transition-all hover:scale-105"
+              >
+                [ PURGE_DATA ]
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Scrollbar Styles */}
       <style>{`
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #000; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 2px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #059669; }
       `}</style>
     </div>
   );
