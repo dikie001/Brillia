@@ -3,12 +3,21 @@ import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import NoFavorites from "@/components/app/NoFavorites";
 import Paginate from "@/components/app/paginations";
-// import { copyToClipboard } from "@/utils/miniFunctions";
-import { CheckCircle, Heart, Mail, RefreshCw, Volume2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { vocabulary as vocabularyData } from "../jsons/vocabulary";
 import { Button } from "@/components/ui/button";
+import { VOCAB_CURRENTPAGE } from "@/constants";
+import useSound from "@/hooks/useSound";
+import { vocabulary as vocabularyData } from "../jsons/vocabulary";
 import { cn } from "@/lib/utils";
+import {
+  CheckCircle,
+  Heart,
+  Mail,
+  RefreshCw,
+  Volume2,
+  BookOpen,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast, Toaster } from "sonner";
 
 // Updated Type
 type VocabularyWord = {
@@ -20,16 +29,14 @@ type VocabularyWord = {
 };
 
 const FAVORITE_WORDS = "favorite-words";
-const VOCAB_CURRENTPAGE = "vocab-current-page";
 
 export default function VocabularyPage() {
-  //   const [copied, setCopied] = useState<number | null>(null);
   const [displayedWords, setDisplayedWords] = useState<VocabularyWord[]>([]);
   const [favorite, setFavorite] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const { playSend } = useSound();
 
   // Calculate total pages
   const totalItems = showFavoritesOnly ? favorite.size : vocabularyData.length;
@@ -41,7 +48,14 @@ export default function VocabularyPage() {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.8;
+      // Optional: Try to set a specific English voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const englishVoice = voices.find((voice) => voice.lang.includes("en"));
+      if (englishVoice) utterance.voice = englishVoice;
+      
       window.speechSynthesis.speak(utterance);
+    } else {
+        toast.error("Text-to-speech not supported in this browser.");
     }
   };
 
@@ -59,6 +73,7 @@ export default function VocabularyPage() {
 
   // Reset function
   const handleReset = () => {
+    playSend();
     setCurrentPage(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -86,8 +101,13 @@ export default function VocabularyPage() {
   const toggleFavorites = (id: number) => {
     setFavorite((prev) => {
       const newFavorite = new Set(prev);
-      if (newFavorite.has(id)) newFavorite.delete(id);
-      else newFavorite.add(id);
+      if (newFavorite.has(id)) {
+        newFavorite.delete(id);
+        toast.success("Removed from favorites");
+      } else {
+        newFavorite.add(id);
+        toast.success("Added to favorites");
+      }
 
       localStorage.setItem(
         FAVORITE_WORDS,
@@ -98,120 +118,118 @@ export default function VocabularyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-indigo-100 dark:from-gray-900 dark:via-indigo-900/50 dark:to-black text-gray-900 dark:text-gray-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-slate-800 dark:to-indigo-950 text-gray-900 dark:text-gray-100 relative overflow-x-hidden transition-colors duration-500">
       <Navbar currentPage="Vocabulary" />
+      <Toaster richColors position="top-center" />
 
-      <div className="relative z-10 max-w-7xl mx-auto pt-18">
-        {/* Simple Filter Toggle */}
-        <div className="flex justify-end mb-6">
-          <Button
-            variant="outline"
-            onClick={() => {
-              setShowFavoritesOnly(!showFavoritesOnly);
-              setCurrentPage(1);
-            }}
-            className={cn(
-              "rounded-full gap-2 transition-all",
-              showFavoritesOnly &&
-                "border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 dark:border-rose-900/50 dark:bg-rose-950/30 dark:text-rose-400 dark:hover:bg-rose-950/50"
-            )}
-          >
-            <Heart
-              className={cn("w-4 h-4", showFavoritesOnly && "fill-current")}
-            />
-            {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
-          </Button>
+      <main className="relative z-10 max-w-7xl mx-auto pt-24 px-4 pb-12">
+        
+        {/* Header / Filter Toggle */}
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+             <div className="flex items-center gap-2 bg-white/50 dark:bg-gray-800/50 px-4 py-2 rounded-full border border-white/20 dark:border-white/10 backdrop-blur-sm">
+                <BookOpen className="w-4 h-4 text-indigo-500" />
+                <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                    {vocabularyData.length} Words Available
+                </span>
+             </div>
+
+            <Button
+                variant="outline"
+                onClick={() => {
+                playSend();
+                setShowFavoritesOnly(!showFavoritesOnly);
+                setCurrentPage(1);
+                }}
+                className={cn(
+                "rounded-full px-6 h-10 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 transition-all duration-300",
+                showFavoritesOnly &&
+                    "bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-900"
+                )}
+            >
+                <Heart
+                className={cn("w-4 h-4 mr-2", showFavoritesOnly && "fill-current")}
+                />
+                {showFavoritesOnly ? "Showing Favorites" : "Show Favorites"}
+            </Button>
         </div>
-
-        {/* Top Paginate */}
-        {!isLastPage && displayedWords.length > 0 && (
-          <Paginate
-            currentPage={currentPage}
-            totalItems={totalItems}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
 
         {/* Vocabulary Grid */}
         {showFavoritesOnly && displayedWords.length === 0 ? (
           <NoFavorites />
         ) : (
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 mb-6">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 mb-10">
             {displayedWords.map((item, index) => {
               const isFavorite = favorite.has(item.id);
-              //   const isCopied = copied === item.id;
 
               return (
                 <div
                   key={item.id}
-                  className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 flex flex-col h-full border border-white/20"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group relative flex flex-col h-full
+                             bg-white/80 dark:bg-gray-800/80 backdrop-blur-md
+                             rounded-3xl p-6 
+                             border border-white/40 dark:border-white/5
+                             hover:border-indigo-300 dark:hover:border-indigo-500/50
+                             shadow-sm hover:shadow-[0_8px_30px_rgb(79,70,229,0.15)] 
+                             transition-all duration-300 ease-out hover:-translate-y-1.5"
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Content */}
                   <div className="flex-grow">
-                    <div className="flex items-baseline justify-between mb-2">
-                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <div className="flex items-baseline justify-between mb-3 border-b border-gray-100 dark:border-gray-700/50 pb-3">
+                      <h2 className="text-2xl font-black text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                         {item.word}
                       </h2>
-                      <span className="text-sm text-gray-500 font-mono dark:text-gray-400">
+                      <span className="text-sm text-gray-400 font-mono bg-gray-50 dark:bg-gray-900/50 px-2 py-0.5 rounded-md">
                         {item.phonetic}
                       </span>
                     </div>
 
-                    <p className="text-gray-700 dark:text-gray-300 font-medium mb-4 leading-snug">
-                      {item.definition}
-                    </p>
+                    <div className="mb-5">
+                        <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1 block">Definition</span>
+                        <p className="text-gray-700 dark:text-gray-300 font-medium leading-relaxed">
+                        {item.definition}
+                        </p>
+                    </div>
 
-                    <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-xl border-l-4 border-indigo-400 mb-4">
-                      <p className="text-sm italic text-gray-600 dark:text-gray-400">
-                        "{item.example}"
-                      </p>
+                    <div className="bg-indigo-50/50 dark:bg-indigo-900/20 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 mb-4 relative overflow-hidden group/example">
+                        {/* Decorative Quote Icon */}
+                        <div className="absolute top-2 left-2 text-indigo-200 dark:text-indigo-800/50 transform -scale-x-100 opacity-50 group-hover/example:opacity-100 transition-opacity">
+                            <span className="text-4xl leading-none font-serif">"</span>
+                        </div>
+                         <p className="text-sm italic text-gray-600 dark:text-gray-400 relative z-10 pl-2">
+                            {item.example}
+                         </p>
                     </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => speakWord(item.word)}
-                        className="p-2 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all"
-                        title="Listen"
-                      >
-                        <Volume2 className="w-5 h-5" />
-                      </button>
-                      {/* <button
+                  {/* Actions Footer */}
+                  <div className="flex items-center justify-between pt-2 mt-auto">
+                    <button
                         onClick={() => {
-                          copyToClipboard(
-                            `${item.word}: ${item.definition}`,
-                            setCopied
-                          );
-                          setCopied(item.id);
-                          setTimeout(() => setCopied(null), 2000);
+                            // playSend(); // Optional: might clash with TTS
+                            speakWord(item.word);
                         }}
-                        className={`p-2 rounded-full transition-all ${
-                          isCopied
-                            ? "bg-indigo-100 text-indigo-600"
-                            : "hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-gray-500 hover:text-indigo-600"
-                        }`}
-                      >
-                        {isCopied ? (
-                          <CheckCircle className="w-5 h-5" />
-                        ) : (
-                          <Copy className="w-5 h-5" />
-                        )}
-                      </button> */}
-                    </div>
+                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all text-sm font-semibold"
+                        title="Listen to pronunciation"
+                    >
+                        <Volume2 className="w-4 h-4" />
+                        <span className="text-xs">Pronounce</span>
+                    </button>
 
                     <button
-                      onClick={() => toggleFavorites(item.id)}
-                      className={`p-2 rounded-full transition-all duration-300 ${
+                      onClick={() => {
+                        playSend();
+                        toggleFavorites(item.id);
+                      }}
+                      className={`p-2.5 rounded-full transition-all duration-300 ${
                         isFavorite
-                          ? "text-rose-500 bg-rose-100 dark:bg-rose-900/30 scale-110"
+                          ? "text-rose-500 bg-rose-50 dark:bg-rose-900/20 shadow-inner"
                           : "text-gray-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20"
                       }`}
+                      title={isFavorite ? "Remove from favorites" : "Add to favorites"}
                     >
                       <Heart
-                        className={`w-5 h-5 ${
+                        className={`w-5 h-5 transition-transform active:scale-75 ${
                           isFavorite ? "fill-current" : ""
                         }`}
                       />
@@ -225,31 +243,31 @@ export default function VocabularyPage() {
 
         {/* Bottom Section: Completion Card OR Pagination */}
         {isLastPage ? (
-          <div className="mt-12 mb-8 text-center bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 border border-dashed border-indigo-200 dark:border-gray-700 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="mt-8 mb-8 text-center bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-[2.5rem] p-10 border border-white/40 dark:border-white/5 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col items-center gap-4">
-              <div className="p-4 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full mb-2">
-                <CheckCircle className="w-8 h-8" />
+              <div className="p-4 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full mb-2 shadow-emerald-200/50 shadow-lg">
+                <CheckCircle className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-3xl font-black text-gray-900 dark:text-white">
                 You've reached the end!
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
-                You've browsed through all {vocabularyData.length} words. Great
-                job keeping your vocabulary sharp!
+              <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
+                You've browsed through all <span className="font-bold text-indigo-600 dark:text-indigo-400">{vocabularyData.length}</span> words. 
+                Great job keeping your vocabulary sharp!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-medium transition-all shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-0.5"
+                  className="flex items-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold text-lg transition-all shadow-xl shadow-indigo-500/30 hover:-translate-y-1 hover:shadow-indigo-500/40"
                 >
-                  <RefreshCw className="w-4 h-4" />
+                  <RefreshCw className="w-5 h-5" />
                   Start Over
                 </button>
                 <a
-                  href="mailto:developer@example.com?subject=New Vocabulary Suggestion"
-                  className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-full font-medium transition-all dark:bg-transparent dark:border-gray-600 dark:text-gray-300 dark:hover:bg-white/5 hover:-translate-y-0.5"
+                  href="mailto:dikie@example.com?subject=New Vocabulary Suggestion"
+                  className="flex items-center gap-2 px-8 py-4 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-full font-bold text-lg transition-all dark:bg-transparent dark:border-gray-600 dark:text-gray-300 dark:hover:bg-white/5 hover:-translate-y-1 shadow-sm hover:shadow-md"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-5 h-5" />
                   Suggest a Word
                 </a>
               </div>
@@ -257,16 +275,17 @@ export default function VocabularyPage() {
           </div>
         ) : (
           displayedWords.length > 0 && (
-            <Paginate
-              currentPage={currentPage}
-              totalItems={totalItems}
-              setCurrentPage={setCurrentPage}
-            />
+            <div className="flex justify-center pb-8">
+                <Paginate
+                    currentPage={currentPage}
+                    totalItems={totalItems}
+                    setCurrentPage={setCurrentPage}
+                />
+            </div>
           )
         )}
-
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -42,6 +42,8 @@ export const FIREBASE_TEST_RESULTS = "firebase_test_results"
 // Stories read
 export const STORIES_READ = "read-stories"
 
+export const VOCAB_CURRENTPAGE = "vocabulary_current_page"
+
 // User info
 export const USER_INFO = "user-info"
 
