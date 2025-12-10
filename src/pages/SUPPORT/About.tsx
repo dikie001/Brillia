@@ -20,32 +20,32 @@ import {
 const About = () => {
   const features = [
     {
-      icon: <BrainCircuit className="w-5 h-5 text-indigo-600" />,
+      icon: <BrainCircuit className="w-6 h-6 text-indigo-600" />,
       title: "Quick Challenges",
       desc: "Puzzles & riddles",
     },
     {
-      icon: <BookOpen className="w-5 h-5 text-pink-600" />,
+      icon: <BookOpen className="w-6 h-6 text-pink-600" />,
       title: "Flash Stories",
       desc: "Short tales",
     },
     {
-      icon: <Lightbulb className="w-5 h-5 text-amber-600" />,
+      icon: <Lightbulb className="w-6 h-6 text-amber-600" />,
       title: "Fun Facts",
       desc: "Daily fascination",
     },
     {
-      icon: <Gem className="w-5 h-5 text-emerald-600" />,
+      icon: <Gem className="w-6 h-6 text-emerald-600" />,
       title: "Life Gems",
       desc: "Daily wisdom",
     },
     {
-      icon: <Mic className="w-5 h-5 text-cyan-600" />,
+      icon: <Mic className="w-6 h-6 text-cyan-600" />,
       title: "Clear Speech",
       desc: "Pronunciation",
     },
     {
-      icon: <Wifi className="w-5 h-5 text-slate-600" />,
+      icon: <Wifi className="w-6 h-6 text-slate-600" />,
       title: "Offline Ready",
       desc: "No internet needed",
     },
@@ -55,36 +55,36 @@ const About = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900 text-gray-900 dark:text-gray-100 selection:bg-indigo-200 dark:selection:bg-indigo-800">
       <Navbar currentPage="About" />
 
-      <div className="pt-24 px-4 pb-12 max-w-5xl mx-auto space-y-8">
-        {/* 1. SIMPLE HEADER (Restored & Minimal) */}
+      <div className="pt-24 px-4 pb-12 max-w-5xl mx-auto space-y-10">
+        {/* 1. HEADER */}
         <div className="text-center space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="inline-flex p-3 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm shadow-sm mb-2">
+          <div className="inline-flex p-3 rounded-2xl bg-white dark:bg-gray-800 shadow-md mb-2">
             <Info className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             About Brillia
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto font-medium">
             Your daily companion for inspiration, learning, and fun.
           </p>
         </div>
 
-        {/* 2. COMPACT FEATURES GRID (Smaller cards) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-100">
+        {/* 2. FEATURES GRID - FIXED VISIBILITY */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-100">
           {features.map((feature, i) => (
             <Card
               key={i}
-              className="border-none shadow-sm bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 transition-colors duration-200"
+              className="bg-white dark:bg-gray-800 border border-indigo-100 dark:border-gray-700 shadow-md hover:shadow-xl hover:border-indigo-300 dark:hover:border-indigo-500 transition-all duration-300 group"
             >
-              <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                <div className="p-2 bg-white dark:bg-gray-700 rounded-full shadow-sm">
+              <CardContent className="p-5 flex flex-col items-center text-center gap-3">
+                <div className="p-3 bg-indigo-50 dark:bg-gray-700 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100">
+                  <h3 className="font-bold text-sm md:text-base text-gray-900 dark:text-gray-100 mb-1">
                     {feature.title}
                   </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                     {feature.desc}
                   </p>
                 </div>
@@ -93,10 +93,10 @@ const About = () => {
           ))}
         </div>
 
-        {/* 3. DEVELOPER & TECH (The layout you liked) */}
+        {/* 3. DEVELOPER & TECH SECTIONS */}
         <div className="grid md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-200">
           {/* Developer Profile */}
-          <Card className="border-none shadow-md bg-white dark:bg-gray-800 overflow-hidden">
+          <Card className="border-none shadow-lg bg-white dark:bg-gray-800 overflow-hidden">
             <CardContent className="p-8 flex flex-col items-center text-center md:items-start md:text-left gap-6 h-full justify-center">
               <div className="relative">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-4 ring-indigo-50 dark:ring-gray-700 shadow-xl">
@@ -135,7 +135,7 @@ const About = () => {
           </Card>
 
           {/* Tech Stack */}
-          <Card className="border-none shadow-md bg-white dark:bg-gray-800">
+          <Card className="border-none shadow-lg bg-white dark:bg-gray-800">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Code2 className="w-5 h-5 text-indigo-500" />
@@ -161,7 +161,7 @@ const About = () => {
                   <Badge
                     key={tech}
                     variant="secondary"
-                    className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-gray-600"
+                    className="bg-indigo-50 dark:bg-gray-700 text-indigo-700 dark:text-gray-200 hover:bg-indigo-100 dark:hover:bg-gray-600"
                   >
                     {tech}
                   </Badge>
