@@ -9,12 +9,11 @@ import {
   Code2,
   Gem,
   Globe,
-  Heart,
   Info,
   Lightbulb,
   Mic,
   Smartphone,
-  Wifi,
+  Wifi
 } from "lucide-react";
 
 const About = () => {
@@ -101,14 +100,12 @@ const About = () => {
               <div className="relative">
                 <div className="w-20 h-20 rounded-full overflow-hidden ring-4 ring-indigo-50 dark:ring-gray-700 shadow-xl">
                   <img
-                    src="/images/apple.jpeg"
+                    src="/images/apple.jpg"
                     alt="Dickens Omondi"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 bg-indigo-500 text-white p-1.5 rounded-full ring-4 ring-white dark:ring-gray-800">
-                  <Heart className="w-3 h-3 fill-current" />
-                </div>
+           
               </div>
 
               <div className="space-y-2">
