@@ -20,34 +20,34 @@ import {
 const About = () => {
   const features = [
     {
-      icon: <BrainCircuit className="w-6 h-6 text-indigo-600" />,
-      title: "Quick Challenges",
-      desc: "Puzzles & riddles",
+      icon: <BrainCircuit className="w-5 h-5 text-indigo-600" />,
+      title: "Challenges",
+      desc: "Puzzles",
     },
     {
-      icon: <BookOpen className="w-6 h-6 text-pink-600" />,
-      title: "Flash Stories",
+      icon: <BookOpen className="w-5 h-5 text-pink-600" />,
+      title: "Stories",
       desc: "Short tales",
     },
     {
-      icon: <Lightbulb className="w-6 h-6 text-amber-600" />,
+      icon: <Lightbulb className="w-5 h-5 text-amber-600" />,
       title: "Fun Facts",
-      desc: "Daily fascination",
+      desc: "Daily info",
     },
     {
-      icon: <Gem className="w-6 h-6 text-emerald-600" />,
+      icon: <Gem className="w-5 h-5 text-emerald-600" />,
       title: "Life Gems",
-      desc: "Daily wisdom",
+      desc: "Wisdom",
     },
     {
-      icon: <Mic className="w-6 h-6 text-cyan-600" />,
-      title: "Clear Speech",
-      desc: "Pronunciation",
+      icon: <Mic className="w-5 h-5 text-cyan-600" />,
+      title: "Speech",
+      desc: "Speaking",
     },
     {
-      icon: <Wifi className="w-6 h-6 text-slate-600" />,
-      title: "Offline Ready",
-      desc: "No internet needed",
+      icon: <Wifi className="w-5 h-5 text-slate-600" />,
+      title: "Offline",
+      desc: "No Wifi",
     },
   ];
 
@@ -69,22 +69,22 @@ const About = () => {
           </p>
         </div>
 
-        {/* 2. FEATURES GRID - FIXED VISIBILITY */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-100">
+        {/* 2. COMPACT & VISIBLE FEATURES STRIP */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-100">
           {features.map((feature, i) => (
             <Card
               key={i}
-              className="bg-white dark:bg-gray-800 border border-indigo-100 dark:border-gray-700 shadow-md hover:shadow-xl hover:border-indigo-300 dark:hover:border-indigo-500 transition-all duration-300 group"
+              className="bg-white dark:bg-gray-800 border border-indigo-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200"
             >
-              <CardContent className="p-5 flex flex-col items-center text-center gap-3">
-                <div className="p-3 bg-indigo-50 dark:bg-gray-700 rounded-xl group-hover:scale-110 transition-transform duration-300">
+              <CardContent className="p-3 flex flex-col items-center text-center gap-2">
+                <div className="p-2 bg-indigo-50 dark:bg-gray-700 rounded-lg">
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm md:text-base text-gray-900 dark:text-gray-100 mb-1">
+                  <h3 className="font-bold text-xs md:text-sm text-gray-900 dark:text-gray-100 leading-tight">
                     {feature.title}
                   </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
                     {feature.desc}
                   </p>
                 </div>
@@ -93,7 +93,7 @@ const About = () => {
           ))}
         </div>
 
-        {/* 3. DEVELOPER & TECH SECTIONS */}
+        {/* 3. DEVELOPER & TECH SECTIONS (Unchanged layout) */}
         <div className="grid md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-500 delay-200">
           {/* Developer Profile */}
           <Card className="border-none shadow-lg bg-white dark:bg-gray-800 overflow-hidden">
