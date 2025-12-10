@@ -10,19 +10,28 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// Add shimmer keyframes to your global CSS or Tailwind config
-/* @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
+// 1. Define the custom PWA event interface
+interface BeforeInstallPromptEvent extends Event {
+  readonly platforms: string[];
+  readonly userChoice: Promise<{
+    outcome: "accepted" | "dismissed";
+    platform: string;
+  }>;
+  prompt(): Promise<void>;
+}
+
+// 2. Extend the global window event map to satisfy TypeScript
+declare global {
+  interface WindowEventMap {
+    beforeinstallprompt: BeforeInstallPromptEvent;
+    appinstalled: Event;
   }
 }
-*/
 
 interface Perk {
-  icon: JSX.Element;
+  // 3. Changed to ReactNode because you are passing instantiated JSX (<Icon />)
+  // not the component itself
+  icon: React.ReactNode;
   title: string;
   desc: string;
 }
@@ -51,13 +60,15 @@ const perks: Perk[] = [
 ];
 
 export default function PWAInstallModal() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  // 4. Use the specific type instead of 'any'
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isInstalling, setIsInstalling] = useState(false);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e: Event) => {
+    const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
       setDeferredPrompt(e);
       setIsInstallable(true);
@@ -82,7 +93,7 @@ export default function PWAInstallModal() {
     return () => {
       window.removeEventListener(
         "beforeinstallprompt",
-        handleBeforeInstallPrompt,
+        handleBeforeInstallPrompt
       );
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
@@ -93,7 +104,7 @@ export default function PWAInstallModal() {
     setIsInstalling(true);
 
     try {
-      deferredPrompt.prompt();
+      await deferredPrompt.prompt();
       const choiceResult = await deferredPrompt.userChoice;
 
       if (choiceResult.outcome === "accepted") {
@@ -103,9 +114,6 @@ export default function PWAInstallModal() {
     } catch (error) {
       console.error("Installation error:", error);
     } finally {
-      // NOTE: appinstalled event usually handles state cleanup if successful
-      // This is a fallback/cleanup for failure/dismissal during prompt
-      // The prompt consumes the deferredPrompt, so we set it to null regardless
       setDeferredPrompt(null);
       setIsInstalling(false);
     }
@@ -134,10 +142,8 @@ export default function PWAInstallModal() {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Decorative Top Banner (Improved BG) */}
+        {/* Decorative Top Banner */}
         <div className="h-36 bg-gradient-to-br from-indigo-700 to-indigo-800 flex items-center justify-center relative overflow-hidden">
-
-
           <div className="relative z-10 flex flex-col items-center pt-2">
             <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-2xl mb-3 ring-4 ring-white/10">
               <Download className="w-8 h-8 text-white" />
@@ -153,14 +159,12 @@ export default function PWAInstallModal() {
 
         {/* Content Body */}
         <div className="p-6 space-y-6">
-         
-
-          {/* Perks Grid (Subtle BG change) */}
+          {/* Perks Grid */}
           <div className="grid grid-cols-2 gap-4 mt-2 ">
             {perks.map((perk, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center text-center p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800/80 transition-shadow hover:shadow-md"
+                className="flex flex-col items-center text-center p-3 rounded-xl bg-gray-50 dark:bg-gray-900 shadow border border-zinc-100 dark:border-zinc-800/80 transition-shadow hover:shadow-md"
               >
                 <div className="mb-2 p-2 bg-white dark:bg-zinc-800 rounded-full shadow-sm">
                   {perk.icon}
@@ -182,7 +186,6 @@ export default function PWAInstallModal() {
               disabled={isInstalling}
               className="w-full relative group overflow-hidden bg-indigo-600 text-white rounded-xl py-3.5 font-bold shadow-lg shadow-indigo-500/30 hover:shadow-xl transition-all duration-300 active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed text-base"
             >
-              {/* Shimmer Effect */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
 
               <span className="flex items-center justify-center gap-2 relative z-10">
@@ -194,6 +197,7 @@ export default function PWAInstallModal() {
                 ) : (
                   <>
                     Install App Now
+                    <CheckCircle2 className="w-4 h-4" />
                   </>
                 )}
               </span>
