@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { UpdateStatus } from "@/modals/UpdateAppModal";
 import UpdateModal from "@/modals/UpdateAppModal";
 import {
+  Bot, // Added Bot icon
   ChevronDown,
   FileText,
   HelpCircle,
@@ -17,6 +18,7 @@ import {
   Settings,
   Shield,
   Sparkle,
+  Sparkles, // Added Sparkles icon
   X,
   Zap,
   type LucideIcon
@@ -292,6 +294,44 @@ const NavGroup = ({
   );
 };
 
+// --- New Brillia AI CTA Component ---
+const BrilliaCTA = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="relative w-full group overflow-hidden rounded-2xl p-0.5 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-indigo-500/20"
+    >
+      {/* Animated Gradient Border Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-indigo-600 animate-gradient-xy opacity-100" />
+      
+      <div className="relative flex items-center justify-between h-full bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 rounded-[14px] p-4 overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-16 h-16 bg-fuchsia-500/20 rounded-full blur-xl translate-y-1/3 -translate-x-1/3" />
+        
+        <div className="flex items-center gap-3.5 z-10">
+          <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 shadow-inner group-hover:bg-white/20 transition-colors">
+            <Bot className="w-6 h-6 text-indigo-100" />
+          </div>
+          <div className="flex flex-col items-start text-white">
+            <span className="font-bold tracking-tight text-base bg-gradient-to-r from-white via-indigo-100 to-indigo-200 bg-clip-text text-transparent">
+              Ask Brillia AI
+            </span>
+            <span className="text-[11px] font-medium text-indigo-200/70 flex items-center gap-1">
+              Smart Assistant <Sparkles className="w-2.5 h-2.5" />
+            </span>
+          </div>
+        </div>
+        
+        {/* Animated Arrow/Icon */}
+        <div className="z-10 bg-white/10 p-1.5 rounded-full backdrop-blur-sm border border-white/5">
+           <Zap className="w-4 h-4 text-amber-300 fill-amber-300 animate-pulse" />
+        </div>
+      </div>
+    </button>
+  );
+};
+
 // --- Main Component ---
 
 export default function MobileNav({
@@ -339,6 +379,10 @@ export default function MobileNav({
 
         {/* Scroll Area */}
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-hide bg-gradient-to-b from-white to-indigo-50/30 dark:from-slate-950 dark:to-slate-900">
+          
+          {/* --- AI BUTTON ADDED HERE --- */}
+          <BrilliaCTA onClick={() => handleNav("/brillia-ai")} />
+
           <div className="space-y-2">
             {MENUS.MAIN.map((item) => (
               <NavItem

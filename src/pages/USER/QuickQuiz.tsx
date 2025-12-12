@@ -670,9 +670,9 @@ const QuizApp: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-indigo-100 to-indigo-200 dark:bg-gray-900 dark:from-transparent dark:via-transparent dark:to-transparent p-4 transition-colors duration-300">
         <Navbar currentPage="Quick Quiz" />
-        <div className="max-w-4xl mx-auto pt-16 ">
+        <div className="max-w-4xl mx-auto pt-14 ">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6 mt-1">
+          <div className="flex items-center justify-between mb-2 mt-1">
             <button
               onClick={() => {
                 playSend();
@@ -726,7 +726,7 @@ const QuizApp: React.FC = () => {
           {/* Question Card */}
           <div className="bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300">
             {/* Question */}
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-6">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
               {currentQ.question}
             </h3>
 

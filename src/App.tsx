@@ -20,6 +20,7 @@ import PracticeCommunication from "./pages/DEV/PracticeCommunication";
 import { useUpdateListener } from "./hooks/useUpdateListener";
 import WordPower from "./pages/USER/WordPower";
 import PWAInstallModal from "./components/PWAInstall";
+import BrilliaAI from "./pages/USER/Brillia";
 const FactFrenzy = lazy(() => import("./pages/USER/FunFacts"));
 const BrainTeasers = lazy(() => import("./pages/USER/QuickChallenges"));
 const HomePage = lazy(() => import("./pages/USER/HomePage"));
@@ -70,6 +71,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/brillia-ai" element={<BrilliaAI />} />
           <Route path="/admin-auth" element={<AdminAuth />} />
           <Route path="/admin/messages" element={<AdminMessages />} />
           <Route path="/admin/users" element={<UsersPage />} />
