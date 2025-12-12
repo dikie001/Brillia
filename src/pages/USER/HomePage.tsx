@@ -202,11 +202,11 @@ const HomePage: React.FC = () => {
               {/* Right: Action / Stats */}
               <div className="flex-shrink-0 flex items-center gap-4">
                 {/* Desktop Stats */}
-                 {completed.quiz > 0 && (
-                      <span className="md:hidden flex-shrink-0 text-[10px] font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-2 py-1 rounded-full">
-                        {completed.quiz} Done
-                      </span>
-                    )}
+                {completed.quiz > 0 && (
+                  <span className="hidden md:block flex-shrink-0 text-[10px] font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-100 dark:bg-cyan-900/30 px-4 py-2 rounded-full">
+                    {completed.quiz} Done
+                  </span>
+                )}
 
                 {/* Desktop Play Button visual */}
                 <div
