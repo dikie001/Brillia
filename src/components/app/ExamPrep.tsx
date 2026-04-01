@@ -455,7 +455,7 @@ const ExamPrep: React.FC = () => {
 
         {/* Feedback Overlay — same pattern as Quick Quiz */}
         {showFeedback && (
-          <div className="fixed top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-3xl z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <div className="fixed top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-3xl z-2000 animate-in slide-in-from-bottom-4 fade-in duration-300">
             <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl p-5 rounded-2xl border border-indigo-200 dark:border-indigo-700 shadow-2xl shadow-indigo-500/20 dark:shadow-black/50 ring-1 ring-black/5">
               <div className="flex items-start gap-4">
                 {isCorrect ? (
