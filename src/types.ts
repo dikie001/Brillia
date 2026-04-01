@@ -80,3 +80,16 @@ export type Twister = {
   category: "Tongue Twister" | "Pronunciation Exercise" | "Communication Tip";
   tags: string[];
 };
+
+// Grade 9 KCSE-style open-ended questions
+export interface Grade9Question {
+  id: number;
+  subject: string;
+  topic: string;
+  question: string;
+  answer: string;
+  /** All accepted answer variations for exact-match validation (case-insensitive, trimmed). Falls back to `answer` if not provided. */
+  acceptedAnswers?: string[];
+  explanation: string;
+  marks: number;
+}

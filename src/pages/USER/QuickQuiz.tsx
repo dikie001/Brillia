@@ -7,6 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  FileText,
   Play,
   RotateCcw,
   Sparkles,
@@ -14,9 +15,11 @@ import {
   TrendingUp,
   Trophy,
   XCircle,
+  Zap,
 } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
+import ExamPrep from "@/components/app/ExamPrep";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { FIREBASE_TEST_RESULTS, STORAGE_KEYS } from "@/constants";
@@ -26,6 +29,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import useSound from "../../hooks/useSound";
 import logo from "/images/logo.png";
+
+type QuizMode = "exam-prep" | "quick-quiz";
 
 type Options = {
   A: string;
@@ -84,6 +89,7 @@ interface User {
 }
 
 const QuizApp: React.FC = () => {
+  const [mode, setMode] = useState<QuizMode>("exam-prep");
   const [state, setState] = useState<QuizAppState>({
     currentTest: 0,
     currentQuestion: 0,
@@ -481,157 +487,193 @@ const QuizApp: React.FC = () => {
     );
   }
 
-  // Home Screen: Displays welcome, user stats, and action buttons for starting or viewing results
+  // Home Screen: Displays the mode tabs, ExamPrep or Quick Quiz dashboard
   if (state.gameState === "home") {
     return (
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative transition-colors duration-300">
-        <Navbar currentPage="Quick Quiz" />
+        <Navbar currentPage={mode === "exam-prep" ? "Exam Prep" : "Quick Quiz"} />
 
         {openResetModal && (
           <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
         )}
 
-        <main className="flex-1 flex flex-col  justify-center w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 relative z-10">
-          {/* Header Section */}
-          <div className="text-center mb-10 sm:mb-12 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span> Assessment Dashboard</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-              Welcome back,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
-                {user.name}
-              </span>
-            </h1>
-
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              Track your progress, challenge yourself, and master new topics
-              today.
-            </p>
-          </div>
-
-          {/* Stats Grid - Enhanced with Lift and Glow */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
-            {[
-              {
-                icon: (
-                  <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                ),
-                label: "Questions",
-                value: state.quizData.length,
-                sub: "Quizes available",
-              },
-              {
-                icon: (
-                  <Target className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                ),
-                label: "Tests",
-                value: getTotalTests(),
-                sub: "Tests ready",
-              },
-              {
-                icon: (
-                  <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                ),
-                label: "Completed",
-                value: state.testResults.length,
-                sub: "Tests Done",
-              },
-              {
-                icon: (
-                  <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />
-                ),
-                label: "Success Rate",
-                value:
-                  state.testResults.length > 0
-                    ? Math.round(
-                        state.testResults.reduce(
-                          (acc, r) => acc + r.percentage,
-                          0
-                        ) / state.testResults.length
-                      )
-                    : 0,
-                sub: "Average Score",
-                isPercent: true,
-              },
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-3xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1  hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
-              >
-                <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
-                  {stat.value}
-                  {stat.isPercent && (
-                    <span className="text-lg align-top opacity-60">%</span>
-                  )}
-                </div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
-                  {stat.sub}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Main Actions Area */}
-          <div className="max-w-2xl mx-auto w-full space-y-6">
-            {/* Primary CTA: Start Test */}
-            {state.currentTest < getTotalTests() && (
+        <main className="flex-1 flex flex-col w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 relative z-10">
+          {/* Mode Tabs */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="inline-flex bg-white/70 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl p-1.5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
               <button
-                onClick={() => {
-                  playSend();
-                  startTest(state.currentTest);
-                }}
-                className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 to-indigo-700 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
+                onClick={() => setMode("exam-prep")}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                  mode === "exam-prep"
+                    ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/20"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                }`}
               >
-                <div className="relative flex items-center justify-between rounded-[14px] bg-indigo-600/10 px-6 py-5 sm:px-8 sm:py-6 transition-colors group-hover:bg-indigo-600/0">
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">
-                      {state.testResults.length === 0
-                        ? "Get Started"
-                        : "Up Next"}
-                    </span>
-                    <span className="text-2xl sm:text-3xl font-bold text-white mt-1">
-                      {state.testResults.length === 0
-                        ? "Start First Quiz"
-                        : `Continue Test ${state.currentTest + 1}`}
-                    </span>
-                  </div>
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white text-white group-hover:text-indigo-600">
-                    <Play className="w-6 h-6 ml-1 fill-current" />
-                  </div>
-                </div>
+                <FileText className="w-4 h-4" />
+                Exam Prep
               </button>
-            )}
-
-            {/* Secondary Actions - Enhanced with Scale and Icon Animation */}
-            {state.testResults.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button
-                  onClick={() => {
-                    playSend();
-                    navigate("/results");
-                  }}
-                  className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
-                >
-                  <Trophy className="w-5 h-5 text-amber-500 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
-                  View Analytics
-                </button>
-
-                <button
-                  onClick={() => setOpenResetModal(true)}
-                  className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 dark:hover:border-rose-800 transition-all duration-200"
-                >
-                  <RotateCcw className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-180" />
-                  Reset Progress
-                </button>
-              </div>
-            )}
+              <button
+                onClick={() => setMode("quick-quiz")}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                  mode === "quick-quiz"
+                    ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/20"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                }`}
+              >
+                <Zap className="w-4 h-4" />
+                Quick Quiz
+              </button>
+            </div>
           </div>
+
+          {/* Exam Prep Mode */}
+          {mode === "exam-prep" && <ExamPrep />}
+
+          {/* Quick Quiz Mode */}
+          {mode === "quick-quiz" && (
+            <div className="animate-in fade-in duration-500">
+              {/* Header Section */}
+              <div className="text-center mb-10 sm:mb-12 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span> Assessment Dashboard</span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                  Welcome back,{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+                    {user.name}
+                  </span>
+                </h1>
+
+                <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                  Track your progress, challenge yourself, and master new topics
+                  today.
+                </p>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12">
+                {[
+                  {
+                    icon: (
+                      <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    ),
+                    label: "Questions",
+                    value: state.quizData.length,
+                    sub: "Quizes available",
+                  },
+                  {
+                    icon: (
+                      <Target className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    ),
+                    label: "Tests",
+                    value: getTotalTests(),
+                    sub: "Tests ready",
+                  },
+                  {
+                    icon: (
+                      <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                    ),
+                    label: "Completed",
+                    value: state.testResults.length,
+                    sub: "Tests Done",
+                  },
+                  {
+                    icon: (
+                      <TrendingUp className="w-5 h-5 text-rose-600 dark:text-rose-400" />
+                    ),
+                    label: "Success Rate",
+                    value:
+                      state.testResults.length > 0
+                        ? Math.round(
+                            state.testResults.reduce(
+                              (acc, r) => acc + r.percentage,
+                              0
+                            ) / state.testResults.length
+                          )
+                        : 0,
+                    sub: "Average Score",
+                    isPercent: true,
+                  },
+                ].map((stat, i) => (
+                  <div
+                    key={i}
+                    className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-3xl p-5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center justify-center group transition-all duration-300 hover:-translate-y-1  hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
+                  >
+                    <div className="mb-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
+                      {stat.icon}
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+                      {stat.value}
+                      {stat.isPercent && (
+                        <span className="text-lg align-top opacity-60">%</span>
+                      )}
+                    </div>
+                    <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
+                      {stat.sub}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Main Actions Area */}
+              <div className="max-w-2xl mx-auto w-full space-y-6">
+                {/* Primary CTA: Start Test */}
+                {state.currentTest < getTotalTests() && (
+                  <button
+                    onClick={() => {
+                      playSend();
+                      startTest(state.currentTest);
+                    }}
+                    className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 to-indigo-700 p-1 shadow-xl transition-all duration-300 hover:scale-[1.01] hover:shadow-indigo-500/25"
+                  >
+                    <div className="relative flex items-center justify-between rounded-[14px] bg-indigo-600/10 px-6 py-5 sm:px-8 sm:py-6 transition-colors group-hover:bg-indigo-600/0">
+                      <div className="flex flex-col text-left">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">
+                          {state.testResults.length === 0
+                            ? "Get Started"
+                            : "Up Next"}
+                        </span>
+                        <span className="text-2xl sm:text-3xl font-bold text-white mt-1">
+                          {state.testResults.length === 0
+                            ? "Start First Quiz"
+                            : `Continue Test ${state.currentTest + 1}`}
+                        </span>
+                      </div>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white text-white group-hover:text-indigo-600">
+                        <Play className="w-6 h-6 ml-1 fill-current" />
+                      </div>
+                    </div>
+                  </button>
+                )}
+
+                {/* Secondary Actions */}
+                {state.testResults.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button
+                      onClick={() => {
+                        playSend();
+                        navigate("/results");
+                      }}
+                      className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-[1.02] hover:shadow-md transition-all duration-200"
+                    >
+                      <Trophy className="w-5 h-5 text-amber-500 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
+                      View Analytics
+                    </button>
+
+                    <button
+                      onClick={() => setOpenResetModal(true)}
+                      className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-semibold text-rose-600 dark:text-rose-400 bg-transparent border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 dark:hover:border-rose-800 transition-all duration-200"
+                    >
+                      <RotateCcw className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-180" />
+                      Reset Progress
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </main>
 
         <Footer />

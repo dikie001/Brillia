@@ -2,6 +2,9 @@ export const STORAGE_KEYS = {
   TEST_RESULTS: "quiz_test_results",
   QUIZ_PROGRESS: "quiz_progress",
   CURRENT_TEST_INDEX: "quiz_current_test_index",
+  GRADE9_PROGRESS: "grade9_quiz_progress",
+  GRADE9_RESULTS: "grade9_quiz_results",
+  GRADE9_CURRENT_SUBJECT: "grade9_current_subject",
 };
 
 export const FONT_SIZES = ["small", "medium", "large"] as const;
