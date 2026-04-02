@@ -1,8 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "@/components/app/Navbar";
-import { STORIES_READ, TEST_RESULTS } from "@/constants";
-import { FileCheck, Loader2, TrendingUp, Trophy } from "lucide-react";
+import { STORAGE_KEYS, TEST_RESULTS } from "@/constants";
+import {
+  Download,
+  FileCheck,
+  Filter,
+  Loader2,
+  TrendingUp,
+  Trophy,
+} from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { jsPDF } from "jspdf";
 import {
   Bar,
   BarChart,
@@ -25,8 +34,17 @@ interface TestResult {
 
 interface UserStats {
   testsDone: number;
-  storiesRead: number;
   averageScore: number;
+}
+
+type ReportSource = "all" | "quick-quiz" | "exam-prep";
+
+interface UnifiedResult {
+  percentage: number;
+  totalQuestions: number;
+  date?: string;
+  score: number;
+  source: "Quick Quiz" | "Exam Prep";
 }
 
 // --- THEME UTILS ---
@@ -38,10 +56,15 @@ const getColorForScore = (score: number) => {
 };
 
 const Results = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialReportType =
+    searchParams.get("report") === "exam-prep" ? "exam-prep" : "all";
   const [loading, setLoading] = useState(true);
+  const [reportSource, setReportSource] =
+    useState<ReportSource>(initialReportType);
+  const [allResults, setAllResults] = useState<UnifiedResult[]>([]);
   const [stats, setStats] = useState<UserStats>({
     testsDone: 0,
-    storiesRead: 0,
     averageScore: 0,
   });
   const [graphData, setGraphData] = useState<unknown[]>([]);
@@ -49,30 +72,42 @@ const Results = () => {
   useEffect(() => {
     // 1. Fetch Data from LocalStorage
     const rawResults = localStorage.getItem(TEST_RESULTS);
-    const rawGrade9Results = localStorage.getItem("grade9_quiz_results");
-    // const rawUserInfo = localStorage.getItem("user-info");
-    const rawStories = localStorage.getItem(STORIES_READ);
+    const rawGrade9Results = localStorage.getItem(STORAGE_KEYS.GRADE9_RESULTS);
 
     // 2. Parse Data
     const results: TestResult[] = rawResults ? JSON.parse(rawResults) : [];
-    const grade9Results: any[] = rawGrade9Results ? JSON.parse(rawGrade9Results) : [];
-    
-    // Normalize grade9 results to match TestResult shape
-    const normalizedGrade9 = grade9Results.map((r) => ({
+    const grade9Results: any[] = rawGrade9Results
+      ? JSON.parse(rawGrade9Results)
+      : [];
+
+    const normalizedQuickQuiz: UnifiedResult[] = results.map((r) => ({
+      ...r,
+      source: "Quick Quiz",
+    }));
+
+    // Normalize exam prep results to match a shared report shape
+    const normalizedGrade9: UnifiedResult[] = grade9Results.map((r) => ({
       percentage: r.percentage,
       totalQuestions: r.total,
       date: r.date,
       score: r.score,
+      source: "Exam Prep",
     }));
 
-    const combinedResults = [...results, ...normalizedGrade9];
-    const storiesCount = rawStories ? JSON.parse(rawStories).length : 0;
+    setAllResults([...normalizedQuickQuiz, ...normalizedGrade9]);
+    setLoading(false);
+  }, []);
 
-    // 3. Calculate Stats
-    const totalTests = combinedResults.length;
+  useEffect(() => {
+    const selectedResults = allResults.filter((item) => {
+      if (reportSource === "all") return true;
+      if (reportSource === "quick-quiz") return item.source === "Quick Quiz";
+      return item.source === "Exam Prep";
+    });
 
-    // Calculate Average
-    const totalScoreSum = combinedResults.reduce(
+    const totalTests = selectedResults.length;
+
+    const totalScoreSum = selectedResults.reduce(
       (sum, item) => sum + item.percentage,
       0
     );
@@ -81,23 +116,141 @@ const Results = () => {
 
     setStats({
       testsDone: totalTests,
-      storiesRead: storiesCount,
       averageScore: avgScore,
     });
 
-    // 4. Format Graph Data (Test 1, Test 2...)
-    const formattedGraphData = combinedResults.map((result, index) => ({
-      name: `Test ${index + 1}`, // Auto-generates Test 1, Test 2, etc.
+    const formattedGraphData = selectedResults.map((result, index) => ({
+      name: `Test ${index + 1}`,
       score: result.percentage,
       date: result.date,
       fullDate: result.date
         ? new Date(result.date).toLocaleDateString()
         : "N/A",
+      source: result.source,
     }));
 
     setGraphData(formattedGraphData);
-    setLoading(false);
-  }, []);
+  }, [allResults, reportSource]);
+
+  const exportReportAsPDF = () => {
+    const selectedLabel =
+      reportSource === "all"
+        ? "All Reports"
+        : reportSource === "quick-quiz"
+        ? "Quick Quiz"
+        : "Exam Prep";
+
+    const selectedResults = allResults.filter((item) => {
+      if (reportSource === "all") return true;
+      if (reportSource === "quick-quiz") return item.source === "Quick Quiz";
+      return item.source === "Exam Prep";
+    });
+
+    if (selectedResults.length === 0) return;
+
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    doc.setFillColor(37, 99, 235);
+    doc.roundedRect(32, 28, pageWidth - 64, 72, 12, 12, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Brillia Learning Report", 48, 58);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(`Category: ${selectedLabel}`, 48, 79);
+    doc.text(`Exported: ${new Date().toLocaleString()}`, 220, 79);
+
+    doc.setTextColor(31, 41, 55);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text(`Tests Completed: ${stats.testsDone}`, 40, 130);
+    doc.text(`Average Score: ${stats.averageScore}%`, 220, 130);
+
+    // Cute mini chart block
+    const chartX = 40;
+    const chartY = 150;
+    const chartW = pageWidth - 80;
+    const chartH = 180;
+
+    doc.setFillColor(248, 250, 252);
+    doc.roundedRect(chartX, chartY, chartW, chartH, 10, 10, "F");
+    doc.setDrawColor(203, 213, 225);
+    doc.line(chartX + 30, chartY + 150, chartX + chartW - 24, chartY + 150);
+    doc.line(chartX + 30, chartY + 20, chartX + 30, chartY + 150);
+
+    const chartPoints = selectedResults.slice(-10);
+    const barGap = 8;
+    const barWidth = (chartW - 70 - (chartPoints.length - 1) * barGap) / Math.max(chartPoints.length, 1);
+
+    chartPoints.forEach((entry, idx) => {
+      const safeWidth = Math.max(10, barWidth);
+      const x = chartX + 36 + idx * (safeWidth + barGap);
+      const h = Math.max(6, (entry.percentage / 100) * 120);
+      const y = chartY + 150 - h;
+
+      if (entry.source === "Quick Quiz") {
+        doc.setFillColor(59, 130, 246);
+      } else {
+        doc.setFillColor(99, 102, 241);
+      }
+
+      doc.roundedRect(x, y, safeWidth, h, 4, 4, "F");
+      doc.setTextColor(71, 85, 105);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.text(`${entry.percentage}%`, x + 1, y - 4);
+    });
+
+    doc.setTextColor(30, 41, 59);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("Recent Performance (last 10 tests)", chartX + 14, chartY + 16);
+
+    doc.setFillColor(59, 130, 246);
+    doc.circle(chartX + 16, chartY + chartH + 18, 4, "F");
+    doc.setTextColor(51, 65, 85);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("Quick Quiz", chartX + 26, chartY + chartH + 21);
+
+    doc.setFillColor(99, 102, 241);
+    doc.circle(chartX + 100, chartY + chartH + 18, 4, "F");
+    doc.text("Exam Prep", chartX + 110, chartY + chartH + 21);
+
+    let yOffset = 370;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(30, 41, 59);
+    doc.text("Recent Attempts", 40, yOffset);
+    yOffset += 18;
+
+    const rows = [...selectedResults].reverse().slice(0, 12);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+
+    rows.forEach((row, index) => {
+      if (yOffset > 790) return;
+
+      if (index % 2 === 0) {
+        doc.setFillColor(248, 250, 252);
+        doc.rect(40, yOffset - 10, pageWidth - 80, 16, "F");
+      }
+
+      const when = row.date || "N/A";
+      doc.setTextColor(51, 65, 85);
+      doc.text(when, 44, yOffset);
+      doc.text(row.source, 170, yOffset);
+      doc.text(`${row.score}/${row.totalQuestions}`, 280, yOffset);
+      doc.text(`${row.percentage}%`, 360, yOffset);
+      yOffset += 16;
+    });
+
+    doc.save(
+      `learning-report-${reportSource}-${new Date().toISOString().slice(0, 10)}.pdf`
+    );
+  };
 
   if (loading) {
     return (
@@ -114,11 +267,48 @@ const Results = () => {
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500">
-            Learning Results
+            Learning Reports
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Overview of your tests and reading milestones.
+            One report center for Quick Quiz and Exam Prep.
           </p>
+        </div>
+
+        <div className="mb-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <div className="inline-flex items-center rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-1 shadow-sm">
+            <Filter className="w-4 h-4 text-gray-500 my-auto ml-2 mr-2" />
+            {[
+              { key: "all", label: "All" },
+              { key: "quick-quiz", label: "Quick Quiz" },
+              { key: "exam-prep", label: "Exam Prep" },
+            ].map((item) => (
+              <button
+                key={item.key}
+                onClick={() => {
+                  const nextSource = item.key as ReportSource;
+                  setReportSource(nextSource);
+                  setSearchParams(
+                    nextSource === "all" ? {} : { report: nextSource }
+                  );
+                }}
+                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                  reportSource === item.key
+                    ? "bg-indigo-600 text-white"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={exportReportAsPDF}
+            disabled={stats.testsDone === 0}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow"
+          >
+            <Download className="w-4 h-4" /> Export PDF
+          </button>
         </div>
 
         {/* --- STATS ROW --- */}

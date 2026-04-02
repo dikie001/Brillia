@@ -23,7 +23,6 @@ import PWAInstallModal from "./components/PWAInstall";
 import BrilliaAI from "./pages/USER/Brillia";
 import ExamPrepPage from "./pages/USER/ExamPrepPage";
 import ExamPrepHistoryPage from "./pages/USER/ExamPrepHistoryPage";
-import ExamPrepReportPage from "./pages/USER/ExamPrepReportPage";
 const FactFrenzy = lazy(() => import("./pages/USER/FunFacts"));
 const BrainTeasers = lazy(() => import("./pages/USER/QuickChallenges"));
 const HomePage = lazy(() => import("./pages/USER/HomePage"));
@@ -64,7 +63,7 @@ const App = () => {
           <Route path="/quick-quiz" element={<QuizQuest />} />{" "}
           <Route path="/exam-prep" element={<ExamPrepPage />} />
           <Route path="/exam-prep/history" element={<ExamPrepHistoryPage />} />
-          <Route path="/exam-prep/reports" element={<ExamPrepReportPage />} />
+          <Route path="/exam-prep/reports" element={<Results />} />
           <Route path="/life-gems" element={<WisdomNuggets />} />{" "}
           <Route path="/clear-speech" element={<TongueTwisters />} />
           <Route path="/fun-facts" element={<FactFrenzy />} />

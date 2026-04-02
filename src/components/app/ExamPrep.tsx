@@ -255,47 +255,10 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
     return (
       <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-gradient-to-r from-indigo-50 to-violet-50 dark:from-gray-800/50 dark:to-gray-800/80 p-8 rounded-3xl border border-indigo-100 dark:border-gray-700/50 shadow-sm">
-          <div className="space-y-3 w-full md:w-auto text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" /> Grade 9 • KCSE Style
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-              Exam Preparation
-            </h2>
-            <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md mx-auto md:mx-0">
-              Master your concepts. Type your answers naturally—our system
-              validates your understanding, not just exact wording.
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex w-full md:w-auto gap-3 flex-col sm:flex-row">
-            <button
-              onClick={() => {
-                playSend();
-                navigate("/exam-prep/history");
-              }}
-              className="flex-1 sm:flex-none inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/70 text-sm font-semibold text-gray-700 dark:text-gray-200 transition-all shadow-sm"
-            >
-              <History className="w-4 h-4" /> History
-            </button>
-            <button
-              onClick={() => {
-                playSend();
-                navigate("/exam-prep/reports");
-              }}
-              className="flex-1 sm:flex-none inline-flex justify-center items-center gap-2 px-5 py-3 rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-sm font-semibold text-indigo-700 dark:text-indigo-300 transition-all shadow-sm"
-            >
-              <BarChart3 className="w-4 h-4" /> Reports
-            </button>
-          </div>
-        </div>
-
-        {/* Search & Stats */}
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-          <div className="relative w-full lg:max-w-md">
+        {/* Top Bar: Search + Buttons (Mobile First) */}
+        <div className="flex flex-col md:flex-row items-center gap-3 w-full">
+          {/* Search Bar */}
+          <div className="relative w-full flex-1">
             <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               value={searchQuery}
@@ -305,45 +268,68 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
             />
           </div>
 
-          {totalExams > 0 && (
-            <div className="flex w-full lg:w-auto gap-4">
-              {[
-                {
-                  icon: <Trophy className="w-5 h-5 text-amber-500" />,
-                  label: "Exams",
-                  value: totalExams,
-                },
-                {
-                  icon: <TrendingUp className="w-5 h-5 text-emerald-500" />,
-                  label: "Avg Score",
-                  value: `${avgScore}%`,
-                },
-                {
-                  icon: <Target className="w-5 h-5 text-indigo-500" />,
-                  label: "Subjects",
-                  value: subjectsAttempted,
-                },
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3"
-                >
-                  <div className="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/50">
-                    {stat.icon}
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <button
+              onClick={() => {
+                playSend();
+                navigate("/exam-prep/history");
+              }}
+              className="flex-1 md:flex-none flex justify-center items-center gap-2 px-5 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/70 text-sm font-semibold text-gray-700 dark:text-gray-200 transition-all shadow-sm"
+            >
+              <History className="w-4 h-4" /> History
+            </button>
+            <button
+              onClick={() => {
+                playSend();
+                navigate("/results?report=exam-prep");
+              }}
+              className="flex-1 md:flex-none flex justify-center items-center gap-2 px-5 py-3.5 rounded-2xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-sm font-semibold text-indigo-700 dark:text-indigo-300 transition-all shadow-sm"
+            >
+              <BarChart3 className="w-4 h-4" /> Reports
+            </button>
+          </div>
+        </div>
+
+        {/* Stats Block */}
+        {totalExams > 0 && (
+          <div className="flex flex-col sm:flex-row gap-4">
+            {[
+              {
+                icon: <Trophy className="w-5 h-5 text-amber-500" />,
+                label: "Exams",
+                value: totalExams,
+              },
+              {
+                icon: <TrendingUp className="w-5 h-5 text-emerald-500" />,
+                label: "Avg Score",
+                value: `${avgScore}%`,
+              },
+              {
+                icon: <Target className="w-5 h-5 text-indigo-500" />,
+                label: "Subjects",
+                value: subjectsAttempted,
+              },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3"
+              >
+                <div className="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-black text-gray-900 dark:text-white leading-none">
+                    {stat.value}
                   </div>
-                  <div>
-                    <div className="text-xl font-black text-gray-900 dark:text-white leading-none">
-                      {stat.value}
-                    </div>
-                    <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-1">
-                      {stat.label}
-                    </div>
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-1">
+                    {stat.label}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Subject Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -425,7 +411,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
   }
 
   if (view === "history" || view === "report") {
-    // Abstracted History & Report into cleaner table logic to prevent code duplication
     const isReport = view === "report";
     const totalExams = history.length;
     const avgScore =
@@ -569,7 +554,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
     return (
       <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-300">
-        {/* Header */}
         <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
           <button
             onClick={() => {
@@ -596,7 +580,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           </div>
         </div>
 
-        {/* Progress Bar */}
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
           <div
             className="bg-indigo-600 h-2 rounded-full transition-all duration-500 ease-out"
@@ -606,7 +589,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           />
         </div>
 
-        {/* Question Card */}
         <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
           <div className="flex justify-between items-start mb-4">
             <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
@@ -657,7 +639,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               </div>
             </div>
           ) : (
-            /* Inline Feedback Block replacing the intrusive overlay */
             <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-6">
               <div
                 className={`p-6 rounded-2xl border ${isCorrect ? "bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800" : "bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800"}`}
@@ -712,7 +693,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     );
   }
 
-  // ─── RESULTS VIEW (Completed and Styled) ───
+  // ─── RESULTS VIEW ───
   if (view === "results" && selectedSubject) {
     const pct = Math.round((score / sessionQuestions.length) * 100);
     const perf = getPerformance(pct);
