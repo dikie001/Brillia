@@ -250,7 +250,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     );
 
     return (
-      <div className="h-full overflow-y-auto pr-1 space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto pb-4">
+      <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
         {/* Top Bar: Search + Buttons (Mobile First) */}
         <div className="flex flex-col md:flex-row items-center gap-3 w-full">
           {/* Search Bar */}
@@ -418,7 +418,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
         : 0;
 
     return (
-      <div className="h-full overflow-y-auto pr-1 space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto pb-4">
+      <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto">
         <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
           <button
             onClick={() => {
@@ -549,43 +549,42 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     if (!q) return null;
 
     return (
-      <div className="h-full max-w-3xl mx-auto flex flex-col gap-4 animate-in fade-in duration-300">
-        <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+      <div className="max-w-4xl mx-auto pt-14 animate-in fade-in duration-300">
+        <div className="flex items-center justify-between mb-2 mt-1">
           <button
             onClick={() => {
               playSend();
               setView("subjects");
             }}
-            className="flex items-center text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors font-semibold text-sm"
+            className="flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors font-semibold"
           >
             <ChevronLeft className="w-4 h-4 mr-1" /> Exit
           </button>
+
           <div className="text-center flex items-center gap-2">
-            <span className="text-xl">{selectedSubject.icon}</span>
-            <h3 className="font-bold text-sm text-gray-900 dark:text-white hidden sm:block">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white hidden sm:block">
               {selectedSubject.name}
-            </h3>
+            </h2>
+            <span className="text-2xl">{selectedSubject.icon}</span>
           </div>
+
           <div className="text-right">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg font-bold text-sm">
-              {currentIndex + 1}{" "}
-              <span className="opacity-50 font-normal">
-                / {sessionQuestions.length}
-              </span>
-            </div>
+            <p className="text-indigo-500 dark:text-indigo-400 font-semibold text-sm">
+              Question {currentIndex + 1}/{sessionQuestions.length}
+            </p>
           </div>
         </div>
 
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+        <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8 overflow-hidden">
           <div
-            className="bg-indigo-600 h-2 rounded-full transition-all duration-500 ease-out"
+            className="bg-indigo-500 h-full transition-all duration-500 ease-out"
             style={{
               width: `${((currentIndex + 1) / sessionQuestions.length) * 100}%`,
             }}
           />
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto bg-white dark:bg-gray-800 rounded-3xl p-5 md:p-7 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
+        <div className="bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300">
           <div className="flex justify-between items-start mb-4">
             <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
               {q.topic}
@@ -595,12 +594,12 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-6">
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
             {q.question}
           </h3>
 
           {!showFeedback ? (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="relative">
                 <textarea
                   ref={inputRef}
@@ -608,8 +607,8 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                   onChange={(e) => setUserAnswer(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your answer here..."
-                  rows={4}
-                  className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 resize-none text-base"
+                  rows={3}
+                  className="w-full p-4 rounded-2xl bg-white/90 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 resize-none text-base"
                 />
               </div>
 
@@ -624,9 +623,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 <button
                   onClick={handleSubmitAnswer}
                   disabled={!userAnswer.trim()}
-                  className={`flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-bold transition-all duration-300 ${
+                  className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold transition-all duration-300 ${
                     userAnswer.trim()
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 hover:-translate-y-0.5 active:translate-y-0"
+                      ? "bg-indigo-500 text-white shadow-lg hover:scale-[1.01]"
                       : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
                   } sm:w-auto w-full`}
                 >
@@ -635,7 +634,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               </div>
             </div>
           ) : (
-            <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-4">
+            <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-5">
               <div
                 className={`p-6 rounded-2xl border ${isCorrect ? "bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800" : "bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800"}`}
               >
@@ -675,7 +674,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
               <button
                 onClick={handleNext}
-                className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
+                className="w-full bg-indigo-500 text-white font-bold py-3.5 rounded-xl transition-all duration-300 hover:scale-[1.01] flex items-center justify-center gap-2"
               >
                 {currentIndex < sessionQuestions.length - 1
                   ? "Next Question"
