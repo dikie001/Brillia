@@ -250,7 +250,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     );
 
     return (
-      <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
+      <div className="h-full overflow-y-auto pr-1 space-y-6 animate-in fade-in duration-500 max-w-7xl mx-auto pb-4">
         {/* Top Bar: Search + Buttons (Mobile First) */}
         <div className="flex flex-col md:flex-row items-center gap-3 w-full">
           {/* Search Bar */}
@@ -418,7 +418,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
         : 0;
 
     return (
-      <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto">
+      <div className="h-full overflow-y-auto pr-1 space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto pb-4">
         <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
           <button
             onClick={() => {
@@ -549,7 +549,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     if (!q) return null;
 
     return (
-      <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in duration-300">
+      <div className="h-full max-w-3xl mx-auto flex flex-col gap-4 animate-in fade-in duration-300">
         <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
           <button
             onClick={() => {
@@ -585,7 +585,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           />
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
+        <div className="flex-1 min-h-0 overflow-y-auto bg-white dark:bg-gray-800 rounded-3xl p-5 md:p-7 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300">
           <div className="flex justify-between items-start mb-4">
             <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
               {q.topic}
@@ -595,12 +595,12 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-8">
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-6">
             {q.question}
           </h3>
 
           {!showFeedback ? (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="relative">
                 <textarea
                   ref={inputRef}
@@ -609,7 +609,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                   onKeyDown={handleKeyDown}
                   placeholder="Type your answer here..."
                   rows={4}
-                  className="w-full p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 resize-none text-base"
+                  className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 resize-none text-base"
                 />
               </div>
 
@@ -624,7 +624,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 <button
                   onClick={handleSubmitAnswer}
                   disabled={!userAnswer.trim()}
-                  className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold transition-all duration-300 ${
+                  className={`flex items-center justify-center gap-2 px-8 py-3 rounded-xl font-bold transition-all duration-300 ${
                     userAnswer.trim()
                       ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 hover:-translate-y-0.5 active:translate-y-0"
                       : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
@@ -635,7 +635,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               </div>
             </div>
           ) : (
-            <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-6">
+            <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-4">
               <div
                 className={`p-6 rounded-2xl border ${isCorrect ? "bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800" : "bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800"}`}
               >
@@ -675,7 +675,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
               <button
                 onClick={handleNext}
-                className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
+                className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-3.5 rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
               >
                 {currentIndex < sessionQuestions.length - 1
                   ? "Next Question"
@@ -707,7 +707,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     const accentColor = themeColor.split(" ")[0];
 
     return (
-      <div className="flex items-center justify-center min-h-[70vh] animate-in zoom-in-95 fade-in duration-500 px-4">
+      <div className="h-full flex items-center justify-center animate-in zoom-in-95 fade-in duration-500 px-2 sm:px-4">
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-3xl shadow-2xl shadow-indigo-500/10 dark:shadow-black/40 border border-gray-100 dark:border-gray-700 overflow-hidden text-center">
           <div className="pt-10 pb-6 px-8">
             <div
