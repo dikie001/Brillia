@@ -7,7 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  FileText,
+  GraduationCap,
   Play,
   RotateCcw,
   Sparkles,
@@ -15,11 +15,9 @@ import {
   TrendingUp,
   Trophy,
   XCircle,
-  Zap,
 } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
-import ExamPrep from "@/components/app/ExamPrep";
 import Footer from "@/components/app/Footer";
 import Navbar from "@/components/app/Navbar";
 import { FIREBASE_TEST_RESULTS, STORAGE_KEYS } from "@/constants";
@@ -29,8 +27,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import useSound from "../../hooks/useSound";
 import logo from "/images/logo.png";
-
-type QuizMode = "exam-prep" | "quick-quiz";
 
 type Options = {
   A: string;
@@ -89,7 +85,6 @@ interface User {
 }
 
 const QuizApp: React.FC = () => {
-  const [mode, setMode] = useState<QuizMode>("exam-prep");
   const [state, setState] = useState<QuizAppState>({
     currentTest: 0,
     currentQuestion: 0,
@@ -491,47 +486,23 @@ const QuizApp: React.FC = () => {
   if (state.gameState === "home") {
     return (
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 relative transition-colors duration-300">
-        <Navbar currentPage={mode === "exam-prep" ? "Exam Prep" : "Quick Quiz"} />
+        <Navbar currentPage="Quick Quiz" />
 
         {openResetModal && (
           <ResetModal open={openResetModal} setOpen={setOpenResetModal} />
         )}
 
         <main className="flex-1 flex flex-col w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 relative z-10">
-          {/* Mode Tabs */}
-          <div className="flex items-center justify-center mb-8">
-            <div className="inline-flex bg-white/70 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl p-1.5 border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
-              <button
-                onClick={() => setMode("exam-prep")}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                  mode === "exam-prep"
-                    ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/20"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-                }`}
-              >
-                <FileText className="w-4 h-4" />
-                Exam Prep
-              </button>
-              <button
-                onClick={() => setMode("quick-quiz")}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                  mode === "quick-quiz"
-                    ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/20"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-                }`}
-              >
-                <Zap className="w-4 h-4" />
-                Quick Quiz
-              </button>
-            </div>
-          </div>
-
-          {/* Exam Prep Mode */}
-          {mode === "exam-prep" && <ExamPrep />}
-
-          {/* Quick Quiz Mode */}
-          {mode === "quick-quiz" && (
-            <div className="animate-in fade-in duration-500">
+          <div className="animate-in fade-in duration-500">
+              <div className="flex justify-center mb-6">
+                <button
+                  onClick={() => navigate("/exam-prep")}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 font-semibold text-sm hover:bg-violet-100 dark:hover:bg-violet-900/30 transition-colors"
+                >
+                  <GraduationCap className="w-4 h-4" />
+                  Open standalone Exam Prep
+                </button>
+              </div>
               {/* Header Section */}
               <div className="text-center mb-10 sm:mb-12 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100/50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-sm font-medium">
@@ -673,7 +644,6 @@ const QuizApp: React.FC = () => {
                 )}
               </div>
             </div>
-          )}
         </main>
 
         <Footer />

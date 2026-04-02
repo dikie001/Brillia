@@ -6,6 +6,7 @@ import UpdateModal from "@/modals/UpdateAppModal";
 import {
   ChevronDown,
   FileText,
+  GraduationCap,
   HelpCircle,
   House,
   Info,
@@ -41,6 +42,7 @@ interface User {
 const MENUS = {
   MAIN: [{ label: "Home", icon: House, to: "/" }],
   ACTIVITIES: [
+    { label: "Exam Prep", icon: GraduationCap, to: "/exam-prep" },
     { label: "Quick Challenges", icon: Zap, to: "/quick-challenges" },
     { label: "Flash Stories", icon: FileText, to: "/flash-stories" },
     { label: "Quick Quiz", icon: HelpCircle, to: "/quick-quiz" },

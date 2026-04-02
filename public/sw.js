@@ -1,4 +1,4 @@
-const CACHE_VERSION = "brillia-offline-v3"; // Increment version
+const CACHE_VERSION = "brillia-offline-v4"; // Increment version
 const ASSETS = [
   // Core app shell
   "/",
@@ -10,6 +10,9 @@ const ASSETS = [
   "/quick-challenges",
   "/flash-stories",
   "/quick-quiz",
+  "/exam-prep",
+  "/exam-prep/history",
+  "/exam-prep/reports",
   "/life-gems",
   "/clear-speech",
   "/fun-facts",
@@ -19,6 +22,7 @@ const ASSETS = [
   "/word-power",
   "/about",
   "/help",
+  "/results",
 
   // Images
   "/images/logo.png",
@@ -53,6 +57,9 @@ self.addEventListener("install", (event) => {
           "/quick-challenges",
           "/flash-stories",
           "/quick-quiz",
+          "/exam-prep",
+          "/exam-prep/history",
+          "/exam-prep/reports",
           "/life-gems",
           "/clear-speech",
           "/fun-facts",

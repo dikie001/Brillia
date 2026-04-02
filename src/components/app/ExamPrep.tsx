@@ -44,18 +44,23 @@ const QUESTIONS_PER_SESSION = 10;
  */
 const validateAnswer = (
   userAnswer: string,
-  question: Grade9Question
+  question: Grade9Question,
 ): { isCorrect: boolean; matchedAnswer: string | null } => {
   const normalise = (s: string) =>
-    s.trim().toLowerCase().replace(/\s+/g, " ").replace(/[.!?]+$/, "");
+    s
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[.!?]+$/, "");
 
   const userNorm = normalise(userAnswer);
   if (!userNorm) return { isCorrect: false, matchedAnswer: null };
 
   // Build the list of accepted answers (fall back to answer field)
-  const accepted = question.acceptedAnswers && question.acceptedAnswers.length > 0
-    ? question.acceptedAnswers
-    : [question.answer];
+  const accepted =
+    question.acceptedAnswers && question.acceptedAnswers.length > 0
+      ? question.acceptedAnswers
+      : [question.answer];
 
   for (const ans of accepted) {
     if (normalise(ans) === userNorm) {
@@ -66,18 +71,21 @@ const validateAnswer = (
   return { isCorrect: false, matchedAnswer: null };
 };
 
-
 interface ExamPrepProps {
   initialView?: "subjects" | "history" | "report";
 }
 
 const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
   const [view, setView] = useState<ExamView>(initialView);
-  const [selectedSubject, setSelectedSubject] = useState<SubjectInfo | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<SubjectInfo | null>(
+    null,
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState(0);
-  const [sessionQuestions, setSessionQuestions] = useState<Grade9Question[]>([]);
+  const [sessionQuestions, setSessionQuestions] = useState<Grade9Question[]>(
+    [],
+  );
   const [history, setHistory] = useState<ExamResult[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [userAnswer, setUserAnswer] = useState("");
@@ -167,7 +175,10 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     const updated = [...history, result];
     setHistory(updated);
     try {
-      localStorage.setItem(STORAGE_KEYS.GRADE9_RESULTS, JSON.stringify(updated));
+      localStorage.setItem(
+        STORAGE_KEYS.GRADE9_RESULTS,
+        JSON.stringify(updated),
+      );
     } catch (e) {
       console.error("Error saving exam results:", e);
     }
@@ -176,12 +187,24 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
   const getPerformance = (pct: number) => {
     if (pct >= 90)
-      return { msg: "Outstanding! 🌟", color: "text-emerald-600 dark:text-emerald-400" };
+      return {
+        msg: "Outstanding! 🌟",
+        color: "text-emerald-600 dark:text-emerald-400",
+      };
     if (pct >= 70)
-      return { msg: "Great work! 🎉", color: "text-blue-600 dark:text-blue-400" };
+      return {
+        msg: "Great work! 🎉",
+        color: "text-blue-600 dark:text-blue-400",
+      };
     if (pct >= 50)
-      return { msg: "Good effort! 💪", color: "text-amber-600 dark:text-amber-400" };
-    return { msg: "Keep practicing! 📚", color: "text-rose-600 dark:text-rose-400" };
+      return {
+        msg: "Good effort! 💪",
+        color: "text-amber-600 dark:text-amber-400",
+      };
+    return {
+      msg: "Keep practicing! 📚",
+      color: "text-rose-600 dark:text-rose-400",
+    };
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -204,7 +227,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     ]);
 
     const csv = [headers, ...rows]
-      .map((row) => row.map((value) => `"${value.replace(/"/g, '""')}"`).join(","))
+      .map((row) =>
+        row.map((value) => `"${value.replace(/"/g, '""')}"`).join(","),
+      )
       .join("\n");
 
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -213,7 +238,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     link.href = url;
     link.setAttribute(
       "download",
-      `exam-prep-report-${new Date().toISOString().slice(0, 10)}.csv`
+      `exam-prep-report-${new Date().toISOString().slice(0, 10)}.csv`,
     );
     document.body.appendChild(link);
     link.click();
@@ -232,7 +257,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     const subjectsAttempted = new Set(history.map((h) => h.subjectId)).size;
 
     const filteredSubjects = grade9Subjects.filter((subject) =>
-      subject.name.toLowerCase().includes(searchQuery.toLowerCase())
+      subject.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     return (
@@ -247,7 +272,8 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
             Exam Prep
           </h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto">
-            Type your answer and let the system validate it. Case doesn't matter — just get the concepts right!
+            Type your answer and let the system validate it. Case doesn't matter
+            — just get the concepts right!
           </p>
         </div>
 
@@ -288,17 +314,23 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               {
-                icon: <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 dark:text-amber-400" />,
+                icon: (
+                  <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 dark:text-amber-400" />
+                ),
                 label: "Exams Done",
                 value: totalExams,
               },
               {
-                icon: <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />,
+                icon: (
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />
+                ),
                 label: "Avg Score",
                 value: `${avgScore}%`,
               },
               {
-                icon: <Target className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400" />,
+                icon: (
+                  <Target className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400" />
+                ),
                 label: "Subjects",
                 value: subjectsAttempted,
               },
@@ -324,12 +356,14 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
         {/* Subject Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
           {filteredSubjects.map((subject) => {
-            const subjectHistory = history.filter((h) => h.subjectId === subject.id);
+            const subjectHistory = history.filter(
+              (h) => h.subjectId === subject.id,
+            );
             const avgSubjectScore =
               subjectHistory.length > 0
                 ? Math.round(
                     subjectHistory.reduce((a, r) => a + r.percentage, 0) /
-                      subjectHistory.length
+                      subjectHistory.length,
                   )
                 : null;
 
@@ -393,7 +427,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           >
             <ChevronLeft className="w-4 h-4" /> Back
           </button>
-          <h3 className="font-bold text-gray-900 dark:text-white">Exam Prep History</h3>
+          <h3 className="font-bold text-gray-900 dark:text-white">
+            Exam Prep History
+          </h3>
           <button
             onClick={() => {
               setHistory([]);
@@ -417,7 +453,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 className="rounded-xl p-3 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-between"
               >
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-white text-sm">{entry.subjectName}</p>
+                  <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                    {entry.subjectName}
+                  </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 inline-flex items-center gap-1 mt-1">
                     <CalendarDays className="w-3 h-3" /> {entry.date}
                   </p>
@@ -437,7 +475,10 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     const totalExams = history.length;
     const avgScore =
       totalExams > 0
-        ? Math.round(history.reduce((sum, item) => sum + item.percentage, 0) / totalExams)
+        ? Math.round(
+            history.reduce((sum, item) => sum + item.percentage, 0) /
+              totalExams,
+          )
         : 0;
 
     return (
@@ -452,7 +493,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           >
             <ChevronLeft className="w-4 h-4" /> Back
           </button>
-          <h3 className="font-bold text-gray-900 dark:text-white">Exam Report</h3>
+          <h3 className="font-bold text-gray-900 dark:text-white">
+            Exam Report
+          </h3>
           <button
             onClick={exportHistoryAsCSV}
             disabled={history.length === 0}
@@ -464,12 +507,20 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl p-4 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60">
-            <p className="text-xs text-gray-500 dark:text-gray-400">Exams Completed</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalExams}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Exams Completed
+            </p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              {totalExams}
+            </p>
           </div>
           <div className="rounded-2xl p-4 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60">
-            <p className="text-xs text-gray-500 dark:text-gray-400">Average Score</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{avgScore}%</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Average Score
+            </p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              {avgScore}%
+            </p>
           </div>
         </div>
 
@@ -488,12 +539,16 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               >
                 <span>{entry.date}</span>
                 <span className="truncate pr-2">{entry.subjectName}</span>
-                <span>{entry.score}/{entry.total}</span>
+                <span>
+                  {entry.score}/{entry.total}
+                </span>
                 <span className="font-semibold">{entry.percentage}%</span>
               </div>
             ))}
             {history.length === 0 && (
-              <div className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No report data yet.</div>
+              <div className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                No report data yet.
+              </div>
             )}
           </div>
         </div>
@@ -635,8 +690,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                     {isCorrect ? "Correct!" : "Not quite right"}
                   </h4>
 
-
-
                   {/* Model Answer */}
                   <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-3 mb-2">
                     <div className="flex items-start gap-1.5 mb-1">
@@ -673,10 +726,10 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
       pct >= 90
         ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200"
         : pct >= 70
-        ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 border-blue-200"
-        : pct >= 50
-        ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200"
-        : "text-red-600 bg-red-50 dark:bg-red-900/20 border-red-200";
+          ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 border-blue-200"
+          : pct >= 50
+            ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200"
+            : "text-red-600 bg-red-50 dark:bg-red-900/20 border-red-200";
 
     const accentColor = themeColor.split(" ")[0];
 
@@ -708,7 +761,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           {/* Score Display */}
           <div className="px-8 pb-8 text-center border-b border-gray-100 dark:border-gray-800">
             <div className="relative inline-flex flex-col items-center">
-              <span className={`text-6xl font-black tracking-tighter ${accentColor}`}>
+              <span
+                className={`text-6xl font-black tracking-tighter ${accentColor}`}
+              >
                 {pct}%
               </span>
               <span
@@ -739,7 +794,10 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 Total Exams
               </span>
               <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                {history.filter((h) => h.subjectId === selectedSubject.id).length}
+                {
+                  history.filter((h) => h.subjectId === selectedSubject.id)
+                    .length
+                }
               </span>
             </div>
           </div>

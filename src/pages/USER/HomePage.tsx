@@ -8,6 +8,7 @@ import {
   BookOpen,
   CircleHelp,
   FileText,
+  GraduationCap,
   Lightbulb,
   Mic,
   Play,
@@ -46,6 +47,15 @@ const HomePage: React.FC = () => {
 
   // 2. Other Sections
   const otherSections = [
+    {
+      name: "Exam Prep",
+      icon: <GraduationCap />,
+      description: "Subject-focused KCSE style practice",
+      color: "from-indigo-500 to-violet-600",
+      bgGradient:
+        "from-indigo-50 to-violet-50 dark:from-indigo-900/20 dark:to-violet-900/20",
+      to: "/exam-prep",
+    },
     {
       name: "Quick Challenges",
       icon: <Zap />,
