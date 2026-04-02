@@ -584,21 +584,23 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
           />
         </div>
 
-        <div className="bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300">
-          <div className="flex justify-between items-start mb-4">
-            <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-              {q.topic}
-            </span>
-            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-md">
-              {q.marks} mark{q.marks > 1 ? "s" : ""}
-            </span>
-          </div>
+        <div className="relative bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300 overflow-hidden">
+          <div
+            className={showFeedback ? "opacity-25 pointer-events-none select-none" : ""}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                {q.topic}
+              </span>
+              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded-md">
+                {q.marks} mark{q.marks > 1 ? "s" : ""}
+              </span>
+            </div>
 
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
-            {q.question}
-          </h3>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white leading-relaxed mb-4">
+              {q.question}
+            </h3>
 
-          {!showFeedback ? (
             <div className="space-y-4">
               <div className="relative">
                 <textarea
@@ -622,9 +624,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 </p>
                 <button
                   onClick={handleSubmitAnswer}
-                  disabled={!userAnswer.trim()}
+                  disabled={!userAnswer.trim() || showFeedback}
                   className={`flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold transition-all duration-300 ${
-                    userAnswer.trim()
+                    userAnswer.trim() && !showFeedback
                       ? "bg-indigo-500 text-white shadow-lg hover:scale-[1.01]"
                       : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed"
                   } sm:w-auto w-full`}
@@ -633,10 +635,12 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                 </button>
               </div>
             </div>
-          ) : (
-            <div className="animate-in slide-in-from-bottom-4 fade-in duration-300 space-y-5">
+          </div>
+
+          {showFeedback && (
+            <div className="absolute top-4 left-4 right-4 z-20 animate-in slide-in-from-top-3 fade-in duration-300 space-y-4">
               <div
-                className={`p-6 rounded-2xl border ${isCorrect ? "bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800" : "bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800"}`}
+                className={`p-5 rounded-2xl border shadow-xl ${isCorrect ? "bg-emerald-50/95 border-emerald-300 dark:bg-emerald-950/90 dark:border-emerald-700" : "bg-rose-50/95 border-rose-300 dark:bg-rose-950/90 dark:border-rose-700"}`}
               >
                 <div className="flex items-start gap-4">
                   {isCorrect ? (
@@ -646,22 +650,23 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
                   )}
                   <div className="flex-1">
                     <h4
-                      className={`text-xl font-bold mb-3 ${isCorrect ? "text-emerald-700 dark:text-emerald-400" : "text-rose-700 dark:text-rose-400"}`}
+                      className={`text-2xl font-extrabold mb-3 ${isCorrect ? "text-emerald-700 dark:text-emerald-300" : "text-rose-700 dark:text-rose-300"}`}
                     >
                       {isCorrect ? "Perfectly Answered!" : "Not Quite Right"}
                     </h4>
 
-                    <div className="bg-white/60 dark:bg-gray-900/50 rounded-xl p-4 mb-3 border border-gray-100 dark:border-gray-700">
-                      <p className="text-xs font-bold uppercase text-gray-500 mb-1 flex items-center gap-1">
+                    <div className="relative overflow-hidden rounded-xl p-4 mb-3 border border-indigo-200/80 dark:border-indigo-700/60 bg-gradient-to-br from-indigo-50 to-cyan-50 dark:from-indigo-900/40 dark:to-cyan-900/20">
+                      <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-indigo-200/40 dark:bg-indigo-500/20" />
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 mb-1 flex items-center gap-1">
                         <BookOpen className="w-3.5 h-3.5" /> Accepted Answer
                       </p>
-                      <p className="text-gray-900 dark:text-white font-medium">
+                      <p className="text-2xl font-black tracking-tight text-indigo-950 dark:text-indigo-100 leading-tight break-words">
                         {q.answer}
                       </p>
                     </div>
 
                     {q.explanation && (
-                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                      <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">
                         <span className="font-semibold text-gray-900 dark:text-white">
                           Explanation:{" "}
                         </span>
