@@ -203,35 +203,35 @@ const ExamPrep: React.FC = () => {
 
         {/* Stats Grid — matching Quick Quiz style */}
         {totalExams > 0 && (
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               {
-                icon: <Trophy className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
+                icon: <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 dark:text-amber-400" />,
                 label: "Exams Done",
                 value: totalExams,
               },
               {
-                icon: <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
+                icon: <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400" />,
                 label: "Avg Score",
                 value: `${avgScore}%`,
               },
               {
-                icon: <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />,
+                icon: <Target className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 dark:text-indigo-400" />,
                 label: "Subjects",
                 value: subjectsAttempted,
               },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
+                className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-2 sm:p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-sm flex flex-col items-center text-center group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200/50 dark:hover:border-indigo-500/30"
               >
-                <div className="mb-2 p-2 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
+                <div className="mb-1 sm:mb-2 p-1.5 sm:p-2 rounded-xl bg-gray-50 dark:bg-gray-800 group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-gray-700 transition-all duration-300 ring-1 ring-transparent group-hover:ring-indigo-100 dark:group-hover:ring-indigo-500/20">
                   {stat.icon}
                 </div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+                <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
                   {stat.value}
                 </div>
-                <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mt-0.5">
+                <div className="text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-400 mt-0.5">
                   {stat.label}
                 </div>
               </div>
@@ -455,9 +455,9 @@ const ExamPrep: React.FC = () => {
 
         {/* Feedback Overlay — same pattern as Quick Quiz */}
         {showFeedback && (
-          <div className="fixed top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-3xl z-2000 animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <div className="fixed top-24 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-3xl z-[9999] animate-in slide-in-from-top-4 fade-in duration-300 max-h-[80vh] overflow-y-auto">
             <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl p-5 rounded-2xl border border-indigo-200 dark:border-indigo-700 shadow-2xl shadow-indigo-500/20 dark:shadow-black/50 ring-1 ring-black/5">
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col sm:flex-row items-start gap-4">
                 {isCorrect ? (
                   <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-full flex-shrink-0">
                     <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />

@@ -49,18 +49,30 @@ const Results = () => {
   useEffect(() => {
     // 1. Fetch Data from LocalStorage
     const rawResults = localStorage.getItem(TEST_RESULTS);
+    const rawGrade9Results = localStorage.getItem("grade9_quiz_results");
     // const rawUserInfo = localStorage.getItem("user-info");
     const rawStories = localStorage.getItem(STORIES_READ);
 
     // 2. Parse Data
     const results: TestResult[] = rawResults ? JSON.parse(rawResults) : [];
+    const grade9Results: any[] = rawGrade9Results ? JSON.parse(rawGrade9Results) : [];
+    
+    // Normalize grade9 results to match TestResult shape
+    const normalizedGrade9 = grade9Results.map((r) => ({
+      percentage: r.percentage,
+      totalQuestions: r.total,
+      date: r.date,
+      score: r.score,
+    }));
+
+    const combinedResults = [...results, ...normalizedGrade9];
     const storiesCount = rawStories ? JSON.parse(rawStories).length : 0;
 
     // 3. Calculate Stats
-    const totalTests = results.length;
+    const totalTests = combinedResults.length;
 
     // Calculate Average
-    const totalScoreSum = results.reduce(
+    const totalScoreSum = combinedResults.reduce(
       (sum, item) => sum + item.percentage,
       0
     );
@@ -74,7 +86,7 @@ const Results = () => {
     });
 
     // 4. Format Graph Data (Test 1, Test 2...)
-    const formattedGraphData = results.map((result, index) => ({
+    const formattedGraphData = combinedResults.map((result, index) => ({
       name: `Test ${index + 1}`, // Auto-generates Test 1, Test 2, etc.
       score: result.percentage,
       date: result.date,
