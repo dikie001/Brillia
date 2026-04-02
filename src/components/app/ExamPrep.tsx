@@ -586,7 +586,9 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
         <div className="relative bg-gray-100 dark:bg-gray-800/70 backdrop-blur-md rounded-3xl px-6 py-6 border border-indigo-300 dark:border-indigo-700 shadow-lg shadow-indigo-200/20 dark:shadow-indigo-900/40 transition-all duration-300 overflow-hidden">
           <div
-            className={showFeedback ? "opacity-25 pointer-events-none select-none" : ""}
+            className={
+              showFeedback ? "opacity-25 pointer-events-none select-none" : ""
+            }
           >
             <div className="flex justify-between items-start mb-4">
               <span className="inline-flex px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
