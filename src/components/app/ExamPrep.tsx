@@ -13,7 +13,6 @@ import {
   Search,
   Trophy,
   Target,
-  Sparkles,
   ArrowRight,
   Send,
   TrendingUp,
@@ -77,7 +76,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [answered, setAnswered] = useState(0);
   const [sessionQuestions, setSessionQuestions] = useState<Grade9Question[]>(
     [],
   );
@@ -118,7 +116,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     setSessionQuestions(questions);
     setCurrentIndex(0);
     setScore(0);
-    setAnswered(0);
     setUserAnswer("");
     setShowFeedback(false);
     setView("quiz");
@@ -135,7 +132,6 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
 
     setIsCorrect(correct);
     setShowFeedback(true);
-    setAnswered((a) => a + 1);
 
     if (correct) {
       playSuccess();
