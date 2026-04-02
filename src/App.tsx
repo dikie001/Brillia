@@ -23,6 +23,7 @@ import PWAInstallModal from "./components/PWAInstall";
 import BrilliaAI from "./pages/USER/Brillia";
 import ExamPrepPage from "./pages/USER/ExamPrepPage";
 import ExamPrepHistoryPage from "./pages/USER/ExamPrepHistoryPage";
+import ResultsHistoryPage from "./pages/USER/ResultsHistoryPage";
 const FactFrenzy = lazy(() => import("./pages/USER/FunFacts"));
 const BrainTeasers = lazy(() => import("./pages/USER/QuickChallenges"));
 const HomePage = lazy(() => import("./pages/USER/HomePage"));
@@ -68,6 +69,7 @@ const App = () => {
           <Route path="/clear-speech" element={<TongueTwisters />} />
           <Route path="/fun-facts" element={<FactFrenzy />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/results/history" element={<ResultsHistoryPage />} />
           <Route path="/communication" element={<PracticeCommunication />} />
           <Route path="/word-power" element={<WordPower />} />
           <Route path="/contact-developer" element={<ContactDeveloper />} />

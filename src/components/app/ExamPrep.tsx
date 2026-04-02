@@ -17,6 +17,7 @@ import {
   Send,
   TrendingUp,
   RefreshCcw,
+  Sparkles,
 } from "lucide-react";
 import grade9Subjects, { type SubjectInfo } from "@/jsons/grade9";
 import type { Grade9Question } from "@/types";
@@ -250,75 +251,70 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     );
 
     return (
-      <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto pb-12">
-        {/* Top Bar: Search + Buttons (Mobile First) */}
-        <div className="flex flex-col md:flex-row items-center gap-3 w-full">
-          {/* Search Bar */}
-          <div className="relative w-full flex-1">
-            <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
+      <div className="space-y-10 animate-in fade-in duration-500 max-w-7xl mx-auto px-4 sm:px-6 pb-12 pt-6">
+        {/* Catchy Hero & Search Section */}
+        <div className="flex flex-col items-center text-center space-y-6 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-bold tracking-wide">
+            <Sparkles className="w-4 h-4" />
+            <span>Grade 9 Exam Prep</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+            What do you want to{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+              master
+            </span>{" "}
+            today?
+          </h1>
+
+          {/* Centered Professional Search Bar */}
+          <div className="relative w-full mt-4">
+            <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <Search className="h-6 w-6 text-indigo-400" />
+            </div>
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for a subject..."
-              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900/30 transition-all shadow-sm"
+              placeholder="Search subjects..."
+              className="block w-full pl-14 pr-6 py-4 rounded-3xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-lg text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-xl shadow-indigo-100/50 dark:shadow-indigo-900/20"
             />
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <button
-              onClick={() => {
-                playSend();
-                navigate("/exam-prep/history");
-              }}
-              className="flex-1 md:flex-none flex justify-center items-center gap-2 px-5 py-3.5 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/70 text-sm font-semibold text-gray-700 dark:text-gray-200 transition-all shadow-sm"
-            >
-              <History className="w-4 h-4" /> History
-            </button>
-            <button
-              onClick={() => {
-                playSend();
-                navigate("/results?report=exam-prep");
-              }}
-              className="flex-1 md:flex-none flex justify-center items-center gap-2 px-5 py-3.5 rounded-2xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-sm font-semibold text-indigo-700 dark:text-indigo-300 transition-all shadow-sm"
-            >
-              <BarChart3 className="w-4 h-4" /> Reports
-            </button>
           </div>
         </div>
 
-        {/* Stats Block */}
+        {/* Stats Block - Responsive Grid */}
         {totalExams > 0 && (
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
-                icon: <Trophy className="w-5 h-5 text-amber-500" />,
-                label: "Exams",
+                icon: <Trophy className="w-6 h-6 text-amber-500" />,
+                label: "Total Exams",
                 value: totalExams,
+                bgColor: "bg-amber-50 dark:bg-amber-900/20",
               },
               {
-                icon: <TrendingUp className="w-5 h-5 text-emerald-500" />,
-                label: "Avg Score",
+                icon: <TrendingUp className="w-6 h-6 text-emerald-500" />,
+                label: "Average Score",
                 value: `${avgScore}%`,
+                bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
               },
               {
-                icon: <Target className="w-5 h-5 text-indigo-500" />,
-                label: "Subjects",
+                icon: <Target className="w-6 h-6 text-indigo-500" />,
+                label: "Subjects Tried",
                 value: subjectsAttempted,
+                bgColor: "bg-indigo-50 dark:bg-indigo-900/20",
               },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3"
+                className="bg-white dark:bg-gray-800 rounded-3xl p-5 border border-gray-100 dark:border-gray-700/80 shadow-md shadow-gray-200/40 dark:shadow-none flex items-center gap-4 hover:-translate-y-1 transition-transform duration-300"
               >
-                <div className="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                <div className={`p-3.5 rounded-2xl ${stat.bgColor}`}>
                   {stat.icon}
                 </div>
                 <div>
-                  <div className="text-xl font-black text-gray-900 dark:text-white leading-none">
+                  <div className="text-2xl font-black text-gray-900 dark:text-white leading-none mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-1">
+                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                     {stat.label}
                   </div>
                 </div>
@@ -328,7 +324,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
         )}
 
         {/* Subject Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredSubjects.map((subject) => {
             const subjectHistory = history.filter(
               (h) => h.subjectId === subject.id,
@@ -345,60 +341,63 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               <button
                 key={subject.id}
                 onClick={() => startExam(subject)}
-                className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700/80 shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-500/30 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden"
+                className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700/80 shadow-md shadow-gray-200/40 dark:shadow-none hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-all duration-300 text-left flex flex-col justify-between overflow-hidden"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300">
+                <div className="flex justify-between items-start mb-5">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
                     {subject.icon}
                   </div>
                   {subjectHistory.length > 0 && (
-                    <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-full">
+                    <span className="text-[10px] font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1.5 rounded-full">
                       {subjectHistory.length} Sessions
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                     {subject.name}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                    <BookOpen className="w-3.5 h-3.5" />{" "}
-                    {subject.questions.length} questions
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4" /> {subject.questions.length}{" "}
+                    Questions
                   </p>
                 </div>
 
                 {avgSubjectScore !== null && (
-                  <div className="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/50">
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                        Average Score
+                  <div className="mt-6 pt-5 border-t border-gray-100 dark:border-gray-700/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Avg Score
                       </span>
-                      <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
+                      <span className="text-xs font-black text-indigo-600 dark:text-indigo-400">
                         {avgSubjectScore}%
                       </span>
                     </div>
-                    <div className="h-1.5 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-indigo-500 rounded-full transition-all"
+                        className="h-full bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full transition-all duration-500"
                         style={{ width: `${avgSubjectScore}%` }}
                       />
                     </div>
                   </div>
                 )}
 
-                <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4" />
+                <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-300">
+                  <ArrowRight className="w-5 h-5" />
                 </div>
               </button>
             );
           })}
         </div>
         {filteredSubjects.length === 0 && (
-          <div className="py-20 text-center rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700">
-            <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500 dark:text-gray-400 font-medium">
+          <div className="py-24 text-center rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
+            <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <p className="text-lg text-gray-500 dark:text-gray-400 font-bold">
               No subjects found matching your search.
+            </p>
+            <p className="text-sm text-gray-400 mt-1">
+              Try a different keyword.
             </p>
           </div>
         )}
@@ -406,6 +405,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     );
   }
 
+  // ─── HISTORY & REPORT VIEWS (Unchanged but preserved) ───
   if (view === "history" || view === "report") {
     const isReport = view === "report";
     const totalExams = history.length;
@@ -418,7 +418,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
         : 0;
 
     return (
-      <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto">
+      <div className="space-y-6 animate-in fade-in duration-300 max-w-4xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
           <button
             onClick={() => {
@@ -549,7 +549,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     if (!q) return null;
 
     return (
-      <div className="max-w-4xl mx-auto pt-14 animate-in fade-in duration-300">
+      <div className="max-w-4xl mx-auto pt-14 px-4 sm:px-6 animate-in fade-in duration-300">
         <div className="flex items-center justify-between mb-2 mt-1">
           <button
             onClick={() => {
@@ -713,7 +713,7 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
     const accentColor = themeColor.split(" ")[0];
 
     return (
-      <div className="h-full flex items-center justify-center animate-in zoom-in-95 fade-in duration-500 px-2 sm:px-4">
+      <div className="h-full flex items-center justify-center animate-in zoom-in-95 fade-in duration-500 px-4 py-12">
         <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-3xl shadow-2xl shadow-indigo-500/10 dark:shadow-black/40 border border-gray-100 dark:border-gray-700 overflow-hidden text-center">
           <div className="pt-10 pb-6 px-8">
             <div
@@ -763,28 +763,23 @@ const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
               <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-600">
                 <CheckCircle className="w-5 h-5 text-gray-400 mx-auto mb-2" />
                 <p className="text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
-                  Status
+                  Correct
                 </p>
                 <p className="text-xl font-bold text-gray-900 dark:text-white">
-                  {pct >= 50 ? "Passed" : "Review"}
+                  {score}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => setView("subjects")}
-                className="flex-1 px-6 py-4 rounded-xl font-bold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={() => startExam(selectedSubject)}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-200 dark:shadow-indigo-900/40 transition-all active:scale-95"
-              >
-                <RefreshCcw className="w-4 h-4" /> Retry
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                playSend();
+                setView("subjects");
+              }}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/20 flex items-center justify-center gap-2"
+            >
+              Back to Subjects <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
