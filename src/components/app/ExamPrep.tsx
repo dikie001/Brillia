@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
+  BarChart3,
   BookOpen,
+  CalendarDays,
   ChevronLeft,
   ChevronRight,
   CheckCircle,
+  Download,
+  History,
   XCircle,
   RotateCcw,
+  Search,
   Trophy,
   Target,
   Sparkles,
@@ -17,6 +22,7 @@ import grade9Subjects, { type SubjectInfo } from "@/jsons/grade9";
 import type { Grade9Question } from "@/types";
 import { STORAGE_KEYS } from "@/constants";
 import useSound from "@/hooks/useSound";
+import { useNavigate } from "react-router-dom";
 
 interface ExamResult {
   subjectId: string;
@@ -27,7 +33,7 @@ interface ExamResult {
   date: string;
 }
 
-type ExamView = "subjects" | "quiz" | "results";
+type ExamView = "subjects" | "quiz" | "results" | "history" | "report";
 
 const QUESTIONS_PER_SESSION = 10;
 
@@ -61,20 +67,30 @@ const validateAnswer = (
 };
 
 
-const ExamPrep: React.FC = () => {
-  const [view, setView] = useState<ExamView>("subjects");
+interface ExamPrepProps {
+  initialView?: "subjects" | "history" | "report";
+}
+
+const ExamPrep: React.FC<ExamPrepProps> = ({ initialView = "subjects" }) => {
+  const [view, setView] = useState<ExamView>(initialView);
   const [selectedSubject, setSelectedSubject] = useState<SubjectInfo | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState(0);
   const [sessionQuestions, setSessionQuestions] = useState<Grade9Question[]>([]);
   const [history, setHistory] = useState<ExamResult[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [userAnswer, setUserAnswer] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
   const { playSuccess, playError, playFinish, playSend } = useSound();
+
+  useEffect(() => {
+    setView(initialView);
+  }, [initialView]);
 
   useEffect(() => {
     try {
@@ -175,6 +191,36 @@ const ExamPrep: React.FC = () => {
     }
   };
 
+  const exportHistoryAsCSV = () => {
+    if (history.length === 0) return;
+
+    const headers = ["Date", "Subject", "Score", "Total", "Percentage"];
+    const rows = history.map((item) => [
+      item.date,
+      item.subjectName,
+      item.score.toString(),
+      item.total.toString(),
+      `${item.percentage}%`,
+    ]);
+
+    const csv = [headers, ...rows]
+      .map((row) => row.map((value) => `"${value.replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `exam-prep-report-${new Date().toISOString().slice(0, 10)}.csv`
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   // ─── SUBJECT SELECTION ───
   if (view === "subjects") {
     // Compute overall stats
@@ -184,6 +230,10 @@ const ExamPrep: React.FC = () => {
         ? Math.round(history.reduce((a, r) => a + r.percentage, 0) / totalExams)
         : 0;
     const subjectsAttempted = new Set(history.map((h) => h.subjectId)).size;
+
+    const filteredSubjects = grade9Subjects.filter((subject) =>
+      subject.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
       <div className="space-y-6 animate-in fade-in duration-500">
@@ -199,6 +249,38 @@ const ExamPrep: React.FC = () => {
           <p className="text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto">
             Type your answer and let the system validate it. Case doesn't matter — just get the concepts right!
           </p>
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative w-full sm:max-w-sm">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search a subject"
+              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/60 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-600"
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                playSend();
+                navigate("/exam-prep/history");
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/60 hover:bg-gray-50 dark:hover:bg-gray-700 text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors"
+            >
+              <History className="w-4 h-4" /> History
+            </button>
+            <button
+              onClick={() => {
+                playSend();
+                navigate("/exam-prep/reports");
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 text-sm font-semibold text-indigo-700 dark:text-indigo-300 transition-colors"
+            >
+              <BarChart3 className="w-4 h-4" /> Reports
+            </button>
+          </div>
         </div>
 
         {/* Stats Grid — matching Quick Quiz style */}
@@ -241,7 +323,7 @@ const ExamPrep: React.FC = () => {
 
         {/* Subject Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-          {grade9Subjects.map((subject) => {
+          {filteredSubjects.map((subject) => {
             const subjectHistory = history.filter((h) => h.subjectId === subject.id);
             const avgSubjectScore =
               subjectHistory.length > 0
@@ -289,58 +371,132 @@ const ExamPrep: React.FC = () => {
             );
           })}
         </div>
-
-        {/* History summary */}
-        {history.length > 0 && (
-          <div className="bg-white/60 dark:bg-gray-800/40 backdrop-blur-md rounded-2xl p-4 border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900 dark:text-white text-sm flex items-center gap-2">
-                <Trophy className="w-4 h-4 text-amber-500" /> Recent Results
-              </h3>
-              <button
-                onClick={() => {
-                  setHistory([]);
-                  localStorage.removeItem(STORAGE_KEYS.GRADE9_RESULTS);
-                }}
-                className="text-xs text-rose-500 hover:text-rose-600 font-medium flex items-center gap-1 cursor-pointer"
-              >
-                <RotateCcw className="w-3 h-3" /> Clear
-              </button>
-            </div>
-            <div className="space-y-2 max-h-40 overflow-y-auto">
-              {[...history]
-                .reverse()
-                .slice(0, 5)
-                .map((r, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between text-sm py-1.5 px-2 rounded-lg bg-gray-50 dark:bg-gray-800/60"
-                  >
-                    <span className="font-medium text-gray-700 dark:text-gray-300">
-                      {r.subjectName}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-400">{r.date}</span>
-                      <span className="text-xs text-gray-400">
-                        {r.score}/{r.total}
-                      </span>
-                      <span
-                        className={`font-bold ${
-                          r.percentage >= 70
-                            ? "text-emerald-600 dark:text-emerald-400"
-                            : r.percentage >= 50
-                            ? "text-amber-600 dark:text-amber-400"
-                            : "text-rose-600 dark:text-rose-400"
-                        }`}
-                      >
-                        {r.percentage}%
-                      </span>
-                    </div>
-                  </div>
-                ))}
-            </div>
+        {filteredSubjects.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-8 text-center text-sm text-gray-500 dark:text-gray-400 bg-white/50 dark:bg-gray-800/30">
+            No subject matched your search.
           </div>
         )}
+      </div>
+    );
+  }
+
+  if (view === "history") {
+    return (
+      <div className="space-y-4 animate-in fade-in duration-300">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => {
+              playSend();
+              navigate("/exam-prep");
+            }}
+            className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-semibold text-sm"
+          >
+            <ChevronLeft className="w-4 h-4" /> Back
+          </button>
+          <h3 className="font-bold text-gray-900 dark:text-white">Exam Prep History</h3>
+          <button
+            onClick={() => {
+              setHistory([]);
+              localStorage.removeItem(STORAGE_KEYS.GRADE9_RESULTS);
+            }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-600 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800"
+          >
+            <RotateCcw className="w-3 h-3" /> Clear
+          </button>
+        </div>
+
+        {history.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400 bg-white/60 dark:bg-gray-800/40">
+            No exam history yet.
+          </div>
+        ) : (
+          <div className="grid gap-2">
+            {[...history].reverse().map((entry, idx) => (
+              <div
+                key={`${entry.subjectId}-${entry.date}-${idx}`}
+                className="rounded-xl p-3 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60 flex items-center justify-between"
+              >
+                <div>
+                  <p className="font-semibold text-gray-900 dark:text-white text-sm">{entry.subjectName}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 inline-flex items-center gap-1 mt-1">
+                    <CalendarDays className="w-3 h-3" /> {entry.date}
+                  </p>
+                </div>
+                <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                  {entry.score}/{entry.total} ({entry.percentage}%)
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (view === "report") {
+    const totalExams = history.length;
+    const avgScore =
+      totalExams > 0
+        ? Math.round(history.reduce((sum, item) => sum + item.percentage, 0) / totalExams)
+        : 0;
+
+    return (
+      <div className="space-y-5 animate-in fade-in duration-300">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => {
+              playSend();
+              navigate("/exam-prep");
+            }}
+            className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-semibold text-sm"
+          >
+            <ChevronLeft className="w-4 h-4" /> Back
+          </button>
+          <h3 className="font-bold text-gray-900 dark:text-white">Exam Report</h3>
+          <button
+            onClick={exportHistoryAsCSV}
+            disabled={history.length === 0}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Download className="w-4 h-4" /> Export CSV
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-2xl p-4 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60">
+            <p className="text-xs text-gray-500 dark:text-gray-400">Exams Completed</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalExams}</p>
+          </div>
+          <div className="rounded-2xl p-4 bg-white/80 dark:bg-gray-800/50 border border-gray-200/60 dark:border-gray-700/60">
+            <p className="text-xs text-gray-500 dark:text-gray-400">Average Score</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{avgScore}%</p>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200/60 dark:border-gray-700/60 overflow-hidden">
+          <div className="grid grid-cols-4 bg-gray-100 dark:bg-gray-800 px-4 py-2 text-xs font-bold text-gray-600 dark:text-gray-300 uppercase">
+            <span>Date</span>
+            <span>Subject</span>
+            <span>Score</span>
+            <span>Percent</span>
+          </div>
+          <div className="max-h-80 overflow-y-auto bg-white dark:bg-gray-900">
+            {[...history].reverse().map((entry, idx) => (
+              <div
+                key={`${entry.subjectId}-${entry.date}-${idx}`}
+                className="grid grid-cols-4 px-4 py-2 text-sm border-t border-gray-100 dark:border-gray-800 text-gray-700 dark:text-gray-200"
+              >
+                <span>{entry.date}</span>
+                <span className="truncate pr-2">{entry.subjectName}</span>
+                <span>{entry.score}/{entry.total}</span>
+                <span className="font-semibold">{entry.percentage}%</span>
+              </div>
+            ))}
+            {history.length === 0 && (
+              <div className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No report data yet.</div>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
