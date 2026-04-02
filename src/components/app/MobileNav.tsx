@@ -20,7 +20,7 @@ import {
   Sparkle, // Added Sparkles icon
   X,
   Zap,
-  type LucideIcon
+  type LucideIcon,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -164,12 +164,12 @@ const NavHeader = ({
       </button>
 
       <div className="relative flex items-center gap-4 mt-2">
-            <img
-            onClick={handleLogoClick}
-            src="/images/logo.png"
-            alt="Logo"
-            className="relative w-16 h-16"
-            />
+        <img
+          onClick={handleLogoClick}
+          src="/images/logo.png"
+          alt="Logo"
+          className="relative w-16 h-16"
+        />
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight">
             {user.name || "Brillia"}
@@ -198,16 +198,18 @@ const NavItem = ({
       "w-full flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer font-medium transition-all duration-200 group relative overflow-hidden",
       isActive
         ? "bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none"
-        : "text-indigo-900 dark:text-indigo-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+        : "text-indigo-900 dark:text-indigo-100 hover:bg-indigo-50 dark:hover:bg-indigo-900/30",
     )}
   >
     {isActive && (
-        <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
     )}
     <item.icon
       className={cn(
         "w-5 h-5 flex-shrink-0 transition-colors",
-        isActive ? "text-white" : "text-indigo-500 group-hover:text-indigo-600 dark:text-indigo-400"
+        isActive
+          ? "text-white"
+          : "text-indigo-500 group-hover:text-indigo-600 dark:text-indigo-400",
       )}
     />
     <span className="relative">{item.label}</span>
@@ -240,11 +242,18 @@ const NavGroup = ({
           "w-full flex items-center justify-between px-4 py-3 cursor-pointer rounded-xl transition-all font-semibold border",
           isGroupActive
             ? "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-800 dark:text-indigo-100 border-indigo-200 dark:border-indigo-800"
-            : "bg-white dark:bg-slate-900 text-indigo-900 dark:text-indigo-200 border-transparent hover:bg-indigo-50 dark:hover:bg-slate-800"
+            : "bg-white dark:bg-slate-900 text-indigo-900 dark:text-indigo-200 border-transparent hover:bg-indigo-50 dark:hover:bg-slate-800",
         )}
       >
         <div className="flex items-center gap-2.5">
-          <div className={cn("p-1.5 rounded-lg", isGroupActive ? "bg-indigo-200/50 dark:bg-indigo-800" : "bg-indigo-50 dark:bg-slate-800")}>
+          <div
+            className={cn(
+              "p-1.5 rounded-lg",
+              isGroupActive
+                ? "bg-indigo-200/50 dark:bg-indigo-800"
+                : "bg-indigo-50 dark:bg-slate-800",
+            )}
+          >
             <Icon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
           </div>
           <span className="text-sm">{title}</span>
@@ -252,7 +261,7 @@ const NavGroup = ({
         <ChevronDown
           className={cn(
             "w-4 h-4 transition-transform text-indigo-400",
-            isOpen && "rotate-180"
+            isOpen && "rotate-180",
           )}
         />
       </button>
@@ -269,7 +278,7 @@ const NavGroup = ({
                   "flex flex-col items-center justify-center cursor-pointer gap-2 p-3 rounded-2xl transition-all text-center border",
                   active
                     ? "bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-200 dark:shadow-none"
-                    : "bg-indigo-50/50 dark:bg-slate-900 border-indigo-100 dark:border-indigo-900/50 text-indigo-900 dark:text-indigo-200 hover:bg-indigo-100 dark:hover:bg-slate-800 hover:border-indigo-200"
+                    : "bg-indigo-50/50 dark:bg-slate-900 border-indigo-100 dark:border-indigo-900/50 text-indigo-900 dark:text-indigo-200 hover:bg-indigo-100 dark:hover:bg-slate-800 hover:border-indigo-200",
                 )}
               >
                 <div
@@ -277,7 +286,7 @@ const NavGroup = ({
                     "p-2 rounded-xl transition-colors",
                     active
                       ? "bg-white/20 text-white"
-                      : "bg-white dark:bg-slate-800 text-indigo-500 dark:text-indigo-400 shadow-sm"
+                      : "bg-white dark:bg-slate-800 text-indigo-500 dark:text-indigo-400 shadow-sm",
                   )}
                 >
                   <item.icon className="w-5 h-5" />
@@ -303,12 +312,12 @@ const NavGroup = ({
 //     >
 //       {/* Animated Gradient Border Effect */}
 //       <div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-indigo-600 animate-gradient-xy opacity-100" />
-      
+
 //       <div className="relative flex items-center justify-between h-full bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 rounded-[14px] p-4 overflow-hidden">
 //         {/* Glow Effects */}
 //         <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
 //         <div className="absolute bottom-0 left-0 w-16 h-16 bg-fuchsia-500/20 rounded-full blur-xl translate-y-1/3 -translate-x-1/3" />
-        
+
 //         <div className="flex items-center gap-3.5 z-10">
 //           <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 shadow-inner group-hover:bg-white/20 transition-colors">
 //             <Bot className="w-6 h-6 text-indigo-100" />
@@ -322,7 +331,7 @@ const NavGroup = ({
 //             </span>
 //           </div>
 //         </div>
-        
+
 //         {/* Animated Arrow/Icon */}
 //         <div className="z-10 bg-white/10 p-1.5 rounded-full backdrop-blur-sm border border-white/5">
 //            <Zap className="w-4 h-4 text-amber-300 fill-amber-300 animate-pulse" />
@@ -379,7 +388,6 @@ export default function MobileNav({
 
         {/* Scroll Area */}
         <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scrollbar-hide bg-gradient-to-b from-white to-indigo-50/30 dark:from-slate-950 dark:to-slate-900">
-          
           {/* --- AI BUTTON ADDED HERE --- */}
           {/* <BrilliaCTA onClick={() => handleNav("/brillia-ai")} /> */}
 
